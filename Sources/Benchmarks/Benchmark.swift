@@ -7,11 +7,6 @@
 
 import ArgumentParser
 import Benchmarks
-import MathKit
-
-import struct CoreFoundation.CGFloat
-import struct CoreFoundation.CGPoint
-import struct CoreFoundation.CGVector
 
 @main
 struct Benchmark: ParsableCommand {
@@ -24,5 +19,6 @@ struct Benchmark: ParsableCommand {
 
     mutating func run() throws {
         runLerpBenchmark()
+        runTransformBenchmark()
     }
 }
