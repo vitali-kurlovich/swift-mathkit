@@ -22,25 +22,25 @@ func zeroTransform() {
     #expect(
         transform(p0: p0, p1: p1, p2: p2, p3: p3,
                   uv: CGPoint(x: 0, y: 0))
-            .isEqual(to: CGPoint(x: 0, y: 0), tolerance: tolerance)
+            .isEqual(to: p0, tolerance: tolerance)
     )
 
     #expect(
         transform(p0: p0, p1: p1, p2: p2, p3: p3,
                   uv: CGPoint(x: 1, y: 0))
-            .isEqual(to: CGPoint(x: 1, y: 0), tolerance: tolerance)
+            .isEqual(to: p1, tolerance: tolerance)
     )
 
     #expect(
         transform(p0: p0, p1: p1, p2: p2, p3: p3,
                   uv: CGPoint(x: 1, y: 1))
-            .isEqual(to: CGPoint(x: 1, y: 1), tolerance: tolerance)
+            .isEqual(to: p2, tolerance: tolerance)
     )
 
     #expect(
         transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                  uv: CGPoint(x: 1, y: 0))
-            .isEqual(to: CGPoint(x: 1, y: 0), tolerance: tolerance)
+                  uv: CGPoint(x: 0, y: 1))
+            .isEqual(to: p3, tolerance: tolerance)
     )
 
     #expect(
@@ -66,25 +66,25 @@ func randomTransform() {
     #expect(
         transform(p0: p0, p1: p1, p2: p2, p3: p3,
                   uv: CGPoint(x: 0, y: 0))
-            .isEqual(to: CGPoint(x: -10, y: -20), tolerance: tolerance)
+            .isEqual(to: p0, tolerance: tolerance)
     )
 
     #expect(
         transform(p0: p0, p1: p1, p2: p2, p3: p3,
                   uv: CGPoint(x: 1, y: 0))
-            .isEqual(to: CGPoint(x: 10, y: -10), tolerance: tolerance)
+            .isEqual(to: p1, tolerance: tolerance)
     )
 
     #expect(
         transform(p0: p0, p1: p1, p2: p2, p3: p3,
                   uv: CGPoint(x: 1, y: 1))
-            .isEqual(to: CGPoint(x: 15, y: 20), tolerance: tolerance)
+            .isEqual(to: p2, tolerance: tolerance)
     )
 
     #expect(
         transform(p0: p0, p1: p1, p2: p2, p3: p3,
                   uv: CGPoint(x: 0, y: 1))
-            .isEqual(to: CGPoint(x: -20, y: 15), tolerance: tolerance)
+            .isEqual(to: p3, tolerance: tolerance)
     )
 
     #expect(
