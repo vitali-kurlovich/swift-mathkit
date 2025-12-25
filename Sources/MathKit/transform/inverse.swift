@@ -23,11 +23,15 @@ public func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: 
     let x3 = p3.x
     let y3 = p3.y
 
-    //  py (x0 - x1 + x2 - x3) - x2 y0 + 2 x3 y0 - x3 y1 + x0 y2 - 2 x0 y3 + x1 y3 + px (-y0 + y1 - y2 + y3) -> PP
-    let PP = py * (x0 - x1 + x2 - x3) - x2 * y0 + 2 * x3 * y0 - x3 * y1 + x0 * y2 - 2 * x0 * y3 + x1 * y3 + px * (-y0 + y1 - y2 + y3)
+
+    // py (x0 - x1 + x2 - x3) - x2 y0 + x3 (2 y0 - y1) + x0 (y2 - 2 y3) + x1 y3 + px (-y0 + y1 - y2 + y3) -> PP
+    let PP = py * (x0 - x1 + x2 - x3) - x2 * y0 + x3 * (2 * y0 - y1) + x0 * (y2 - 2 * y3) + x1 * y3 + px * (-y0 + y1 - y2 + y3)
 
     // 4 (x2 (y0 - y1) + x3 (-y0 + y1) - (x0 - x1) (y2 - y3)) (py (x0 - x3) + x3 y0 - x0 y3 + px (-y0 + y3)) -> AA
     let AA = 4 * (x2 * (y0 - y1) + x3 * (-y0 + y1) - (x0 - x1) * (y2 - y3)) * (py * (x0 - x3) + x3 * y0 - x0 * y3 + px * (-y0 + y3))
+    
+    // Sqrt[AA + PP^2] -> SS
+    let SS = (AA + PP * PP).squareRoot()
 
     // py x0 - py x1 + py x2 - py x3 - px y0 - x2 y0 + 2 x3 y0 + px y1 - x3 y1 - px y2 + x0 y2 + px y3 - 2 x0 y3 + x1 y3 -> BB
     let BB = py * x0 - py * x1 + py * x2 - py * x3 - px * y0 - x2 * y0 + 2 * x3 * y0 + px * y1 - x3 * y1 - px * y2 + x0 * y2 + px * y3 - 2 * x0 * y3 + x1 * y3
@@ -50,8 +54,7 @@ public func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: 
     // (-((x0 - x3) (y1 - y2)) + x1 (y0 - y3) + x2 (-y0 + y3)) -> DVV
     let DVV = (-((x0 - x3) * (y1 - y2)) + x1 * (y0 - y3) + x2 * (-y0 + y3))
 
-    // Sqrt[AA + PP^2] -> SS
-    let SS = (AA + PP * PP).squareRoot()
+   
 
     /*
      // U -> -((BB + SS)/(2 DU))
