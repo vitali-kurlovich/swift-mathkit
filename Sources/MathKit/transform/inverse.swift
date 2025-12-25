@@ -45,8 +45,8 @@ public func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: 
     let BB = py * (x0 - x1 + x2 - x3) - x2 * y0 + x3 * (2 * y0 - y1) + x0 * (y2 - 2 * y3) +
         x1 * y3 + px * (-y0 + y1 - y2 + y3)
 
-    // -py x0 + py x1 - py x2 + py x3 + px y0 - 2 x1 y0 + x2 y0 - px y1 + 2 x0 y1 - x3 y1 + px y2 - x0 y2 - px y3 + x1 y3 -> CC
-    let CC = -py * x0 + py * x1 - py * x2 + py * x3 + px * y0 - 2 * x1 * y0 + x2 * y0 - px * y1 + 2 * x0 * y1 - x3 * y1 + px * y2 - x0 * y2 - px * y3 + x1 * y3
+    // py (-x0 + x1 - x2 + x3) + x2 y0 - x3 y1 + x0 (2 y1 - y2) + px (y0 - y1 + y2 - y3) + x1 (-2 y0 + y3) -> CC
+    let CC = py * (-x0 + x1 - x2 + x3) + x2 * y0 - x3 * y1 + x0 * (2 * y1 - y2) + px * (y0 - y1 + y2 - y3) + x1 * (-2 * y0 + y3)
 
     // py (x0 - x1 + x2 - x3) + 2 x1 y0 - x2 y0 + x3 y1 + x0 (-2 y1 + y2) - x1 y3 + px (-y0 + y1 - y2 + y3) -> EE
     let EE = py * (x0 - x1 + x2 - x3) + 2 * x1 * y0 - x2 * y0 + x3 * y1 + x0 * (-2 * y1 + y2) -
