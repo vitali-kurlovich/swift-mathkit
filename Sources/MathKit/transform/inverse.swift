@@ -55,21 +55,20 @@ public func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: 
     // py (-x0 + x1 - x2 + x3) + x2 y0 + x3 (-2 y0 + y1) + px (y0 - y1 + y2 - y3) - x1 y3 + x0 (-y2 + 2 y3) -> NN
     let NN = py * (-x0 + x1 - x2 + x3) + x2 * y0 + x3 * (-2 * y0 + y1) + px * (y0 - y1 + y2 - y3) - x1 * y3 + x0 * (-y2 + 2 * y3)
 
-    /*
-     // U -> -((BB + SS)/(2 DU))
-     let u = -((BB + SS)/(2 * DU))
+    // U -> -((BB + SS)/(2 DU))
+    let ul = -((BB + SS) / (2 * DU))
+    // V -> (CC + SS)/(2 DV)
+    let vl = (CC + SS) / (2 * DVL)
 
-     // V -> (CC + SS)/(2 DV)
-     let v = (CC + SS)/(2 * DV)
-
-      */
+    if ul >= 0, ul <= 1, vl >= 0, vl <= 1 {
+        return CGPoint(x: ul, y: vl)
+    }
 
     // U -> (NN + SS)/(2 DU)
-    let u = (NN + SS) / (2 * DU)
+    let ur = (NN + SS) / (2 * DU)
 
     // V -> (EE + SS)/(2 DVR)
-    let v = (EE + SS) / (2 * DVR)
+    let vr = (EE + SS) / (2 * DVR)
 
-    return CGPoint(x: u,
-                   y: v)
+    return CGPoint(x: ur, y: vr)
 }
