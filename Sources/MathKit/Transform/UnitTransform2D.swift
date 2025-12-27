@@ -12,3 +12,11 @@ public protocol UnitTransform2D {
 public protocol InverseUnitTransform2D {
     func inverse(_ source: CGPoint) -> UnitPoint
 }
+
+public protocol Transform2D {
+    func transform(_ source: CGPoint) -> CGPoint
+}
+
+public protocol InverseTransform2D {
+    func inverse(_ source: CGPoint) -> CGPoint
+}
