@@ -14,7 +14,11 @@ public struct ControlPointsTransform: Hashable {
     public var p1: CGPoint
     public var p2: CGPoint
     public var p3: CGPoint
-
+    
+    // p0 -- p1
+    // |      |
+    // |      |
+    // p3 -- p2
     public init(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint) {
         self.p0 = p0
         self.p1 = p1
