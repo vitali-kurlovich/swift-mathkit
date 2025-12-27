@@ -54,4 +54,23 @@ struct LerpTests {
                      CGVector(dx: 60, dy: 80), t: 0.5)
                 .isEqual(to: CGVector(dx: 35, dy: 50), tolerance: tolerance))
     }
+
+    @Test("UnitPoint")
+    func unitPoint() {
+        #expect(lerp(UnitPoint(x: 0, y: 0),
+                     UnitPoint(x: 1, y: 1), t: 0.0)
+                .isEqual(to: UnitPoint(x: 0, y: 0), tolerance: tolerance))
+
+        #expect(lerp(UnitPoint(x: 0, y: 0),
+                     UnitPoint(x: 1, y: 1), t: 1.0)
+                .isEqual(to: UnitPoint(x: 1, y: 1), tolerance: tolerance))
+
+        #expect(lerp(UnitPoint(x: 0, y: 0),
+                     UnitPoint(x: 1, y: 1), t: 0.5)
+                .isEqual(to: UnitPoint(x: 0.5, y: 0.5), tolerance: tolerance))
+
+        #expect(lerp(UnitPoint(x: 0.25, y: 0.75),
+                     UnitPoint(x: 0.75, y: 0.25), t: 0.5)
+                .isEqual(to: UnitPoint(x: 0.5, y: 0.5), tolerance: tolerance))
+    }
 }
