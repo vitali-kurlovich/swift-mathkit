@@ -5,9 +5,9 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-import CoreFoundation
+import Foundation
 
-public typealias CGRect = CoreFoundation.CGRect
+public typealias CGRect = Foundation.CGRect
 
 #if !canImport(CoreGraphics)
 

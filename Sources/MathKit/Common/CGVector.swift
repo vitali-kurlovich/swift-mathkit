@@ -5,6 +5,6 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-import CoreFoundation
+import Foundation
 
-public typealias CGVector = CoreFoundation.CGVector
+public typealias CGVector = Foundation.CGVector

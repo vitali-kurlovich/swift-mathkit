@@ -5,9 +5,9 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-import CoreFoundation
+import Foundation
 
-public typealias CGPoint = CoreFoundation.CGPoint
+public typealias CGPoint = Foundation.CGPoint
 
 #if !canImport(CoreGraphics)
 

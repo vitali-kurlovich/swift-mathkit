@@ -14,7 +14,7 @@ public struct ControlPointsTransform: Hashable {
     public var p1: CGPoint
     public var p2: CGPoint
     public var p3: CGPoint
-    
+
     // p0 -- p1
     // |      |
     // |      |

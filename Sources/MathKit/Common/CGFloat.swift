@@ -5,6 +5,6 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-import CoreFoundation
+import Foundation
 
-public typealias CGFloat = CoreFoundation.CGFloat
+public typealias CGFloat = Foundation.CGFloat
