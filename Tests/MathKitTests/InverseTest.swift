@@ -14,105 +14,177 @@ private let tolerance: Double = 0.0001
 
 @Suite("Inverse Transform Test Cases")
 struct InverseTransformTests {
-    /*
-     @Test("Normalized points")
-     func normalized() {
-         let p0 = CGPoint(x: 0, y: 0)
-         let p1 = CGPoint(x: 1, y: 0)
-         let p2 = CGPoint(x: 1, y: 1)
-         let p3 = CGPoint(x: 0, y: 1)
+    @Test("Parallel control points", arguments: [
+        //         3 -- 2
+        //         |    |
+        //         0 -- 1
+        PointsMap((0, 0), (1, 0), (1, 1), (0, 1)), // 0, 1, 2, 3
+        PointsMap((0, 0), (2, 0), (2, 2), (0, 2)),
 
-         #expect(
-             inverse(p0: p0, p1: p1, p2: p2, p3: p3,
-                     target: CGPoint(x: 0, y: 0))
-                 .isEqual(to: CGPoint(x: 0, y: 0), tolerance: tolerance)
-         )
+        //         2 -- 3
+        //         |    |
+        //         1 -- 0
+        PointsMap((1, 0), (0, 0), (0, 1), (1, 1)), // 1, 0, 3, 2
+        PointsMap((2, 0), (0, 0), (0, 2), (2, 2)),
 
-         #expect(
-             inverse(p0: p0, p1: p1, p2: p2, p3: p3,
-                     target: CGPoint(x: 1, y: 0))
-                 .isEqual(to: CGPoint(x: 1, y: 0), tolerance: tolerance)
-         )
+        //         0 -- 1
+        //         |    |
+        //         3 -- 2
+        PointsMap((0, 1), (1, 1), (1, 0), (0, 0)), // 3, 2, 1, 0
+        PointsMap((0, 2), (2, 2), (2, 0), (0, 0)),
 
-         #expect(
-             inverse(p0: p0, p1: p1, p2: p2, p3: p3,
-                     target: CGPoint(x: 1, y: 1))
-                 .isEqual(to: CGPoint(x: 1, y: 1), tolerance: tolerance)
-         )
+        //         1 -- 0
+        //         |    |
+        //         2 -- 3
+        PointsMap((1, 1), (0, 1), (0, 0), (1, 0)), // 2, 3, 0, 1
+        PointsMap((2, 2), (0, 2), (0, 0), (2, 0)),
 
-         #expect(
-             inverse(p0: p0, p1: p1, p2: p2, p3: p3,
-                     target: CGPoint(x: 1, y: 0))
-                 .isEqual(to: CGPoint(x: 1, y: 0), tolerance: tolerance)
-         )
+        //         0 -- 3
+        //         |    |
+        //         1 -- 2
+        PointsMap((1, 0), (1, 1), (0, 1), (0, 0)), // 1, 2, 3, 0
+        PointsMap((2, 0), (2, 2), (0, 2), (0, 0)),
 
-         #expect(
-             inverse(p0: p0, p1: p1, p2: p2, p3: p3,
-                     target: CGPoint(x: 0.5, y: 0.5))
-                 .isEqual(to: CGPoint(x: 0.5, y: 0.5), tolerance: tolerance)
-         )
-
-         #expect(
-             inverse(p0: p0, p1: p1, p2: p2, p3: p3,
-                     target: CGPoint(x: 0.25, y: 0.75))
-                 .isEqual(to: CGPoint(x: 0.25, y: 0.75), tolerance: tolerance)
-         )
-     }
-     */
-
-    @Test("Random points")
-    func random() {
-        let p0 = CGPoint(x: -10, y: -20)
-        let p1 = CGPoint(x: 10, y: -10)
-        let p2 = CGPoint(x: 15, y: 20)
-        let p3 = CGPoint(x: -20, y: 15)
-
+    ])
+    func normalized(_ points: PointsMap) {
         #expect(
-            inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p0)
-                .isEqual(to: CGPoint(x: 0, y: 0), tolerance: tolerance)
+            inverse(p0: points.p0,
+                    p1: points.p1,
+                    p2: points.p2,
+                    p3: points.p3,
+                    target: points.p0)
+                .isEqual(to: points.t0, tolerance: tolerance)
         )
 
         #expect(
-            inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p1)
-                .isEqual(to: CGPoint(x: 1, y: 0), tolerance: tolerance)
+            inverse(p0: points.p0,
+                    p1: points.p1,
+                    p2: points.p2,
+                    p3: points.p3,
+                    target: points.p1)
+                .isEqual(to: points.t1, tolerance: tolerance)
         )
 
         #expect(
-            inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p2)
-                .isEqual(to: CGPoint(x: 1, y: 1), tolerance: tolerance)
+            inverse(p0: points.p0,
+                    p1: points.p1,
+                    p2: points.p2,
+                    p3: points.p3,
+                    target: points.p2)
+                .isEqual(to: points.t2, tolerance: tolerance)
         )
 
         #expect(
-            inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p3)
-                .isEqual(to: CGPoint(x: 0, y: 1), tolerance: tolerance)
+            inverse(p0: points.p0,
+                    p1: points.p1,
+                    p2: points.p2,
+                    p3: points.p3,
+                    target: points.p3)
+                .isEqual(to: points.t3, tolerance: tolerance)
         )
+
+        #expect(
+            inverse(p0: points.p0,
+                    p1: points.p1,
+                    p2: points.p2,
+                    p3: points.p3,
+                    target: points.pc)
+                .isEqual(to: points.tc, tolerance: tolerance)
+        )
+
+        for (uv, transformed) in points.uvGrid {
+            #expect(
+                inverse(p0: points.p0,
+                        p1: points.p1,
+                        p2: points.p2,
+                        p3: points.p3,
+                        target: transformed)
+                    .isEqual(to: uv, tolerance: tolerance)
+            )
+        }
     }
 
-    @Test("Random points mirrored by vertical")
-    func verticalMirror() {
-        let p1 = CGPoint(x: -10, y: -20)
-        let p0 = CGPoint(x: 10, y: -10)
-        let p3 = CGPoint(x: 15, y: 20)
-        let p2 = CGPoint(x: -20, y: 15)
+    @Test("Control points", arguments: [
+        //         3 -- 2
+        //         |    |
+        //         0 -- 1
+        PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15)), // 0, 1, 2, 3
 
+        //         2 -- 3
+        //         |    |
+        //         1 -- 0
+        PointsMap((10, -10), (-10, -20), (-20, 15), (15, 20)), // 1, 0, 3, 2
+
+        //         0 -- 1
+        //         |    |
+        //         3 -- 2
+        PointsMap((-20, 15), (15, 20), (10, -10), (-10, -20)), // 3, 2, 1, 0
+
+        //         1 -- 0
+        //         |    |
+        //         2 -- 3
+        PointsMap((15, 20), (-20, 15), (-10, -20), (10, -10)), // 2, 3, 0, 1
+
+        //         0 -- 3
+        //         |    |
+        //         1 -- 2
+        PointsMap((10, -10), (15, 20), (-20, 15), (-10, -20)), // 1, 2, 3, 0
+    ])
+    func random(_ points: PointsMap) {
         #expect(
-            inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p0)
-                .isEqual(to: CGPoint(x: 0, y: 0), tolerance: tolerance)
+            inverse(p0: points.p0,
+                    p1: points.p1,
+                    p2: points.p2,
+                    p3: points.p3,
+                    target: points.p0)
+                .isEqual(to: points.t0, tolerance: tolerance)
         )
 
         #expect(
-            inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p1)
-                .isEqual(to: CGPoint(x: 1, y: 0), tolerance: tolerance)
+            inverse(p0: points.p0,
+                    p1: points.p1,
+                    p2: points.p2,
+                    p3: points.p3,
+                    target: points.p1)
+                .isEqual(to: points.t1, tolerance: tolerance)
         )
 
         #expect(
-            inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p2)
-                .isEqual(to: CGPoint(x: 1, y: 1), tolerance: tolerance)
+            inverse(p0: points.p0,
+                    p1: points.p1,
+                    p2: points.p2,
+                    p3: points.p3,
+                    target: points.p2)
+                .isEqual(to: points.t2, tolerance: tolerance)
         )
 
         #expect(
-            inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p3)
-                .isEqual(to: CGPoint(x: 0, y: 1), tolerance: tolerance)
+            inverse(p0: points.p0,
+                    p1: points.p1,
+                    p2: points.p2,
+                    p3: points.p3,
+                    target: points.p3)
+                .isEqual(to: points.t3, tolerance: tolerance)
         )
+
+        #expect(
+            inverse(p0: points.p0,
+                    p1: points.p1,
+                    p2: points.p2,
+                    p3: points.p3,
+                    target: points.pc)
+                .isEqual(to: points.tc, tolerance: tolerance)
+        )
+
+        for (uv, transformed) in points.uvGrid {
+            #expect(
+                inverse(p0: points.p0,
+                        p1: points.p1,
+                        p2: points.p2,
+                        p3: points.p3,
+                        target: transformed)
+                    .isEqual(to: uv, tolerance: tolerance)
+            )
+        }
     }
 }

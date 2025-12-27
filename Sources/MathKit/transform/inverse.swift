@@ -8,30 +8,17 @@
 import struct CoreFoundation.CGPoint
 
 public func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: CGPoint) -> CGPoint {
-    let px = target.x
-    let py = target.y
+    let px = target.x, py = target.y
 
-    let x0 = p0.x
-    let y0 = p0.y
+    let x0 = p0.x, y0 = p0.y
+    let x1 = p1.x, y1 = p1.y
+    let x2 = p2.x, y2 = p2.y
+    let x3 = p3.x, y3 = p3.y
 
-    let x1 = p1.x
-    let y1 = p1.y
-
-    let x2 = p2.x
-    let y2 = p2.y
-
-    let x3 = p3.x
-    let y3 = p3.y
-
-    let dx01 = x0 - x1
-    let dx03 = x0 - x3
-    let dx12 = x1 - x2
-    let dx23 = x2 - x3
-
-    let dy01 = y0 - y1
-    let dy03 = y0 - y3
-    let dy12 = y1 - y2
-    let dy23 = y2 - y3
+    let dx01 = x0 - x1, dy01 = y0 - y1
+    let dx03 = x0 - x3, dy03 = y0 - y3
+    let dx12 = x1 - x2, dy12 = y1 - y2
+    let dx23 = x2 - x3, dy23 = y2 - y3
 
     //  (x2 (y0 - y1) + x3 (-y0 + y1) - (x0 - x1) (y2 - y3)) -> DU
     // -dx01 dy23 + dy01 x2 - dy01 x3 -> DU
@@ -39,10 +26,15 @@ public func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: 
 
     // ((x0 - x3) (y1 - y2) + x2 (y0 - y3) + x1 (-y0 + y3)) -> DV
     // -dx12 dy03 + dx03 dy12 -> DV
-    let DVL = (dx03 * dy12).addingProduct(-dy03, dx12)
+    let DV = (dx03 * dy12).addingProduct(-dy03, dx12)
 
-    // DVR = -DVL
-    let DVR = -DVL
+    if DU == 0 {
+        return DU_equalZero(p0: p0, p1: p1, p2: p2, p3: p3, target: target)
+    }
+
+    if DV == 0 {
+        return DV_equalZero(p0: p0, p1: p1, p2: p2, p3: p3, target: target)
+    }
 
     let PD = (py * (dx01 + dx23)).addingProduct(-px, dy01 + dy23)
 
@@ -102,7 +94,7 @@ public func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: 
     // U -> -((BB + SS)/(2 DU))
     let ul = -((BB + SS) / (2 * DU))
     // V -> (CC + SS)/(2 DV)
-    let vl = (CC + SS) / (2 * DVL)
+    let vl = (CC + SS) / (2 * DV)
 
     if ul >= 0, ul <= 1, vl >= 0, vl <= 1 {
         return CGPoint(x: ul, y: vl)
@@ -111,8 +103,105 @@ public func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: 
     // U -> (NN + SS)/(2 DU)
     let ur = (NN + SS) / (2 * DU)
 
-    // V -> (EE + SS)/(2 DVR)
-    let vr = (EE + SS) / (2 * DVR)
+    // V -> -(EE + SS)/(2 DVR)
+    let vr = (EE + SS) / (-2 * DV)
 
     return CGPoint(x: ur, y: vr)
+}
+
+private func DU_equalZero(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: CGPoint) -> CGPoint {
+    let px = target.x, py = target.y
+
+    let x0 = p0.x, y0 = p0.y
+    let x1 = p1.x, y1 = p1.y
+    let x2 = p2.x, y2 = p2.y
+    let x3 = p3.x, y3 = p3.y
+
+    let dx01 = x0 - x1, dy01 = y0 - y1
+    let dx03 = x0 - x3, dy03 = y0 - y3
+    let dx13 = x1 - x3, dy13 = y1 - y3
+    let dx23 = x2 - x3, dy23 = y2 - y3
+
+    let dy12 = y1 - y2
+
+    if dx23 == 0 {
+        if dx01 == 0 {
+            // (dy03 Px - dx13 Py - x3 y0 + x1 y3)/((dy01 + dy23) Px - dy23 x1 -dy01 x3)
+            let u = (dy03 * px - dx13 * py - x3 * y0 + x1 * y3) / ((dy01 + dy23) * px - dy23 * x1 - dy01 * x3)
+            // (-Px + x1)/dx13
+            let v = (x1 - px) / dx13
+            return CGPoint(x: u, y: v)
+
+        } else { // dy23 == 0
+            // (-dy03 Px + dx03 Py + x3 y0 - x0 y3)/(dy01 (-Px + x3) + dx01 (Py - y3))
+            let u = (dx03 * py - dy03 * px + x3 * y0 - x0 * y3) / (dy01 * (x3 - px) + dx01 * (py - y3))
+            // (-dy01 Px + dx01 Py + x1 y0 - x0 y1)/(-dy13 x0 + dy03 x1 - dy01 x3)
+            let v = (dx01 * py - dy01 * px + x1 * y0 - x0 * y1) / (dy03 * x1 - dy13 * x0 - dy01 * x3)
+            return CGPoint(x: u, y: v)
+        }
+
+    } else { //  y0 == y1
+        if dx01 == 0 {
+            // (-dy13 Px + dx13 Py + x3 y1 - x1 y3)/(-dy23 Px + dx23 Py + dy23 x1 - dx23 y1)
+            let u = (dx13 * py - dy13 * px + x3 * y1 - x1 * y3) / (dx23 * py - dy23 * px + dy23 * x1 - dx23 * y1)
+            // (dy23 Px - dx23 Py - dy23 x1 + x2 y1 - x3 y1)/(-dy23 x1 + dy13 x2 - dy12 x3)
+            let v = (dy23 * px - dx23 * py - dy23 * x1 + x2 * y1 - x3 * y1) / (dy13 * x2 - dy23 * x1 - dy12 * x3)
+            return CGPoint(x: u, y: v)
+        } else { // dy23 == 0
+            // (-dy13 Px + dx03 Py + x3 y1 - x0 y3)/((dx01 + dx23) Py - dx23 y1 - dx01 y3)
+            let u = (dx03 * py - dy13 * px + x3 * y1 - x0 * y3) / ((dx01 + dx23) * py - dx23 * y1 - dx01 * y3)
+
+            // (-Py + y1)/dy13
+            let v = (y1 - py) / dy13
+            return CGPoint(x: u, y: v)
+        }
+    }
+}
+
+private func DV_equalZero(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: CGPoint) -> CGPoint {
+    let px = target.x, py = target.y
+
+    let x0 = p0.x, y0 = p0.y
+    let x1 = p1.x, y1 = p1.y
+    let x2 = p2.x, y2 = p2.y
+    let x3 = p3.x, y3 = p3.y
+
+    let dx01 = x0 - x1, dy01 = y0 - y1
+    let dx02 = x0 - x2, dy02 = y0 - y2
+    let dx03 = x0 - x3, dy03 = y0 - y3
+
+    let dx12 = x1 - x2, dy12 = y1 - y2
+    let dx13 = x1 - x3, dy13 = y1 - y3
+
+    let dx23 = x2 - x3, dy23 = y2 - y3
+
+    if dx03 == 0 {
+        if dx12 == 0 {
+            // (Px - x3)/dx23
+            let u = (px - x3) / dx23
+            // (dy01 Px + dx23 Py - x2 y0 + x3 y1)/((dy01 + dy23) Px - dy03 x2 + dy12 x3)
+            let v = (dy01 * px + dx23 * py - x2 * y0 + x3 * y1) / ((dy01 + dy23) * px - dy03 * x2 + dy12 * x3)
+            return CGPoint(x: u, y: v)
+        } else { // dy03
+            // (-dy12 Px + dx12 Py + dy12 x3 - dx12 y3)/(dy23 x1 - dy13 x2 + dy12 x3)
+            let u = (dx12 * py - dy12 * px + dy12 * x3 - dx12 * y3) / (dy23 * x1 - dy13 * x2 + dy12 * x3)
+            // (-dy13 Px + dx13 Py + x3 y1 - x1 y3)/(-dy12 Px + dx12 Py + dy12 x3 - dx12 y3)
+            let v = (dx13 * py - dy13 * px + x3 * y1 - x1 * y3) / (dx12 * py - dy12 * px + dy12 * x3 - dx12 * y3)
+            return CGPoint(x: u, y: v)
+        }
+    } else { // dy12 == 0
+        if dx12 == 0 {
+            // (dy03 Px - dx03 Py - x3 y0 + x0 y3)/(-dy23 x0 + dy03 x2 - dy02 x3)
+            let u = (dy03 * px - dx03 * py - x3 * y0 + x0 * y3) / (dy03 * x2 - dy23 * x0 - dy02 * x3)
+            // (-dy02 Px + dx02 Py + x2 y0 - x0 y2)/(-dy03 Px + dx03 Py + dy03 x2 - dx03 y2)
+            let v = (dx02 * py - dy02 * px + x2 * y0 - x0 * y2) / (dx03 * py - dy03 * px + dy03 * x2 - dx03 * y2)
+            return CGPoint(x: u, y: v)
+        } else { // dy03 == 0
+            // (Py - y3)/dy23
+            let u = (py - y3) / dy23
+            // (dy23 Px + dx01 Py - x0 y2 + x1 y3)/((dx01 + dx23) Py - dx03 y2 + dx12 y3)
+            let v = (dy23 * px + dx01 * py - x0 * y2 + x1 * y3) / ((dx01 + dx23) * py - dx03 * y2 + dx12 * y3)
+            return CGPoint(x: u, y: v)
+        }
+    }
 }
