@@ -12,8 +12,9 @@ import struct CoreFoundation.CGPoint
 
 private let tolerance: Double = 0.0001
 
-@Suite("Transform Test Cases")
-struct TransformTests {
+@Suite("ControlPointsTransform Transform")
+struct ControlPointsTransformTests {
+    
     @Test("Normalized points")
     func normalized() {
         let p0 = CGPoint(x: 0, y: 0)

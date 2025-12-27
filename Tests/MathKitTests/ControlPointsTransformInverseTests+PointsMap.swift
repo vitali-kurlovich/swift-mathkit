@@ -10,7 +10,7 @@
 import struct CoreFoundation.CGFloat
 import struct CoreFoundation.CGPoint
 
-extension InverseTransformTests {
+extension ControlPointsTransformInverseTests {
     struct PointsMap {
         let p0: CGPoint
         let p1: CGPoint
@@ -19,14 +19,14 @@ extension InverseTransformTests {
     }
 }
 
-extension InverseTransformTests.PointsMap {
+extension ControlPointsTransformInverseTests.PointsMap {
     var t0: CGPoint { CGPoint(x: 0, y: 0) }
     var t1: CGPoint { CGPoint(x: 1, y: 0) }
     var t2: CGPoint { CGPoint(x: 1, y: 1) }
     var t3: CGPoint { CGPoint(x: 0, y: 1) }
 }
 
-extension InverseTransformTests.PointsMap {
+extension ControlPointsTransformInverseTests.PointsMap {
     var pc: CGPoint {
         transform(uv: tc)
     }
@@ -40,13 +40,13 @@ extension InverseTransformTests.PointsMap {
     }
 }
 
-extension InverseTransformTests.PointsMap {
+extension ControlPointsTransformInverseTests.PointsMap {
     func transform(uv: CGPoint) -> CGPoint {
         MathKit.transform(p0: p0, p1: p1, p2: p2, p3: p3, uv: uv)
     }
 }
 
-extension InverseTransformTests.PointsMap {
+extension ControlPointsTransformInverseTests.PointsMap {
     init(_ p0: (CGFloat, CGFloat), _ p1: (CGFloat, CGFloat), _ p2: (CGFloat, CGFloat), _ p3: (CGFloat, CGFloat)) {
         self.init(p0: CGPoint(x: p0.0, y: p0.1),
                   p1: CGPoint(x: p1.0, y: p1.1),
@@ -55,7 +55,7 @@ extension InverseTransformTests.PointsMap {
     }
 }
 
-extension InverseTransformTests.PointsMap {
+extension ControlPointsTransformInverseTests.PointsMap {
     enum UVGrid {
         nonisolated static let u: [CGFloat] = [0.0, 0.25, 0.5, 0.75, 1.0]
         nonisolated static let v: [CGFloat] = [0.0, 0.25, 0.5, 0.75, 1.0]

@@ -12,8 +12,8 @@ import struct CoreFoundation.CGPoint
 
 private let tolerance: Double = 0.0001
 
-@Suite("Inverse Transform Test Cases")
-struct InverseTransformTests {
+@Suite("ControlPointsTransform Inverse Transform")
+struct ControlPointsTransformInverseTests {
     @Test("Parallel control points", arguments: [
         //         3 -- 2
         //         |    |
