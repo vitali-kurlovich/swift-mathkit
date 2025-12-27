@@ -5,7 +5,7 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-import struct CoreFoundation.CGPoint
+import CoreFoundation
 
 public typealias CGPoint = CoreFoundation.CGPoint
 

@@ -5,6 +5,6 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-import struct CoreFoundation.CGVector
+import CoreFoundation
 
 public typealias CGVector = CoreFoundation.CGVector

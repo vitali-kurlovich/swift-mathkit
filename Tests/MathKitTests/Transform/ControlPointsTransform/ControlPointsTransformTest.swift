@@ -5,7 +5,7 @@
 //  Created by Vitali Kurlovich on 24.12.25.
 //
 
-@testable import MathKit
+import MathKit
 import Testing
 
 import struct CoreFoundation.CGPoint

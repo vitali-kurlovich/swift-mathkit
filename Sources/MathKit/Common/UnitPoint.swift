@@ -24,8 +24,4 @@
         }
     }
 
-    public extension UnitPoint {
-        static var center: UnitPoint { UnitPoint(x: 0.5, y: 0.5) }
-    }
-
 #endif // canImport(SwiftUI)
