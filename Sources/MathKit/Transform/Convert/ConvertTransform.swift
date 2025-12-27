@@ -30,3 +30,13 @@ extension ConvertTransform: InverseTransform2D where From: UnitTransform2D, To: 
 extension ConvertTransform: Equatable where From: Equatable, To: Equatable {}
 
 extension ConvertTransform: Hashable where From: Hashable, To: Hashable {}
+
+public extension InverseUnitTransform2D {
+    func convert<To: UnitTransform2D>(to: To) -> ConvertTransform<Self, To> {
+        ConvertTransform(from: self, to: to)
+    }
+
+    func convert<From: UnitTransform2D>(from: From) -> ConvertTransform<From, Self> {
+        ConvertTransform(from: from, to: self)
+    }
+}
