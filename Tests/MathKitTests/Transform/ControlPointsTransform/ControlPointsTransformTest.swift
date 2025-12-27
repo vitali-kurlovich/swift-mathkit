@@ -1,5 +1,5 @@
 //
-//  TransformTest.swift
+//  ControlPointsTransformTest.swift
 //  swift-mathkit
 //
 //  Created by Vitali Kurlovich on 24.12.25.
@@ -14,7 +14,6 @@ private let tolerance: Double = 0.0001
 
 @Suite("ControlPointsTransform Transform")
 struct ControlPointsTransformTests {
-    
     @Test("Normalized points")
     func normalized() {
         let p0 = CGPoint(x: 0, y: 0)

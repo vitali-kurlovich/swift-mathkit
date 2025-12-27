@@ -1,5 +1,5 @@
 //
-//  InverseTest.swift
+//  ControlPointsTransformInverseTests.swift
 //  swift-mathkit
 //
 //  Created by Vitali Kurlovich on 24.12.25.
