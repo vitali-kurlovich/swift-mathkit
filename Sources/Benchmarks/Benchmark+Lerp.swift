@@ -8,10 +8,6 @@
 import Benchmarks
 import MathKit
 
-import struct CoreFoundation.CGFloat
-import struct CoreFoundation.CGPoint
-import struct CoreFoundation.CGVector
-
 extension Benchmark {
     func runLerpBenchmark() {
         let benchmark = BenchmarkExecuter()

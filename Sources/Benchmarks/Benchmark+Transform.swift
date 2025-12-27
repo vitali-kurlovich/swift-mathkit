@@ -8,8 +8,6 @@
 import Benchmarks
 import MathKit
 
-import struct CoreFoundation.CGPoint
-
 extension Benchmark {
     func runTransformBenchmark() {
         let benchmark = BenchmarkExecuter()
