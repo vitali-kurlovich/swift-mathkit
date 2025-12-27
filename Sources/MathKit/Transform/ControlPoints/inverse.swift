@@ -5,8 +5,6 @@
 //  Created by Vitali Kurlovich on 24.12.25.
 //
 
-import struct CoreFoundation.CGPoint
-
 func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: CGPoint) -> CGPoint {
     let px = target.x, py = target.y
 

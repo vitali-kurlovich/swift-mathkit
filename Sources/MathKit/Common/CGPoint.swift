@@ -5,9 +5,11 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-#if !canImport(CoreGraphics)
+import struct CoreFoundation.CGPoint
 
-    import struct Foundation.CGPoint
+public typealias CGPoint = CoreFoundation.CGPoint
+
+#if !canImport(CoreGraphics)
 
     extension CGPoint: @retroactive Equatable {
         public static func == (lhs: CGPoint, rhs: CGPoint) -> Bool {

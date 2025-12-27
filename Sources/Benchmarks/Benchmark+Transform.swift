@@ -25,14 +25,14 @@ extension Benchmark {
             let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
             for _ in 0 ..< 10_000_000 {
-                acum += tr.transform(CGPoint(x: 0.5, y: 0.5)).x
-                acum -= tr.transform(CGPoint(x: 0.5, y: 0.5)).y
+                acum += tr.transform(.init(x: 0.5, y: 0.5)).x
+                acum -= tr.transform(.init(x: 0.5, y: 0.5)).y
 
-                acum += tr.transform(CGPoint(x: 0.25, y: 0.75)).x
-                acum -= tr.transform(CGPoint(x: 0.75, y: 0.25)).y
+                acum += tr.transform(.init(x: 0.25, y: 0.75)).x
+                acum -= tr.transform(.init(x: 0.75, y: 0.25)).y
 
-                acum += tr.transform(CGPoint(x: 0.75, y: 0.25)).x
-                acum -= tr.transform(CGPoint(x: 0.25, y: 0.75)).y
+                acum += tr.transform(.init(x: 0.75, y: 0.25)).x
+                acum -= tr.transform(.init(x: 0.25, y: 0.75)).y
             }
 
             context.blackHole(acum)
@@ -49,14 +49,14 @@ extension Benchmark {
             let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
             for _ in 0 ..< 10_000_000 {
-                acum += tr.transform(CGPoint(x: 0.5, y: 0.5)).x
-                acum -= tr.transform(CGPoint(x: 0.5, y: 0.5)).y
+                acum += tr.transform(.init(x: 0.5, y: 0.5)).x
+                acum -= tr.transform(.init(x: 0.5, y: 0.5)).y
 
-                acum += tr.transform(CGPoint(x: 0.25, y: 0.75)).x
-                acum -= tr.transform(CGPoint(x: 0.75, y: 0.25)).y
+                acum += tr.transform(.init(x: 0.25, y: 0.75)).x
+                acum -= tr.transform(.init(x: 0.75, y: 0.25)).y
 
-                acum += tr.transform(CGPoint(x: 0.75, y: 0.25)).x
-                acum -= tr.transform(CGPoint(x: 0.25, y: 0.75)).y
+                acum += tr.transform(.init(x: 0.75, y: 0.25)).x
+                acum -= tr.transform(.init(x: 0.25, y: 0.75)).y
             }
 
             context.blackHole(acum)
@@ -73,14 +73,14 @@ extension Benchmark {
             let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
             for _ in 0 ..< 10_000_000 {
-                acum += tr.transform(CGPoint(x: 0.5, y: 0.5)).x
-                acum -= tr.transform(CGPoint(x: 0.5, y: 0.5)).y
+                acum += tr.transform(.init(x: 0.5, y: 0.5)).x
+                acum -= tr.transform(.init(x: 0.5, y: 0.5)).y
 
-                acum += tr.transform(CGPoint(x: 0.25, y: 0.75)).x
-                acum -= tr.transform(CGPoint(x: 0.75, y: 0.25)).y
+                acum += tr.transform(.init(x: 0.25, y: 0.75)).x
+                acum -= tr.transform(.init(x: 0.75, y: 0.25)).y
 
-                acum += tr.transform(CGPoint(x: 0.75, y: 0.25)).x
-                acum -= tr.transform(CGPoint(x: 0.25, y: 0.75)).y
+                acum += tr.transform(.init(x: 0.75, y: 0.25)).x
+                acum -= tr.transform(.init(x: 0.25, y: 0.75)).y
             }
             context.blackHole(acum)
         }

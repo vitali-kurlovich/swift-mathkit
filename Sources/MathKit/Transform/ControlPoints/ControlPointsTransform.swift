@@ -7,8 +7,6 @@
 
 #if canImport(CoreGraphics)
     import CoreGraphics
-#else
-    import struct Foundation.CGPoint
 #endif
 
 public struct ControlPointsTransform: Hashable {
@@ -26,10 +24,6 @@ public struct ControlPointsTransform: Hashable {
 }
 
 public extension ControlPointsTransform {
-    func transform(_ uv: CGPoint) -> CGPoint {
-        MathKit.transform(p0: p0, p1: p1, p2: p2, p3: p3, uv: uv)
-    }
-
     func inverse(_ source: CGPoint) -> CGPoint {
         MathKit.inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: source)
     }
