@@ -14,15 +14,21 @@ extension Benchmark {
     func runTransformBenchmark() {
         let benchmark = BenchmarkExecuter()
 
-        benchmark.benchmark(name: "Transform (zero)") { context in
+        benchmark.benchmark(name: "Transform scale") { context in
             var acum = 0.0
 
             let p0 = CGPoint(x: 0, y: 0)
-            let p1 = CGPoint(x: 1, y: 0)
-            let p2 = CGPoint(x: 1, y: 1)
-            let p3 = CGPoint(x: 0, y: 1)
+            let p1 = CGPoint(x: 2, y: 0)
+            let p2 = CGPoint(x: 2, y: 2)
+            let p3 = CGPoint(x: 0, y: 2)
 
             for _ in 0 ..< 10_000_000 {
+                acum += transform(p0: p0, p1: p1, p2: p2, p3: p3,
+                                  uv: CGPoint(x: 0.5, y: 0.5)).x
+
+                acum -= transform(p0: p0, p1: p1, p2: p2, p3: p3,
+                                  uv: CGPoint(x: 0.5, y: 0.5)).y
+
                 acum += transform(p0: p0, p1: p1, p2: p2, p3: p3,
                                   uv: CGPoint(x: 0.25, y: 0.75)).x
 
@@ -39,15 +45,21 @@ extension Benchmark {
             context.blackHole(acum)
         }
 
-        benchmark.benchmark(name: "Transform") { _ in
+        benchmark.benchmark(name: "Transform parallel") { context in
             var acum = 0.0
 
-            let p0 = CGPoint(x: -10, y: -20)
-            let p1 = CGPoint(x: 10, y: -10)
-            let p2 = CGPoint(x: 15, y: 20)
-            let p3 = CGPoint(x: -20, y: 15)
+            let p0 = CGPoint(x: 0, y: 0)
+            let p1 = CGPoint(x: 2, y: 0)
+            let p2 = CGPoint(x: 1, y: 2)
+            let p3 = CGPoint(x: -1, y: 2)
 
             for _ in 0 ..< 10_000_000 {
+                acum += transform(p0: p0, p1: p1, p2: p2, p3: p3,
+                                  uv: CGPoint(x: 0.5, y: 0.5)).x
+
+                acum -= transform(p0: p0, p1: p1, p2: p2, p3: p3,
+                                  uv: CGPoint(x: 0.5, y: 0.5)).y
+
                 acum += transform(p0: p0, p1: p1, p2: p2, p3: p3,
                                   uv: CGPoint(x: 0.25, y: 0.75)).x
 
@@ -60,6 +72,38 @@ extension Benchmark {
                 acum -= transform(p0: p0, p1: p1, p2: p2, p3: p3,
                                   uv: CGPoint(x: 0.25, y: 0.75)).y
             }
+
+            context.blackHole(acum)
+        }
+
+        benchmark.benchmark(name: "Transform") { context in
+            var acum = 0.0
+
+            let p0 = CGPoint(x: -10, y: -20)
+            let p1 = CGPoint(x: 10, y: -10)
+            let p2 = CGPoint(x: 15, y: 20)
+            let p3 = CGPoint(x: -20, y: 15)
+
+            for _ in 0 ..< 10_000_000 {
+                acum += transform(p0: p0, p1: p1, p2: p2, p3: p3,
+                                  uv: CGPoint(x: 0.5, y: 0.5)).x
+
+                acum -= transform(p0: p0, p1: p1, p2: p2, p3: p3,
+                                  uv: CGPoint(x: 0.5, y: 0.5)).y
+
+                acum += transform(p0: p0, p1: p1, p2: p2, p3: p3,
+                                  uv: CGPoint(x: 0.25, y: 0.75)).x
+
+                acum -= transform(p0: p0, p1: p1, p2: p2, p3: p3,
+                                  uv: CGPoint(x: 0.75, y: 0.25)).y
+
+                acum += transform(p0: p0, p1: p1, p2: p2, p3: p3,
+                                  uv: CGPoint(x: 0.75, y: 0.25)).x
+
+                acum -= transform(p0: p0, p1: p1, p2: p2, p3: p3,
+                                  uv: CGPoint(x: 0.25, y: 0.75)).y
+            }
+            context.blackHole(acum)
         }
 
         benchmark.start()
