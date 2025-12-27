@@ -7,7 +7,7 @@
 
 import struct CoreFoundation.CGPoint
 
-public func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: CGPoint) -> CGPoint {
+func inverse(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, target: CGPoint) -> CGPoint {
     let px = target.x, py = target.y
 
     let x0 = p0.x, y0 = p0.y

@@ -5,7 +5,7 @@
 //  Created by Vitali Kurlovich on 24.12.25.
 //
 
-import MathKit
+@testable import MathKit
 import Testing
 
 import struct CoreFoundation.CGPoint
@@ -21,40 +21,30 @@ struct TransformTests {
         let p2 = CGPoint(x: 1, y: 1)
         let p3 = CGPoint(x: 0, y: 1)
 
+        let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
+
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0, y: 0))
-                .isEqual(to: p0, tolerance: tolerance)
+            tr.transform(p0).isEqual(to: p0, tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 1, y: 0))
-                .isEqual(to: p1, tolerance: tolerance)
+            tr.transform(p1).isEqual(to: p1, tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 1, y: 1))
-                .isEqual(to: p2, tolerance: tolerance)
+            tr.transform(p2).isEqual(to: p2, tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0, y: 1))
-                .isEqual(to: p3, tolerance: tolerance)
+            tr.transform(p3).isEqual(to: p3, tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0.5, y: 0.5))
-                .isEqual(to: CGPoint(x: 0.5, y: 0.5), tolerance: tolerance)
+            tr.transform(CGPoint(x: 0.5, y: 0.5)).isEqual(to: CGPoint(x: 0.5, y: 0.5), tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0.25, y: 0.75))
-                .isEqual(to: CGPoint(x: 0.25, y: 0.75), tolerance: tolerance)
+            tr.transform(CGPoint(x: 0.25, y: 0.75)).isEqual(to: CGPoint(x: 0.25, y: 0.75), tolerance: tolerance)
         )
     }
 
@@ -65,57 +55,50 @@ struct TransformTests {
         let p2 = CGPoint(x: 15, y: 20)
         let p3 = CGPoint(x: -20, y: 15)
 
+        let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
+
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0, y: 0))
+            tr.transform(CGPoint(x: 0, y: 0))
                 .isEqual(to: p0, tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 1, y: 0))
+            tr.transform(CGPoint(x: 1, y: 0))
                 .isEqual(to: p1, tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 1, y: 1))
+            tr.transform(CGPoint(x: 1, y: 1))
                 .isEqual(to: p2, tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0, y: 1))
+            tr.transform(CGPoint(x: 0, y: 1))
                 .isEqual(to: p3, tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0.5, y: 0.5))
+            tr.transform(CGPoint(x: 0.5, y: 0.5))
                 .isEqual(to: CGPoint(x: -1.25, y: 1.25), tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0.25, y: 0.5))
+            tr.transform(CGPoint(x: 0.25, y: 0.5))
                 .isEqual(to: CGPoint(x: -8.125, y: -0.625), tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0.25, y: 0.75))
+            tr.transform(CGPoint(x: 0.25, y: 0.75))
                 .isEqual(to: CGPoint(x: -9.6875, y: 7.8125), tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0.5, y: 0.75))
+            tr.transform(CGPoint(x: 0.5, y: 0.75))
                 .isEqual(to: CGPoint(x: -1.875, y: 9.375), tolerance: tolerance)
         )
 
         #expect(
-            transform(p0: p0, p1: p1, p2: p2, p3: p3,
-                      uv: CGPoint(x: 0.75, y: 0.25))
+            tr.transform(CGPoint(x: 0.75, y: 0.25))
                 .isEqual(to: CGPoint(x: 5.3125, y: -4.6875), tolerance: tolerance)
         )
     }

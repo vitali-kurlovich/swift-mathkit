@@ -47,59 +47,14 @@ struct InverseTransformTests {
 
     ])
     func normalized(_ points: PointsMap) {
-        #expect(
-            inverse(p0: points.p0,
-                    p1: points.p1,
-                    p2: points.p2,
-                    p3: points.p3,
-                    target: points.p0)
-                .isEqual(to: points.t0, tolerance: tolerance)
-        )
-
-        #expect(
-            inverse(p0: points.p0,
-                    p1: points.p1,
-                    p2: points.p2,
-                    p3: points.p3,
-                    target: points.p1)
-                .isEqual(to: points.t1, tolerance: tolerance)
-        )
-
-        #expect(
-            inverse(p0: points.p0,
-                    p1: points.p1,
-                    p2: points.p2,
-                    p3: points.p3,
-                    target: points.p2)
-                .isEqual(to: points.t2, tolerance: tolerance)
-        )
-
-        #expect(
-            inverse(p0: points.p0,
-                    p1: points.p1,
-                    p2: points.p2,
-                    p3: points.p3,
-                    target: points.p3)
-                .isEqual(to: points.t3, tolerance: tolerance)
-        )
-
-        #expect(
-            inverse(p0: points.p0,
-                    p1: points.p1,
-                    p2: points.p2,
-                    p3: points.p3,
-                    target: points.pc)
-                .isEqual(to: points.tc, tolerance: tolerance)
-        )
-
         for (uv, transformed) in points.uvGrid {
+            let tr = ControlPointsTransform(p0: points.p0,
+                                            p1: points.p1,
+                                            p2: points.p2,
+                                            p3: points.p3)
+
             #expect(
-                inverse(p0: points.p0,
-                        p1: points.p1,
-                        p2: points.p2,
-                        p3: points.p3,
-                        target: transformed)
-                    .isEqual(to: uv, tolerance: tolerance)
+                tr.inverse(transformed).isEqual(to: uv, tolerance: tolerance)
             )
         }
     }
@@ -131,59 +86,14 @@ struct InverseTransformTests {
         PointsMap((10, -10), (15, 20), (-20, 15), (-10, -20)), // 1, 2, 3, 0
     ])
     func random(_ points: PointsMap) {
-        #expect(
-            inverse(p0: points.p0,
-                    p1: points.p1,
-                    p2: points.p2,
-                    p3: points.p3,
-                    target: points.p0)
-                .isEqual(to: points.t0, tolerance: tolerance)
-        )
-
-        #expect(
-            inverse(p0: points.p0,
-                    p1: points.p1,
-                    p2: points.p2,
-                    p3: points.p3,
-                    target: points.p1)
-                .isEqual(to: points.t1, tolerance: tolerance)
-        )
-
-        #expect(
-            inverse(p0: points.p0,
-                    p1: points.p1,
-                    p2: points.p2,
-                    p3: points.p3,
-                    target: points.p2)
-                .isEqual(to: points.t2, tolerance: tolerance)
-        )
-
-        #expect(
-            inverse(p0: points.p0,
-                    p1: points.p1,
-                    p2: points.p2,
-                    p3: points.p3,
-                    target: points.p3)
-                .isEqual(to: points.t3, tolerance: tolerance)
-        )
-
-        #expect(
-            inverse(p0: points.p0,
-                    p1: points.p1,
-                    p2: points.p2,
-                    p3: points.p3,
-                    target: points.pc)
-                .isEqual(to: points.tc, tolerance: tolerance)
-        )
-
         for (uv, transformed) in points.uvGrid {
+            let tr = ControlPointsTransform(p0: points.p0,
+                                            p1: points.p1,
+                                            p2: points.p2,
+                                            p3: points.p3)
+
             #expect(
-                inverse(p0: points.p0,
-                        p1: points.p1,
-                        p2: points.p2,
-                        p3: points.p3,
-                        target: transformed)
-                    .isEqual(to: uv, tolerance: tolerance)
+                tr.inverse(transformed).isEqual(to: uv, tolerance: tolerance)
             )
         }
     }

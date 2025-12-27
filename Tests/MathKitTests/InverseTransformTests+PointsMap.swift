@@ -5,12 +5,11 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-import MathKit
+@testable import MathKit
 
 import struct CoreFoundation.CGFloat
 import struct CoreFoundation.CGPoint
 
-// InverseTransformTests+PointsMap
 extension InverseTransformTests {
     struct PointsMap {
         let p0: CGPoint

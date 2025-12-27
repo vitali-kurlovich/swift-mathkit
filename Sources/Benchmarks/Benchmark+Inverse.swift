@@ -24,33 +24,35 @@ extension Benchmark {
 
             let p = CGPoint(x: 0.5, y: 0.5)
 
+            let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
+
             for _ in 0 ..< 10_000_000 {
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p).x
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p).y
+                acum += tr.inverse(p).x
+                acum += tr.inverse(p).y
 
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p0).x
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p0).y
+                acum += tr.inverse(p0).x
+                acum += tr.inverse(p0).y
 
-                acum -= inverse(p0: p1, p1: p0, p2: p3, p3: p2, target: p0).x
-                acum -= inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p0).y
+                acum -= tr.inverse(p0).x
+                acum -= tr.inverse(p0).y
 
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p1).x
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p1).y
+                acum += tr.inverse(p1).x
+                acum += tr.inverse(p1).y
 
-                acum -= inverse(p0: p1, p1: p0, p2: p3, p3: p2, target: p1).x
-                acum -= inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p1).y
+                acum -= tr.inverse(p1).x
+                acum -= tr.inverse(p1).y
 
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p2).x
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p2).y
+                acum += tr.inverse(p2).x
+                acum += tr.inverse(p2).y
 
-                acum -= inverse(p0: p1, p1: p0, p2: p3, p3: p2, target: p2).x
-                acum -= inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p2).y
+                acum -= tr.inverse(p2).x
+                acum -= tr.inverse(p2).y
 
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p3).x
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p3).y
+                acum += tr.inverse(p3).x
+                acum += tr.inverse(p3).y
 
-                acum -= inverse(p0: p1, p1: p0, p2: p3, p3: p2, target: p3).x
-                acum -= inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p3).y
+                acum -= tr.inverse(p3).x
+                acum -= tr.inverse(p3).y
             }
 
             context.blackHole(acum)
@@ -66,30 +68,35 @@ extension Benchmark {
 
             let p = CGPoint(x: 0.5, y: 0.5)
 
+            let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
+
             for _ in 0 ..< 10_000_000 {
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p).x
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p).y
+                acum += tr.inverse(p).x
+                acum += tr.inverse(p).y
 
-                acum -= inverse(p0: p1, p1: p0, p2: p3, p3: p2, target: p0).x
-                acum -= inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p0).y
+                acum += tr.inverse(p0).x
+                acum += tr.inverse(p0).y
 
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p1).x
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p1).y
+                acum -= tr.inverse(p0).x
+                acum -= tr.inverse(p0).y
 
-                acum -= inverse(p0: p1, p1: p0, p2: p3, p3: p2, target: p1).x
-                acum -= inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p1).y
+                acum += tr.inverse(p1).x
+                acum += tr.inverse(p1).y
 
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p2).x
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p2).y
+                acum -= tr.inverse(p1).x
+                acum -= tr.inverse(p1).y
 
-                acum -= inverse(p0: p1, p1: p0, p2: p3, p3: p2, target: p2).x
-                acum -= inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p2).y
+                acum += tr.inverse(p2).x
+                acum += tr.inverse(p2).y
 
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p3).x
-                acum += inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p3).y
+                acum -= tr.inverse(p2).x
+                acum -= tr.inverse(p2).y
 
-                acum -= inverse(p0: p1, p1: p0, p2: p3, p3: p2, target: p3).x
-                acum -= inverse(p0: p0, p1: p1, p2: p2, p3: p3, target: p3).y
+                acum += tr.inverse(p3).x
+                acum += tr.inverse(p3).y
+
+                acum -= tr.inverse(p3).x
+                acum -= tr.inverse(p3).y
             }
 
             context.blackHole(acum)
