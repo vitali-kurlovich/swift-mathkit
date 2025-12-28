@@ -5,7 +5,7 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-import CoreFoundation
+import Foundation
 import MathKit
 import Testing
 
