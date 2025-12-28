@@ -46,7 +46,7 @@ struct ControlPointsTransformInverseTests {
         PointsMap((2, 0), (2, 2), (0, 2), (0, 0)),
 
     ])
-    func normalized(_ points: PointsMap) {
+    func parallel(_ points: PointsMap) {
         for (uv, transformed) in points.uvGrid {
             let tr = ControlPointsTransform(p0: points.p0,
                                             p1: points.p1,
@@ -85,7 +85,32 @@ struct ControlPointsTransformInverseTests {
         //         1 -- 2
         PointsMap((10, -10), (15, 20), (-20, 15), (-10, -20)), // 1, 2, 3, 0
     ])
-    func random(_ points: PointsMap) {
+    func pointsGrid(_ points: PointsMap) {
+        for (uv, transformed) in points.uvGrid {
+            let tr = ControlPointsTransform(p0: points.p0,
+                                            p1: points.p1,
+                                            p2: points.p2,
+                                            p3: points.p3)
+
+            #expect(
+                tr.inverse(transformed).isEqual(to: uv, tolerance: tolerance)
+            )
+        }
+    }
+
+    /*
+     3) (-10,  10)      2) (13,  13)
+
+     0) (-13, -13)      1) (10, -10)
+     */
+
+    @Test("skew", arguments: [
+        //         3 -- 2
+        //         |    |
+        //         0 -- 1
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10)), // 0, 1, 2, 3
+    ])
+    func skew(_ points: PointsMap) {
         for (uv, transformed) in points.uvGrid {
             let tr = ControlPointsTransform(p0: points.p0,
                                             p1: points.p1,
