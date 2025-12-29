@@ -181,4 +181,139 @@ struct Affine2DTransformTests {
             transform == Affine2DTransform(AffineTransform(translationByX: 12, byY: 24))
         )
     }
+
+    @Test("Basis")
+    func basis() {
+        let transform = Affine2DTransform(origin: .init(x: 10, y: 20), basisU: .init(dx: 2, dy: 0), basisV: .init(dx: 0, dy: 3))
+
+        let affine = AffineTransform(transform)
+
+        #expect(
+            transform.origin == .init(x: 10, y: 20)
+        )
+
+        #expect(
+            transform.basisU == .init(dx: 2, dy: 0)
+        )
+
+        #expect(
+            transform.basisV == .init(dx: 0, dy: 3)
+        )
+
+        #expect(
+            affine.transform(.init(x: 0, y: 0)).isEqual(to: .init(x: 10, y: 20), tolerance: tolerance)
+        )
+
+        #expect(
+            affine.transform(.init(x: 1, y: 0)).isEqual(to: .init(x: 12, y: 20), tolerance: tolerance)
+        )
+
+        #expect(
+            affine.transform(.init(x: 0, y: 1)).isEqual(to: .init(x: 10, y: 23), tolerance: tolerance)
+        )
+    }
+
+    @Test("Basis Components")
+    func basisComponents() {
+        var transform = Affine2DTransform()
+
+        #expect(
+            transform.origin == .zero
+        )
+
+        #expect(
+            (transform.basisU).isEqual(to: .init(dx: 1, dy: 0), tolerance: tolerance)
+        )
+
+        #expect(
+            (transform.basisV).isEqual(to: .init(dx: 0, dy: 1), tolerance: tolerance)
+        )
+
+        transform.scale(x: 2, y: 3)
+
+        var expectedTransform = AffineTransform()
+        expectedTransform.scale(x: 2, y: 3)
+
+        var basisU = expectedTransform.transform(.init(x: 1, y: 0))
+        var basisV = expectedTransform.transform(.init(x: 0, y: 1))
+
+        #expect(
+            (transform.basisU).isEqual(to: .init(dx: basisU.x, dy: basisU.y), tolerance: tolerance)
+        )
+
+        #expect(
+            (transform.basisV).isEqual(to: .init(dx: basisV.x, dy: basisV.y), tolerance: tolerance)
+        )
+
+        transform.rotate(.degrees(45))
+        expectedTransform.rotate(byDegrees: 45)
+
+        basisU = expectedTransform.transform(.init(x: 1, y: 0))
+        basisV = expectedTransform.transform(.init(x: 0, y: 1))
+
+        #expect(
+            (transform.basisU).isEqual(to: .init(dx: basisU.x, dy: basisU.y), tolerance: tolerance)
+        )
+
+        #expect(
+            (transform.basisV).isEqual(to: .init(dx: basisV.x, dy: basisV.y), tolerance: tolerance)
+        )
+
+        transform.translate(x: 10, y: -20)
+        expectedTransform.translate(x: 10, y: -20)
+
+        var origin = expectedTransform.transform(.init(x: 0, y: 0))
+
+        #expect(
+            transform.origin == origin
+        )
+
+        #expect(
+            (transform.basisU).isEqual(to: .init(dx: basisU.x, dy: basisU.y), tolerance: tolerance)
+        )
+
+        #expect(
+            (transform.basisV).isEqual(to: .init(dx: basisV.x, dy: basisV.y), tolerance: tolerance)
+        )
+
+        transform = Affine2DTransform()
+        expectedTransform = .identity
+
+        transform.translate(x: 10, y: -20)
+        expectedTransform.translate(x: 10, y: -20)
+        #expect(
+            transform.origin == .init(x: 10, y: -20)
+        )
+
+        #expect(
+            (transform.basisU).isEqual(to: .init(dx: 1, dy: 0), tolerance: tolerance)
+        )
+
+        #expect(
+            (transform.basisV).isEqual(to: .init(dx: 0, dy: 1), tolerance: tolerance)
+        )
+
+        transform.rotate(.degrees(45))
+        expectedTransform.rotate(byDegrees: 45)
+
+        origin = expectedTransform.transform(.init(x: 0, y: 0))
+
+        #expect(
+            transform.origin == origin
+        )
+
+        expectedTransform = .identity
+        expectedTransform.rotate(byDegrees: 45)
+
+        basisU = expectedTransform.transform(.init(x: 1, y: 0))
+        basisV = expectedTransform.transform(.init(x: 0, y: 1))
+
+        #expect(
+            (transform.basisU).isEqual(to: .init(dx: basisU.x, dy: basisU.y), tolerance: tolerance)
+        )
+
+        #expect(
+            (transform.basisV).isEqual(to: .init(dx: basisV.x, dy: basisV.y), tolerance: tolerance)
+        )
+    }
 }
