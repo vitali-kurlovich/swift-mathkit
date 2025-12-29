@@ -9,7 +9,7 @@
     import CoreGraphics
 #endif
 
-public struct ControlPointsTransform: Hashable {
+public struct ControlPointsTransform: Hashable, Sendable {
     public var p0: CGPoint
     public var p1: CGPoint
     public var p2: CGPoint
