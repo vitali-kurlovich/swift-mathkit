@@ -5,12 +5,9 @@
 //  Created by Vitali Kurlovich on 24.12.25.
 //
 
+import Foundation
 import MathKit
 import Testing
-
-import struct CoreFoundation.CGFloat
-import struct CoreFoundation.CGPoint
-import struct CoreFoundation.CGVector
 
 private let tolerance: Double = 0.0000001
 

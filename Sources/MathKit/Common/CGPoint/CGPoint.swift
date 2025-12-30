@@ -11,8 +11,8 @@ public typealias CGPoint = Foundation.CGPoint
 
 #if !canImport(CoreGraphics)
 
-    extension CGPoint: @retroactive Equatable {
-        public static func == (lhs: CGPoint, rhs: CGPoint) -> Bool {
+    extension CGPoint: @retroactive Equatable, Sendable {
+        public static func == (lhs: Self, rhs: Self) -> Bool {
             lhs.x == rhs.x && lhs.y == rhs.y
         }
     }
