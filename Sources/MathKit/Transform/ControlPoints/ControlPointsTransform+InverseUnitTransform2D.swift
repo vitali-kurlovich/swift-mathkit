@@ -5,6 +5,8 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
+private nonisolated let epsilon: CGFloat = 0.00000001
+
 extension ControlPointsTransform: InverseUnitTransform2D {
     public func inverse(_ source: CGPoint) -> UnitPoint {
         let px = source.x, py = source.y
@@ -24,8 +26,12 @@ extension ControlPointsTransform: InverseUnitTransform2D {
         // dx23 dy01 - dx01 dy23 -> DU
         let DU = (dy01 * dx23).addingProduct(-dx01, dy23)
 
-        if abs(DU) <= 0.00000001 {
+        if abs(DU) <= epsilon {
             let divider = dy13 * x0 - dy03 * x1 + dy01 * x3
+
+            if abs(divider) <= epsilon {
+                return .init(x: 0.5, y: 0.5)
+            }
 
             let u = dx03 * py - dy03 * px + x3 * y0 - x0 * y3
             let v = dy01 * px - dx01 * py - x1 * y0 + x0 * y1

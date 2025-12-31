@@ -54,13 +54,13 @@ struct ControlPointsTransformInverseTests {
         PointsMap((1, 0), (1, 1), (0, 1), (0, 0)), // 1, 2, 3, 0
         PointsMap((1, 0), (1, 1), (0, 1), (0, 0), .scale(2)),
     ])
-    func parallel(_ points: PointsMap) {
-        for uv in UVGrid.uvs {
-            let tr = ControlPointsTransform(p0: points.p0,
-                                            p1: points.p1,
-                                            p2: points.p2,
-                                            p3: points.p3)
+    func affine(_ points: PointsMap) {
+        let tr = ControlPointsTransform(p0: points.p0,
+                                        p1: points.p1,
+                                        p2: points.p2,
+                                        p3: points.p3)
 
+        for uv in UVGrid.uvs {
             let transformed = tr.transform(uv)
 
             #expect(
@@ -102,12 +102,11 @@ struct ControlPointsTransformInverseTests {
         PointsMap((10, -10), (15, 20), (-20, 15), (-10, -20)), // 1, 2, 3, 0
     ])
     func pointsGrid(_ points: PointsMap) {
+        let tr = ControlPointsTransform(p0: points.p0,
+                                        p1: points.p1,
+                                        p2: points.p2,
+                                        p3: points.p3)
         for uv in UVGrid.uvs {
-            let tr = ControlPointsTransform(p0: points.p0,
-                                            p1: points.p1,
-                                            p2: points.p2,
-                                            p3: points.p3)
-
             let transformed = tr.transform(uv)
 
             #expect(
@@ -149,16 +148,66 @@ struct ControlPointsTransformInverseTests {
 
     ])
     func skew(_ points: PointsMap) {
-        for uv in UVGrid.uvs {
-            let tr = ControlPointsTransform(p0: points.p0,
-                                            p1: points.p1,
-                                            p2: points.p2,
-                                            p3: points.p3)
+        let tr = ControlPointsTransform(p0: points.p0,
+                                        p1: points.p1,
+                                        p2: points.p2,
+                                        p3: points.p3)
 
+        for uv in UVGrid.uvs {
             let transformed = tr.transform(uv)
 
             #expect(
                 tr.inverse(transformed).isEqual(to: uv, tolerance: tolerance)
+            )
+        }
+    }
+
+    @Test("Line", arguments: [
+        //         3 -- 2
+        //         0 -- 1
+        PointsMap((0, 0), (1, 0), (1, 0), (0, 0)), // 0, 1, 2, 3
+        PointsMap((0, 0), (1, 0), (1, 0), (0, 0), .rotate45),
+        PointsMap((0, 0), (1, 0), (1, 0), (0, 0), .rotate90),
+        PointsMap((0, 0), (1, 0), (1, 0), (0, 0), .rotate180),
+        PointsMap((0, 0), (1, 0), (1, 0), (0, 0), .rotate270),
+        PointsMap((0, 0), (1, 0), (1, 0), (0, 0), .flipHorizontal),
+        PointsMap((0, 0), (1, 0), (1, 0), (0, 0), .flipVertical),
+        PointsMap((0, 0), (1, 0), (1, 0), (0, 0), .scale(4).rotated(45).translated(x: 40, y: 50)),
+
+        //        3 ---- 2
+        //         0 -- 1
+        PointsMap((0, 0), (1, 0), (2, 0), (-1, 0)), // 0, 1, 2, 3
+        PointsMap((0, 0), (1, 0), (2, 0), (-1, 0), .rotate45),
+        PointsMap((0, 0), (1, 0), (2, 0), (-1, 0), .rotate90),
+        PointsMap((0, 0), (1, 0), (2, 0), (-1, 0), .rotate180),
+        PointsMap((0, 0), (1, 0), (2, 0), (-1, 0), .rotate270),
+        PointsMap((0, 0), (1, 0), (2, 0), (-1, 0), .flipHorizontal),
+        PointsMap((0, 0), (1, 0), (2, 0), (-1, 0), .flipVertical),
+        PointsMap((0, 0), (1, 0), (2, 0), (-1, 0), .scale(4).rotated(45).translated(x: 40, y: 50)),
+
+        //           3 --- 2
+        //         0 --- 1
+        PointsMap((0, 0), (1, 0), (2, 0), (1, 0)), // 0, 1, 2, 3
+        PointsMap((0, 0), (1, 0), (2, 0), (1, 0), .rotate45),
+        PointsMap((0, 0), (1, 0), (2, 0), (1, 0), .rotate90),
+        PointsMap((0, 0), (1, 0), (2, 0), (1, 0), .rotate180),
+        PointsMap((0, 0), (1, 0), (2, 0), (1, 0), .rotate270),
+        PointsMap((0, 0), (1, 0), (2, 0), (1, 0), .flipHorizontal),
+        PointsMap((0, 0), (1, 0), (2, 0), (1, 0), .flipVertical),
+        PointsMap((0, 0), (1, 0), (2, 0), (1, 0), .scale(4).rotated(45).translated(x: 40, y: 50)),
+
+    ])
+    func line(_ points: PointsMap) {
+        let tr = ControlPointsTransform(p0: points.p0,
+                                        p1: points.p1,
+                                        p2: points.p2,
+                                        p3: points.p3)
+
+        for uv in UVGrid.uvs {
+            let transformed = tr.transform(uv)
+
+            #expect(
+                tr.inverse(transformed).isEqual(to: .init(x: 0.5, y: 0.5), tolerance: tolerance)
             )
         }
     }
