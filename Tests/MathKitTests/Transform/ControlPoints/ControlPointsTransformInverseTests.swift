@@ -211,4 +211,28 @@ struct ControlPointsTransformInverseTests {
             )
         }
     }
+
+    @Test("Point", arguments: [
+        //         3 -- 2
+        //         0 -- 1
+        PointsMap((0, 0), (0, 0), (0, 0), (0, 0)), // 0, 1, 2, 3
+        PointsMap((0, 0), (0, 0), (0, 0), (0, 0), .rotate45),
+        PointsMap((0, 0), (0, 0), (0, 0), (0, 0), .translate(x: 4, y: 6)),
+        PointsMap((0, 0), (0, 0), (0, 0), (0, 0), .scale(4).rotated(45).translated(x: 40, y: 50)),
+
+    ])
+    func point(_ points: PointsMap) {
+        let tr = ControlPointsTransform(p0: points.p0,
+                                        p1: points.p1,
+                                        p2: points.p2,
+                                        p3: points.p3)
+
+        for uv in UVGrid.uvs {
+            let transformed = tr.transform(uv)
+
+            #expect(
+                tr.inverse(transformed).isEqual(to: .init(x: 0.5, y: 0.5), tolerance: tolerance)
+            )
+        }
+    }
 }
