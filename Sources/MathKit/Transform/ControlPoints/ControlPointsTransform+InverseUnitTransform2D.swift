@@ -17,6 +17,7 @@ extension ControlPointsTransform: InverseUnitTransform2D {
         let dx01 = x0 - x1, dy01 = y0 - y1
         let dx03 = x0 - x3, dy03 = y0 - y3
         let dx12 = x1 - x2, dy12 = y1 - y2
+        let dx13 = x1 - x3, dy13 = y1 - y3
         let dx23 = x2 - x3, dy23 = y2 - y3
 
         //  (x2 (y0 - y1) + x3 (-y0 + y1) - (x0 - x1) (y2 - y3)) -> DU
@@ -24,11 +25,12 @@ extension ControlPointsTransform: InverseUnitTransform2D {
         let DU = (dy01 * dx23).addingProduct(-dx01, dy23)
 
         if DU == 0 {
-            //    p0 -- p1
-            //   /     /
-            //  /     /
-            // p3 -- p2
-            return DU_equalZero(source)
+            let divider = dy13 * x0 - dy03 * x1 + dy01 * x3
+
+            let u = dx03 * py - dy03 * px + x3 * y0 - x0 * y3
+            let v = dy01 * px - dx01 * py - x1 * y0 + x0 * y1
+
+            return .init(x: u / divider, y: v / divider)
         }
 
         // ((x0 - x3) (y1 - y2) + x2 (y0 - y3) + x1 (-y0 + y3)) -> DV
@@ -106,56 +108,5 @@ extension ControlPointsTransform: InverseUnitTransform2D {
         let vr = (EE + SS) / (-2 * DV)
 
         return .init(x: ur, y: vr)
-    }
-}
-
-private extension ControlPointsTransform {
-    func DU_equalZero(_ source: CGPoint) -> UnitPoint {
-        let px = source.x, py = source.y
-
-        let x0 = p0.x, y0 = p0.y
-        let x1 = p1.x, y1 = p1.y
-        let x2 = p2.x, y2 = p2.y
-        let x3 = p3.x, y3 = p3.y
-
-        let dx01 = x0 - x1, dy01 = y0 - y1
-        let dx03 = x0 - x3, dy03 = y0 - y3
-        let dx13 = x1 - x3, dy13 = y1 - y3
-        let dx23 = x2 - x3, dy23 = y2 - y3
-
-        let dy12 = y1 - y2
-
-        if dx23 == 0 {
-            if dx01 == 0 {
-                // (dy03 Px - dx13 Py - x3 y0 + x1 y3)/((dy01 + dy23) Px - dy23 x1 -dy01 x3)
-                let u = (dy03 * px - dx13 * py - x3 * y0 + x1 * y3) / ((dy01 + dy23) * px - dy23 * x1 - dy01 * x3)
-                // (-Px + x1)/dx13
-                let v = (x1 - px) / dx13
-                return .init(x: u, y: v)
-
-            } else { // dy23 == 0
-                // (-dy03 Px + dx03 Py + x3 y0 - x0 y3)/(dy01 (-Px + x3) + dx01 (Py - y3))
-                let u = (dx03 * py - dy03 * px + x3 * y0 - x0 * y3) / (dy01 * (x3 - px) + dx01 * (py - y3))
-                // (-dy01 Px + dx01 Py + x1 y0 - x0 y1)/(-dy13 x0 + dy03 x1 - dy01 x3)
-                let v = (dx01 * py - dy01 * px + x1 * y0 - x0 * y1) / (dy03 * x1 - dy13 * x0 - dy01 * x3)
-                return .init(x: u, y: v)
-            }
-
-        } else { //  y0 == y1
-            if dx01 == 0 {
-                // (-dy13 Px + dx13 Py + x3 y1 - x1 y3)/(-dy23 Px + dx23 Py + dy23 x1 - dx23 y1)
-                let u = (dx13 * py - dy13 * px + x3 * y1 - x1 * y3) / (dx23 * py - dy23 * px + dy23 * x1 - dx23 * y1)
-                // (dy23 Px - dx23 Py - dy23 x1 + x2 y1 - x3 y1)/(-dy23 x1 + dy13 x2 - dy12 x3)
-                let v = (dy23 * px - dx23 * py - dy23 * x1 + x2 * y1 - x3 * y1) / (dy13 * x2 - dy23 * x1 - dy12 * x3)
-                return .init(x: u, y: v)
-            } else { // dy23 == 0
-                // (-dy13 Px + dx03 Py + x3 y1 - x0 y3)/((dx01 + dx23) Py - dx23 y1 - dx01 y3)
-                let u = (dx03 * py - dy13 * px + x3 * y1 - x0 * y3) / ((dx01 + dx23) * py - dx23 * y1 - dx01 * y3)
-
-                // (-Py + y1)/dy13
-                let v = (y1 - py) / dy13
-                return .init(x: u, y: v)
-            }
-        }
     }
 }
