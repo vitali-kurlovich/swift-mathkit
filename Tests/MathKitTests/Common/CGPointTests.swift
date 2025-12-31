@@ -51,7 +51,7 @@ struct CGPointTests {
     @Test("Scalar")
     func scalar() {
         let left = CGPoint(x: 5, y: 6)
-       
+
         #expect(
             (left * 2).isEqual(to: .init(x: 10, y: 12), tolerance: tolerance)
         )
@@ -64,26 +64,23 @@ struct CGPointTests {
             (left / 2).isEqual(to: .init(x: 2.5, y: 3), tolerance: tolerance)
         )
     }
-    
+
     @Test("Vector")
     func vector() {
-        
         let point = CGPoint(x: 5, y: 6)
-        
-        let vector = CGVector( CGPoint(x: 10, y: 20))
-        
+
+        let vector = CGVector(CGPoint(x: 10, y: 20))
+
         #expect(
-            CGPoint(vector).isEqual(to:  CGPoint(x: 10, y: 20) , tolerance: tolerance)
-            
+            CGPoint(vector).isEqual(to: CGPoint(x: 10, y: 20), tolerance: tolerance)
         )
-        
+
         #expect(
-            (point + vector).isEqual(to: CGPoint(x: 15, y: 26) , tolerance: tolerance)
+            (point + vector).isEqual(to: CGPoint(x: 15, y: 26), tolerance: tolerance)
         )
-        
+
         #expect(
-            ( vector + point).isEqual(to: CGPoint(x: 15, y: 26) , tolerance: tolerance)
+            (vector + point).isEqual(to: CGPoint(x: 15, y: 26), tolerance: tolerance)
         )
-        
     }
 }

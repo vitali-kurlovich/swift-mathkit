@@ -11,10 +11,8 @@ import Testing
 
 private let tolerance: Double = 0.0000001
 
-
 @Suite("CGVector")
 struct CGVectorTests {
-    
     @Test("AdditiveArithmetic")
     func additiveArithmetic() {
         var left = CGVector(dx: 5, dy: 6)
@@ -40,7 +38,7 @@ struct CGVectorTests {
             right.isEqual(to: .init(dx: -10, dy: -10), tolerance: tolerance)
         )
     }
-    
+
     @Test("Arithmetic")
     func arithmetic() {
         let left = CGVector(dx: 5, dy: 6)
@@ -49,7 +47,7 @@ struct CGVectorTests {
             (-left).isEqual(to: .init(dx: -5, dy: -6), tolerance: tolerance)
         )
     }
-    
+
     @Test("Scalar")
     func scalar() {
         var left = CGVector(dx: 5, dy: 6)
@@ -67,5 +65,4 @@ struct CGVectorTests {
             (left / 2).isEqual(to: .init(dx: 2.5, dy: 3), tolerance: tolerance)
         )
     }
-    
 }

@@ -14,7 +14,7 @@ private let tolerance: Double = 0.0001
 
 @Suite("ControlPointsTransform Inverse Transform")
 struct ControlPointsTransformInverseTests {
-    @Test("Parallel control points", arguments: [
+    @Test("Affine transform", arguments: [
         //         3 -- 2
         //         |    |
         //         0 -- 1
@@ -44,7 +44,6 @@ struct ControlPointsTransformInverseTests {
         //         1 -- 2
         PointsMap((1, 0), (1, 1), (0, 1), (0, 0)), // 1, 2, 3, 0
         PointsMap((2, 0), (2, 2), (0, 2), (0, 0)),
-
     ])
     func parallel(_ points: PointsMap) {
         for (uv, transformed) in points.uvGrid {

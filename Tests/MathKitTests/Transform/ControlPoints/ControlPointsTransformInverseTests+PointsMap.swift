@@ -5,10 +5,8 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-@testable import MathKit
-
-import struct CoreFoundation.CGFloat
-import struct CoreFoundation.CGPoint
+import Foundation
+import MathKit
 
 extension ControlPointsTransformInverseTests {
     struct PointsMap {
@@ -20,19 +18,6 @@ extension ControlPointsTransformInverseTests {
 }
 
 extension ControlPointsTransformInverseTests.PointsMap {
-    var t0: UnitPoint { UnitPoint(x: 0, y: 0) }
-    var t1: UnitPoint { UnitPoint(x: 1, y: 0) }
-    var t2: UnitPoint { UnitPoint(x: 1, y: 1) }
-    var t3: UnitPoint { UnitPoint(x: 0, y: 1) }
-}
-
-extension ControlPointsTransformInverseTests.PointsMap {
-    var pc: CGPoint {
-        transform(uv: tc)
-    }
-
-    var tc: UnitPoint { UnitPoint(x: 0.5, y: 0.5) }
-
     var uvGrid: [(uv: UnitPoint, transformed: CGPoint)] {
         UVGrid.uv.map { uv in
             (uv: uv, transformed: transform(uv: uv))
