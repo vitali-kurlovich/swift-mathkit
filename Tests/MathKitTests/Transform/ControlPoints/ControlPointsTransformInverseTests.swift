@@ -5,12 +5,13 @@
 //  Created by Vitali Kurlovich on 24.12.25.
 //
 
+import Foundation
 import MathKit
 import Testing
 
-import struct CoreFoundation.CGPoint
-
 private let tolerance: Double = 0.0001
+
+extension ControlPointsTransformInverseTests {}
 
 @Suite("ControlPointsTransform Inverse Transform")
 struct ControlPointsTransformInverseTests {
@@ -19,31 +20,39 @@ struct ControlPointsTransformInverseTests {
         //         |    |
         //         0 -- 1
         PointsMap((0, 0), (1, 0), (1, 1), (0, 1)), // 0, 1, 2, 3
-        PointsMap((0, 0), (2, 0), (2, 2), (0, 2)),
+        PointsMap((0, 0), (1, 0), (1, 1), (0, 1), .rotate45),
+        PointsMap((0, 0), (1, 0), (1, 1), (0, 1), .rotate90),
+        PointsMap((0, 0), (1, 0), (1, 1), (0, 1), .rotate180),
+        PointsMap((0, 0), (1, 0), (1, 1), (0, 1), .rotate270),
+        PointsMap((0, 0), (1, 0), (1, 1), (0, 1), .flipHorizontal),
+        PointsMap((0, 0), (1, 0), (1, 1), (0, 1), .flipVertical),
+        PointsMap((0, 0), (1, 0), (1, 1), (0, 1), .scale(4).rotated(45).translated(x: 40, y: 50)),
 
         //         2 -- 3
         //         |    |
         //         1 -- 0
         PointsMap((1, 0), (0, 0), (0, 1), (1, 1)), // 1, 0, 3, 2
-        PointsMap((2, 0), (0, 0), (0, 2), (2, 2)),
+        PointsMap((1, 0), (0, 0), (0, 1), (1, 1), .translate(x: 10, y: 20)),
 
         //         0 -- 1
         //         |    |
         //         3 -- 2
         PointsMap((0, 1), (1, 1), (1, 0), (0, 0)), // 3, 2, 1, 0
-        PointsMap((0, 2), (2, 2), (2, 0), (0, 0)),
+        PointsMap((0, 1), (1, 1), (1, 0), (0, 0),
+                  .scale(x: 4, y: 2)
+                      .translated(x: -3, y: 2)),
 
         //         1 -- 0
         //         |    |
         //         2 -- 3
         PointsMap((1, 1), (0, 1), (0, 0), (1, 0)), // 2, 3, 0, 1
-        PointsMap((2, 2), (0, 2), (0, 0), (2, 0)),
+        PointsMap((1, 1), (0, 1), (0, 0), (1, 0), .rotate(12)),
 
         //         0 -- 3
         //         |    |
         //         1 -- 2
         PointsMap((1, 0), (1, 1), (0, 1), (0, 0)), // 1, 2, 3, 0
-        PointsMap((2, 0), (2, 2), (0, 2), (0, 0)),
+        PointsMap((1, 0), (1, 1), (0, 1), (0, 0), .scale(2)),
     ])
     func parallel(_ points: PointsMap) {
         for uv in UVGrid.uvs {
@@ -65,6 +74,12 @@ struct ControlPointsTransformInverseTests {
         //         |    |
         //         0 -- 1
         PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15)), // 0, 1, 2, 3
+        PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15), .rotate45),
+        PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15), .rotate90),
+        PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15), .rotate180),
+        PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15), .rotate270),
+        PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15), .flipHorizontal),
+        PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15), .flipVertical),
 
         //         2 -- 3
         //         |    |
@@ -107,14 +122,14 @@ struct ControlPointsTransformInverseTests {
         //         0 -- 1
         PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10)), // 0, 1, 2, 3
 
-        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .scale(x: -1, y: 1)),
-        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .scale(x: 1, y: -1)),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .flipVertical),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .flipHorizontal),
         PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .scale(x: -1, y: -1)),
 
-        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate(45)),
-        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate(90)),
-        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate(180)),
-        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate(270)),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate45),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate90),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate180),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate270),
 
         PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10),
                   .rotate(45)
@@ -129,6 +144,7 @@ struct ControlPointsTransformInverseTests {
         PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10),
                   .rotate(180)
                       .translated(x: 40, y: 90)),
+
         PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate(270)),
 
     ])

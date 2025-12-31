@@ -8,6 +8,32 @@
 import Foundation
 
 extension AffineTransform {
+    static var rotate45: AffineTransform {
+        .rotate(45)
+    }
+
+    static var rotate90: AffineTransform {
+        .rotate(90)
+    }
+
+    static var rotate180: AffineTransform {
+        .rotate(180)
+    }
+
+    static var rotate270: AffineTransform {
+        .rotate(270)
+    }
+
+    static var flipHorizontal: AffineTransform {
+        .scale(x: 1, y: -1)
+    }
+
+    static var flipVertical: AffineTransform {
+        .scale(x: -1, y: 1)
+    }
+}
+
+extension AffineTransform {
     static func translate(x: CGFloat, y: CGFloat) -> Self {
         .init(translationByX: x, byY: y)
     }
