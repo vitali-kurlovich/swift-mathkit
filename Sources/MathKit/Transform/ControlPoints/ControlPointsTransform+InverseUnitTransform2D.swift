@@ -24,7 +24,7 @@ extension ControlPointsTransform: InverseUnitTransform2D {
         // dx23 dy01 - dx01 dy23 -> DU
         let DU = (dy01 * dx23).addingProduct(-dx01, dy23)
 
-        if DU == 0 {
+        if abs(DU) <= 0.00000001 {
             let divider = dy13 * x0 - dy03 * x1 + dy01 * x3
 
             let u = dx03 * py - dy03 * px + x3 * y0 - x0 * y3
