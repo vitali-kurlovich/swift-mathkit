@@ -46,11 +46,13 @@ struct ControlPointsTransformInverseTests {
         PointsMap((2, 0), (2, 2), (0, 2), (0, 0)),
     ])
     func parallel(_ points: PointsMap) {
-        for (uv, transformed) in points.uvGrid {
+        for uv in UVGrid.uvs {
             let tr = ControlPointsTransform(p0: points.p0,
                                             p1: points.p1,
                                             p2: points.p2,
                                             p3: points.p3)
+
+            let transformed = tr.transform(uv)
 
             #expect(
                 tr.inverse(transformed).isEqual(to: uv, tolerance: tolerance)
@@ -85,11 +87,13 @@ struct ControlPointsTransformInverseTests {
         PointsMap((10, -10), (15, 20), (-20, 15), (-10, -20)), // 1, 2, 3, 0
     ])
     func pointsGrid(_ points: PointsMap) {
-        for (uv, transformed) in points.uvGrid {
+        for uv in UVGrid.uvs {
             let tr = ControlPointsTransform(p0: points.p0,
                                             p1: points.p1,
                                             p2: points.p2,
                                             p3: points.p3)
+
+            let transformed = tr.transform(uv)
 
             #expect(
                 tr.inverse(transformed).isEqual(to: uv, tolerance: tolerance)
@@ -97,24 +101,45 @@ struct ControlPointsTransformInverseTests {
         }
     }
 
-    /*
-     3) (-10,  10)      2) (13,  13)
-
-     0) (-13, -13)      1) (10, -10)
-     */
-
     @Test("skew", arguments: [
         //         3 -- 2
         //         |    |
         //         0 -- 1
         PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10)), // 0, 1, 2, 3
+
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .scale(x: -1, y: 1)),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .scale(x: 1, y: -1)),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .scale(x: -1, y: -1)),
+
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate(45)),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate(90)),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate(180)),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate(270)),
+
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10),
+                  .rotate(45)
+                      .translated(x: 40, y: 90)
+                      .scaled(x: -1, y: -1)),
+
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10),
+                  .rotate(90)
+                      .translated(x: 40, y: 90)
+                      .scaled(x: -1, y: -1)),
+
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10),
+                  .rotate(180)
+                      .translated(x: 40, y: 90)),
+        PointsMap((-13, -13), (10, -10), (13, 13), (-10, 10), .rotate(270)),
+
     ])
     func skew(_ points: PointsMap) {
-        for (uv, transformed) in points.uvGrid {
+        for uv in UVGrid.uvs {
             let tr = ControlPointsTransform(p0: points.p0,
                                             p1: points.p1,
                                             p2: points.p2,
                                             p3: points.p3)
+
+            let transformed = tr.transform(uv)
 
             #expect(
                 tr.inverse(transformed).isEqual(to: uv, tolerance: tolerance)
