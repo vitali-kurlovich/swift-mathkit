@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct CheckerboardShader: CollorEffectShaderProvider, Sendable {
+public struct CheckerboardShader: ColorEffectShaderProvider, Sendable {
     public var checkerSize: CGFloat
     public var checkerOpacity: CGFloat
 
