@@ -6,17 +6,16 @@ import PackageDescription
 let package = Package(
     name: "swift-mathkit",
     platforms: [
-        .macOS(.v13),
-        .iOS(.v13),
-        .watchOS(.v6),
-        .tvOS(.v13),
+        .macOS(.v14),
+        .iOS(.v17),
+        .watchOS(.v11),
+        .tvOS(.v17),
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "MathKit",
-            targets: ["MathKit"]
-        ),
+        .library(name: "MathKit", targets: ["MathKit"]),
+        .library(name: "MathKitMetal", targets: ["MathKitMetal"]),
+
     ],
     dependencies: [
         .package(url: "https://github.com/vitali-kurlovich/Benchmarks", from: "0.1.1"),
@@ -27,7 +26,15 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "MathKit",
+            dependencies: []
+        ),
+        .target(
+            name: "MathKitMetal",
             dependencies: [
+                // .byName(name: "MathKit"),
+            ],
+            resources: [
+                // .copy("Metal/")
             ]
 
         ),
