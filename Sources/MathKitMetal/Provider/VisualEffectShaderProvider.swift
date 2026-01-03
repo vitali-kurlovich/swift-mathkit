@@ -9,11 +9,10 @@ import SwiftUI
 
 public protocol VisualEffectShaderProvider: Sendable {
     var isEnabled: Bool { get }
-
     var shaderLibrary: ShaderLibrary { get }
-    func shaderFunction(for name: String) -> ShaderFunction
 
-    func shader(content: EmptyVisualEffect, proxy: GeometryProxy) -> Shader
+    func shaderFunction(for name: String) -> ShaderFunction
+    func shader(_ proxy: GeometryProxy) -> Shader
 }
 
 public extension VisualEffectShaderProvider {
@@ -35,11 +34,11 @@ public extension VisualEffectShaderProvider {
 public protocol ColorEffectShaderProvider: VisualEffectShaderProvider {}
 
 public protocol SampleOffsetEffectShaderProvider: VisualEffectShaderProvider {
-    var maxSampleOffset: CGSize { get }
+    func maxSampleOffset(_ proxy: GeometryProxy) -> CGSize
 }
 
 extension SampleOffsetEffectShaderProvider {
-    var maxSampleOffset: CGSize { .zero }
+    func maxSampleOffset(_: GeometryProxy) -> CGSize { .zero }
 }
 
 public protocol DistortionEffectShaderProvider: SampleOffsetEffectShaderProvider {}

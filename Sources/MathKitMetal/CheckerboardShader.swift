@@ -16,7 +16,7 @@ public struct CheckerboardShader: ColorEffectShaderProvider, Sendable {
         self.checkerOpacity = checkerOpacity
     }
 
-    public func shader(content _: EmptyVisualEffect, proxy _: GeometryProxy) -> Shader {
+    public func shader(_: GeometryProxy) -> Shader {
         Shader(
             function: shaderFunction(for: "checkerboard"),
             arguments: [.float(checkerSize), .float(checkerOpacity)]
@@ -27,5 +27,5 @@ public struct CheckerboardShader: ColorEffectShaderProvider, Sendable {
 #Preview {
     RoundedRectangle(cornerSize: .init(width: 200, height: 166))
         .fill(.green)
-        .shaderEffect(CheckerboardShader())
+        .shaderEffect(CheckerboardShader(checkerSize: 66))
 }

@@ -22,8 +22,8 @@ struct LayerEffectShaderModifier<Provider: LayerEffectShaderProvider>: ViewModif
 
     func body(content: Content) -> some View {
         content.visualEffect { content, proxy in
-            content.layerEffect(provider.shader(content: content, proxy: proxy),
-                                maxSampleOffset: provider.maxSampleOffset,
+            content.layerEffect(provider.shader(proxy),
+                                maxSampleOffset: provider.maxSampleOffset(proxy),
                                 isEnabled: provider.isEnabled)
         }
     }

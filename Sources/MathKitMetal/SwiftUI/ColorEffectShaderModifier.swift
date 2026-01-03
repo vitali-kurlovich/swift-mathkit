@@ -24,7 +24,7 @@ struct ColorEffectShaderModifier<Provider: ColorEffectShaderProvider>: ViewModif
         content.visualEffect { content, proxy in
             content
                 .colorEffect(
-                    provider.shader(content: content, proxy: proxy),
+                    provider.shader(proxy),
                     isEnabled: provider.isEnabled
                 )
         }

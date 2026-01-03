@@ -22,8 +22,8 @@ struct DistortionEffectShaderModifier<Provider: DistortionEffectShaderProvider>:
 
     func body(content: Content) -> some View {
         content.visualEffect { content, proxy in
-            content.distortionEffect(provider.shader(content: content, proxy: proxy),
-                                     maxSampleOffset: provider.maxSampleOffset,
+            content.distortionEffect(provider.shader(proxy),
+                                     maxSampleOffset: provider.maxSampleOffset(proxy),
                                      isEnabled: provider.isEnabled)
         }
     }
