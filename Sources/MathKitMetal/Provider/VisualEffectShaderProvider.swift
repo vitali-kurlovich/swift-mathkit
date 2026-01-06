@@ -21,7 +21,7 @@ public extension VisualEffectShaderProvider {
     }
 
     var shaderLibrary: ShaderLibrary {
-        ShaderLibrary.bundle(Bundle.module)
+        .default
     }
 
     func shaderFunction(for name: String) -> ShaderFunction {
@@ -37,7 +37,7 @@ public protocol SampleOffsetEffectShaderProvider: VisualEffectShaderProvider {
     func maxSampleOffset(_ proxy: GeometryProxy) -> CGSize
 }
 
-extension SampleOffsetEffectShaderProvider {
+public extension SampleOffsetEffectShaderProvider {
     func maxSampleOffset(_: GeometryProxy) -> CGSize { .zero }
 }
 
