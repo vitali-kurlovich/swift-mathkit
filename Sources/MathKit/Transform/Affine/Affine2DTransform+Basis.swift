@@ -9,9 +9,9 @@ import Foundation
 
 public extension Affine2DTransform {
     @inlinable init(origin: CGPoint, basisU: CGVector, basisV: CGVector) {
-        let tr = AffineTransform(m11: basisU.dx, m12: basisV.dx,
-                                 m21: basisU.dy, m22: basisV.dy,
-                                 tX: origin.x, tY: origin.y)
+        let tr = MKAffineTransform(m11: basisU.dx, m12: basisV.dx,
+                                   m21: basisU.dy, m22: basisV.dy,
+                                   tx: origin.x, ty: origin.y)
 
         self.init(tr)
     }

@@ -10,7 +10,7 @@ import Foundation
 // Rotation
 public extension Affine2DTransform {
     init(rotation: Angle) {
-        let transform = AffineTransform(rotationByRadians: rotation.radians)
+        let transform = MKAffineTransform(rotationByRadians: rotation.radians)
         self.init(transform)
     }
 
@@ -22,11 +22,11 @@ public extension Affine2DTransform {
 // Scale
 public extension Affine2DTransform {
     @inlinable init(scale: CGFloat) {
-        self.init(AffineTransform(scale: scale))
+        self.init(.init(scale: scale))
     }
 
     @inlinable init(scaleByX x: CGFloat, byY y: CGFloat) {
-        self.init(AffineTransform(scaleByX: x, byY: y))
+        self.init(.init(scaleByX: x, byY: y))
     }
 
     mutating func scale(_ scale: CGFloat) {
@@ -41,7 +41,7 @@ public extension Affine2DTransform {
 // Translate
 public extension Affine2DTransform {
     @inlinable init(translationByX x: CGFloat, byY y: CGFloat) {
-        self.init(AffineTransform(translationByX: x, byY: y))
+        self.init(.init(translationByX: x, byY: y))
     }
 
     mutating func translate(x: CGFloat, y: CGFloat) {
@@ -54,7 +54,7 @@ public extension Affine2DTransform {
         _transform.append(transform._transform)
     }
 
-    mutating func append(_ transform: AffineTransform) {
+    mutating func append(_ transform: MKAffineTransform<CGFloat>) {
         _transform.append(transform)
     }
 
@@ -62,12 +62,12 @@ public extension Affine2DTransform {
         _transform.prepend(transform._transform)
     }
 
-    mutating func prepend(_ transform: AffineTransform) {
+    mutating func prepend(_ transform: MKAffineTransform<CGFloat>) {
         _transform.prepend(transform)
     }
 }
 
-public extension AffineTransform {
+public extension MKAffineTransform where Float == CGFloat {
     mutating func append(_ transform: Affine2DTransform) {
         append(transform._transform)
     }

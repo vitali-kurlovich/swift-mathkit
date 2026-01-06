@@ -46,19 +46,19 @@ public extension Affine2DTransform {
 
     var tx: CGFloat {
         get {
-            _transform.tX
+            _transform.tx
         }
         set {
-            _transform.tX = newValue
+            _transform.tx = newValue
         }
     }
 
     var ty: CGFloat {
         get {
-            _transform.tY
+            _transform.ty
         }
         set {
-            _transform.tY = newValue
+            _transform.ty = newValue
         }
     }
 }

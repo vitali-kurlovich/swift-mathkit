@@ -15,7 +15,7 @@
         public var radians: Double
 
         @inlinable public var degrees: Double {
-            radians * (Double.pi / 180)
+            radians * (180 / Double.pi)
         }
 
         @inlinable public init() {
@@ -27,7 +27,7 @@
         }
 
         @inlinable public init(degrees: Double) {
-            self.init(radians: degrees * (180 / Double.pi))
+            self.init(radians: degrees * (Double.pi / 180))
         }
 
         @inlinable public static func radians(_ radians: Double) -> Angle {

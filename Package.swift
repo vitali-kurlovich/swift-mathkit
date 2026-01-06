@@ -18,8 +18,8 @@ let package = Package(
 
     ],
     dependencies: [
-        .package(url: "https://github.com/vitali-kurlovich/Benchmarks", from: "0.1.1"),
-        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.6.2"),
+        .package(url: "https://github.com/vitali-kurlovich/Benchmarks", from: "0.1.6"),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.7.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -31,7 +31,7 @@ let package = Package(
         .target(
             name: "MathKitMetal",
             dependencies: [
-                // .byName(name: "MathKit"),
+                "MathKit",
             ],
             resources: [
                 // .copy("Metal/")

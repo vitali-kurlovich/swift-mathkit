@@ -26,6 +26,10 @@ extension ControlPointsTransform: InverseUnitTransform2D {
         // dx23 dy01 - dx01 dy23 -> DU
         let DU = (dy01 * dx23).addingProduct(-dx01, dy23)
 
+        // ((x0 - x3) (y1 - y2) + x2 (y0 - y3) + x1 (-y0 + y3)) -> DV
+        //  dx03 dy12 - dx12 dy03 -> DV
+        let DV = (dx03 * dy12).addingProduct(-dy03, dx12)
+
         if abs(DU) <= epsilon {
             let divider = dy13 * x0 - dy03 * x1 + dy01 * x3
 
@@ -38,10 +42,6 @@ extension ControlPointsTransform: InverseUnitTransform2D {
 
             return .init(x: u / divider, y: v / divider)
         }
-
-        // ((x0 - x3) (y1 - y2) + x2 (y0 - y3) + x1 (-y0 + y3)) -> DV
-        //  dx03 dy12 - dx12 dy03 -> DV
-        let DV = (dx03 * dy12).addingProduct(-dy03, dx12)
 
         let PD = (py * (dx01 + dx23)).addingProduct(-px, dy01 + dy23)
 
