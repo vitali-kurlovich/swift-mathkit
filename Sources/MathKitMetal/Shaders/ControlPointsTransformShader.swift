@@ -10,11 +10,8 @@ import SwiftUI
 public struct ControlPointsTransformShader: LayerEffectShaderProvider, Sendable {
     public var transform: ControlPointsTransform
 
-    public var displayScale: CGFloat
-
-    public init(_ transform: ControlPointsTransform, displayScale: CGFloat) {
+    public init(_ transform: ControlPointsTransform) {
         self.transform = transform
-        self.displayScale = displayScale
     }
 
     public func shader(_: GeometryProxy) -> Shader {
@@ -22,10 +19,10 @@ public struct ControlPointsTransformShader: LayerEffectShaderProvider, Sendable 
             function: shaderFunction(for: "controlPointsTransform"),
             arguments: [
                 .boundingRect,
-                .float2(p0 * displayScale),
-                .float2(p1 * displayScale),
-                .float2(p2 * displayScale),
-                .float2(p3 * displayScale),
+                .float2(p0),
+                .float2(p1),
+                .float2(p2),
+                .float2(p3),
             ]
         )
     }
@@ -35,14 +32,13 @@ public struct ControlPointsTransformShader: LayerEffectShaderProvider, Sendable 
     }
 
     public func maxSampleOffset(_: GeometryProxy) -> CGSize {
-        .zero // .init(width: 50, height: 50)
+        .zero
     }
 }
 
 public extension ControlPointsTransformShader {
-    init(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, displayScale: CGFloat) {
-        let transform = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
-        self.init(transform, displayScale: displayScale)
+    init(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint) {
+        self.init(.init(p0: p0, p1: p1, p2: p2, p3: p3))
     }
 
     var p0: CGPoint {

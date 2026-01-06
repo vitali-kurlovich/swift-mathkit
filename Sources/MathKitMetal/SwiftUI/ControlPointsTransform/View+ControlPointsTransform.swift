@@ -19,10 +19,7 @@ public extension View {
 }
 
 struct ControlPointsModifier: ViewModifier {
-    var transform: ControlPointsTransform
-
-    @Environment(\.displayScale)
-    var displayScale: CGFloat
+    let transform: ControlPointsTransform
 
     init(_ transform: ControlPointsTransform) {
         self.transform = transform
@@ -30,15 +27,14 @@ struct ControlPointsModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content.shaderEffect(
-            ControlPointsTransformShader(transform, displayScale: displayScale)
+            ControlPointsTransformShader(transform)
         )
     }
 }
 
 extension ControlPointsModifier {
     init(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint) {
-        let transform = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
-        self.init(transform)
+        self.init(.init(p0: p0, p1: p1, p2: p2, p3: p3))
     }
 }
 
@@ -57,8 +53,8 @@ extension ControlPointsModifier {
         .geometryGroup()
         .controlPoints(
             p0: .init(x: 20, y: 0),
-            p1: .init(x: 200, y: 40),
-            p2: .init(x: 90, y: 166),
+            p1: .init(x: 600, y: 140),
+            p2: .init(x: 390, y: 366),
             p3: .init(x: 30, y: 120)
         )
 }
