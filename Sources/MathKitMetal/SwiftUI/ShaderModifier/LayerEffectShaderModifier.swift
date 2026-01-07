@@ -8,23 +8,20 @@
 import SwiftUI
 
 public extension View {
-    func shaderEffect<Provider: LayerEffectShaderProvider>(_ provider: Provider) -> some View {
-        modifier(LayerEffectShaderModifier(provider))
+    func shaderEffect<Provider: LayerEffectShaderProvider>(_ provider: Provider, isEnabled: Bool = true) -> some View {
+        modifier(LayerEffectShaderModifier(provider: provider, isEnabled: isEnabled))
     }
 }
 
 struct LayerEffectShaderModifier<Provider: LayerEffectShaderProvider>: ViewModifier {
     let provider: Provider
-
-    init(_ provider: Provider) {
-        self.provider = provider
-    }
+    let isEnabled: Bool
 
     func body(content: Content) -> some View {
         content.visualEffect { content, proxy in
             content.layerEffect(provider.shader(proxy),
                                 maxSampleOffset: provider.maxSampleOffset(proxy),
-                                isEnabled: provider.isEnabled)
+                                isEnabled: isEnabled)
         }
     }
 }

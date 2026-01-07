@@ -9,32 +9,29 @@ import MathKit
 import SwiftUI
 
 public extension View {
-    func controlPoints(_ transform: ControlPointsTransform) -> some View {
-        modifier(ControlPointsModifier(transform))
+    func controlPoints(_ transform: ControlPointsTransform, isEnabled: Bool = true) -> some View {
+        modifier(ControlPointsModifier(transform: transform, isEnabled: isEnabled))
     }
 
-    func controlPoints(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint) -> some View {
-        modifier(ControlPointsModifier(p0: p0, p1: p1, p2: p2, p3: p3))
+    func controlPoints(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, isEnabled: Bool = true) -> some View {
+        modifier(ControlPointsModifier(p0: p0, p1: p1, p2: p2, p3: p3, isEnabled: isEnabled))
     }
 }
 
 struct ControlPointsModifier: ViewModifier {
     let transform: ControlPointsTransform
-
-    init(_ transform: ControlPointsTransform) {
-        self.transform = transform
-    }
+    let isEnabled: Bool
 
     func body(content: Content) -> some View {
         content.shaderEffect(
-            ControlPointsTransformShader(transform)
+            ControlPointsTransformShader(transform), isEnabled: isEnabled
         )
     }
 }
 
 extension ControlPointsModifier {
-    init(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint) {
-        self.init(.init(p0: p0, p1: p1, p2: p2, p3: p3))
+    init(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, isEnabled: Bool) {
+        self.init(transform: .init(p0: p0, p1: p1, p2: p2, p3: p3), isEnabled: isEnabled)
     }
 }
 

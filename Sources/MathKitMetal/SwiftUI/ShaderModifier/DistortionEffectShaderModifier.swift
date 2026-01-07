@@ -8,23 +8,20 @@
 import SwiftUI
 
 public extension View {
-    func shaderEffect<Provider: DistortionEffectShaderProvider>(_ provider: Provider) -> some View {
-        modifier(DistortionEffectShaderModifier(provider))
+    func shaderEffect<Provider: DistortionEffectShaderProvider>(_ provider: Provider, isEnabled: Bool = true) -> some View {
+        modifier(DistortionEffectShaderModifier(provider: provider, isEnabled: isEnabled))
     }
 }
 
 struct DistortionEffectShaderModifier<Provider: DistortionEffectShaderProvider>: ViewModifier {
     let provider: Provider
-
-    init(_ provider: Provider) {
-        self.provider = provider
-    }
+    let isEnabled: Bool
 
     func body(content: Content) -> some View {
         content.visualEffect { content, proxy in
             content.distortionEffect(provider.shader(proxy),
                                      maxSampleOffset: provider.maxSampleOffset(proxy),
-                                     isEnabled: provider.isEnabled)
+                                     isEnabled: isEnabled)
         }
     }
 }

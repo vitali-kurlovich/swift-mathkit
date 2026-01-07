@@ -8,7 +8,6 @@
 import SwiftUI
 
 public protocol VisualEffectShaderProvider: Sendable {
-    var isEnabled: Bool { get }
     var shaderLibrary: ShaderLibrary { get }
 
     func shaderFunction(for name: String) -> ShaderFunction
@@ -16,10 +15,6 @@ public protocol VisualEffectShaderProvider: Sendable {
 }
 
 public extension VisualEffectShaderProvider {
-    var isEnabled: Bool {
-        true
-    }
-
     var shaderLibrary: ShaderLibrary {
         .default
     }
