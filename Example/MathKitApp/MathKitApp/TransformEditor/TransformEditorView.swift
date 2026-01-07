@@ -10,7 +10,12 @@ import SwiftUI
 
 import MathKitMetal
 
-struct TransformEditorView<Content: View>: View {
+struct TransformEditorView: View {
+    enum ContentType: CaseIterable {
+        case animation
+        case image
+    }
+
     @State private var p0: CGPoint = .init(x: 10, y: 10)
     @State private var p1: CGPoint = .init(x: 200, y: 10)
     @State private var p2: CGPoint = .init(x: 200, y: 150)
@@ -25,23 +30,17 @@ struct TransformEditorView<Content: View>: View {
     @State
     private var isEditing = true
 
-    @State private var contentSize: CGSize = .zero
+    @State private var contentFrame: CGRect = .zero
 
-    private let content: () -> Content
-
-    init(@ViewBuilder content: @escaping () -> Content) {
-        self.content = content
-    }
+    @State private var contentType: ContentType = .animation
 
     var body: some View {
-        content()
-            .onGeometryChange(for: CGSize.self) { proxy in
-                proxy.size
-            } action: { newValue in
-                contentSize = newValue
-                print("View size: \(contentSize)")
+        AnimatedPlaceholder()
+            .onGeometryChange(for: CGRect.self) { proxy in
+                proxy.frame(in: .local)
+            } action: { frame in
+                resetControlPoints(in: frame)
             }
-
             .geometryGroup()
             .controlPoints(
                 p0: p0,
@@ -62,7 +61,15 @@ struct TransformEditorView<Content: View>: View {
                 }
             }
             .toolbar {
-                ToolbarItemGroup(placement: .status) {
+                ToolbarItemGroup(placement: .secondaryAction) {
+                    Picker("Select Mode", selection: $contentType) {
+                        Image(systemName: "heart.rectangle.fill").tag(ContentType.animation)
+                        Image(systemName: "photo").tag(ContentType.image)
+                    }
+                    .pickerStyle(.segmented)
+                }
+
+                ToolbarItemGroup(placement: .automatic) {
                     Toggle(isOn: $showControlPoints) {
                         Image(systemName: "skew")
                     }
@@ -80,25 +87,35 @@ struct TransformEditorView<Content: View>: View {
                     }
                 }
 
-                ToolbarItemGroup(placement: .primaryAction) {
+                ToolbarSpacer(.flexible)
+
+                ToolbarItem(placement: .automatic) {
+                    Button("Reset", systemImage: "square.dashed") {
+                        resetControlPoints(in: contentFrame)
+                    }
+                }
+
+                ToolbarItem(placement: .automatic) {
                     Toggle(isOn: $isEditing) {
                         Image(systemName: "perspective")
                     }
                 }
             }
+            .padding()
+    }
+}
+
+private extension TransformEditorView {
+    func resetControlPoints(in frame: CGRect) {
+        p0 = .init(x: frame.minX, y: frame.minY)
+        p1 = .init(x: frame.maxX, y: frame.minY)
+        p2 = .init(x: frame.maxX, y: frame.maxY)
+        p3 = .init(x: frame.minX, y: frame.maxY)
+
+        contentFrame = frame
     }
 }
 
 #Preview {
-    TransformEditorView {
-        RoundedRectangle(cornerSize: .init(width: 120, height: 120))
-            .fill(.indigo.secondary)
-            .overlay {
-                Image(systemName: "heart.circle.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.yellow, .green, .red.gradient)
-                    .font(.system(size: 220, weight: .semibold))
-                    .symbolEffect(.breathe)
-            }.frame(width: 300, height: 250)
-    }
+    TransformEditorView()
 }
