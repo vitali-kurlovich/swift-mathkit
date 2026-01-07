@@ -56,7 +56,7 @@ struct EditorGrid {
 
         let transform = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
-        let locations = [0.25, 0.75]
+        let locations = [0.25, 0.5, 0.75]
 
         for u in locations {
             let t0 = transform.transform(.init(x: u, y: 0))
@@ -82,7 +82,7 @@ struct EditorGrid {
 
         let transform = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
-        let locations = [0.125, 0.375, 0.625, 0.875]
+        let locations = [0.125, 0.375, 0.5, 0.625, 0.875]
 
         for u in locations {
             let t0 = transform.transform(.init(x: u, y: 0))
