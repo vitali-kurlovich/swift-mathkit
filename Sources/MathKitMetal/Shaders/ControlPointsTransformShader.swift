@@ -8,21 +8,35 @@ import MathKit
 import SwiftUI
 
 public struct ControlPointsTransformShader: LayerEffectShaderProvider, Sendable {
-    public var transform: ControlPointsTransform
+    public var p0: CGVector
+    public var p1: CGVector
+    public var p2: CGVector
+    public var p3: CGVector
 
-    public init(_ transform: ControlPointsTransform) {
-        self.transform = transform
+    public init(p0: CGVector, p1: CGVector, p2: CGVector, p3: CGVector) {
+        self.p0 = p0
+        self.p1 = p1
+        self.p2 = p2
+        self.p3 = p3
     }
 
-    public func shader(_: GeometryProxy) -> Shader {
+    public func shader(_ proxy: GeometryProxy) -> Shader {
+        let frame = proxy.frame(in: .local)
+
+        let p0 = CGPoint(x: frame.minX, y: frame.minY)
+        let p1 = CGPoint(x: frame.maxX, y: frame.minY)
+
+        let p2 = CGPoint(x: frame.maxX, y: frame.maxY)
+        let p3 = CGPoint(x: frame.minX, y: frame.maxY)
+
         return Shader(
             function: shaderFunction(for: "controlPointsTransform"),
             arguments: [
                 .boundingRect,
-                .float2(p0),
-                .float2(p1),
-                .float2(p2),
-                .float2(p3),
+                .float2(p0 + self.p0),
+                .float2(p1 + self.p1),
+                .float2(p2 + self.p2),
+                .float2(p3 + self.p3),
             ]
         )
     }
@@ -33,49 +47,5 @@ public struct ControlPointsTransformShader: LayerEffectShaderProvider, Sendable 
 
     public func maxSampleOffset(_: GeometryProxy) -> CGSize {
         .zero
-
-        // .init(width: 200, height: 200)
-    }
-}
-
-public extension ControlPointsTransformShader {
-    init(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint) {
-        self.init(.init(p0: p0, p1: p1, p2: p2, p3: p3))
-    }
-
-    var p0: CGPoint {
-        get {
-            transform.p0
-        }
-        set {
-            transform.p0 = newValue
-        }
-    }
-
-    var p1: CGPoint {
-        get {
-            transform.p1
-        }
-        set {
-            transform.p1 = newValue
-        }
-    }
-
-    var p2: CGPoint {
-        get {
-            transform.p2
-        }
-        set {
-            transform.p2 = newValue
-        }
-    }
-
-    var p3: CGPoint {
-        get {
-            transform.p3
-        }
-        set {
-            transform.p3 = newValue
-        }
     }
 }

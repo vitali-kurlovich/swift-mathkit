@@ -51,13 +51,13 @@ struct TransformEditorView: View {
                     editorModel.update(local: geometry.local, global: geometry.global)
                 }
                 .geometryGroup()
-                .controlPoints(
-                    p0: editorModel.p0,
-                    p1: editorModel.p1,
-                    p2: editorModel.p2,
-                    p3: editorModel.p3,
-                    isEnabled: configuration.isEditing
-                )
+//                .controlPoints(
+//                    p0: editorModel.p0,
+//                    p1: editorModel.p1,
+//                    p2: editorModel.p2,
+//                    p3: editorModel.p3,
+//                    isEnabled: configuration.isEditing
+//                )
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay {
                 TransformEditorGrid(editorModel: $editorModel,
