@@ -10,12 +10,25 @@ import SwiftUI
 
 import MathKitMetal
 
-struct TransformEditorView: View {
+struct EditedContent: View {
     enum ContentType: CaseIterable {
         case animation
         case image
     }
 
+    @Binding var contentType: ContentType
+
+    var body: some View {
+        switch contentType {
+        case .animation:
+            AnimatedPlaceholder()
+        case .image:
+            ImageDropContainer()
+        }
+    }
+}
+
+struct TransformEditorView: View {
     @State private var p0: CGPoint = .init(x: 10, y: 10)
     @State private var p1: CGPoint = .init(x: 200, y: 10)
     @State private var p2: CGPoint = .init(x: 200, y: 150)
@@ -32,10 +45,11 @@ struct TransformEditorView: View {
 
     @State private var contentFrame: CGRect = .zero
 
+    typealias ContentType = EditedContent.ContentType
     @State private var contentType: ContentType = .animation
 
     var body: some View {
-        AnimatedPlaceholder()
+        EditedContent(contentType: $contentType)
             .onGeometryChange(for: CGRect.self) { proxy in
                 proxy.frame(in: .local)
             } action: { frame in

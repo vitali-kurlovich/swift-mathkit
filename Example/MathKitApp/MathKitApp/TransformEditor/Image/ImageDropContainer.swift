@@ -25,17 +25,23 @@ struct ImageDropContainer: View {
             }
         }
         .scaleEffect(animationScale)
-        .dropDestination(for: Image.self) { items, _ in
-            // This closure is called when items are dropped
-            if let firstImage = items.first {
-                image = firstImage
-                return true // Indicate success
+        .dropDestination(
+            for: Image.self
+        ) { receivedImages, _ in
+            image = receivedImages.first
+        }
+        .dropConfiguration { dropSession in
+            debugPrint(dropSession)
+
+            isDropTargeted = dropSession.phase == .active
+
+            if dropSession.suggestedOperations.contains(.move) {
+                return DropConfiguration(operation: .move)
             }
-            return false
-        } isTargeted: { targeted in
-            // This closure updates the isTargeted binding
-            isDropTargeted = targeted
-        }.onChange(of: isDropTargeted) { _, newValue in
+            return DropConfiguration(operation: .copy)
+        }
+        .onChange(of: isDropTargeted) { oldValue, newValue in
+            guard oldValue != newValue else { return }
             animationScale = newValue ? 1.1 : 1.0
         }
         .animation(.bouncy,
