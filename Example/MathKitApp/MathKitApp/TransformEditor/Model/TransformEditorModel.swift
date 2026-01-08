@@ -17,16 +17,28 @@ class TransformEditorModel {
 
     var contentFrame: CGRect = .zero
 
-    func update(with frame: CGRect) {
+    var offset: CGSize = .zero
+
+    var image: Image?
+
+    func update(local frame: CGRect, global: CGRect) {
         p0 = .init(x: frame.minX, y: frame.minY)
         p1 = .init(x: frame.maxX, y: frame.minY)
         p2 = .init(x: frame.maxX, y: frame.maxY)
         p3 = .init(x: frame.minX, y: frame.maxY)
 
+        let width = global.minX - frame.minX
+        let height = global.minY - frame.minY
+
+        offset = .init(width: width, height: height)
+
         contentFrame = frame
     }
 
     func reset() {
-        update(with: contentFrame)
+        p0 = .init(x: contentFrame.minX, y: contentFrame.minY)
+        p1 = .init(x: contentFrame.maxX, y: contentFrame.minY)
+        p2 = .init(x: contentFrame.maxX, y: contentFrame.maxY)
+        p3 = .init(x: contentFrame.minX, y: contentFrame.maxY)
     }
 }

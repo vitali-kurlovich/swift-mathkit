@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TransformEditorView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
     }
 }

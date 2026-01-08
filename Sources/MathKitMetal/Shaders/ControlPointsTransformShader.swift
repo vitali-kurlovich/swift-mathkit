@@ -33,6 +33,8 @@ public struct ControlPointsTransformShader: LayerEffectShaderProvider, Sendable 
 
     public func maxSampleOffset(_: GeometryProxy) -> CGSize {
         .zero
+
+        // .init(width: 200, height: 200)
     }
 }
 

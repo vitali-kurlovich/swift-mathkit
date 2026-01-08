@@ -26,6 +26,11 @@ struct EditedContent: View {
     }
 }
 
+private nonisolated struct GeometryData: Equatable {
+    let local: CGRect
+    let global: CGRect
+}
+
 struct TransformEditorView: View {
     @State var editorModel: TransformEditorModel = .init()
     @State var configuration: TransformEditorConfiguration = .init()
@@ -33,31 +38,59 @@ struct TransformEditorView: View {
     typealias ContentType = EditedContent.ContentType
 
     var body: some View {
-        EditedContent(contentType: $configuration.contentType)
-            .onGeometryChange(for: CGRect.self) { proxy in
-                proxy.frame(in: .local)
-            } action: { frame in
-                editorModel.update(with: frame)
-            }
-            .geometryGroup()
-            .controlPoints(
-                p0: editorModel.p0,
-                p1: editorModel.p1,
-                p2: editorModel.p2,
-                p3: editorModel.p3,
-                isEnabled: configuration.isEditing
-            )
+        ZStack {
+            EditedContent(contentType: $configuration.contentType)
+                .onGeometryChange(for: GeometryData.self) { proxy in
+                    let local = proxy.frame(in: .local)
+                    let global = proxy.frame(in: .global)
+
+                    debugPrint(local, global)
+
+                    return .init(local: local, global: global)
+                } action: { geometry in
+                    editorModel.update(local: geometry.local, global: geometry.global)
+                }
+                .geometryGroup()
+                .controlPoints(
+                    p0: editorModel.p0,
+                    p1: editorModel.p1,
+                    p2: editorModel.p2,
+                    p3: editorModel.p3,
+                    isEnabled: configuration.isEditing
+                )
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay {
                 TransformEditorGrid(editorModel: $editorModel,
                                     configuration: $configuration)
+                    .onGeometryChange(for: GeometryData.self) { proxy in
+                        let local = proxy.frame(in: .local)
+                        let global = proxy.frame(in: .global)
+
+                        debugPrint(local, global)
+
+                        return .init(local: local, global: global)
+                    } action: { _ in
+                    }
+
+                // .offset(editorModel.offset)
             }
             .overlay {
                 if configuration.showControlPoints {
                     DraggableControlsView(editorModel: self.$editorModel)
+                        .onGeometryChange(for: GeometryData.self) { proxy in
+                            let local = proxy.frame(in: .local)
+                            let global = proxy.frame(in: .global)
+
+                            debugPrint(local, global)
+
+                            return .init(local: local, global: global)
+                        } action: { _ in
+                        }
+                    // .offset(editorModel.offset)
                 }
             }
+
             .toolbar(editorModel, $configuration)
-            .padding()
     }
 }
 

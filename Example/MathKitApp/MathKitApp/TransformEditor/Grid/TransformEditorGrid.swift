@@ -5,6 +5,7 @@
 //  Created by Vitali Kurlovich on 7.01.26.
 //
 
+import MathKit
 import SwiftUI
 
 struct TransformEditorGrid: View {
@@ -14,7 +15,11 @@ struct TransformEditorGrid: View {
 
     var body: some View {
         Canvas { context, _ in
-            let grid = EditorGrid(editorModel.p0, editorModel.p1, editorModel.p2, editorModel.p3)
+            let grid = EditorGrid(editorModel.p0,
+                                  editorModel.p1,
+                                  editorModel.p2,
+                                  editorModel.p3)
+
             if configuration.showOrigin {
                 context.stroke(grid.origin, with: .foreground)
             }
