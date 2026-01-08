@@ -5,10 +5,8 @@
 //  Created by Vitali Kurlovich on 31.12.25.
 //
 
-import MathKit
-import SwiftUI
-
 import MathKitMetal
+import SwiftUI
 
 struct EditedContent: View {
     enum ContentType: CaseIterable {
@@ -29,54 +27,38 @@ struct EditedContent: View {
 }
 
 struct TransformEditorView: View {
-    @State private var p0: CGPoint = .init(x: 10, y: 10)
-    @State private var p1: CGPoint = .init(x: 200, y: 10)
-    @State private var p2: CGPoint = .init(x: 200, y: 150)
-    @State private var p3: CGPoint = .init(x: 10, y: 150)
-
-    @State
-    private var gridConfiguration: TransformEditorGrid.Configuration = .init(showOutline: true, showOrigin: false, showGrid: true)
-
-    @State
-    private var showControlPoints = true
-
-    @State
-    private var isEditing = true
-
-    @State private var contentFrame: CGRect = .zero
+    @State var editorModel: TransformEditorModel = .init()
+    @State var configuration: TransformEditorConfiguration = .init()
 
     typealias ContentType = EditedContent.ContentType
-    @State private var contentType: ContentType = .animation
 
     var body: some View {
-        EditedContent(contentType: $contentType)
+        EditedContent(contentType: $configuration.contentType)
             .onGeometryChange(for: CGRect.self) { proxy in
                 proxy.frame(in: .local)
             } action: { frame in
-                resetControlPoints(in: frame)
+                editorModel.update(with: frame)
             }
             .geometryGroup()
             .controlPoints(
-                p0: p0,
-                p1: p1,
-                p2: p2,
-                p3: p3,
-                isEnabled: isEditing
+                p0: editorModel.p0,
+                p1: editorModel.p1,
+                p2: editorModel.p2,
+                p3: editorModel.p3,
+                isEnabled: configuration.isEditing
             )
             .overlay {
-                TransformEditorGrid(p0: $p0, p1: $p1, p2: $p2, p3: $p3, configuration: $gridConfiguration)
+                TransformEditorGrid(editorModel: $editorModel,
+                                    configuration: $configuration)
             }
             .overlay {
-                if showControlPoints {
-                    DraggableHandles($p0).position(p0)
-                    DraggableHandles($p1).position(p1)
-                    DraggableHandles($p2).position(p2)
-                    DraggableHandles($p3).position(p3)
+                if configuration.showControlPoints {
+                    DraggableControlsView(editorModel: self.$editorModel)
                 }
             }
             .toolbar {
                 ToolbarItemGroup(placement: .secondaryAction) {
-                    Picker("Select Mode", selection: $contentType) {
+                    Picker("Select Mode", selection: $configuration.contentType) {
                         Image(systemName: "heart.rectangle.fill").tag(ContentType.animation)
                         Image(systemName: "photo").tag(ContentType.image)
                     }
@@ -84,19 +66,19 @@ struct TransformEditorView: View {
                 }
 
                 ToolbarItemGroup(placement: .automatic) {
-                    Toggle(isOn: $showControlPoints) {
+                    Toggle(isOn: $configuration.showControlPoints) {
                         Image(systemName: "skew")
                     }
 
-                    Toggle(isOn: $gridConfiguration.showOutline) {
+                    Toggle(isOn: $configuration.showOutline) {
                         Image(systemName: "rectangle.dashed")
                     }
 
-                    Toggle(isOn: $gridConfiguration.showOrigin) {
+                    Toggle(isOn: $configuration.showOrigin) {
                         Image(systemName: "dot.squareshape.split.2x2")
                     }
 
-                    Toggle(isOn: $gridConfiguration.showGrid) {
+                    Toggle(isOn: $configuration.showGrid) {
                         Image(systemName: "squareshape.split.3x3")
                     }
                 }
@@ -105,28 +87,17 @@ struct TransformEditorView: View {
 
                 ToolbarItem(placement: .automatic) {
                     Button("Reset", systemImage: "square.dashed") {
-                        resetControlPoints(in: contentFrame)
+                        editorModel.reset()
                     }
                 }
 
                 ToolbarItem(placement: .automatic) {
-                    Toggle(isOn: $isEditing) {
+                    Toggle(isOn: $configuration.isEditing) {
                         Image(systemName: "perspective")
                     }
                 }
             }
             .padding()
-    }
-}
-
-private extension TransformEditorView {
-    func resetControlPoints(in frame: CGRect) {
-        p0 = .init(x: frame.minX, y: frame.minY)
-        p1 = .init(x: frame.maxX, y: frame.minY)
-        p2 = .init(x: frame.maxX, y: frame.maxY)
-        p3 = .init(x: frame.minX, y: frame.maxY)
-
-        contentFrame = frame
     }
 }
 
