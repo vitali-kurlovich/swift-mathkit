@@ -45,7 +45,46 @@ public struct ControlPointsTransformShader: LayerEffectShaderProvider, Sendable 
         ShaderLibrary.bundle(Bundle.module)
     }
 
-    public func maxSampleOffset(_: GeometryProxy) -> CGSize {
-        .zero
+    public func maxSampleOffset(_ proxy: GeometryProxy) -> CGSize {
+        let local = proxy.frame(in: .local)
+        let bounds = self.bounds(proxy)
+
+        let topOffset = local.minY - bounds.minY
+        let bottomOffset = bounds.maxY - local.maxY
+
+        let leftOffset = local.minX - bounds.minX
+        let rightOffset = bounds.maxX - local.maxX
+
+        let width = max(leftOffset, rightOffset)
+        let height = max(topOffset, bottomOffset)
+
+        return .init(width: width, height: height)
+    }
+}
+
+private extension ControlPointsTransformShader {
+    func points(_ proxy: GeometryProxy) -> (CGPoint, CGPoint, CGPoint, CGPoint) {
+        let local = proxy.frame(in: .local)
+
+        let p0 = CGPoint(x: local.minX, y: local.minY) + self.p0
+        let p1 = CGPoint(x: local.maxX, y: local.minY) + self.p1
+        let p2 = CGPoint(x: local.maxX, y: local.maxY) + self.p2
+        let p3 = CGPoint(x: local.minX, y: local.maxY) + self.p3
+
+        return (p0, p1, p2, p3)
+    }
+
+    func bounds(_ proxy: GeometryProxy) -> CGRect {
+        let local = proxy.frame(in: .local)
+
+        let (p0, p1, p2, p3) = points(proxy)
+
+        let minX = min(p0.x, p1.x, p2.x, p3.x, local.minX)
+        let maxX = max(p0.x, p1.x, p2.x, p3.x, local.maxX)
+
+        let minY = min(p0.y, p1.y, p2.y, p3.y, local.minY)
+        let maxY = max(p0.y, p1.y, p2.y, p3.y, local.maxY)
+
+        return .init(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
     }
 }
