@@ -15,10 +15,13 @@ struct TransformEditorGrid: View {
 
     var body: some View {
         Canvas { context, _ in
-            let grid = EditorGrid(editorModel.p0,
-                                  editorModel.p1,
-                                  editorModel.p2,
-                                  editorModel.p3)
+            let resolver = ControlPointsResolver(contentGeometry: editorModel.contentGeometry,
+                                                 targetGeometry: editorModel.gridGeometry)
+
+            let grid = EditorGrid(resolver.position(p0: editorModel.p0),
+                                  resolver.position(p1: editorModel.p1),
+                                  resolver.position(p2: editorModel.p2),
+                                  resolver.position(p3: editorModel.p3))
 
             if configuration.showOrigin {
                 context.stroke(grid.origin, with: .foreground)
