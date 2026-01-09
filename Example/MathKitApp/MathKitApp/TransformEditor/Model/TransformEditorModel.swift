@@ -10,12 +10,18 @@ import SwiftUI
 
 @Observable
 class TransformEditorModel {
+    enum ContentType: CaseIterable {
+        case animation
+        case image
+    }
+
     var p0: CGVector = .zero
     var p1: CGVector = .zero
     var p2: CGVector = .zero
     var p3: CGVector = .zero
 
     var image: Image?
+    var contentType: ContentType = .animation
 
     var contentGeometry = ContentGeometry()
     var controlsGeometry = ContentGeometry()

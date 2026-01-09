@@ -9,30 +9,30 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct ImageDropContainer: View {
-    @State private var image: Image? = nil
+    @Binding var image: Image?
     @State private var isDropTargeted: Bool = false
 
     @State private var animationScale = 1.0
+    @State private var animationOpacity = 0.0
 
     var body: some View {
         ZStack {
-            if let image {
-                image.overlay {
-                    Rectangle().fill(isDropTargeted ? Color.accentColor.tertiary : Color.clear.tertiary)
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.accentColor.gradient.tertiary.opacity(animationOpacity))
+                .overlay {
+                    if image == nil {
+                        ImageDropPlaceholder(isDropTargeted: $isDropTargeted)
+                            .scaleEffect(animationScale)
+                    }
                 }
-            } else {
-                ImageDropPlaceholder(isDropTargeted: $isDropTargeted)
-            }
         }
-        .scaleEffect(animationScale)
+
         .dropDestination(
             for: Image.self
         ) { receivedImages, _ in
             image = receivedImages.first
         }
         .dropConfiguration { dropSession in
-            debugPrint(dropSession)
-
             isDropTargeted = dropSession.phase == .active
 
             if dropSession.suggestedOperations.contains(.move) {
@@ -43,8 +43,11 @@ struct ImageDropContainer: View {
         .onChange(of: isDropTargeted) { oldValue, newValue in
             guard oldValue != newValue else { return }
             animationScale = newValue ? 1.1 : 1.0
+            animationOpacity = newValue ? 1.0 : 0.0
         }
         .animation(.bouncy,
                    value: animationScale)
+        .animation(.snappy,
+                   value: animationOpacity)
     }
 }

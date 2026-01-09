@@ -9,19 +9,14 @@ import MathKitMetal
 import SwiftUI
 
 struct EditedContent: View {
-    enum ContentType: CaseIterable {
-        case animation
-        case image
-    }
-
-    @Binding var contentType: ContentType
+    @Binding var editorModel: TransformEditorModel
 
     var body: some View {
-        switch contentType {
+        switch editorModel.contentType {
         case .animation:
             AnimatedPlaceholder()
         case .image:
-            ImageDropContainer()
+            editorModel.image
         }
     }
 }
@@ -30,36 +25,41 @@ struct TransformEditorView: View {
     @State var editorModel: TransformEditorModel = .init()
     @State var configuration: TransformEditorConfiguration = .init()
 
-    typealias ContentType = EditedContent.ContentType
+    typealias ContentType = TransformEditorModel.ContentType
 
     var body: some View {
         ZStack {
-            EditedContent(contentType: $configuration.contentType)
-                .onGeometryChange(for: ContentGeometry.self) { proxy in
-                    .init(proxy)
-                } action: { geometry in
-                    editorModel.contentGeometry = geometry
-                }
-                .geometryGroup()
-                .controlPoints(
-                    p0: editorModel.p0,
-                    p1: editorModel.p1,
-                    p2: editorModel.p2,
-                    p3: editorModel.p3,
-                    isEnabled: configuration.isEditing
-                )
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
-            .overlay {
-                TransformEditorGrid(editorModel: $editorModel,
-                                    configuration: $configuration)
+            if containsContent {
+                EditedContent(editorModel: $editorModel)
                     .onGeometryChange(for: ContentGeometry.self) { proxy in
                         .init(proxy)
                     } action: { geometry in
-                        editorModel.gridGeometry = geometry
+                        editorModel.contentGeometry = geometry
                     }
+                    .geometryGroup()
+                    .controlPoints(
+                        p0: editorModel.p0,
+                        p1: editorModel.p1,
+                        p2: editorModel.p2,
+                        p3: editorModel.p3,
+                        isEnabled: configuration.isEditing
+                    )
+            }
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay {
+                if containsContent {
+                    TransformEditorGrid(editorModel: $editorModel,
+                                        configuration: $configuration)
+                        .blendMode(.difference)
+                        .onGeometryChange(for: ContentGeometry.self) { proxy in
+                            .init(proxy)
+                        } action: { geometry in
+                            editorModel.gridGeometry = geometry
+                        }
+                }
             }
             .overlay {
-                if configuration.showControlPoints {
+                if containsContent, configuration.showControlPoints {
                     DraggableControlsView(editorModel: self.$editorModel)
                         .onGeometryChange(for: ContentGeometry.self) { proxy in
                             .init(proxy)
@@ -67,8 +67,23 @@ struct TransformEditorView: View {
                             editorModel.controlsGeometry = geometry
                         }
                 }
+            }.overlay {
+                if editorModel.contentType == .image {
+                    ImageDropContainer(image: $editorModel.image)
+                }
             }
-            .toolbar(editorModel, $configuration)
+            .toolbar($editorModel, $configuration)
+    }
+}
+
+private extension TransformEditorView {
+    var containsContent: Bool {
+        switch editorModel.contentType {
+        case .animation:
+            return true
+        case .image:
+            return editorModel.image != nil
+        }
     }
 }
 

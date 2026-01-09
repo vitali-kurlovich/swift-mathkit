@@ -34,7 +34,8 @@ struct DraggableHandles: View {
 
     var body: some View {
         let dragGesture = DragGesture()
-            .updating($dragState) { value, _, _ in
+            .updating($dragState) { value, state, _ in
+                state = .dragging(value)
                 var newLocation = location
                 newLocation.x += value.translation.width
                 newLocation.y += value.translation.height
@@ -48,7 +49,7 @@ struct DraggableHandles: View {
                 location = newLocation
             }
 
-        return Image(systemName: "circlebadge.fill")
+        return Image(systemName: "circle.fill")
             .foregroundStyle(Color.accentColor.gradient)
             .gesture(dragGesture)
     }

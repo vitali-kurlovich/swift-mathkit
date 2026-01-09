@@ -8,14 +8,14 @@
 import SwiftUI
 
 extension View {
-    func toolbar(_ editorModel: TransformEditorModel,
+    func toolbar(_ editorModel: Binding<TransformEditorModel>,
                  _ configuration: Binding<TransformEditorConfiguration>) -> some View
     {
-        typealias ContentType = EditedContent.ContentType
+        typealias ContentType = TransformEditorModel.ContentType
 
         return toolbar {
             ToolbarItemGroup(placement: .secondaryAction) {
-                Picker("Select Mode", selection: configuration.contentType) {
+                Picker("Select Mode", selection: editorModel.contentType) {
                     Image(systemName: "heart.rectangle.fill").tag(ContentType.animation)
                     Image(systemName: "photo").tag(ContentType.image)
                 }
@@ -44,7 +44,7 @@ extension View {
 
             ToolbarItem(placement: .automatic) {
                 Button("Reset", systemImage: "square.dashed") {
-                    editorModel.reset()
+                    editorModel.wrappedValue.reset()
                 }
             }
 
