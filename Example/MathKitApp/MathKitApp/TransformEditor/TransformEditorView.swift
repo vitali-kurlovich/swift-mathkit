@@ -60,7 +60,7 @@ struct TransformEditorView: View {
             }
             .overlay {
                 if containsContent, configuration.showControlPoints {
-                    DraggableControlsView(editorModel: self.$editorModel)
+                    TransformToolHandles(editorModel: self.$editorModel)
                         .onGeometryChange(for: ContentGeometry.self) { proxy in
                             .init(proxy)
                         } action: { geometry in

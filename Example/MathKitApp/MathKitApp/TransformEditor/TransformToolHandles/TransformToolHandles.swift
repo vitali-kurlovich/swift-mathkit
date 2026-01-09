@@ -1,5 +1,5 @@
 //
-//  DraggableControlsView.swift
+//  TransformToolHandles.swift
 //  MathKitApp
 //
 //  Created by Vitali Kurlovich on 8.01.26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DraggableControlsView: View {
+struct TransformToolHandles: View {
     @Binding var editorModel: TransformEditorModel
 
     var body: some View {
@@ -25,14 +25,14 @@ struct DraggableControlsView: View {
     }
 }
 
-private extension DraggableControlsView {
+private extension TransformToolHandles {
     var resolver: ControlPointsResolver {
         ControlPointsResolver(contentGeometry: editorModel.contentGeometry,
                               targetGeometry: editorModel.controlsGeometry)
     }
 }
 
-private extension DraggableControlsView {
+private extension TransformToolHandles {
     var p0: Binding<CGPoint> {
         .init(get: {
             resolver.position(p0: editorModel.p0)
@@ -66,7 +66,7 @@ private extension DraggableControlsView {
     }
 }
 
-private extension DraggableControlsView {
+private extension TransformToolHandles {
     var location0: CGPoint {
         resolver.position(p0: editorModel.p0)
     }

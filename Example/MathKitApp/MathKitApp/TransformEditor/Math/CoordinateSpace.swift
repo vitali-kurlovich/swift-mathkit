@@ -5,6 +5,7 @@
 //  Created by Vitali Kurlovich on 8.01.26.
 //
 
+import Foundation
 import SwiftUI
 
 nonisolated struct CoordinateSpace: Equatable {
