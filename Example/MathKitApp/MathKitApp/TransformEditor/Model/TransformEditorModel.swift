@@ -21,16 +21,15 @@ class TransformEditorModel {
 
     var image: Image?
 
-    func update(local frame: CGRect, global: CGRect) {
+    var contentSpace = CoordinateSpace()
+    var controlsSpace = CoordinateSpace()
+    var gridSpace = CoordinateSpace()
+
+    func update(local frame: CGRect, global _: CGRect) {
         p0 = .init(x: frame.minX, y: frame.minY)
         p1 = .init(x: frame.maxX, y: frame.minY)
         p2 = .init(x: frame.maxX, y: frame.maxY)
         p3 = .init(x: frame.minX, y: frame.maxY)
-
-        let width = global.minX - frame.minX
-        let height = global.minY - frame.minY
-
-        offset = .init(width: width, height: height)
 
         contentFrame = frame
     }
