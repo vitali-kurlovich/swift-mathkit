@@ -5,6 +5,8 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
+import Foundation
+
 public struct RectTransform {
     private let origin: CGPoint
     private let size: CGSize

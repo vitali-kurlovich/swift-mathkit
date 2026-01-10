@@ -5,6 +5,8 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
+import Foundation
+
 private nonisolated let epsilon: CGFloat = 0.00000001
 
 extension ControlPointsTransform: InverseUnitTransform2D {

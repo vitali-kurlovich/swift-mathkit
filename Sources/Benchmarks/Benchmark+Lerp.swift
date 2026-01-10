@@ -6,6 +6,7 @@
 //
 
 import Benchmarks
+import Foundation
 import MathKit
 
 extension Benchmark {
