@@ -50,7 +50,6 @@ struct TransformEditorView: View {
                 if containsContent {
                     TransformEditorGrid(editorModel: $editorModel,
                                         configuration: $configuration)
-                        .blendMode(.difference)
                         .onGeometryChange(for: ContentGeometry.self) { proxy in
                             .init(proxy)
                         } action: { geometry in
