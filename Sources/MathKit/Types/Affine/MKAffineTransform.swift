@@ -108,14 +108,6 @@ public extension MKAffineTransform {
     }
 }
 
-// Transform
-public extension MKAffineTransform {
-    func transform(_ point: CGPoint) -> CGPoint where Float == CGFloat {
-        .init(x: m11 * point.x + m21 * point.y + tx,
-              y: m12 * point.x + m22 * point.y + ty)
-    }
-}
-
 // Invert
 public extension MKAffineTransform {
     @inlinable var determinant: Float {

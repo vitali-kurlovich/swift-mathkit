@@ -20,19 +20,4 @@ extension MKAffineTransform {
             tx.isEqual(to: other.tx, tolerance: tolerance) &&
             ty.isEqual(to: other.ty, tolerance: tolerance)
     }
-
-    static func == (lhs: Self, rhs: AffineTransform) -> Bool where Float == CGFloat {
-        lhs.m11 == rhs.m11 &&
-            lhs.m12 == rhs.m12 &&
-
-            lhs.m21 == rhs.m21 &&
-            lhs.m22 == rhs.m22 &&
-
-            lhs.tx == rhs.tX &&
-            lhs.ty == rhs.tY
-    }
-
-    static func == (lhs: AffineTransform, rhs: Self) -> Bool where Float == CGFloat {
-        rhs == lhs
-    }
 }

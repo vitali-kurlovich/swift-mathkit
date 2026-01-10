@@ -15,7 +15,7 @@ extension ControlPointsTransformInverseTests {
         let p2: CGPoint
         let p3: CGPoint
 
-        init(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, transform: AffineTransform = .identity) {
+        init(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint, transform: CoreAffineTransform = .identity) {
             self.p0 = transform.transform(p0)
             self.p1 = transform.transform(p1)
             self.p2 = transform.transform(p2)
@@ -25,7 +25,7 @@ extension ControlPointsTransformInverseTests {
 }
 
 extension ControlPointsTransformInverseTests.PointsMap {
-    init(_ p0: (CGFloat, CGFloat), _ p1: (CGFloat, CGFloat), _ p2: (CGFloat, CGFloat), _ p3: (CGFloat, CGFloat), _ transform: AffineTransform = .identity) {
+    init(_ p0: (CGFloat, CGFloat), _ p1: (CGFloat, CGFloat), _ p2: (CGFloat, CGFloat), _ p3: (CGFloat, CGFloat), _ transform: CoreAffineTransform = .identity) {
         self.init(p0: CGPoint(x: p0.0, y: p0.1),
                   p1: CGPoint(x: p1.0, y: p1.1),
                   p2: CGPoint(x: p2.0, y: p2.1),

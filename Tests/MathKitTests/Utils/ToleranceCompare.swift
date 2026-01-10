@@ -50,3 +50,31 @@ extension CGRect {
             size.isEqual(to: other.size, tolerance: tolerance)
     }
 }
+
+extension MKPoint {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        x.isEqual(to: other.x, tolerance: tolerance) &&
+            y.isEqual(to: other.y, tolerance: tolerance)
+    }
+}
+
+extension MKVector {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        dx.isEqual(to: other.dx, tolerance: tolerance) &&
+            dy.isEqual(to: other.dy, tolerance: tolerance)
+    }
+}
+
+extension MKSize {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        width.isEqual(to: other.width, tolerance: tolerance) &&
+            height.isEqual(to: other.height, tolerance: tolerance)
+    }
+}
+
+extension MKRect {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        origin.isEqual(to: other.origin, tolerance: tolerance) &&
+            size.isEqual(to: other.size, tolerance: tolerance)
+    }
+}

@@ -7,33 +7,33 @@
 
 import Foundation
 
-extension AffineTransform {
-    static var rotate45: AffineTransform {
+extension CoreAffineTransform {
+    static var rotate45: Self {
         .rotate(45)
     }
 
-    static var rotate90: AffineTransform {
+    static var rotate90: Self {
         .rotate(90)
     }
 
-    static var rotate180: AffineTransform {
+    static var rotate180: Self {
         .rotate(180)
     }
 
-    static var rotate270: AffineTransform {
+    static var rotate270: Self {
         .rotate(270)
     }
 
-    static var flipHorizontal: AffineTransform {
+    static var flipHorizontal: Self {
         .scale(x: 1, y: -1)
     }
 
-    static var flipVertical: AffineTransform {
+    static var flipVertical: Self {
         .scale(x: -1, y: 1)
     }
 }
 
-extension AffineTransform {
+extension CoreAffineTransform {
     static func translate(x: CGFloat, y: CGFloat) -> Self {
         .init(translationByX: x, byY: y)
     }
@@ -51,7 +51,7 @@ extension AffineTransform {
     }
 }
 
-extension AffineTransform {
+extension CoreAffineTransform {
     func translated(x: CGFloat, y: CGFloat) -> Self {
         var tr = self
         tr.prepend(.translate(x: x, y: y))

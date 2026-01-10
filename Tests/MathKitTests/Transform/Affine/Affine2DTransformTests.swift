@@ -12,7 +12,7 @@ import Testing
 private let tolerance: Double = 0.0001
 
 extension Affine2DTransform {
-    init(_ transform: AffineTransform) {
+    init(_ transform: CoreAffineTransform) {
         self.init(m11: transform.m11,
                   m12: transform.m12,
                   m21: transform.m21,
@@ -27,7 +27,7 @@ struct Affine2DTransformTests {
     @Test("Identity")
     func identity() throws {
         #expect(
-            Affine2DTransform.identity == Affine2DTransform(AffineTransform.identity)
+            Affine2DTransform.identity == Affine2DTransform(CoreAffineTransform.identity)
         )
         #expect(
             Affine2DTransform.identity == Affine2DTransform()
@@ -37,7 +37,7 @@ struct Affine2DTransformTests {
     @Test("Accessors")
     func accessors() throws {
         var transform = Affine2DTransform(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-        let expected = AffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
+        let expected = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
 
         #expect(
             transform.m11 == expected.m11
@@ -142,25 +142,25 @@ struct Affine2DTransformTests {
         var transform = Affine2DTransform(rotation: .degrees(45))
 
         #expect(
-            transform == Affine2DTransform(AffineTransform(rotationByDegrees: 45))
+            transform == Affine2DTransform(CoreAffineTransform(rotationByDegrees: 45))
         )
 
         transform = .identity
         transform.rotate(.degrees(270))
 
         #expect(
-            transform == Affine2DTransform(AffineTransform(rotationByDegrees: 270))
+            transform == Affine2DTransform(CoreAffineTransform(rotationByDegrees: 270))
         )
     }
 
     @Test("Scale")
     func scale() {
         #expect(
-            Affine2DTransform(scale: 3) == Affine2DTransform(AffineTransform(scale: 3))
+            Affine2DTransform(scale: 3) == Affine2DTransform(CoreAffineTransform(scale: 3))
         )
 
         #expect(
-            Affine2DTransform(scaleByX: 4, byY: 6) == Affine2DTransform(AffineTransform(scaleByX: 4, byY: 6))
+            Affine2DTransform(scaleByX: 4, byY: 6) == Affine2DTransform(CoreAffineTransform(scaleByX: 4, byY: 6))
         )
 
         var transform = Affine2DTransform()
@@ -242,7 +242,7 @@ struct Affine2DTransformTests {
 
         transform.scale(x: 2, y: 3)
 
-        var expectedTransform = AffineTransform()
+        var expectedTransform = CoreAffineTransform()
         expectedTransform.scale(x: 2, y: 3)
 
         var basisU = expectedTransform.transform(.init(x: 1, y: 0))

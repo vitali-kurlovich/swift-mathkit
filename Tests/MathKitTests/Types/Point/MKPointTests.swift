@@ -1,8 +1,8 @@
 //
-//  CGPointTests.swift
+//  MKPointTests.swift
 //  swift-mathkit
 //
-//  Created by Vitali Kurlovich on 29.12.25.
+//  Created by Vitali Kurlovich on 10.01.26.
 //
 
 import Foundation
@@ -11,12 +11,26 @@ import Testing
 
 private let tolerance: Double = 0.00000001
 
-@Suite("CGPoint")
-struct CGPointTests {
+@Suite("MKPoint")
+struct MKPointTests {
+    typealias Point = MKPoint<Double>
+    typealias Vector = MKVector<Double>
+    typealias Size = MKSize<Double>
+
+    @Test("Zero")
+    func zero() {
+        #expect(
+            Point.zero.x == 0
+        )
+        #expect(
+            Point.zero.y == 0
+        )
+    }
+
     @Test("AdditiveArithmetic")
     func additiveArithmetic() {
-        var left = CGPoint(x: 5, y: 6)
-        var right = CGPoint(x: 10, y: 20)
+        var left = Point(x: 5, y: 6)
+        var right = Point(x: 10, y: 20)
 
         #expect(
             (left + right).isEqual(to: .init(x: 15, y: 26), tolerance: tolerance)
@@ -41,7 +55,7 @@ struct CGPointTests {
 
     @Test("Arithmetic")
     func arithmetic() {
-        let left = CGPoint(x: 5, y: 6)
+        let left = Point(x: 5, y: 6)
 
         #expect(
             (-left).isEqual(to: .init(x: -5, y: -6), tolerance: tolerance)
@@ -50,7 +64,7 @@ struct CGPointTests {
 
     @Test("Scalar")
     func scalar() {
-        let left = CGPoint(x: 5, y: 6)
+        let left = Point(x: 5, y: 6)
 
         #expect(
             (left * 2).isEqual(to: .init(x: 10, y: 12), tolerance: tolerance)
@@ -67,46 +81,46 @@ struct CGPointTests {
 
     @Test("Vector")
     func vector() {
-        let point = CGPoint(x: 5, y: 6)
+        let point = Point(x: 5, y: 6)
 
-        let vector = CGVector(CGPoint(x: 10, y: 20))
+        let vector = Vector(Point(x: 10, y: 20))
 
         #expect(
-            CGPoint(vector).isEqual(to: CGPoint(x: 10, y: 20), tolerance: tolerance)
+            Point(vector).isEqual(to: Point(x: 10, y: 20), tolerance: tolerance)
         )
 
         #expect(
-            (point + vector).isEqual(to: CGPoint(x: 15, y: 26), tolerance: tolerance)
+            (point + vector).isEqual(to: Point(x: 15, y: 26), tolerance: tolerance)
         )
 
         #expect(
-            (vector + point).isEqual(to: CGPoint(x: 15, y: 26), tolerance: tolerance)
+            (vector + point).isEqual(to: Point(x: 15, y: 26), tolerance: tolerance)
         )
     }
 
     @Test("Size")
     func size() {
-        var point = CGPoint(x: 5, y: 6)
-        let size = CGSize(width: 10, height: 20)
+        var point = Point(x: 5, y: 6)
+        let size = Size(width: 10, height: 20)
 
         #expect(
-            (point + size).isEqual(to: CGPoint(x: 15, y: 26), tolerance: tolerance)
+            (point + size).isEqual(to: Point(x: 15, y: 26), tolerance: tolerance)
         )
 
         #expect(
-            (point - size).isEqual(to: CGPoint(x: -5, y: -14), tolerance: tolerance)
+            (point - size).isEqual(to: Point(x: -5, y: -14), tolerance: tolerance)
         )
 
         point += size
 
         #expect(
-            point.isEqual(to: CGPoint(x: 15, y: 26), tolerance: tolerance)
+            point.isEqual(to: Point(x: 15, y: 26), tolerance: tolerance)
         )
 
         point -= size
 
         #expect(
-            point.isEqual(to: CGPoint(x: 5, y: 6), tolerance: tolerance)
+            point.isEqual(to: Point(x: 5, y: 6), tolerance: tolerance)
         )
     }
 }
