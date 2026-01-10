@@ -11,7 +11,13 @@ import SwiftUI
 struct MathKitAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            #if os(iOS)
+                NavigationStack {
+                    ContentView()
+                }
+            #else
+                ContentView()
+            #endif
         }
     }
 }
