@@ -5,11 +5,11 @@
 //  Created by Vitali Kurlovich on 8.01.26.
 //
 
-import Foundation
+import MathKit
 import SwiftUI
 
 nonisolated struct CoordinateSpace: Equatable {
-    let _transform: AffineTransform
+    let _transform: MKAffineTransform<CGFloat>
 }
 
 extension CoordinateSpace {
@@ -27,8 +27,6 @@ extension CoordinateSpace {
     }
 }
 
-// proxy: GeometryProxy
-
 extension CoordinateSpace {
     init(_ proxy: GeometryProxy) {
         self.init(local: proxy.frame(in: .local), global: proxy.frame(in: .global))
@@ -37,7 +35,7 @@ extension CoordinateSpace {
 
 extension CoordinateSpace {
     init(local: CGRect, global: CGRect) {
-        let result: AffineTransform
+        let result: MKAffineTransform<CGFloat>
 
         let offset = local.origin - global.origin
 
@@ -49,7 +47,7 @@ extension CoordinateSpace {
             let scaleX = local.size.width / global.size.width
             let scaleY = local.size.height / global.size.height
 
-            var transform: AffineTransform = .init(scaleByX: scaleX, byY: scaleY)
+            var transform: MKAffineTransform<CGFloat> = .init(scaleByX: scaleX, byY: scaleY)
             transform.translate(x: offset.x, y: offset.y)
 
             result = transform
@@ -76,7 +74,7 @@ extension CoordinateSpace {
     }
 
     func transform(_ rect: CGRect) -> CGRect {
-        transform(rect, tr: _transform)
+        _transform.transform(rect)
     }
 
     func inverseTransform(_ rect: CGRect) -> CGRect {
@@ -85,28 +83,6 @@ extension CoordinateSpace {
             return rect
         }
 
-        return transform(rect, tr: tr)
-    }
-
-    private func transform(_ rect: CGRect, tr: AffineTransform) -> CGRect {
-        let p0 = CGPoint(x: rect.minX, y: rect.minY)
-        let p1 = CGPoint(x: rect.maxX, y: rect.minY)
-        let p2 = CGPoint(x: rect.maxX, y: rect.maxY)
-        let p3 = CGPoint(x: rect.minX, y: rect.maxY)
-
-        return bounds(p0: tr.transform(p0),
-                      p1: tr.transform(p1),
-                      p2: tr.transform(p2),
-                      p3: tr.transform(p3))
-    }
-
-    private func bounds(p0: CGPoint, p1: CGPoint, p2: CGPoint, p3: CGPoint) -> CGRect {
-        let minX = min(p0.x, p1.x, p2.x, p3.x)
-        let maxX = max(p0.x, p1.x, p2.x, p3.x)
-
-        let minY = min(p0.y, p1.y, p2.y, p3.y)
-        let maxY = max(p0.y, p1.y, p2.y, p3.y)
-
-        return .init(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+        return tr.transform(rect)
     }
 }

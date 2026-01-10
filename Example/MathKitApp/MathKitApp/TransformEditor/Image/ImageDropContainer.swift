@@ -26,12 +26,12 @@ struct ImageDropContainer: View {
                     }
                 }
         }
-
         .dropDestination(
             for: Image.self
         ) { receivedImages, _ in
             image = receivedImages.first
         }
+        #if os(macOS)
         .dropConfiguration { dropSession in
             isDropTargeted = dropSession.phase == .active
 
@@ -40,6 +40,7 @@ struct ImageDropContainer: View {
             }
             return DropConfiguration(operation: .copy)
         }
+        #endif // os(macOS)
         .onChange(of: isDropTargeted) { oldValue, newValue in
             guard oldValue != newValue else { return }
             animationScale = newValue ? 1.1 : 1.0
