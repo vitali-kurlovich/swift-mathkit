@@ -37,15 +37,15 @@ extension MKAffineTransformTests {
 
     @Test("Init rotation")
     func initRotate() {
-        #expect(MKAffineTransform<CGFloat>(rotationByRadians: 0) == CoreAffineTransform(rotationByRadians: 0))
+        #expect(MKAffineTransform<CGFloat>(MKAngle()) == CoreAffineTransform(rotationByRadians: 0))
 
-        #expect(MKAffineTransform<CGFloat>(rotationByRadians: .pi / 2) == CoreAffineTransform(rotationByRadians: .pi / 2))
+        #expect(MKAffineTransform<CGFloat>(.radians(.pi / 2)) == CoreAffineTransform(rotationByRadians: .pi / 2))
 
-        #expect(MKAffineTransform<CGFloat>(rotationByRadians: .pi) == CoreAffineTransform(rotationByRadians: .pi))
+        #expect(MKAffineTransform<CGFloat>(.radians(.pi)) == CoreAffineTransform(rotationByRadians: .pi))
 
-        #expect(MKAffineTransform<CGFloat>(rotationByRadians: .pi / 8) == CoreAffineTransform(rotationByRadians: .pi / 8))
+        #expect(MKAffineTransform<CGFloat>(.radians(.pi / 8)) == CoreAffineTransform(rotationByRadians: .pi / 8))
 
-        #expect(MKAffineTransform<CGFloat>(rotationByDegrees: 66) == CoreAffineTransform(rotationByDegrees: 66))
+        #expect(MKAffineTransform<CGFloat>(.degrees(66)) == CoreAffineTransform(rotationByDegrees: 66))
     }
 }
 
@@ -65,7 +65,7 @@ extension MKAffineTransformTests {
     @Test("Rotate")
     func rotate() {
         var mk = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-        mk.rotate(byRadians: .pi / 4)
+        mk.rotate(MKAngle(radians: .pi / 4))
 
         var tr = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
         tr.rotate(byRadians: .pi / 4)
@@ -133,9 +133,9 @@ extension MKAffineTransformTests {
         tr = CoreAffineTransform.identity
 
         mk.translate(x: 2, y: 5)
-        mk.rotate(byRadians: .pi / 4)
+        mk.rotate(.radians(.pi / 4))
         mk.scale(x: 4, y: 3)
-        mk.rotate(byRadians: .pi / 4)
+        mk.rotate(.radians(.pi / 4))
 
         tr.translate(x: 2, y: 5)
         tr.rotate(byRadians: .pi / 4)
@@ -157,9 +157,9 @@ extension MKAffineTransformTests {
         var tr = CoreAffineTransform.identity
 
         mk.translate(x: 2, y: 5)
-        mk.rotate(byRadians: .pi / 4)
+        mk.rotate(.radians(.pi / 4))
         mk.scale(x: 4, y: 3)
-        mk.rotate(byRadians: .pi / 4)
+        mk.rotate(.radians(.pi / 4))
 
         tr.translate(x: 2, y: 5)
         tr.rotate(byRadians: .pi / 4)

@@ -7,8 +7,8 @@
 
 import Foundation
 
-public extension MKAffineTransform where Float == CGFloat {
-    init(_ affine: Affine2DTransform) {
+public extension MKAffineTransform {
+    init(_ affine: Affine2DTransform<Float>) {
         self = affine._transform
     }
 }

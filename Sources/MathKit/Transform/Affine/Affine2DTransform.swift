@@ -7,26 +7,26 @@
 
 import Foundation
 
-public struct Affine2DTransform: Hashable, Sendable {
-    var _transform: MKAffineTransform<CGFloat>
+public struct Affine2DTransform<Float: FloatingPoint & Sendable>: Hashable, Sendable {
+    var _transform: MKAffineTransform<Float>
 
-    public init(_ transform: MKAffineTransform<CGFloat>) {
+    public init(_ transform: MKAffineTransform<Float>) {
         _transform = transform
     }
 }
 
 public extension Affine2DTransform {
     @inlinable static var identity: Self {
-        .init(MKAffineTransform<CGFloat>.identity)
+        .init()
     }
 }
 
 public extension Affine2DTransform {
     @inlinable init() {
-        self.init(MKAffineTransform<CGFloat>.identity)
+        self.init(.identity)
     }
 
-    @inlinable init(m11: CGFloat, m12: CGFloat, m21: CGFloat, m22: CGFloat, tx: CGFloat = 0, ty: CGFloat = 0) {
+    @inlinable init(m11: Float, m12: Float, m21: Float, m22: Float, tx: Float, ty: Float) {
         self.init(.init(m11: m11, m12: m12, m21: m21, m22: m22, tx: tx, ty: ty))
     }
 }

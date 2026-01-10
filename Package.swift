@@ -20,13 +20,16 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/vitali-kurlovich/Benchmarks", from: "0.1.6"),
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.7.0"),
+        .package(url: "https://github.com/apple/swift-numerics", from: "1.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "MathKit",
-            dependencies: []
+            dependencies: [
+                .product(name: "Numerics", package: "swift-numerics"),
+            ]
         ),
         .target(
             name: "MathKitMetal",

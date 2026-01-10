@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import RealModule
 
-public struct MKAffineTransform<Float: FloatingPoint & Sendable>: Hashable, Sendable {
+public nonisolated struct MKAffineTransform<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     public var m11: Float
     public var m12: Float
     public var m21: Float
@@ -22,6 +23,14 @@ public struct MKAffineTransform<Float: FloatingPoint & Sendable>: Hashable, Send
         self.m22 = m22
         self.tx = tx
         self.ty = ty
+    }
+}
+
+public extension MKAffineTransform {
+    @inlinable static var identity: Self {
+        .init(m11: 1, m12: 0,
+              m21: 0, m22: 1,
+              tx: 0, ty: 0)
     }
 }
 
@@ -86,25 +95,14 @@ public extension MKAffineTransform {
          [ -sin α   cos α  0 ]
          [    0       0    1 ]
      */
-    @inlinable init(rotationByRadians angle: Float) where Float == CGFloat {
-        let s = sin(angle)
-        let c = cos(angle)
+
+    @inlinable init(_ angle: MKAngle<Float>) where Float: Real {
+        let s = Float.sin(angle.radians)
+        let c = Float.cos(angle.radians)
 
         self.init(m11: c, m12: s,
                   m21: -s, m22: c,
                   tx: 0, ty: 0)
-    }
-
-    @inlinable init(rotationByDegrees angle: Float) where Float == CGFloat {
-        self.init(rotationByRadians: (angle * .pi) / 180)
-    }
-}
-
-public extension MKAffineTransform {
-    @inlinable static var identity: Self {
-        .init(m11: 1, m12: 0,
-              m21: 0, m22: 1,
-              tx: 0, ty: 0)
     }
 }
 
@@ -158,16 +156,12 @@ public extension MKAffineTransform {
          [ -sin α   cos α  0 ]
          [    0       0    1 ]
      */
-    mutating func rotate(byRadians angle: Float) where Float == CGFloat {
-        let s = sin(angle)
-        let c = cos(angle)
-
-        rotate(s: s, c: c)
-    }
-
-    private mutating func rotate(s: Float, c: Float) {
+    mutating func rotate(_ angle: MKAngle<Float>) where Float: Real {
         let m11 = self.m11, m12 = self.m12
         let m21 = self.m21, m22 = self.m22
+
+        let s = Float.sin(angle.radians)
+        let c = Float.cos(angle.radians)
 
         self.m11 = c * m11 + m21 * s
         self.m12 = c * m12 + m22 * s

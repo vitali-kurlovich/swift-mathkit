@@ -5,6 +5,8 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
+import Foundation
+
 public struct ConvertTransform<From, To> {
     public var from: From
     public var to: To

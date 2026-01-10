@@ -9,6 +9,8 @@ import Foundation
 
 #if canImport(CoreGraphics)
     import CoreGraphics
+#else
+    extension CGVector: Equatable {}
 #endif
 
 extension CGVector: @retroactive AdditiveArithmetic {

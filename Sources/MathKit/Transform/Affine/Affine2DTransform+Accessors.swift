@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Affine2DTransform {
-    var m11: CGFloat {
+    var m11: Float {
         get {
             _transform.m11
         }
@@ -17,7 +17,7 @@ public extension Affine2DTransform {
         }
     }
 
-    var m12: CGFloat {
+    var m12: Float {
         get {
             _transform.m12
         }
@@ -26,7 +26,7 @@ public extension Affine2DTransform {
         }
     }
 
-    var m21: CGFloat {
+    var m21: Float {
         get {
             _transform.m21
         }
@@ -35,7 +35,7 @@ public extension Affine2DTransform {
         }
     }
 
-    var m22: CGFloat {
+    var m22: Float {
         get {
             _transform.m22
         }
@@ -44,7 +44,7 @@ public extension Affine2DTransform {
         }
     }
 
-    var tx: CGFloat {
+    var tx: Float {
         get {
             _transform.tx
         }
@@ -53,7 +53,7 @@ public extension Affine2DTransform {
         }
     }
 
-    var ty: CGFloat {
+    var ty: Float {
         get {
             _transform.ty
         }

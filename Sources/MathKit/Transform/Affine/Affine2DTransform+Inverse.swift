@@ -8,7 +8,7 @@
 import Foundation
 
 public extension Affine2DTransform {
-    @inlinable var determinant: CGFloat {
+    @inlinable var determinant: Float {
         m11 * m22 - m12 * m21
     }
 
