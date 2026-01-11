@@ -20,5 +20,3 @@ public extension MKAffineTransform {
         .init(transform(MKRect(rect)))
     }
 }
-
-// MKAffineTransform+Core

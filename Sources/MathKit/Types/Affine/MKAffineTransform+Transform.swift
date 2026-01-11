@@ -5,7 +5,9 @@
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
+// Transform
 public extension MKAffineTransform {
+    /// Apply transform to the point
     @inlinable func transform(_ point: MKPoint<Float>) -> MKPoint<Float> {
         .init(x: m11 * point.x + m21 * point.y + tx,
               y: m12 * point.x + m22 * point.y + ty)

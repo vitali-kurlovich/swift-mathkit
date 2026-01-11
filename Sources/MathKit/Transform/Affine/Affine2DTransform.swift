@@ -40,7 +40,16 @@ extension Affine2DTransform: Transform, InverseTransform {
     }
 
     public func inverse(_ source: Output) -> Input {
-        let inverted = _transform.inverted() ?? .identity
-        return inverted.transform(source)
+        var tr = _transform
+        tr.invert()
+        return tr.transform(source)
+    }
+}
+
+extension Affine2DTransform: ReverseTransform {
+    public func reverse() -> some Transform {
+        var tr = _transform
+        tr.invert()
+        return Affine2DTransform(tr)
     }
 }

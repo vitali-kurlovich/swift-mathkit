@@ -18,3 +18,9 @@ public protocol InverseTransform {
 
     func inverse(_ source: Output) -> Input
 }
+
+public protocol ReverseTransform {
+    associatedtype ReversedTransform: Transform
+
+    func reverse() -> Self.ReversedTransform
+}
