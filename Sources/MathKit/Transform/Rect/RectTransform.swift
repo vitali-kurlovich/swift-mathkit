@@ -5,44 +5,25 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
-import Foundation
+public nonisolated struct RectTransform<Float: FloatingPoint & Sendable>: Hashable & Sendable {
+    public var rect: MKRect<Float>
 
-public struct RectTransform {
-    private let origin: CGPoint
-    private let size: CGSize
-
-    private let invWidth: CGFloat
-    private let invHeight: CGFloat
-
-    public init(_ frame: CGRect) {
-        assert(frame.size != .zero)
-
-        origin = frame.origin
-        size = frame.size
-
-        invWidth = 1.0 / frame.size.width
-        invHeight = 1.0 / frame.size.height
+    @inlinable public init(_ rect: MKRect<Float>) {
+        assert(rect.size != .zero)
+        self.rect = rect
     }
 }
 
-public extension RectTransform {
-    var frame: CGRect {
-        .init(origin: origin, size: size)
-    }
-}
-
-extension RectTransform: UnitTransform2D {
-    public func transform(_ source: UnitPoint) -> CGPoint {
-        let x = origin.x.addingProduct(source.x, size.width)
-        let y = origin.y.addingProduct(source.y, size.height)
+extension RectTransform: Transform, InverseTransform {
+    @inlinable public func transform(_ source: MKPoint<Float>) -> MKPoint<Float> {
+        let x = rect.origin.x.addingProduct(source.x, rect.size.width)
+        let y = rect.origin.y.addingProduct(source.y, rect.size.height)
         return .init(x: x, y: y)
     }
-}
 
-extension RectTransform: InverseUnitTransform2D {
-    public func inverse(_ source: CGPoint) -> UnitPoint {
-        let x = (source.x - origin.x) * invWidth
-        let y = (source.y - origin.y) * invHeight
+    @inlinable public func inverse(_ source: MKPoint<Float>) -> MKPoint<Float> {
+        let x = (source.x - rect.origin.x) / rect.width
+        let y = (source.y - rect.origin.y) / rect.height
         return .init(x: x, y: y)
     }
 }

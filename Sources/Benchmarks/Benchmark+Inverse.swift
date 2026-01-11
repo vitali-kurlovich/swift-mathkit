@@ -8,7 +8,7 @@
 import Benchmarks
 import MathKit
 
-import struct CoreFoundation.CGPoint
+import Foundation
 
 extension Benchmark {
     func runInverseBenchmark() {
@@ -17,12 +17,12 @@ extension Benchmark {
         benchmark.benchmark(name: "Inverse") { context in
             var acum = 0.0
 
-            let p0 = CGPoint(x: -10, y: -20)
-            let p1 = CGPoint(x: 10, y: -10)
-            let p2 = CGPoint(x: 15, y: 20)
-            let p3 = CGPoint(x: -20, y: 15)
+            let p0 = MKPoint<CGFloat>(x: -10, y: -20)
+            let p1 = MKPoint<CGFloat>(x: 10, y: -10)
+            let p2 = MKPoint<CGFloat>(x: 15, y: 20)
+            let p3 = MKPoint<CGFloat>(x: -20, y: 15)
 
-            let p = CGPoint(x: 0.5, y: 0.5)
+            let p = MKPoint<CGFloat>(x: 0.5, y: 0.5)
 
             let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
@@ -61,12 +61,12 @@ extension Benchmark {
         benchmark.benchmark(name: "Inverse norm") { context in
             var acum = 0.0
 
-            let p0 = CGPoint(x: 0, y: 0)
-            let p1 = CGPoint(x: 1, y: 0)
-            let p2 = CGPoint(x: 1, y: 1)
-            let p3 = CGPoint(x: 0, y: 1)
+            let p0 = MKPoint<CGFloat>(x: 0, y: 0)
+            let p1 = MKPoint<CGFloat>(x: 1, y: 0)
+            let p2 = MKPoint<CGFloat>(x: 1, y: 1)
+            let p3 = MKPoint<CGFloat>(x: 0, y: 1)
 
-            let p = CGPoint(x: 0.5, y: 0.5)
+            let p = MKPoint<CGFloat>(x: 0.5, y: 0.5)
 
             let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 

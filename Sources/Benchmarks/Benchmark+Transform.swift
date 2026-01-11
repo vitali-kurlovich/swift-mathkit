@@ -16,10 +16,10 @@ extension Benchmark {
         benchmark.benchmark(name: "Transform scale") { context in
             var acum = 0.0
 
-            let p0 = CGPoint(x: 0, y: 0)
-            let p1 = CGPoint(x: 2, y: 0)
-            let p2 = CGPoint(x: 2, y: 2)
-            let p3 = CGPoint(x: 0, y: 2)
+            let p0 = MKPoint<CGFloat>(x: 0, y: 0)
+            let p1 = MKPoint<CGFloat>(x: 2, y: 0)
+            let p2 = MKPoint<CGFloat>(x: 2, y: 2)
+            let p3 = MKPoint<CGFloat>(x: 0, y: 2)
 
             let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
@@ -40,10 +40,10 @@ extension Benchmark {
         benchmark.benchmark(name: "Transform parallel") { context in
             var acum = 0.0
 
-            let p0 = CGPoint(x: 0, y: 0)
-            let p1 = CGPoint(x: 2, y: 0)
-            let p2 = CGPoint(x: 1, y: 2)
-            let p3 = CGPoint(x: -1, y: 2)
+            let p0 = MKPoint<CGFloat>(x: 0, y: 0)
+            let p1 = MKPoint<CGFloat>(x: 2, y: 0)
+            let p2 = MKPoint<CGFloat>(x: 1, y: 2)
+            let p3 = MKPoint<CGFloat>(x: -1, y: 2)
 
             let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
@@ -64,10 +64,10 @@ extension Benchmark {
         benchmark.benchmark(name: "Transform") { context in
             var acum = 0.0
 
-            let p0 = CGPoint(x: -10, y: -20)
-            let p1 = CGPoint(x: 10, y: -10)
-            let p2 = CGPoint(x: 15, y: 20)
-            let p3 = CGPoint(x: -20, y: 15)
+            let p0 = MKPoint<CGFloat>(x: -10, y: -20)
+            let p1 = MKPoint<CGFloat>(x: 10, y: -10)
+            let p2 = MKPoint<CGFloat>(x: 15, y: 20)
+            let p3 = MKPoint<CGFloat>(x: -20, y: 15)
 
             let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 

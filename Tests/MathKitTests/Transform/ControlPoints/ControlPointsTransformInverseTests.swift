@@ -144,7 +144,7 @@ struct ControlPointsTransformInverseTests {
                                         p2: points.p2,
                                         p3: points.p3)
 
-        let transformed = tr.transform(UnitPoint(x: 0.25, y: 0.75))
+        let transformed = tr.transform(.init(x: 0.25, y: 0.75))
 
         let result = tr.inverse(transformed)
 

@@ -22,3 +22,13 @@ public func lerp(_ v0: CGVector, _ v1: CGVector, t: CGFloat) -> CGVector {
 public func lerp(_ v0: UnitPoint, _ v1: UnitPoint, t: CGFloat) -> UnitPoint {
     UnitPoint(x: lerp(v0.x, v1.x, t: t), y: lerp(v0.y, v1.y, t: t))
 }
+
+@inlinable public func lerp<Float: FloatingPoint & Sendable>(_ v0: MKPoint<Float>, _ v1: MKPoint<Float>, t: Float) -> MKPoint<Float> {
+    .init(x: lerp(v0.x, v1.x, t: t), y: lerp(v0.y, v1.y, t: t))
+}
+
+@inlinable public func lerp<Float: FloatingPoint & Sendable>(_ v0: MKVector<Float>,
+                                                             _ v1: MKVector<Float>, t: Float) -> MKVector<Float>
+{
+    .init(dx: lerp(v0.dx, v1.dx, t: t), dy: lerp(v0.dy, v1.dy, t: t))
+}

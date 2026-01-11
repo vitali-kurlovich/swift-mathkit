@@ -30,3 +30,17 @@ public extension Affine2DTransform {
         self.init(.init(m11: m11, m12: m12, m21: m21, m22: m22, tx: tx, ty: ty))
     }
 }
+
+extension Affine2DTransform: Transform, InverseTransform {
+    public typealias Input = MKPoint<Float>
+    public typealias Output = MKPoint<Float>
+
+    public func transform(_ source: Input) -> Output {
+        _transform.transform(source)
+    }
+
+    public func inverse(_ source: Output) -> Input {
+        let inverted = _transform.inverted() ?? .identity
+        return inverted.transform(source)
+    }
+}

@@ -5,11 +5,9 @@
 //  Created by Vitali Kurlovich on 29.12.25.
 //
 
-import Foundation
-
 public extension Affine2DTransform {
-    @inlinable var determinant: Float {
-        m11 * m22 - m12 * m21
+    var determinant: Float {
+        _transform.determinant
     }
 
     func inverted() -> Self? {
