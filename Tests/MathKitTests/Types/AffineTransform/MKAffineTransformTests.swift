@@ -150,6 +150,29 @@ extension MKAffineTransformTests {
         #expect(mk.isEqual(to: .init(tr), tolerance: tolerance))
     }
 
+    @Test("Invert point")
+    func invertPoint() {
+        var mk = MKAffineTransform<CGFloat>()
+        var tr = CoreAffineTransform.identity
+
+        mk.translate(x: 2, y: 5)
+        mk.rotate(.radians(.pi / 4))
+        mk.scale(x: 4, y: 3)
+        mk.rotate(.radians(.pi / 4))
+
+        tr.translate(x: 2, y: 5)
+        tr.rotate(byRadians: .pi / 4)
+        tr.scale(x: 4, y: 3)
+        tr.rotate(byRadians: .pi / 4)
+
+        tr.invert()
+
+        let point = CGPoint(x: 20, y: 50)
+        #expect(
+            mk.inverse(point).isEqual(to: tr.transform(point), tolerance: tolerance)
+        )
+    }
+
     @Test("Inverted")
     func inverted() throws {
         var mk = MKAffineTransform<CGFloat>()

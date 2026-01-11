@@ -40,9 +40,7 @@ extension Affine2DTransform: Transform, InverseTransform {
     }
 
     public func inverse(_ source: Output) -> Input {
-        var tr = _transform
-        tr.invert()
-        return tr.transform(source)
+        _transform.inverse(source)
     }
 }
 

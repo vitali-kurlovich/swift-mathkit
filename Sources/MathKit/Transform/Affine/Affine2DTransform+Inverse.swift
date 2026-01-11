@@ -14,7 +14,6 @@ public extension Affine2DTransform {
         guard let inverted = _transform.inverted() else {
             return nil
         }
-
         return .init(inverted)
     }
 }

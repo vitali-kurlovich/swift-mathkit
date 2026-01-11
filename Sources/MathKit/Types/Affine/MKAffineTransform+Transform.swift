@@ -22,3 +22,12 @@ public extension MKAffineTransform {
         return .bounds(p0, p1, p2, p3)
     }
 }
+
+// Inverse Transform
+public extension MKAffineTransform {
+    @inlinable func inverse(_ point: MKPoint<Float>) -> MKPoint<Float> {
+        let det = determinant
+        return .init(x: (m22 * (point.x - tx) + m21 * (ty - point.y)) / det,
+                     y: (m12 * tx - m11 * ty - m12 * point.x + m11 * point.y) / det)
+    }
+}

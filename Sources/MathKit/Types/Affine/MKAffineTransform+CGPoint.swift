@@ -8,15 +8,19 @@
 import Foundation
 
 // Transform
-public extension MKAffineTransform {
-    func transform(_ point: CGPoint) -> CGPoint where Float == CGFloat {
-        .init(x: m11 * point.x + m21 * point.y + tx,
-              y: m12 * point.x + m22 * point.y + ty)
+public extension MKAffineTransform where Float == CGFloat {
+    func transform(_ point: CGPoint) -> CGPoint {
+        .init(transform(MKPoint(point)))
+    }
+
+    @inlinable func transform(_ rect: CGRect) -> CGRect {
+        .init(transform(MKRect(rect)))
     }
 }
 
-public extension MKAffineTransform {
-    @inlinable func transform(_ rect: CGRect) -> CGRect where Float == CGFloat {
-        .init(transform(MKRect(rect)))
+// Inverse Transform
+public extension MKAffineTransform where Float == CGFloat {
+    @inlinable func inverse(_ point: CGPoint) -> CGPoint {
+        .init(inverse(MKPoint(point)))
     }
 }
