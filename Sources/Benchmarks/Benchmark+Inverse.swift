@@ -26,7 +26,7 @@ extension Benchmark {
 
             let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
-            for _ in 0 ..< 10_000_000 {
+            for _ in 0 ..< 1000 {
                 acum += tr.inverse(p).x
                 acum += tr.inverse(p).y
 
@@ -70,7 +70,7 @@ extension Benchmark {
 
             let tr = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
-            for _ in 0 ..< 10_000_000 {
+            for _ in 0 ..< 1000 {
                 acum += tr.inverse(p).x
                 acum += tr.inverse(p).y
 

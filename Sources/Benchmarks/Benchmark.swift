@@ -18,10 +18,12 @@ struct Benchmark: ParsableCommand {
     func prepare() {}
 
     mutating func run() throws {
-        runLerpBenchmark()
-        runTransformBenchmark()
-        runInverseBenchmark()
+        //  runLerpBenchmark()
+        //  runTransformBenchmark()
+        //  runInverseBenchmark()
+
+        runAffineBenchmark()
+
+        runAffineInverseBenchmark()
     }
 }
-
-// Benchmark+Inverse
