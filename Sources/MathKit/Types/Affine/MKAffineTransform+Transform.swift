@@ -9,8 +9,8 @@
 public extension MKAffineTransform {
     /// Apply transform to the point
     @inlinable func transform(_ point: MKPoint<Float>) -> MKPoint<Float> {
-        .init(x: m11 * point.x + m21 * point.y + tx,
-              y: m12 * point.x + m22 * point.y + ty)
+        .init(x: tx.addingProduct(m11, point.x).addingProduct(m21, point.y),
+              y: ty.addingProduct(m12, point.x).addingProduct(m22, point.y))
     }
 
     @inlinable func transform(_ rect: MKRect<Float>) -> MKRect<Float> {

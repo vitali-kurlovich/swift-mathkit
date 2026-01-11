@@ -109,23 +109,24 @@ public extension MKAffineTransform {
 // Invert
 public extension MKAffineTransform {
     @inlinable var determinant: Float {
-        (m11 * m22) - (m12 * m21)
+        (m11 * m22).addingProduct(-m12, m21)
     }
 
     @inlinable mutating func invert() {
         let det = determinant
 
-        let m11 = self.m11, m12 = self.m12
-        let m21 = self.m21, m22 = self.m22
-        let tx = self.tx, ty = self.ty
+        let tx = self.tx
+
+        self.tx = (m21 * ty).addingProduct(-m22, tx) / det
+        ty = (m12 * tx).addingProduct(-m11, ty) / det
+
+        m12 = -m12 / det
+        m21 = -m21 / det
+
+        let m11 = self.m11
 
         self.m11 = m22 / det
-        self.m12 = -m12 / det
-        self.m21 = -m21 / det
-        self.m22 = m11 / det
-
-        self.tx = (m21 * ty - m22 * tx) / det
-        self.ty = (m12 * tx - m11 * ty) / det
+        m22 = m11 / det
     }
 
     @inlinable func inverted() -> Self? {
@@ -144,8 +145,8 @@ public extension MKAffineTransform {
 
 public extension MKAffineTransform {
     @inlinable mutating func translate(x: Float, y: Float) {
-        tx += m11 * x + m21 * y
-        ty += m12 * x + m22 * y
+        tx += (m11 * x).addingProduct(m21, y)
+        ty += (m12 * x).addingProduct(m22, y)
     }
 
     /**
