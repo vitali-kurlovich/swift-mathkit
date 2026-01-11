@@ -24,6 +24,8 @@ struct Benchmark: ParsableCommand {
 
         runAffineBenchmark()
 
-        runAffineInverseBenchmark()
+        // runAffineInverseBenchmark()
+
+        runAffineRotateBenchmark()
     }
 }

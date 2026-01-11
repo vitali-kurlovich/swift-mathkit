@@ -18,18 +18,16 @@ extension Benchmark {
 
             for _ in 0 ..< 10_000_000 {
                 var affine = CGAffineTransform.identity
-                // affine = affine.rotated(by: 45 * .pi / 180)
+                affine = affine.rotated(by: 66 * .pi / 180)
                 affine = affine.translatedBy(x: 20, y: 30)
                 affine = affine.scaledBy(x: 4, y: 5)
 
-                // affine = affine.rotated(by: 45 * .pi / 180)
+                affine = affine.rotated(by: 33 * .pi / 180)
 
                 affine = affine.translatedBy(x: 20, y: 30)
-                // affine = affine.rotated(by: -45 * .pi / 180)
+                affine = affine.rotated(by: -45 * .pi / 180)
 
-                let p = CGPoint(x: 10, y: 20).applying(affine)
-
-                acum += (p.x + p.y)
+                acum += affine.determinant
             }
 
             context.blackHole(acum)
@@ -40,15 +38,36 @@ extension Benchmark {
 
             for _ in 0 ..< 10_000_000 {
                 var affine = MKAffineTransform<CGFloat>.identity
-                // affine.rotate(.degrees(45))
+                affine.rotate(.degrees(66))
                 affine.translate(x: 20, y: 30)
                 affine.scale(x: 4, y: 5)
-                // affine.rotate(.degrees(45))
-                affine.translate(x: 4, y: 3)
-                // affine.rotate(.degrees(-45))
-                let p = affine.transform(MKPoint(x: 10, y: 20))
 
-                acum += (p.x + p.y)
+                affine.rotate(.degrees(33))
+
+                affine.translate(x: 4, y: 3)
+                affine.rotate(.degrees(-45))
+
+                acum += affine.determinant
+            }
+
+            context.blackHole(acum)
+        }
+
+        benchmark.benchmark(name: "MKAffineTransform (Float16)") { context in
+            var acum: Float16 = 0.0
+
+            for _ in 0 ..< 10_000_000 {
+                var affine = MKAffineTransform<Float16>.identity
+                affine.rotate(.degrees(66))
+                affine.translate(x: 20, y: 30)
+                affine.scale(x: 4, y: 5)
+
+                affine.rotate(.degrees(33))
+
+                affine.translate(x: 4, y: 3)
+                affine.rotate(.degrees(-45))
+
+                acum += affine.determinant
             }
 
             context.blackHole(acum)
@@ -147,5 +166,69 @@ extension Benchmark {
         }
 
         benchmark.start()
+    }
+
+    func runAffineRotateBenchmark() {
+        let benchmark = BenchmarkExecuter()
+
+        benchmark.benchmark(name: "CGAffineTransform rotate") { context in
+            var acum = 0.0
+
+            var affine = CGAffineTransform.identity
+
+            for _ in 0 ..< 10_000_000 {
+                affine = affine.rotated(by: 66.0 * (.pi / 180))
+                acum += affine.determinant
+            }
+
+            context.blackHole(acum)
+        }
+
+        benchmark.benchmark(name: "MKAffineTransform rotate simd") { context in
+            var acum = 0.0
+
+            var affine = MKAffineTransform<Double>.identity
+
+            for _ in 0 ..< 10_000_000 {
+                affine.rotate(.degrees(66))
+                acum += affine.determinant
+            }
+
+            context.blackHole(acum)
+        }
+
+        benchmark.benchmark(name: "MKAffineTransform rotate simd (CGFloat)") { context in
+            var acum: CGFloat = 0.0
+
+            var affine = MKAffineTransform<CGFloat>.identity
+
+            for _ in 0 ..< 10_000_000 {
+                affine.rotate(.degrees(66))
+                acum += affine.determinant
+            }
+
+            context.blackHole(acum)
+        }
+
+        benchmark.benchmark(name: "MKAffineTransform rotate simd (Float16)") { context in
+            var acum: Float16 = 0.0
+
+            var affine = MKAffineTransform<Float16>.identity
+
+            for _ in 0 ..< 10_000_000 {
+                affine.rotate(.degrees(66))
+                acum += affine.determinant
+            }
+
+            context.blackHole(acum)
+        }
+
+        benchmark.start()
+    }
+}
+
+extension CGAffineTransform {
+    var determinant: CGFloat {
+        (a * d).addingProduct(-b, c)
     }
 }

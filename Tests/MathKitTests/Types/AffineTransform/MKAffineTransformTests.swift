@@ -70,7 +70,7 @@ extension MKAffineTransformTests {
         var tr = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
         tr.rotate(byRadians: .pi / 4)
 
-        #expect(mk == tr)
+        #expect(mk.isEqual(to: .init(tr), tolerance: tolerance))
     }
 
     @Test("Scale")

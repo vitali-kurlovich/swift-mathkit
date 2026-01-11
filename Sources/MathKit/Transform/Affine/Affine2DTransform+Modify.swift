@@ -6,16 +6,42 @@
 //
 
 import Foundation
-import RealModule
 
 // Rotation
 public extension Affine2DTransform {
-    init(rotation: MKAngle<Float>) where Float: Real {
+    init(rotation: MKAngle<Float>) where Float == Double {
         let transform = MKAffineTransform(rotation)
         self.init(transform)
     }
 
-    mutating func rotate(_ angle: MKAngle<Float>) where Float: Real {
+    init(rotation: MKAngle<Float>) where Float == Swift.Float {
+        let transform = MKAffineTransform(rotation)
+        self.init(transform)
+    }
+
+    init(rotation: MKAngle<Float>) where Float == CGFloat {
+        let transform = MKAffineTransform(rotation)
+        self.init(transform)
+    }
+
+    init(rotation: MKAngle<Float>) where Float == Float16 {
+        let transform = MKAffineTransform(rotation)
+        self.init(transform)
+    }
+
+    mutating func rotate(_ angle: MKAngle<Float>) where Float == Double {
+        _transform.rotate(angle)
+    }
+
+    mutating func rotate(_ angle: MKAngle<Float>) where Float == Swift.Float {
+        _transform.rotate(angle)
+    }
+
+    mutating func rotate(_ angle: MKAngle<Float>) where Float == CGFloat {
+        _transform.rotate(angle)
+    }
+
+    mutating func rotate(_ angle: MKAngle<Float>) where Float == Float16 {
         _transform.rotate(angle)
     }
 }

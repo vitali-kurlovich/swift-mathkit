@@ -5,6 +5,8 @@
 //  Created by Vitali Kurlovich on 28.12.25.
 //
 
+// MKAngle+SIMD
+
 public nonisolated struct MKAngle<Float: FloatingPoint & Sendable>: Hashable & Sendable {
     public var radians: Float
 
@@ -31,4 +33,8 @@ public nonisolated struct MKAngle<Float: FloatingPoint & Sendable>: Hashable & S
     @inlinable public static func degrees(_ degrees: Float) -> Self {
         .init(degrees: degrees)
     }
+}
+
+public extension MKAngle {
+    static var zero: Self { .init() }
 }

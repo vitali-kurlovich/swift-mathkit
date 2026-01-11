@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RealModule
 
 public nonisolated struct MKAffineTransform<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     public var m11: Float
@@ -86,26 +85,6 @@ public extension MKAffineTransform {
     }
 }
 
-public extension MKAffineTransform {
-    /**
-     Creates an affine transformation matrix from rotation value (angle in radians).
-     The matrix takes the following form:
-
-         [  cos α   sin α  0 ]
-         [ -sin α   cos α  0 ]
-         [    0       0    1 ]
-     */
-
-    @inlinable init(_ angle: MKAngle<Float>) where Float: Real {
-        let s = Float.sin(angle.radians)
-        let c = Float.cos(angle.radians)
-
-        self.init(m11: c, m12: s,
-                  m21: -s, m22: c,
-                  tx: 0, ty: 0)
-    }
-}
-
 // Invert
 public extension MKAffineTransform {
     @inlinable var determinant: Float {
@@ -140,87 +119,5 @@ public extension MKAffineTransform {
                                  m21: -m21 / det, m22: m11 / det,
                                  tx: (m21 * ty - m22 * tx) / det,
                                  ty: (m12 * tx - m11 * ty) / det)
-    }
-}
-
-public extension MKAffineTransform {
-    @inlinable mutating func translate(x: Float, y: Float) {
-        tx += (m11 * x).addingProduct(m21, y)
-        ty += (m12 * x).addingProduct(m22, y)
-    }
-
-    /**
-     Mutates an affine transformation matrix from a rotation value (angle α in radians).
-     The matrix takes the following form:
-
-         [  cos α   sin α  0 ]
-         [ -sin α   cos α  0 ]
-         [    0       0    1 ]
-     */
-    mutating func rotate(_ angle: MKAngle<Float>) where Float: Real {
-        let m11 = self.m11, m12 = self.m12
-        let m21 = self.m21, m22 = self.m22
-
-        let s = Float.sin(angle.radians)
-        let c = Float.cos(angle.radians)
-
-        self.m11 = c * m11 + m21 * s
-        self.m12 = c * m12 + m22 * s
-
-        self.m21 = c * m21 - m11 * s
-        self.m22 = c * m22 - m12 * s
-    }
-
-    @inlinable mutating func scale(_ scale: Float) {
-        m11 *= scale
-        m12 *= scale
-        m21 *= scale
-        m22 *= scale
-    }
-
-    @inlinable mutating func scale(x: Float, y: Float) {
-        m11 *= x
-        m12 *= x
-
-        m21 *= y
-        m22 *= y
-    }
-
-    @inlinable mutating func prepend(_ transform: Self) {
-        let a11 = m11, a12 = m12
-        let a21 = m21, a22 = m22
-        let ax = tx, ay = ty
-
-        let b11 = transform.m11, b12 = transform.m12
-        let b21 = transform.m21, b22 = transform.m22
-        let bx = transform.tx, by = transform.ty
-
-        m11 = a11 * b11 + a21 * b12
-        m12 = a12 * b11 + a22 * b12
-
-        m21 = a11 * b21 + a21 * b22
-        m22 = a12 * b21 + a22 * b22
-
-        tx = ax + a11 * bx + a21 * by
-        ty = ay + a12 * bx + a22 * by
-    }
-
-    @inlinable mutating func append(_ transform: Self) {
-        let ax = tx
-
-        tx = transform.tx.addingProduct(tx, transform.m11).addingProduct(ty, transform.m21)
-        ty = transform.ty.addingProduct(ax, transform.m12).addingProduct(ty, transform.m22)
-
-        let a11 = m11
-        m11 *= transform.m11
-        m11.addProduct(m12, transform.m21)
-
-        m12 = (a11 * transform.m12).addingProduct(m12, transform.m22)
-
-        let a21 = m21
-        m21 *= transform.m11
-        m21.addProduct(m22, transform.m21)
-
-        m22 = (a21 * transform.m12).addingProduct(m22, transform.m22)
     }
 }
