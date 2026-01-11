@@ -45,7 +45,7 @@ extension ControlPointsTransform: Transform, InverseTransform {
         let dx01 = x0 - x1, dy01 = y0 - y1
         let dx03 = x0 - x3, dy03 = y0 - y3
         let dx12 = x1 - x2, dy12 = y1 - y2
-        let dx13 = x1 - x3, dy13 = y1 - y3
+        let dy13 = y1 - y3
         let dx23 = x2 - x3, dy23 = y2 - y3
 
         //  (x2 (y0 - y1) + x3 (-y0 + y1) - (x0 - x1) (y2 - y3)) -> DU
@@ -56,7 +56,7 @@ extension ControlPointsTransform: Transform, InverseTransform {
         //  dx03 dy12 - dx12 dy03 -> DV
         let DV = (dx03 * dy12).addingProduct(-dy03, dx12)
 
-        if abs(DU) <= epsilon {
+        if abs(DU) <= epsilon, abs(DV) <= epsilon {
             let divider = dy13 * x0 - dy03 * x1 + dy01 * x3
 
             if abs(divider) <= epsilon {
@@ -125,19 +125,38 @@ extension ControlPointsTransform: Transform, InverseTransform {
             .addingProduct(-x3, dy01 + y0)
 
         // U -> -((BB + SS)/(2 DU))
-        let ul = -((BB + SS) / (2 * DU))
-        // V -> (CC + SS)/(2 DV)
-        let vl = (CC + SS) / (2 * DV)
-
-        if ul >= 0, ul <= 1, vl >= 0, vl <= 1 {
-            return .init(x: ul, y: vl)
-        }
+        let ul: Float
 
         // U -> (NN + SS)/(2 DU)
-        let ur = (NN + SS) / (2 * DU)
+        let ur: Float // = (NN + SS) / (2 * DU)
+
+        if abs(DU) <= epsilon {
+            ul = 1 / 2
+            ur = 1 / 2
+        } else {
+            ul = -((BB + SS) / (2 * DU))
+            ur = (NN + SS) / (2 * DU)
+        }
+
+        // V -> (CC + SS)/(2 DV)
+        let vl: Float
 
         // V -> -(EE + SS)/(2 DVR)
-        let vr = (EE + SS) / (-2 * DV)
+        let vr: Float
+
+        if abs(DV) <= epsilon {
+            vl = 1 / 2
+            vr = 1 / 2
+        } else {
+            vl = (CC + SS) / (2 * DV)
+            vr = (EE + SS) / (-2 * DV)
+        }
+
+        if ul >= -epsilon, ul <= (1 + epsilon),
+           vl >= -epsilon, vl <= (1 + epsilon)
+        {
+            return .init(x: ul, y: vl)
+        }
 
         return .init(x: ur, y: vr)
     }
