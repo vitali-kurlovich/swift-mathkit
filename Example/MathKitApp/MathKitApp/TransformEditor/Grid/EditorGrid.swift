@@ -36,14 +36,14 @@ struct EditorGrid {
         var path = Path()
         let transform = ControlPointsTransform(p0: p0, p1: p1, p2: p2, p3: p3)
 
-        let v0 = transform.transform(.init(x: 0.5, y: 0))
-        let v1 = transform.transform(.init(x: 0.5, y: 1))
+        let v0 = transform.transform(CGPoint(x: 0.5, y: 0))
+        let v1 = transform.transform(CGPoint(x: 0.5, y: 1))
 
         path.move(to: v0)
         path.addLine(to: v1)
 
-        let h0 = transform.transform(.init(x: 0, y: 0.5))
-        let h1 = transform.transform(.init(x: 1, y: 0.5))
+        let h0 = transform.transform(CGPoint(x: 0, y: 0.5))
+        let h1 = transform.transform(CGPoint(x: 1, y: 0.5))
 
         path.move(to: h0)
         path.addLine(to: h1)
@@ -59,16 +59,16 @@ struct EditorGrid {
         let locations = [0.25, 0.5, 0.75]
 
         for u in locations {
-            let t0 = transform.transform(.init(x: u, y: 0))
-            let t1 = transform.transform(.init(x: u, y: 1))
+            let t0 = transform.transform(CGPoint(x: u, y: 0))
+            let t1 = transform.transform(CGPoint(x: u, y: 1))
 
             path.move(to: t0)
             path.addLine(to: t1)
         }
 
         for v in locations {
-            let t0 = transform.transform(.init(x: 0, y: v))
-            let t1 = transform.transform(.init(x: 1, y: v))
+            let t0 = transform.transform(CGPoint(x: 0, y: v))
+            let t1 = transform.transform(CGPoint(x: 1, y: v))
 
             path.move(to: t0)
             path.addLine(to: t1)
@@ -85,16 +85,16 @@ struct EditorGrid {
         let locations = [0.125, 0.375, 0.5, 0.625, 0.875]
 
         for u in locations {
-            let t0 = transform.transform(.init(x: u, y: 0))
-            let t1 = transform.transform(.init(x: u, y: 1))
+            let t0 = transform.transform(CGPoint(x: u, y: 0))
+            let t1 = transform.transform(CGPoint(x: u, y: 1))
 
             path.move(to: t0)
             path.addLine(to: t1)
         }
 
         for v in locations {
-            let t0 = transform.transform(.init(x: 0, y: v))
-            let t1 = transform.transform(.init(x: 1, y: v))
+            let t0 = transform.transform(CGPoint(x: 0, y: v))
+            let t1 = transform.transform(CGPoint(x: 1, y: v))
 
             path.move(to: t0)
             path.addLine(to: t1)
