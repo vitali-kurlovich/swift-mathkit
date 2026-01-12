@@ -65,12 +65,7 @@ extension CoordinateSpace {
     }
 
     func inverseTransform(_ point: CGPoint) -> CGPoint {
-        guard let tr = _transform.inverted() else {
-            assertionFailure("inverted must not be nil")
-            return point
-        }
-
-        return tr.transform(point)
+        _transform.inverse(point)
     }
 
     func transform(_ rect: CGRect) -> CGRect {

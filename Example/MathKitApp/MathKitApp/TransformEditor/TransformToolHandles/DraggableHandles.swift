@@ -53,7 +53,7 @@ struct DraggableHandles: View {
     }
 
     var body: some View {
-        let minimumLongPressDuration = 0.2
+        let minimumLongPressDuration = 0.06
         let longPressDrag = LongPressGesture(minimumDuration: minimumLongPressDuration)
             .sequenced(before: DragGesture())
             .updating($dragState) { value, state, _ in

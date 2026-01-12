@@ -12,10 +12,14 @@ struct TransformEditorView: View {
     @Binding var editorModel: TransformEditorModel
     @Binding var configuration: TransformEditorConfiguration
 
+    @GestureState private var magnifyBy: CGFloat = 1
+
+    @State private var scale: CGFloat = 1
+
     var body: some View {
         ZStack {
             if containsContent {
-                EditedContent(editorModel: $editorModel)
+                EditedContent(editorModel: $editorModel, scale: $scale)
                     .onGeometryChange(for: ContentGeometry.self) { proxy in
                         .init(proxy)
                     } action: { geometry in
@@ -32,6 +36,15 @@ struct TransformEditorView: View {
             }
         }
         .editorToolOverlay(editorModel: $editorModel, configuration: $configuration)
+        .gesture(magnification)
+    }
+
+    var magnification: some Gesture {
+        MagnifyGesture()
+            .updating($magnifyBy) { value, gestureState, _ in
+                gestureState = value.magnification
+                scale = value.magnification
+            }.onEnded { _ in }
     }
 }
 
@@ -49,11 +62,12 @@ private extension TransformEditorView {
 private extension TransformEditorView {
     struct EditedContent: View {
         @Binding var editorModel: TransformEditorModel
+        @Binding var scale: CGFloat
 
         var body: some View {
             switch editorModel.contentType {
             case .animation:
-                AnimatedPlaceholder()
+                AnimatedPlaceholder(scale: $scale)
             case .image:
                 editorModel.image
             }
