@@ -12,37 +12,45 @@ extension View {
                  _ configuration: Binding<TransformEditorConfiguration>) -> some View
     {
         return toolbar {
-            ToolbarItemGroup(placement: .automatic) {
-                Toggle(isOn: configuration.showControlPoints) {
-                    Image(systemName: "skew")
-                }
+            ToolbarItemGroup(placement: gridConfigurationToolbarPlacement) {
+                Group {
+                    Toggle(isOn: configuration.showControlPoints) {
+                        Image(systemName: "skew")
+                    }
 
-                Toggle(isOn: configuration.showOutline) {
-                    Image(systemName: "rectangle.dashed")
-                }
+                    Toggle(isOn: configuration.showOutline) {
+                        Image(systemName: "rectangle.dashed")
+                    }
 
-                Toggle(isOn: configuration.showOrigin) {
-                    Image(systemName: "dot.squareshape.split.2x2")
-                }
+                    Toggle(isOn: configuration.showOrigin) {
+                        Image(systemName: "dot.squareshape.split.2x2")
+                    }
 
-                Toggle(isOn: configuration.showGrid) {
-                    Image(systemName: "squareshape.split.3x3")
-                }
+                    Toggle(isOn: configuration.showGrid) {
+                        Image(systemName: "squareshape.split.3x3")
+                    }
+                }.toggleStyle(.button)
             }
 
-            ToolbarSpacer(.flexible)
-
-            ToolbarItem(placement: .automatic) {
+            ToolbarItem(placement: .cancellationAction) {
                 Button("Reset", systemImage: "square.dashed") {
                     editorModel.wrappedValue.reset()
                 }
             }
 
-            ToolbarItem(placement: .automatic) {
+            ToolbarItem(placement: .confirmationAction) {
                 Toggle(isOn: configuration.isEditing) {
-                    Image(systemName: "perspective")
-                }
+                    Label("Show Original", systemImage: "perspective")
+                }.toggleStyle(.button)
             }
         }
+    }
+
+    private var gridConfigurationToolbarPlacement: ToolbarItemPlacement {
+        #if os(iOS)
+            return .bottomBar
+        #else
+            return .status
+        #endif
     }
 }

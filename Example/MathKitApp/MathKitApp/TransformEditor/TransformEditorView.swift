@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TransformEditorView: View {
     @Binding var editorModel: TransformEditorModel
-    @State var configuration: TransformEditorConfiguration = .init()
+    @Binding var configuration: TransformEditorConfiguration
 
     var body: some View {
         ZStack {
@@ -32,7 +32,6 @@ struct TransformEditorView: View {
             }
         }
         .editorToolOverlay(editorModel: $editorModel, configuration: $configuration)
-        .toolbar($editorModel, $configuration)
     }
 }
 
@@ -64,6 +63,6 @@ private extension TransformEditorView {
 
 #Preview {
     @Previewable @State var editorModel: TransformEditorModel = .init(contentType: .animation)
-
-    TransformEditorView(editorModel: $editorModel)
+    @Previewable @State var configuration: TransformEditorConfiguration = .init()
+    TransformEditorView(editorModel: $editorModel, configuration: $configuration)
 }
