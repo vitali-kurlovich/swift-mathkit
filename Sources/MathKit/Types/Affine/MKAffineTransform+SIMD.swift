@@ -79,10 +79,11 @@ public extension MKAffineTransform {
 extension MKAffineTransform {
     private mutating func rotate(s: Float, c: Float) {
         let m11 = self.m11
+        let m12 = self.m12
+
         self.m11 *= c
         self.m11.addProduct(m21, s)
 
-        let m12 = self.m12
         self.m12 *= c
         self.m12.addProduct(m22, s)
 

@@ -18,14 +18,14 @@ extension Benchmark {
 
             for _ in 0 ..< 10_000_000 {
                 var affine = CGAffineTransform.identity
-                affine = affine.rotated(by: 66 * .pi / 180)
+                affine = affine.rotated(by: acum * .pi / 180)
                 affine = affine.translatedBy(x: 20, y: 30)
                 affine = affine.scaledBy(x: 4, y: 5)
 
-                affine = affine.rotated(by: 33 * .pi / 180)
+                affine = affine.rotated(by: acum * .pi / 180)
 
                 affine = affine.translatedBy(x: 20, y: 30)
-                affine = affine.rotated(by: -45 * .pi / 180)
+                affine = affine.rotated(by: acum * .pi / 180)
 
                 acum += affine.determinant
             }
@@ -38,14 +38,14 @@ extension Benchmark {
 
             for _ in 0 ..< 10_000_000 {
                 var affine = MKAffineTransform<CGFloat>.identity
-                affine.rotate(.degrees(66))
+                affine.rotate(.degrees(acum))
                 affine.translate(x: 20, y: 30)
                 affine.scale(x: 4, y: 5)
 
-                affine.rotate(.degrees(33))
+                affine.rotate(.degrees(acum))
 
                 affine.translate(x: 4, y: 3)
-                affine.rotate(.degrees(-45))
+                affine.rotate(.degrees(acum))
 
                 acum += affine.determinant
             }
@@ -58,14 +58,14 @@ extension Benchmark {
 
             for _ in 0 ..< 10_000_000 {
                 var affine = MKAffineTransform<Float16>.identity
-                affine.rotate(.degrees(66))
+                affine.rotate(.degrees(acum))
                 affine.translate(x: 20, y: 30)
                 affine.scale(x: 4, y: 5)
 
-                affine.rotate(.degrees(33))
+                affine.rotate(.degrees(acum))
 
                 affine.translate(x: 4, y: 3)
-                affine.rotate(.degrees(-45))
+                affine.rotate(.degrees(acum))
 
                 acum += affine.determinant
             }

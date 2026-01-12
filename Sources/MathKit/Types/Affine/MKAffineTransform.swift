@@ -5,8 +5,6 @@
 //  Created by Vitali Kurlovich on 6.01.26.
 //
 
-import Foundation
-
 public nonisolated struct MKAffineTransform<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     public var m11: Float
     public var m12: Float
