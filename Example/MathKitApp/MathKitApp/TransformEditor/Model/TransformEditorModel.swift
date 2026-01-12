@@ -15,13 +15,18 @@ class TransformEditorModel {
         case image
     }
 
+    let contentType: ContentType
+
+    init(contentType: ContentType) {
+        self.contentType = contentType
+    }
+
     var p0: CGVector = .zero
     var p1: CGVector = .zero
     var p2: CGVector = .zero
     var p3: CGVector = .zero
 
     var image: Image?
-    var contentType: ContentType = .animation
 
     var contentGeometry = ContentGeometry()
     var controlsGeometry = ContentGeometry()

@@ -8,24 +8,9 @@
 import MathKitMetal
 import SwiftUI
 
-struct EditedContent: View {
-    @Binding var editorModel: TransformEditorModel
-
-    var body: some View {
-        switch editorModel.contentType {
-        case .animation:
-            AnimatedPlaceholder()
-        case .image:
-            editorModel.image
-        }
-    }
-}
-
 struct TransformEditorView: View {
-    @State var editorModel: TransformEditorModel = .init()
+    @Binding var editorModel: TransformEditorModel
     @State var configuration: TransformEditorConfiguration = .init()
-
-    typealias ContentType = TransformEditorModel.ContentType
 
     var body: some View {
         ZStack {
@@ -45,33 +30,9 @@ struct TransformEditorView: View {
                         isEnabled: configuration.isEditing
                     )
             }
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
-            .overlay {
-                if containsContent {
-                    TransformEditorGrid(editorModel: $editorModel,
-                                        configuration: $configuration)
-                        .onGeometryChange(for: ContentGeometry.self) { proxy in
-                            .init(proxy)
-                        } action: { geometry in
-                            editorModel.gridGeometry = geometry
-                        }
-                }
-            }
-            .overlay {
-                if containsContent, configuration.showControlPoints {
-                    TransformToolHandles(editorModel: self.$editorModel)
-                        .onGeometryChange(for: ContentGeometry.self) { proxy in
-                            .init(proxy)
-                        } action: { geometry in
-                            editorModel.controlsGeometry = geometry
-                        }
-                }
-            }.overlay {
-                if editorModel.contentType == .image {
-                    ImageDropContainer(image: $editorModel.image)
-                }
-            }
-            .toolbar($editorModel, $configuration)
+        }
+        .editorToolOverlay(editorModel: $editorModel, configuration: $configuration)
+        .toolbar($editorModel, $configuration)
     }
 }
 
@@ -86,6 +47,23 @@ private extension TransformEditorView {
     }
 }
 
+private extension TransformEditorView {
+    struct EditedContent: View {
+        @Binding var editorModel: TransformEditorModel
+
+        var body: some View {
+            switch editorModel.contentType {
+            case .animation:
+                AnimatedPlaceholder()
+            case .image:
+                editorModel.image
+            }
+        }
+    }
+}
+
 #Preview {
-    TransformEditorView()
+    @Previewable @State var editorModel: TransformEditorModel = .init(contentType: .animation)
+
+    TransformEditorView(editorModel: $editorModel)
 }

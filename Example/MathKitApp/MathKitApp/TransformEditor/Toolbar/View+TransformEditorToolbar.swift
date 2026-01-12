@@ -11,17 +11,7 @@ extension View {
     func toolbar(_ editorModel: Binding<TransformEditorModel>,
                  _ configuration: Binding<TransformEditorConfiguration>) -> some View
     {
-        typealias ContentType = TransformEditorModel.ContentType
-
         return toolbar {
-            ToolbarItemGroup(placement: .secondaryAction) {
-                Picker("Select Mode", selection: editorModel.contentType) {
-                    Image(systemName: "heart.rectangle.fill").tag(ContentType.animation)
-                    Image(systemName: "photo").tag(ContentType.image)
-                }
-                .pickerStyle(.segmented)
-            }
-
             ToolbarItemGroup(placement: .automatic) {
                 Toggle(isOn: configuration.showControlPoints) {
                     Image(systemName: "skew")
