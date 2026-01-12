@@ -33,7 +33,7 @@ extension Benchmark {
             context.blackHole(acum)
         }
 
-        benchmark.benchmark(name: "MKAffineTransform") { context in
+        benchmark.benchmark(name: "MKAffineTransform (CGFloat)") { context in
             var acum: CGFloat = 0.0
 
             for _ in 0 ..< 10_000_000 {
@@ -177,7 +177,7 @@ extension Benchmark {
             var affine = CGAffineTransform.identity
 
             for _ in 0 ..< 10_000_000 {
-                affine = affine.rotated(by: 66.0 * (.pi / 180))
+                affine = affine.rotated(by: acum * (.pi / 180))
                 acum += affine.determinant
             }
 
@@ -190,7 +190,7 @@ extension Benchmark {
             var affine = MKAffineTransform<Double>.identity
 
             for _ in 0 ..< 10_000_000 {
-                affine.rotate(.degrees(66))
+                affine.rotate(.degrees(acum))
                 acum += affine.determinant
             }
 
@@ -203,7 +203,7 @@ extension Benchmark {
             var affine = MKAffineTransform<CGFloat>.identity
 
             for _ in 0 ..< 10_000_000 {
-                affine.rotate(.degrees(66))
+                affine.rotate(.degrees(acum))
                 acum += affine.determinant
             }
 
@@ -216,7 +216,7 @@ extension Benchmark {
             var affine = MKAffineTransform<Float16>.identity
 
             for _ in 0 ..< 10_000_000 {
-                affine.rotate(.degrees(66))
+                affine.rotate(.degrees(acum))
                 acum += affine.determinant
             }
 
