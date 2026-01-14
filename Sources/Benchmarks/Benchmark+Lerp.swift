@@ -9,6 +9,11 @@ import Benchmarks
 import Foundation
 import MathKit
 
+#if canImport(CoreGraphics)
+    import CoreGraphics
+
+#endif
+
 extension Benchmark {
     func runLerpBenchmark() {
         let benchmark = BenchmarkExecuter()
@@ -46,32 +51,34 @@ extension Benchmark {
 
             context.blackHole(acum)
         }
+        #if canImport(CoreGraphics)
+            benchmark.benchmark(name: "Lerp CGVector") { context in
+                var acum: CGFloat = 0
 
-        benchmark.benchmark(name: "Lerp CGVector") { context in
-            var acum: CGFloat = 0
+                for _ in 0 ..< 10_000_000 {
+                    acum += lerp(CGVector(dx: 10, dy: 20),
+                                 CGVector(dx: 60, dy: 80), t: 0.0).dx
 
-            for _ in 0 ..< 10_000_000 {
-                acum += lerp(CGVector(dx: 10, dy: 20),
-                             CGVector(dx: 60, dy: 80), t: 0.0).dx
+                    acum -= lerp(CGVector(dx: 10, dy: 20),
+                                 CGVector(dx: 60, dy: 80), t: 0.0).dy
 
-                acum -= lerp(CGVector(dx: 10, dy: 20),
-                             CGVector(dx: 60, dy: 80), t: 0.0).dy
+                    acum += lerp(CGVector(dx: 10, dy: 20),
+                                 CGVector(dx: 60, dy: 80), t: 0.5).dx
 
-                acum += lerp(CGVector(dx: 10, dy: 20),
-                             CGVector(dx: 60, dy: 80), t: 0.5).dx
+                    acum -= lerp(CGVector(dx: 10, dy: 20),
+                                 CGVector(dx: 60, dy: 80), t: 0.5).dy
 
-                acum -= lerp(CGVector(dx: 10, dy: 20),
-                             CGVector(dx: 60, dy: 80), t: 0.5).dy
+                    acum += lerp(CGVector(dx: 10, dy: 20),
+                                 CGVector(dx: 60, dy: 80), t: 1.0).dx
 
-                acum += lerp(CGVector(dx: 10, dy: 20),
-                             CGVector(dx: 60, dy: 80), t: 1.0).dx
+                    acum -= lerp(CGVector(dx: 10, dy: 20),
+                                 CGVector(dx: 60, dy: 80), t: 1.0).dy
+                }
 
-                acum -= lerp(CGVector(dx: 10, dy: 20),
-                             CGVector(dx: 60, dy: 80), t: 1.0).dy
+                context.blackHole(acum)
             }
 
-            context.blackHole(acum)
-        }
+        #endif // canImport(CoreGraphics)
 
         benchmark.start()
     }

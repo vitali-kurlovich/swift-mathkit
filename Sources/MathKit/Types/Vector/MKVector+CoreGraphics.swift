@@ -5,16 +5,19 @@
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
-import Foundation
+#if canImport(CoreGraphics)
+    import CoreGraphics
 
-public extension MKVector {
-    @inlinable init(_ v: CGVector) where Float == CGFloat {
-        self.init(dx: v.dx, dy: v.dy)
+    public extension MKVector {
+        @inlinable init(_ v: CGVector) where Float == CGFloat {
+            self.init(dx: v.dx, dy: v.dy)
+        }
     }
-}
 
-public extension CGVector {
-    init<F: BinaryFloatingPoint>(_ p: MKVector<F>) {
-        self.init(dx: CGFloat(p.dx), dy: CGFloat(p.dy))
+    public extension CGVector {
+        init<F: BinaryFloatingPoint>(_ p: MKVector<F>) {
+            self.init(dx: CGFloat(p.dx), dy: CGFloat(p.dy))
+        }
     }
-}
+
+#endif // canImport(CoreGraphics)
