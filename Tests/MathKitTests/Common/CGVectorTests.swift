@@ -50,8 +50,7 @@ struct CGVectorTests {
 
     @Test("Scalar")
     func scalar() {
-        var left = CGVector(dx: 5, dy: 6)
-        var right = CGVector(dx: 10, dy: 20)
+        let left = CGVector(dx: 5, dy: 6)
 
         #expect(
             (left * 2).isEqual(to: .init(dx: 10, dy: 12), tolerance: tolerance)

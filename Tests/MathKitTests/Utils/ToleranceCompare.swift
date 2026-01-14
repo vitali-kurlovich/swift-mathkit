@@ -37,13 +37,6 @@ extension CGSize {
     }
 }
 
-extension UnitPoint {
-    func isEqual(to other: Self, tolerance: CGFloat) -> Bool {
-        x.isEqual(to: other.x, tolerance: tolerance) &&
-            y.isEqual(to: other.y, tolerance: tolerance)
-    }
-}
-
 extension CGRect {
     func isEqual(to other: Self, tolerance: CGFloat) -> Bool {
         origin.isEqual(to: other.origin, tolerance: tolerance) &&
