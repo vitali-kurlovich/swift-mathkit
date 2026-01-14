@@ -5,8 +5,6 @@
 //  Created by Vitali Kurlovich on 28.12.25.
 //
 
-// MKAngle+SIMD
-
 public nonisolated struct MKAngle<Float: FloatingPoint & Sendable>: Hashable & Sendable {
     public var radians: Float
 

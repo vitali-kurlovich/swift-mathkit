@@ -36,7 +36,7 @@ let package = Package(
                 "MathKit",
             ],
             resources: [
-                 .process("Metal/")
+                .process("Metal/"),
             ]
 
         ),
