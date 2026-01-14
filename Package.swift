@@ -22,39 +22,47 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.7.0"),
 
     ],
-    targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "MathKit",
-            dependencies: [
-            ]
-        ),
-        .target(
-            name: "MathKitMetal",
-            dependencies: [
-                "MathKit",
-            ],
-            resources: [
-                .process("Metal/"),
-            ]
+    targets: {
+        var targets: [Target] = [
+            // Targets are the basic building blocks of a package, defining a module or a test suite.
+            // Targets can depend on other targets in this package and products from dependencies.
+            .target(
+                name: "MathKit",
+                dependencies: [
+                ]
+            ),
 
-        ),
-        .executableTarget(
-            name: "MathKitBenchmarks",
-            dependencies: [
-                "MathKit",
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                "Benchmarks",
-            ],
-            path: "Sources/Benchmarks"
+            .executableTarget(
+                name: "MathKitBenchmarks",
+                dependencies: [
+                    "MathKit",
+                    .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                    "Benchmarks",
+                ],
+                path: "Sources/Benchmarks"
+            ),
+            .testTarget(
+                name: "MathKitTests",
+                dependencies: [
+                    "MathKit",
+                ]
+            ),
+        ]
 
-        ),
-        .testTarget(
-            name: "MathKitTests",
-            dependencies: [
-                "MathKit",
-            ]
-        ),
-    ]
+        #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+            targets.append(
+                .target(
+                    name: "MathKitMetal",
+                    dependencies: [
+                        "MathKit",
+                    ],
+                    resources: [
+                        .process("Metal/"),
+                    ]
+                )
+            )
+        #endif // os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+
+        return targets
+    }()
 )
