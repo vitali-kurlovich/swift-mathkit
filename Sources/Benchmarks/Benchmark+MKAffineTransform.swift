@@ -6,7 +6,7 @@
 //
 
 import Benchmarks
-import CoreGraphics
+import Foundation
 import MathKit
 
 extension Benchmark {
