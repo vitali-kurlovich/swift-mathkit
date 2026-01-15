@@ -8,30 +8,35 @@
 import Benchmarks
 import Foundation
 import MathKit
+#if canImport(CoreGraphics)
+    import CoreGraphics
+
+#endif
 
 extension Benchmark {
     func runAffineBenchmark() {
         let benchmark = BenchmarkExecuter()
+        #if canImport(CoreGraphics)
+            benchmark.benchmark(name: "CGAffineTransform") { context in
+                var acum: CGFloat = 0.0
 
-        benchmark.benchmark(name: "CGAffineTransform") { context in
-            var acum: CGFloat = 0.0
+                for _ in 0 ..< 10_000_000 {
+                    var affine = CGAffineTransform.identity
+                    affine = affine.rotated(by: acum * .pi / 180)
+                    affine = affine.translatedBy(x: 20, y: 30)
+                    affine = affine.scaledBy(x: 4, y: 5)
 
-            for _ in 0 ..< 10_000_000 {
-                var affine = CGAffineTransform.identity
-                affine = affine.rotated(by: acum * .pi / 180)
-                affine = affine.translatedBy(x: 20, y: 30)
-                affine = affine.scaledBy(x: 4, y: 5)
+                    affine = affine.rotated(by: acum * .pi / 180)
 
-                affine = affine.rotated(by: acum * .pi / 180)
+                    affine = affine.translatedBy(x: 20, y: 30)
+                    affine = affine.rotated(by: acum * .pi / 180)
 
-                affine = affine.translatedBy(x: 20, y: 30)
-                affine = affine.rotated(by: acum * .pi / 180)
+                    acum += affine.determinant
+                }
 
-                acum += affine.determinant
+                context.blackHole(acum)
             }
-
-            context.blackHole(acum)
-        }
+        #endif // canImport(CoreGraphics)
 
         benchmark.benchmark(name: "MKAffineTransform (CGFloat)") { context in
             var acum: CGFloat = 0.0
@@ -120,30 +125,30 @@ extension Benchmark {
 
     func runAffineInverseBenchmark() {
         let benchmark = BenchmarkExecuter()
+        #if canImport(CoreGraphics)
+            benchmark.benchmark(name: "CGAffineTransform inverted") { context in
+                var acum: CGFloat = 0.0
 
-        benchmark.benchmark(name: "CGAffineTransform inverted") { context in
-            var acum: CGFloat = 0.0
+                let translation = CGAffineTransform(translationX: 20, y: 30)
+                let scale = CGAffineTransform(scaleX: 4, y: 3)
+                let rotate = CGAffineTransform(rotationAngle: 45 * .pi / 180)
 
-            let translation = CGAffineTransform(translationX: 20, y: 30)
-            let scale = CGAffineTransform(scaleX: 4, y: 3)
-            let rotate = CGAffineTransform(rotationAngle: 45 * .pi / 180)
+                var affine = CGAffineTransform.identity
+                affine = affine.concatenating(translation)
+                affine = affine.concatenating(scale)
+                affine = affine.concatenating(rotate)
 
-            var affine = CGAffineTransform.identity
-            affine = affine.concatenating(translation)
-            affine = affine.concatenating(scale)
-            affine = affine.concatenating(rotate)
+                for _ in 0 ..< 10_000_000 {
+                    affine = affine.inverted()
 
-            for _ in 0 ..< 10_000_000 {
-                affine = affine.inverted()
+                    let p = CGPoint(x: 10, y: 20).applying(affine)
 
-                let p = CGPoint(x: 10, y: 20).applying(affine)
+                    acum += (p.x + p.y)
+                }
 
-                acum += (p.x + p.y)
+                context.blackHole(acum)
             }
-
-            context.blackHole(acum)
-        }
-
+        #endif // canImport(CoreGraphics)
         benchmark.benchmark(name: "MKAffineTransform inverse") { context in
             var acum: CGFloat = 0.0
 
@@ -227,8 +232,12 @@ extension Benchmark {
     }
 }
 
-extension CGAffineTransform {
-    var determinant: CGFloat {
-        (a * d).addingProduct(-b, c)
+#if canImport(CoreGraphics)
+
+    extension CGAffineTransform {
+        var determinant: CGFloat {
+            (a * d).addingProduct(-b, c)
+        }
     }
-}
+
+#endif // canImport(CoreGraphics)
