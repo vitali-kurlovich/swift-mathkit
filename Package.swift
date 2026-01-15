@@ -11,12 +11,20 @@ let package = Package(
         .watchOS(.v11),
         .tvOS(.v17),
     ],
-    products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(name: "MathKit", targets: ["MathKit"]),
-        .library(name: "MathKitMetal", targets: ["MathKitMetal"]),
+    products: {
+        var products: [Product] = [
+            Product.library(name: "MathKit", targets: ["MathKit"]),
+        ]
 
-    ],
+        #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+            products.append(
+                .library(name: "MathKitMetal", targets: ["MathKitMetal"])
+            )
+
+        #endif // os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+        return products
+
+    }(),
     dependencies: [
         .package(url: "https://github.com/vitali-kurlovich/Benchmarks", from: "0.1.6"),
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.7.0"),
