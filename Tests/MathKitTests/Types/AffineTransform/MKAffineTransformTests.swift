@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import MathKit
+import MathKit
 import Testing
 
 private let tolerance: Double = 0.00000001
