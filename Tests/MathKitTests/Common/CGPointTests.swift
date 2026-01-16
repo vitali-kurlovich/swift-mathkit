@@ -65,25 +65,6 @@ struct CGPointTests {
         )
     }
 
-    @Test("Vector")
-    func vector() {
-        let point = CGPoint(x: 5, y: 6)
-
-        let vector = CGVector(CGPoint(x: 10, y: 20))
-
-        #expect(
-            CGPoint(vector).isEqual(to: CGPoint(x: 10, y: 20), tolerance: tolerance)
-        )
-
-        #expect(
-            (point + vector).isEqual(to: CGPoint(x: 15, y: 26), tolerance: tolerance)
-        )
-
-        #expect(
-            (vector + point).isEqual(to: CGPoint(x: 15, y: 26), tolerance: tolerance)
-        )
-    }
-
     @Test("Size")
     func size() {
         var point = CGPoint(x: 5, y: 6)
@@ -110,3 +91,28 @@ struct CGPointTests {
         )
     }
 }
+
+#if canImport(CoreGraphics)
+
+    extension CGPointTests {
+        @Test("Vector")
+        func vector() {
+            let point = CGPoint(x: 5, y: 6)
+
+            let vector = CGVector(CGPoint(x: 10, y: 20))
+
+            #expect(
+                CGPoint(vector).isEqual(to: CGPoint(x: 10, y: 20), tolerance: tolerance)
+            )
+
+            #expect(
+                (point + vector).isEqual(to: CGPoint(x: 15, y: 26), tolerance: tolerance)
+            )
+
+            #expect(
+                (vector + point).isEqual(to: CGPoint(x: 15, y: 26), tolerance: tolerance)
+            )
+        }
+    }
+
+#endif // canImport(CoreGraphics)

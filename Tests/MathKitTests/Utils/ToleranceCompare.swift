@@ -23,13 +23,6 @@ public extension CGPoint {
     }
 }
 
-public extension CGVector {
-    func isEqual(to other: Self, tolerance: CGFloat) -> Bool {
-        dx.isEqual(to: other.dx, tolerance: tolerance) &&
-            dy.isEqual(to: other.dy, tolerance: tolerance)
-    }
-}
-
 public extension CGSize {
     func isEqual(to other: Self, tolerance: CGFloat) -> Bool {
         width.isEqual(to: other.width, tolerance: tolerance) &&
@@ -71,3 +64,14 @@ public extension MKRect {
             size.isEqual(to: other.size, tolerance: tolerance)
     }
 }
+
+#if canImport(CoreGraphics)
+
+    public extension CGVector {
+        func isEqual(to other: Self, tolerance: CGFloat) -> Bool {
+            dx.isEqual(to: other.dx, tolerance: tolerance) &&
+                dy.isEqual(to: other.dy, tolerance: tolerance)
+        }
+    }
+
+#endif // canImport(CoreGraphics)
