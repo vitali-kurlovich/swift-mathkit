@@ -5,7 +5,6 @@
 //  Created by Vitali Kurlovich on 6.01.26.
 //
 
-import Foundation
 import MathKit
 import Testing
 
@@ -66,27 +65,33 @@ extension MKAffineTransformTests {
 extension MKAffineTransformTests {
     @Test("Translate")
     func translate() {
-        var mk = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        var mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
         mk.translate(x: 20, y: 30)
 
-        var tr = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
-        tr.translate(x: 20, y: 30)
+        #expect(mk == .init(m11: 1.0, m12: 2.0, m21: 3.0, m22: 4.0, tx: 115.0, ty: 166.0))
+
+        var tr = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        tr.prepend(.translation(x: 20, y: 30))
 
         #expect(mk == tr)
     }
 
     @Test("Rotate")
     func rotate() {
-        var mk = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        var mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
         mk.rotate(MKAngle(radians: .pi / 4))
 
-        
-        
-        
-        var tr = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
-        tr.rotate(byRadians: .pi / 4)
+        #expect(
+            mk.isEqual(to: .init(m11: 2.8284271247461903, m12: 4.242640687119286,
+                                 m21: 1.4142135623730954, m22: 1.4142135623730956,
+                                 tx: 5.0, ty: 6.0),
+                       tolerance: tolerance)
+        )
 
-        #expect(mk.isEqual(to: .init(tr), tolerance: tolerance))
+        var tr = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        tr.prepend(.rotation(.radians(.pi / 4)))
+
+        #expect(mk.isEqual(to: tr, tolerance: tolerance))
     }
 
     @Test("Scale")
@@ -137,13 +142,13 @@ extension MKAffineTransformTests {
 
     @Test("Invert")
     func invert() throws {
-        var mk = MKAffineTransform<CGFloat>()
+        var mk = MKAffineTransform<Double>()
         mk.translate(x: 2, y: 5)
         mk.rotate(.radians(.pi / 4))
         mk.scale(x: 4, y: 3)
         mk.rotate(.radians(.pi / 4))
 
-        var inv = MKAffineTransform<CGFloat>()
+        var inv = MKAffineTransform<Double>()
         inv.rotate(.radians(-.pi / 4))
         inv.scale(x: 1 / 4, y: 1 / 3)
         inv.rotate(.radians(-.pi / 4))
@@ -195,8 +200,8 @@ extension MKAffineTransformTests {
 
     @Test("Transform Rect")
     func transform_rect() {
-        let mk = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-        let rect = CGRect(x: 20, y: 90, width: 200, height: 120)
+        let mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        let rect = MKRect<Double>(x: 20, y: 90, width: 200, height: 120)
         #expect(mk.transform(rect) == .init(x: 295.0, y: 406.0, width: 560.0, height: 880.0))
     }
 }
