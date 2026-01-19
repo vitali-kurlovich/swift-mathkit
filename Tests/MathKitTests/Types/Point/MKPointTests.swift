@@ -60,6 +60,45 @@ struct MKPointTests {
         #expect(
             (-left).isEqual(to: .init(x: -5, y: -6), tolerance: tolerance)
         )
+
+        var point = Point(x: 3, y: 4)
+
+        point *= Point(x: 2, y: 3)
+
+        #expect(
+            point.isEqual(to: .init(x: 6, y: 12), tolerance: tolerance)
+        )
+
+        point *= 2
+
+        #expect(
+            point.isEqual(to: .init(x: 12, y: 24), tolerance: tolerance)
+        )
+
+        point /= 2
+
+        #expect(
+            point.isEqual(to: .init(x: 6, y: 12), tolerance: tolerance)
+        )
+
+        point /= Point(x: 2, y: 3)
+
+        #expect(
+            point.isEqual(to: .init(x: 3, y: 4), tolerance: tolerance)
+        )
+    }
+
+    @Test("Add Product")
+    func addProduct() {
+        var point = Point(x: 3, y: 4)
+
+        #expect(
+            point.addingProduct(Point(x: 2, y: 3), Point(x: 6, y: 4)) == Point(x: 15, y: 16)
+        )
+
+        point.addProduct(Point(x: 2, y: 3), Point(x: 6, y: 4))
+
+        #expect(point == Point(x: 15, y: 16))
     }
 
     @Test("Scalar")
@@ -76,6 +115,91 @@ struct MKPointTests {
 
         #expect(
             (left / 2).isEqual(to: .init(x: 2.5, y: 3), tolerance: tolerance)
+        )
+    }
+
+    @Test("Magnitude")
+    func magnitude() {
+        let point = Point(x: 3, y: 4)
+
+        #expect(
+            point.magnitudeSquared == 25
+        )
+
+        #expect(
+            point.magnitude == 5
+        )
+    }
+
+    @Test("Distance")
+    func distance() {
+        let point = Point(x: -1, y: -2)
+
+        #expect(
+            point.distanceSquared(to: Point(x: 2, y: 2)) == 25
+        )
+
+        #expect(
+            point.distance(to: Point(x: 2, y: 2)) == 5
+        )
+    }
+
+    @Test("Normalize")
+    func normalize() {
+        var point = Point(x: -30, y: 40)
+
+        #expect(
+            point.normalized() == Point(x: -3 / 5, y: 4 / 5)
+        )
+
+        point.normalize()
+
+        #expect(
+            point == Point(x: -3 / 5, y: 4 / 5)
+        )
+
+        #expect(
+            point.magnitudeSquared == 1
+        )
+    }
+
+    @Test("Dot")
+    func dot() {
+        // {{Sqrt[3]/2, -(1/2)}, {1/2, Sqrt[3]/2}}
+
+        #expect(
+            Point(x: 0, y: 1).dot(Point(x: 0, y: 1)) == 1
+        )
+
+        #expect(
+            Point(x: -6, y: 3).dot(Point(x: 5, y: -2)) == -36
+        )
+
+        #expect(
+            Point(x: 10, y: 0).dot(Point(x: 0, y: 10)) == 0
+        )
+
+        #expect(
+            Point(x: sqrt(3) / 2, y: -1 / 2).dot(Point(x: 1 / 2, y: sqrt(3) / 2)) == 0
+        )
+    }
+
+    @Test("Cross")
+    func cross() {
+        #expect(
+            Point(x: 10, y: 0).cross(Point(x: 0, y: 10)) == 100
+        )
+
+        #expect(
+            Point(x: 0, y: 10).cross(Point(x: 10, y: 0)) == -100
+        )
+
+        #expect(
+            Point(x: 10, y: 0).cross(Point(x: 10, y: 10)) == 100
+        )
+
+        #expect(
+            Point(x: sqrt(3) / 2, y: -1 / 2).cross(Point(x: 1 / 2, y: sqrt(3) / 2)).isEqual(to: 1, tolerance: tolerance)
         )
     }
 
