@@ -9,7 +9,7 @@ import Foundation
 import MathKit
 import Testing
 
-private let tolerance: Double = 0.000001
+private let tolerance: Double = 0.00000001
 
 @Suite("MKAffineTransform")
 struct MKAffineTransformTests {}
@@ -123,79 +123,44 @@ extension MKAffineTransformTests {
     }
 
     @Test("Invert")
-    func invert() {
-        var mk = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-        mk.invert()
-
-        var tr = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
-        tr.invert()
-
-        #expect(mk == tr)
-
-        mk = MKAffineTransform<CGFloat>()
-        tr = CoreAffineTransform.identity
-
+    func invert() throws {
+        var mk = MKAffineTransform<CGFloat>()
         mk.translate(x: 2, y: 5)
         mk.rotate(.radians(.pi / 4))
         mk.scale(x: 4, y: 3)
         mk.rotate(.radians(.pi / 4))
 
-        tr.translate(x: 2, y: 5)
-        tr.rotate(byRadians: .pi / 4)
-        tr.scale(x: 4, y: 3)
-        tr.rotate(byRadians: .pi / 4)
+        var inv = MKAffineTransform<CGFloat>()
+        inv.rotate(.radians(-.pi / 4))
+        inv.scale(x: 1 / 4, y: 1 / 3)
+        inv.rotate(.radians(-.pi / 4))
+        inv.translate(x: -2, y: -5)
 
-        #expect(mk.isEqual(to: .init(tr), tolerance: tolerance))
+        let inverted = try #require(mk.inverted())
+
+        #expect(inv.isEqual(to: inverted, tolerance: tolerance))
 
         mk.invert()
-        tr.invert()
 
-        #expect(mk.isEqual(to: .init(tr), tolerance: tolerance))
+        #expect(inv.isEqual(to: mk, tolerance: tolerance))
     }
 
     @Test("Invert point")
-    func invertPoint() {
+    func invertPoint() throws {
         var mk = MKAffineTransform<CGFloat>()
-        var tr = CoreAffineTransform.identity
 
         mk.translate(x: 2, y: 5)
         mk.rotate(.radians(.pi / 4))
         mk.scale(x: 4, y: 3)
         mk.rotate(.radians(.pi / 4))
 
-        tr.translate(x: 2, y: 5)
-        tr.rotate(byRadians: .pi / 4)
-        tr.scale(x: 4, y: 3)
-        tr.rotate(byRadians: .pi / 4)
-
-        tr.invert()
+        let inverted = try #require(mk.inverted())
 
         let point = CGPoint(x: 20, y: 50)
+
         #expect(
-            mk.inverse(point).isEqual(to: tr.transform(point), tolerance: tolerance)
+            mk.inverse(point).isEqual(to: inverted.transform(point), tolerance: tolerance)
         )
-    }
-
-    @Test("Inverted")
-    func inverted() throws {
-        var mk = MKAffineTransform<CGFloat>()
-
-        var tr = CoreAffineTransform.identity
-
-        mk.translate(x: 2, y: 5)
-        mk.rotate(.radians(.pi / 4))
-        mk.scale(x: 4, y: 3)
-        mk.rotate(.radians(.pi / 4))
-
-        tr.translate(x: 2, y: 5)
-        tr.rotate(byRadians: .pi / 4)
-        tr.scale(x: 4, y: 3)
-        tr.rotate(byRadians: .pi / 4)
-
-        let mkInverted = try #require(mk.inverted())
-        let trInverted = try #require(tr.inverted())
-
-        #expect(mkInverted.isEqual(to: .init(trInverted), tolerance: tolerance))
     }
 }
 
@@ -203,16 +168,16 @@ extension MKAffineTransformTests {
 extension MKAffineTransformTests {
     @Test("Transform Point")
     func transform_point() {
-        let mk = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        var mk = MKAffineTransform<Double>()
+        let point = MKPoint<Double>(x: 20, y: 40)
+        #expect(mk.transform(point) == point)
 
-        let tr = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
+        mk.translate(x: 2, y: 5)
+        mk.rotate(.radians(.pi / 4))
+        mk.scale(x: 4, y: 3)
+        mk.rotate(.radians(.pi / 4))
 
-        let point = CGPoint(x: 20, y: 90)
-
-        #expect(mk.transform(point) == tr.transform(point))
-
-        let mkpoint = MKPoint<CGFloat>(x: 20, y: 90)
-        #expect(mk.transform(mkpoint) == tr.transform(point))
+        #expect(mk.transform(point).isEqual(to: MKPoint(x: -128, y: 55), tolerance: tolerance))
     }
 
     @Test("Transform Rect")
