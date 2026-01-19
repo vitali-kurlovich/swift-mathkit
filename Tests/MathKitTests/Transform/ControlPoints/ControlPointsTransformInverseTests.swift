@@ -9,7 +9,7 @@ import Foundation
 import MathKit
 import Testing
 
-private let tolerance: Double = 0.0001
+private let tolerance: Double = 0.000001
 
 extension ControlPointsTransformInverseTests {}
 
@@ -115,27 +115,47 @@ struct ControlPointsTransformInverseTests {
         }
     }
 
+    @Test("Сrossed")
+    func сrossed() {
+        let transform: CoreAffineTransform = .rotate45
+
+        let tr = ControlPointsTransform(p0: transform.transform(MKPoint(x: 0, y: 0)),
+                                        p1: transform.transform(MKPoint(x: 1, y: 0)),
+                                        p2: transform.transform(MKPoint(x: 0, y: 1)),
+                                        p3: transform.transform(MKPoint(x: 1, y: 1)))
+
+        let transformed = tr.transform(.init(x: 0.75, y: 0.5))
+        let result = tr.inverse(transformed)
+
+        //   debugPrint(transformed, result)
+        //   debugPrint(tr.transform(result))
+
+        #expect(
+            tr.transform(result).isEqual(to: transformed, tolerance: tolerance)
+        )
+    }
+
     @Test("Сrossed", arguments: [
         //         2 --- 3
         //          \   /
         //            X
         //          /   \
         //         0 --- 1
-//        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20)),
-//        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .rotate45),
-//        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .rotate90),
-//        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .rotate180),
-//        PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15), .rotate270),
-//        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .flipHorizontal),
-//        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .flipVertical),
+        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20)),
+        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .rotate45),
+        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .rotate90),
+        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .rotate180),
+        PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15), .rotate270),
+        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .flipHorizontal),
+        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .flipVertical),
 
         PointsMap((0, 0), (1, 0), (0, 1), (1, 1)),
-//        PointsMap((0, 0), (1, 0),  (0, 1), (1, 1), .rotate45),
-//        PointsMap((0, 0), (1, 0),  (0, 1), (1, 1), .rotate90),
-//        PointsMap((0, 0), (1, 0),  (0, 1), (1, 1), .rotate180),
-//        PointsMap((0, 0), (1, 0),  (0, 1), (1, 1), .rotate270),
-//        PointsMap((0, 0), (1, 0),  (0, 1), (1, 1), .flipHorizontal),
-//        PointsMap((0, 0), (1, 0),  (0, 1), (1, 1), .flipVertical),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate45),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate90),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate180),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate270),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .flipHorizontal),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .flipVertical),
 
     ])
     func сrossed(_ points: PointsMap) {
@@ -144,16 +164,14 @@ struct ControlPointsTransformInverseTests {
                                         p2: points.p2,
                                         p3: points.p3)
 
-        let transformed = tr.transform(.init(x: 0.25, y: 0.75))
-
-        let result = tr.inverse(transformed)
-
-        debugPrint(transformed, result)
-
         for uv in UVGrid.uvs {
             let transformed = tr.transform(uv)
 
             let result = tr.inverse(transformed)
+
+            if !tr.transform(result).isEqual(to: transformed, tolerance: tolerance) {
+                debugPrint(uv, transformed, result)
+            }
 
             #expect(
                 // result.isEqual(to: uv, tolerance: tolerance)

@@ -43,7 +43,10 @@ extension MKAffineTransformTests {
 
         #expect(MKAffineTransform<CGFloat>(.radians(.pi)) == CoreAffineTransform(rotationByRadians: .pi))
 
-        #expect(MKAffineTransform<CGFloat>(.radians(.pi / 8)) == CoreAffineTransform(rotationByRadians: .pi / 8))
+        #expect(
+            MKAffineTransform<CGFloat>(.radians(.pi / 8))
+                .isEqual(to: .init(CoreAffineTransform(rotationByRadians: .pi / 8)), tolerance: tolerance)
+        )
 
         #expect(MKAffineTransform<CGFloat>(.degrees(66)) == CoreAffineTransform(rotationByDegrees: 66))
     }

@@ -9,7 +9,7 @@ import Foundation
 import MathKit
 import Testing
 
-private let tolerance: Double = 0.0001
+private let tolerance: Double = 0.000001
 
 extension Affine2DTransform {
     init(_ transform: CoreAffineTransform) where Float == CGFloat {
@@ -142,7 +142,7 @@ struct Affine2DTransformTests {
         var transform = Affine2DTransform<CGFloat>(rotation: .degrees(45))
 
         #expect(
-            transform == Affine2DTransform(CoreAffineTransform(rotationByDegrees: 45))
+            transform.isEqual(to: Affine2DTransform(CoreAffineTransform(rotationByDegrees: 45)), tolerance: tolerance)
         )
 
         transform = .identity

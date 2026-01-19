@@ -48,6 +48,7 @@ extension ControlPointsTransform: Transform, InverseTransform {
         let dy13 = y1 - y3
         let dx23 = x2 - x3, dy23 = y2 - y3
 
+        //   dx01 dy23 - dx23 dy01
         //  (x2 (y0 - y1) + x3 (-y0 + y1) - (x0 - x1) (y2 - y3)) -> DU
         // dx23 dy01 - dx01 dy23 -> DU
         let DU = (dy01 * dx23).addingProduct(-dx01, dy23)
@@ -56,7 +57,17 @@ extension ControlPointsTransform: Transform, InverseTransform {
         //  dx03 dy12 - dx12 dy03 -> DV
         let DV = (dx03 * dy12).addingProduct(-dy03, dx12)
 
-        if abs(DU) <= epsilon, abs(DV) <= epsilon {
+        // p0 -- p1
+        // |      |
+        // |      |
+        // p3 -- p2
+
+        let isP01P32Parallel = abs(DU) <= epsilon
+        let isP03P12Parallel = abs(DV) <= epsilon
+
+        let isAffine = isP01P32Parallel && isP03P12Parallel
+
+        if isAffine {
             let divider = dy13 * x0 - dy03 * x1 + dy01 * x3
 
             if abs(divider) <= epsilon {
@@ -90,7 +101,13 @@ extension ControlPointsTransform: Transform, InverseTransform {
         )
 
         // Sqrt[AA + PP^2] -> SS
-        let SS = AA.addingProduct(PP, PP).squareRoot()
+        var SS = AA.addingProduct(PP, PP) // .squareRoot()
+
+        if abs(SS) <= epsilon {
+            SS = 0
+        } else {
+            SS = SS.squareRoot()
+        }
 
         // py (x0 - x1 + x2 - x3) - x2 y0 + x3 (2 y0 - y1) + x0 (y2 - 2 y3) + x1 y3 + px (-y0 + y1 - y2 + y3) -> BB
         // -((dy01 + dy23) px) + (dx01 + dx23) py - x2 y0 + x3 (dy01 + y0) + x0 (dy23 - y3) + x1 y3 -> BB
@@ -130,9 +147,18 @@ extension ControlPointsTransform: Transform, InverseTransform {
         // U -> (NN + SS)/(2 DU)
         let ur: Float // = (NN + SS) / (2 * DU)
 
-        if abs(DU) <= epsilon {
-            ul = 1 / 2
-            ur = 1 / 2
+        if isP01P32Parallel {
+            let vl = (CC + SS) / (2 * DV)
+            let vr = (EE + SS) / (-2 * DV)
+
+            ul = inverseU(by: vl, for: source)
+            ur = inverseU(by: vr, for: source)
+
+            let left = MKPoint(x: ul, y: vl)
+            let right = MKPoint(x: ur, y: vr)
+
+            return uv(firstUV: left, secondUI: right, for: source)
+
         } else {
             ul = -((BB + SS) / (2 * DU))
             ur = (NN + SS) / (2 * DU)
@@ -144,20 +170,84 @@ extension ControlPointsTransform: Transform, InverseTransform {
         // V -> -(EE + SS)/(2 DVR)
         let vr: Float
 
-        if abs(DV) <= epsilon {
-            vl = 1 / 2
-            vr = 1 / 2
+        if isP03P12Parallel {
+            vl = inverseV(by: ul, for: source)
+            vr = inverseV(by: ur, for: source)
+
+            let left = MKPoint(x: ul, y: vl)
+            let right = MKPoint(x: ur, y: vr)
+
+            return uv(firstUV: left, secondUI: right, for: source)
+
         } else {
             vl = (CC + SS) / (2 * DV)
             vr = (EE + SS) / (-2 * DV)
         }
 
-        if ul >= -epsilon, ul <= (1 + epsilon),
-           vl >= -epsilon, vl <= (1 + epsilon)
-        {
-            return .init(x: ul, y: vl)
+        let left = MKPoint(x: ul, y: vl)
+        let right = MKPoint(x: ur, y: vr)
+
+        return uv(firstUV: left, secondUI: right, for: source)
+    }
+}
+
+private extension ControlPointsTransform {
+    var epsilonRange: ClosedRange<Float> {
+        -epsilon ... (1 + epsilon)
+    }
+
+    func inNormalRange(_ uv: MKPoint<Float>) -> Bool {
+        epsilonRange.contains(uv.x) && epsilonRange.contains(uv.y)
+    }
+
+    func uv(firstUV: MKPoint<Float>, secondUI: MKPoint<Float>, for source: MKPoint<Float>) -> MKPoint<Float> {
+        if !inNormalRange(firstUV) {
+            return secondUI
         }
 
-        return .init(x: ur, y: vr)
+        let first = source - transform(firstUV)
+
+        if first.magnitudeSquared <= epsilon {
+            return firstUV
+        }
+
+        return secondUI
+    }
+
+    func inverseU(by v: Float, for source: MKPoint<Float>) -> Float {
+        let m0 = p0 + (p3 - p0) * v
+
+        let sourceMagnitudeSquared = (source - m0).magnitudeSquared
+        if sourceMagnitudeSquared <= epsilon {
+            return .zero
+        }
+
+        let m1 = p1 + (p2 - p1) * v
+
+        let deltaMagnitudeSquared = (m1 - m0).magnitudeSquared
+        if deltaMagnitudeSquared <= epsilon {
+            return 1 / 2
+        }
+
+        return (sourceMagnitudeSquared / deltaMagnitudeSquared).squareRoot()
+    }
+
+    func inverseV(by u: Float, for source: MKPoint<Float>) -> Float {
+        let m0 = p0 + (p1 - p0) * u
+
+        let sourceMagnitudeSquared = (source - m0).magnitudeSquared
+
+        if sourceMagnitudeSquared <= epsilon {
+            return .zero
+        }
+
+        let m1 = p3 + (p2 - p3) * u
+
+        let deltaMagnitudeSquared = (m1 - m0).magnitudeSquared
+        if deltaMagnitudeSquared <= epsilon {
+            return 1 / 2
+        }
+
+        return ((source - m0).magnitudeSquared / deltaMagnitudeSquared).squareRoot()
     }
 }

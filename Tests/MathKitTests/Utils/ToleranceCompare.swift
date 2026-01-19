@@ -65,6 +65,18 @@ public extension MKRect {
     }
 }
 
+public extension Affine2DTransform {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        m11.isEqual(to: other.m11, tolerance: tolerance) &&
+            m12.isEqual(to: other.m12, tolerance: tolerance) &&
+            m21.isEqual(to: other.m21, tolerance: tolerance) &&
+            m22.isEqual(to: other.m22, tolerance: tolerance) &&
+
+            tx.isEqual(to: other.tx, tolerance: tolerance) &&
+            ty.isEqual(to: other.ty, tolerance: tolerance)
+    }
+}
+
 #if canImport(CoreGraphics)
 
     public extension CGVector {
