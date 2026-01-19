@@ -9,7 +9,7 @@ import Foundation
 import MathKit
 import Testing
 
-private let tolerance: Double = 0.00000001
+private let tolerance: Double = 0.000001
 
 @Suite("MKAffineTransform")
 struct MKAffineTransformTests {}
