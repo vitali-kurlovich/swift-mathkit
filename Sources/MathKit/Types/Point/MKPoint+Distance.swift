@@ -24,3 +24,17 @@ public extension MKPoint {
         distanceSquared(to: target).squareRoot()
     }
 }
+
+@inlinable public func normalize<Float: FloatingPoint & Sendable>(_ source: MKPoint<Float>) -> MKPoint<Float> {
+    source / source.magnitude
+}
+
+public extension MKPoint {
+    func normalized() -> Self {
+        MathKit.normalize(self)
+    }
+
+    mutating func normalize() {
+        self /= magnitude
+    }
+}

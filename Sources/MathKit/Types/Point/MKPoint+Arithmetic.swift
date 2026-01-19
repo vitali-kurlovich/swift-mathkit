@@ -21,8 +21,16 @@ public extension MKPoint {
         point * scalar
     }
 
+    @inlinable static func *= (left: inout Self, scalar: Float) {
+        left = left * scalar
+    }
+
     @inlinable static func / (left: Self, scalar: Float) -> Self {
         return .init(x: left.x / scalar, y: left.y / scalar)
+    }
+
+    @inlinable static func /= (left: inout Self, scalar: Float) {
+        left = left / scalar
     }
 }
 
