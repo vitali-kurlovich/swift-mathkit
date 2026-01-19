@@ -7,42 +7,64 @@
 
 import Foundation
 
-public extension MKAffineTransform {
+public extension MKAffineTransform where Float == Double {
     /**
      Creates an affine transformation matrix from rotation value (angle in radians).
      The matrix takes the following form:
 
-         [  cos α   sin α  0 ]
-         [ -sin α   cos α  0 ]
-         [    0       0    1 ]
+     [  cos α   sin α  0 ]
+     [ -sin α   cos α  0 ]
+     [    0       0    1 ]
      */
 
-    @inlinable init(_ angle: MKAngle<Float>) where Float == Double {
+    @inlinable init(_ angle: MKAngle<Float>) {
         let (s, c) = angle.sincos
         self.init(m11: c, m12: s,
                   m21: -s, m22: c,
                   tx: 0, ty: 0)
     }
 
-    @inlinable init(_ angle: MKAngle<Float>) where Float == Swift.Float {
+    @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
+        .init(angle)
+    }
+}
+
+public extension MKAffineTransform where Float == Swift.Float {
+    @inlinable init(_ angle: MKAngle<Float>) {
         let (s, c) = angle.sincos
         self.init(m11: c, m12: s,
                   m21: -s, m22: c,
                   tx: 0, ty: 0)
     }
 
-    @inlinable init(_ angle: MKAngle<Float>) where Float == CGFloat {
+    @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
+        .init(angle)
+    }
+}
+
+public extension MKAffineTransform where Float == CGFloat {
+    @inlinable init(_ angle: MKAngle<Float>) {
         let (s, c) = angle.sincos
         self.init(m11: c, m12: s,
                   m21: -s, m22: c,
                   tx: 0, ty: 0)
     }
 
+    @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
+        .init(angle)
+    }
+}
+
+public extension MKAffineTransform where Float == Float16 {
     @inlinable init(_ angle: MKAngle<Float>) where Float == Float16 {
         let (s, c) = angle.sincos
         self.init(m11: c, m12: s,
                   m21: -s, m22: c,
                   tx: 0, ty: 0)
+    }
+
+    @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
+        .init(angle)
     }
 }
 

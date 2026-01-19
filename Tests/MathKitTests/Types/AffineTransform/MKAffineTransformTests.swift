@@ -18,37 +18,47 @@ struct MKAffineTransformTests {}
 extension MKAffineTransformTests {
     @Test("Init")
     func initTransform() {
-        #expect(MKAffineTransform<CGFloat>() == CoreAffineTransform.identity)
-
-        #expect(MKAffineTransform<CGFloat>.identity == CoreAffineTransform.identity)
+        #expect(MKAffineTransform<Double>() == .identity)
+        #expect(MKAffineTransform<Double>() == .init(m11: 1.0, m12: 0.0, m21: 0.0, m22: 1.0, tx: 0.0, ty: 0.0))
     }
 
     @Test("Init translation")
     func initTranslation() {
-        #expect(MKAffineTransform<CGFloat>(translationByX: 3, byY: 6) == CoreAffineTransform(translationByX: 3, byY: 6))
+        #expect(MKAffineTransform<Double>(translationByX: 3, byY: 6) == .init(m11: 1.0, m12: 0.0, m21: 0.0, m22: 1.0, tx: 3.0, ty: 6.0))
+        #expect(MKAffineTransform<Double>(translationByX: 3, byY: 6) == .translation(x: 3, y: 6))
     }
 
     @Test("Init scale")
     func initScale() {
-        #expect(MKAffineTransform<CGFloat>(scale: 4) == CoreAffineTransform(scale: 4))
-
-        #expect(MKAffineTransform<CGFloat>(scaleByX: 3, byY: 5) == CoreAffineTransform(scaleByX: 3, byY: 5))
+        #expect(MKAffineTransform<Double>(scale: 4) == .init(m11: 4.0, m12: 0.0, m21: 0.0, m22: 4.0, tx: 0.0, ty: 0.0))
+        #expect(MKAffineTransform<Double>(scale: 4) == .scale(4))
+        #expect(MKAffineTransform<Double>(scaleByX: 3, byY: 5) == .init(m11: 3.0, m12: 0.0, m21: 0.0, m22: 5.0, tx: 0.0, ty: 0.0))
+        #expect(MKAffineTransform<Double>(scaleByX: 3, byY: 5) == .scale(x: 3, y: 5))
     }
 
     @Test("Init rotation")
     func initRotate() {
-        #expect(MKAffineTransform<CGFloat>(MKAngle()) == CoreAffineTransform(rotationByRadians: 0))
+        #expect(MKAffineTransform<Double>(MKAngle()) == .init(m11: 1.0, m12: 0.0, m21: 0.0, m22: 1.0, tx: 0.0, ty: 0.0))
 
-        #expect(MKAffineTransform<CGFloat>(.radians(.pi / 2)) == CoreAffineTransform(rotationByRadians: .pi / 2))
-
-        #expect(MKAffineTransform<CGFloat>(.radians(.pi)) == CoreAffineTransform(rotationByRadians: .pi))
+        #expect(MKAffineTransform<Double>(.radians(.pi / 2)) == .rotation(.radians(.pi / 2)))
 
         #expect(
-            MKAffineTransform<CGFloat>(.radians(.pi / 8))
-                .isEqual(to: .init(CoreAffineTransform(rotationByRadians: .pi / 8)), tolerance: tolerance)
+            MKAffineTransform<Double>(.radians(.pi / 2))
+                .isEqual(to: .init(m11: 0, m12: 1.0, m21: -1.0, m22: 0, tx: 0.0, ty: 0.0), tolerance: tolerance)
         )
 
-        #expect(MKAffineTransform<CGFloat>(.degrees(66)) == CoreAffineTransform(rotationByDegrees: 66))
+        #expect(MKAffineTransform<Double>(.radians(.pi))
+            .isEqual(to: .init(m11: -1.0, m12: 0, m21: 0, m22: -1.0, tx: 0.0, ty: 0.0), tolerance: tolerance))
+
+        #expect(MKAffineTransform<Double>(.radians(.pi / 8))
+            .isEqual(to: .init(m11: 0.9238795325112866, m12: 0.3826834323650898,
+                               m21: -0.3826834323650898, m22: 0.9238795325112866,
+                               tx: 0.0, ty: 0.0), tolerance: tolerance))
+
+        #expect(MKAffineTransform<Double>(.degrees(66))
+            .isEqual(to: .init(m11: 0.4067366430758002, m12: 0.9135454576426009,
+                               m21: -0.9135454576426009, m22: 0.4067366430758002,
+                               tx: 0.0, ty: 0.0), tolerance: tolerance))
     }
 }
 
@@ -70,6 +80,9 @@ extension MKAffineTransformTests {
         var mk = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
         mk.rotate(MKAngle(radians: .pi / 4))
 
+        
+        
+        
         var tr = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
         tr.rotate(byRadians: .pi / 4)
 
@@ -78,48 +91,48 @@ extension MKAffineTransformTests {
 
     @Test("Scale")
     func scale() {
-        var mk = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        var mk = MKAffineTransform<Double>.identity
         mk.scale(6)
+        #expect(
+            mk == .scale(6)
+        )
 
-        var tr = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
-        tr.scale(6)
-
-        #expect(mk == tr)
-
+        mk = .identity
         mk.scale(x: 4, y: 7)
-        tr.scale(x: 4, y: 7)
+
+        #expect(
+            mk == .scale(x: 4, y: 7)
+        )
+
+        mk = .init(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+
+        var tr = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+
+        mk.scale(x: 20, y: 50)
+
+        tr.prepend(.scale(x: 20, y: 50))
 
         #expect(mk == tr)
     }
 
     @Test("Append")
     func append() {
-        var mk1 = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-        let mk2 = MKAffineTransform<CGFloat>(m11: 7, m12: 8, m21: 9, m22: 10, tx: 11, ty: 12)
+        var mk1 = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        let mk2 = MKAffineTransform<Double>(m11: 7, m12: 8, m21: 9, m22: 10, tx: 11, ty: 12)
 
         mk1.append(mk2)
 
-        var t1 = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
-        let t2 = CoreAffineTransform(m11: 7, m12: 8, m21: 9, m22: 10, tX: 11, tY: 12)
-
-        t1.append(t2)
-
-        #expect(mk1 == t1)
+        #expect(mk1 == .init(m11: 25.0, m12: 28.0, m21: 57.0, m22: 64.0, tx: 100.0, ty: 112.0))
     }
 
     @Test("Prepend")
     func prepend() {
-        var mk1 = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-        let mk2 = MKAffineTransform<CGFloat>(m11: 7, m12: 8, m21: 9, m22: 10, tx: 11, ty: 12)
+        var mk1 = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        let mk2 = MKAffineTransform<Double>(m11: 7, m12: 8, m21: 9, m22: 10, tx: 11, ty: 12)
 
         mk1.prepend(mk2)
 
-        var t1 = CoreAffineTransform(m11: 1, m12: 2, m21: 3, m22: 4, tX: 5, tY: 6)
-        let t2 = CoreAffineTransform(m11: 7, m12: 8, m21: 9, m22: 10, tX: 11, tY: 12)
-
-        t1.prepend(t2)
-
-        #expect(mk1 == t1)
+        #expect(mk1 == .init(m11: 31.0, m12: 46.0, m21: 39.0, m22: 58.0, tx: 52.0, ty: 76.0))
     }
 
     @Test("Invert")
@@ -147,7 +160,7 @@ extension MKAffineTransformTests {
 
     @Test("Invert point")
     func invertPoint() throws {
-        var mk = MKAffineTransform<CGFloat>()
+        var mk = MKAffineTransform<Double>()
 
         mk.translate(x: 2, y: 5)
         mk.rotate(.radians(.pi / 4))
@@ -156,7 +169,7 @@ extension MKAffineTransformTests {
 
         let inverted = try #require(mk.inverted())
 
-        let point = CGPoint(x: 20, y: 50)
+        let point = MKPoint<Double>(x: 20, y: 50)
 
         #expect(
             mk.inverse(point).isEqual(to: inverted.transform(point), tolerance: tolerance)

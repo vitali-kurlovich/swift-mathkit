@@ -53,6 +53,10 @@ public extension MKAffineTransform {
                   m21: 0, m22: 1,
                   tx: x, ty: y)
     }
+
+    @inlinable static func translation(x: Float, y: Float) -> Self {
+        .init(translationByX: x, byY: y)
+    }
 }
 
 public extension MKAffineTransform {
@@ -80,6 +84,14 @@ public extension MKAffineTransform {
      */
     @inlinable init(scale factor: Float) {
         self.init(scaleByX: factor, byY: factor)
+    }
+
+    @inlinable static func scale(_ scale: Float) -> Self {
+        .init(scale: scale)
+    }
+
+    @inlinable static func scale(x: Float, y: Float) -> Self {
+        .init(scaleByX: x, byY: y)
     }
 }
 
