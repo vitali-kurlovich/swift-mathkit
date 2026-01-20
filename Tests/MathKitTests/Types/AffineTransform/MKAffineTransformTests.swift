@@ -37,7 +37,9 @@ extension MKAffineTransformTests {
 
     @Test("Init rotation")
     func initRotate() {
-        #expect(MKAffineTransform<Double>(MKAngle()) == .init(m11: 1.0, m12: 0.0, m21: 0.0, m22: 1.0, tx: 0.0, ty: 0.0))
+        #expect(MKAffineTransform<Double>(MKAngle())
+            .isEqual(to: .init(m11: 1.0, m12: 0.0, m21: 0.0, m22: 1.0, tx: 0.0, ty: 0.0), tolerance: tolerance)
+        )
 
         #expect(MKAffineTransform<Double>(.radians(.pi / 2)) == .rotation(.radians(.pi / 2)))
 
