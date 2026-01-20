@@ -142,21 +142,39 @@ struct ControlPointsTransformInverseTests {
         //            X
         //          /   \
         //         0 --- 1
+
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1)),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate45),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate45.translated(x: 2, y: 4)),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate90),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate180),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate270),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .flipHorizontal),
+        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .flipVertical),
+        ///
         PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20)),
         PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .rotate45),
+        PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .rotate45.translated(x: 2, y: 4)),
         PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .rotate90),
         PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .rotate180),
         PointsMap((-10, -20), (10, -10), (15, 20), (-20, 15), .rotate270),
         PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .flipHorizontal),
         PointsMap((-10, -20), (10, -10), (-20, 15), (15, 20), .flipVertical),
 
-        PointsMap((0, 0), (1, 0), (0, 1), (1, 1)),
-        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate45),
-        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate90),
-        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate180),
-        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .rotate270),
-        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .flipHorizontal),
-        PointsMap((0, 0), (1, 0), (0, 1), (1, 1), .flipVertical),
+        //         3      2
+        //         | \  / |
+        //         |   X  |
+        //         | /   \|
+        //         0      1
+
+        PointsMap((0, 1), (1, 0), (1, 1), (0, 0)),
+        PointsMap((0, 1), (1, 0), (1, 1), (0, 0), .rotate45),
+        PointsMap((0, 1), (1, 0), (1, 1), (0, 0), .rotate45.translated(x: 2, y: 4)),
+        PointsMap((0, 1), (1, 0), (1, 1), (0, 0), .rotate90),
+        PointsMap((0, 1), (1, 0), (1, 1), (0, 0), .rotate180),
+        PointsMap((0, 1), (1, 0), (1, 1), (0, 0), .rotate270),
+        PointsMap((0, 1), (1, 0), (1, 1), (0, 0), .flipHorizontal),
+        PointsMap((0, 1), (1, 0), (1, 1), (0, 0), .flipVertical),
 
     ])
     func сrossed(_ points: PointsMap) {

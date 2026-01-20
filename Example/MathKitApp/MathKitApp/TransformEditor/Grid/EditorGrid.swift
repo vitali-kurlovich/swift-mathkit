@@ -6,8 +6,8 @@
 //
 
 import MathKit
-import SwiftUI
 import MathTransform
+import SwiftUI
 
 struct EditorGrid {
     let p0: CGPoint
