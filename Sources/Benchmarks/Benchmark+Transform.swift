@@ -8,6 +8,7 @@
 import Benchmarks
 import Foundation
 import MathKit
+import MathTransform
 
 extension Benchmark {
     func runTransformBenchmark() {

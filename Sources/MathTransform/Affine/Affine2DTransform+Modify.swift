@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MathKit
 
 // Rotation
 public extension Affine2DTransform {

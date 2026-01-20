@@ -5,6 +5,8 @@
 //  Created by Vitali Kurlovich on 27.12.25.
 //
 
+import MathKit
+
 public nonisolated struct ControlPointsTransform<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     public var p0: MKPoint<Float>
     public var p1: MKPoint<Float>

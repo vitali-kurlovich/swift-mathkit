@@ -6,9 +6,9 @@
 //
 
 import Benchmarks
-import MathKit
-
 import Foundation
+import MathKit
+import MathTransform
 
 extension Benchmark {
     func runInverseBenchmark() {

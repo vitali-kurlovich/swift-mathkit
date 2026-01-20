@@ -2,11 +2,12 @@
 //  ToleranceCompare.swift
 //  swift-mathkit
 //
-//  Created by Vitali Kurlovich on 24.12.25.
+//  Created by Vitali Kurlovich on 20.01.26.
 //
 
 import Foundation
 import MathKit
+import MathTransform
 
 public extension FloatingPoint {
     func isEqual(to other: Self, tolerance: Self) -> Bool {
@@ -65,13 +66,14 @@ public extension MKRect {
     }
 }
 
-#if canImport(CoreGraphics)
+public extension Affine2DTransform {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        m11.isEqual(to: other.m11, tolerance: tolerance) &&
+            m12.isEqual(to: other.m12, tolerance: tolerance) &&
+            m21.isEqual(to: other.m21, tolerance: tolerance) &&
+            m22.isEqual(to: other.m22, tolerance: tolerance) &&
 
-    public extension CGVector {
-        func isEqual(to other: Self, tolerance: CGFloat) -> Bool {
-            dx.isEqual(to: other.dx, tolerance: tolerance) &&
-                dy.isEqual(to: other.dy, tolerance: tolerance)
-        }
+            tx.isEqual(to: other.tx, tolerance: tolerance) &&
+            ty.isEqual(to: other.ty, tolerance: tolerance)
     }
-
-#endif // canImport(CoreGraphics)
+}

@@ -13,7 +13,8 @@ let package = Package(
     ],
     products: {
         var products: [Product] = [
-            Product.library(name: "MathKit", targets: ["MathKit"]),
+            .library(name: "MathKit", targets: ["MathKit"]),
+            .library(name: "MathTransform", targets: ["MathTransform"]),
         ]
 
         #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
@@ -40,20 +41,33 @@ let package = Package(
                 ]
             ),
 
-            .executableTarget(
-                name: "MathKitBenchmarks",
-                dependencies: [
-                    "MathKit",
-                    .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                    "Benchmarks",
-                ],
-                path: "Sources/Benchmarks"
+            .target(
+                name: "MathTransform",
+                dependencies: ["MathKit"]
             ),
+
             .testTarget(
                 name: "MathKitTests",
                 dependencies: [
                     "MathKit",
                 ]
+            ),
+
+            .testTarget(
+                name: "MathTransformTests",
+                dependencies: [
+                    "MathKit", "MathTransform",
+                ]
+            ),
+
+            .executableTarget(
+                name: "MathKitBenchmarks",
+                dependencies: [
+                    "MathKit", "MathTransform",
+                    .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                    "Benchmarks",
+                ],
+                path: "Sources/Benchmarks"
             ),
         ]
 

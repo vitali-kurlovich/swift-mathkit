@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MathKit
 
 public struct Affine2DTransform<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     var _transform: MKAffineTransform<Float>

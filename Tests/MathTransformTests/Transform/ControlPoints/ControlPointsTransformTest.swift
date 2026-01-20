@@ -7,6 +7,7 @@
 
 import Foundation
 import MathKit
+import MathTransform
 import Testing
 
 private let tolerance: CGFloat = 0.000001

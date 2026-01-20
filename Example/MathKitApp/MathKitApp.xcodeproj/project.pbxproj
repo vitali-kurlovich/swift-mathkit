@@ -1,0 +1,682 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5D3F5A5B2EFC3E2100657653 /* MathKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5D3F5A5A2EFC3E2100657653 /* MathKit */; };
+		5D795BB82F1FA9EF006F35A6 /* MathKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5D795BB72F1FA9EF006F35A6 /* MathKit */; };
+		5D795BBA2F1FA9EF006F35A6 /* MathKitMetal in Frameworks */ = {isa = PBXBuildFile; productRef = 5D795BB92F1FA9EF006F35A6 /* MathKitMetal */; };
+		5D795BBC2F1FA9EF006F35A6 /* MathTransform in Frameworks */ = {isa = PBXBuildFile; productRef = 5D795BBB2F1FA9EF006F35A6 /* MathTransform */; };
+		5DA393A42F094A01007F24B3 /* MathKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5DA393A32F094A01007F24B3 /* MathKit */; };
+		5DA393A62F094A01007F24B3 /* MathKitMetal in Frameworks */ = {isa = PBXBuildFile; productRef = 5DA393A52F094A01007F24B3 /* MathKitMetal */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5D3F5A3D2EFC3E0C00657653 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D3F5A272EFC3E0A00657653 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D3F5A2E2EFC3E0A00657653;
+			remoteInfo = MathKitApp;
+		};
+		5D3F5A472EFC3E0C00657653 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D3F5A272EFC3E0A00657653 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D3F5A2E2EFC3E0A00657653;
+			remoteInfo = MathKitApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5D3F5A2F2EFC3E0A00657653 /* MathKitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MathKitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D3F5A3C2EFC3E0C00657653 /* MathKitAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MathKitAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D3F5A462EFC3E0C00657653 /* MathKitAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MathKitAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		5D3F5A312EFC3E0A00657653 /* MathKitApp */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MathKitApp;
+			sourceTree = "<group>";
+		};
+		5D3F5A3F2EFC3E0C00657653 /* MathKitAppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MathKitAppTests;
+			sourceTree = "<group>";
+		};
+		5D3F5A492EFC3E0C00657653 /* MathKitAppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MathKitAppUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5D3F5A2C2EFC3E0A00657653 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DA393A62F094A01007F24B3 /* MathKitMetal in Frameworks */,
+				5D795BB82F1FA9EF006F35A6 /* MathKit in Frameworks */,
+				5D3F5A5B2EFC3E2100657653 /* MathKit in Frameworks */,
+				5D795BBC2F1FA9EF006F35A6 /* MathTransform in Frameworks */,
+				5D795BBA2F1FA9EF006F35A6 /* MathKitMetal in Frameworks */,
+				5DA393A42F094A01007F24B3 /* MathKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3F5A392EFC3E0C00657653 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3F5A432EFC3E0C00657653 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5D3F5A262EFC3E0A00657653 = {
+			isa = PBXGroup;
+			children = (
+				5D3F5A312EFC3E0A00657653 /* MathKitApp */,
+				5D3F5A3F2EFC3E0C00657653 /* MathKitAppTests */,
+				5D3F5A492EFC3E0C00657653 /* MathKitAppUITests */,
+				5D3F5A302EFC3E0A00657653 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5D3F5A302EFC3E0A00657653 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5D3F5A2F2EFC3E0A00657653 /* MathKitApp.app */,
+				5D3F5A3C2EFC3E0C00657653 /* MathKitAppTests.xctest */,
+				5D3F5A462EFC3E0C00657653 /* MathKitAppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5D3F5A2E2EFC3E0A00657653 /* MathKitApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D3F5A502EFC3E0C00657653 /* Build configuration list for PBXNativeTarget "MathKitApp" */;
+			buildPhases = (
+				5D3F5A2B2EFC3E0A00657653 /* Sources */,
+				5D3F5A2C2EFC3E0A00657653 /* Frameworks */,
+				5D3F5A2D2EFC3E0A00657653 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5D3F5A312EFC3E0A00657653 /* MathKitApp */,
+			);
+			name = MathKitApp;
+			packageProductDependencies = (
+				5D3F5A5A2EFC3E2100657653 /* MathKit */,
+				5DA393A32F094A01007F24B3 /* MathKit */,
+				5DA393A52F094A01007F24B3 /* MathKitMetal */,
+				5D795BB72F1FA9EF006F35A6 /* MathKit */,
+				5D795BB92F1FA9EF006F35A6 /* MathKitMetal */,
+				5D795BBB2F1FA9EF006F35A6 /* MathTransform */,
+			);
+			productName = MathKitApp;
+			productReference = 5D3F5A2F2EFC3E0A00657653 /* MathKitApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5D3F5A3B2EFC3E0C00657653 /* MathKitAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D3F5A532EFC3E0C00657653 /* Build configuration list for PBXNativeTarget "MathKitAppTests" */;
+			buildPhases = (
+				5D3F5A382EFC3E0C00657653 /* Sources */,
+				5D3F5A392EFC3E0C00657653 /* Frameworks */,
+				5D3F5A3A2EFC3E0C00657653 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D3F5A3E2EFC3E0C00657653 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5D3F5A3F2EFC3E0C00657653 /* MathKitAppTests */,
+			);
+			name = MathKitAppTests;
+			packageProductDependencies = (
+			);
+			productName = MathKitAppTests;
+			productReference = 5D3F5A3C2EFC3E0C00657653 /* MathKitAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5D3F5A452EFC3E0C00657653 /* MathKitAppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D3F5A562EFC3E0C00657653 /* Build configuration list for PBXNativeTarget "MathKitAppUITests" */;
+			buildPhases = (
+				5D3F5A422EFC3E0C00657653 /* Sources */,
+				5D3F5A432EFC3E0C00657653 /* Frameworks */,
+				5D3F5A442EFC3E0C00657653 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5D3F5A482EFC3E0C00657653 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5D3F5A492EFC3E0C00657653 /* MathKitAppUITests */,
+			);
+			name = MathKitAppUITests;
+			packageProductDependencies = (
+			);
+			productName = MathKitAppUITests;
+			productReference = 5D3F5A462EFC3E0C00657653 /* MathKitAppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5D3F5A272EFC3E0A00657653 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2620;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					5D3F5A2E2EFC3E0A00657653 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					5D3F5A3B2EFC3E0C00657653 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 5D3F5A2E2EFC3E0A00657653;
+					};
+					5D3F5A452EFC3E0C00657653 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 5D3F5A2E2EFC3E0A00657653;
+					};
+				};
+			};
+			buildConfigurationList = 5D3F5A2A2EFC3E0A00657653 /* Build configuration list for PBXProject "MathKitApp" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5D3F5A262EFC3E0A00657653;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5D795BB62F1FA9EF006F35A6 /* XCLocalSwiftPackageReference "../../../swift-mathkit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5D3F5A302EFC3E0A00657653 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5D3F5A2E2EFC3E0A00657653 /* MathKitApp */,
+				5D3F5A3B2EFC3E0C00657653 /* MathKitAppTests */,
+				5D3F5A452EFC3E0C00657653 /* MathKitAppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5D3F5A2D2EFC3E0A00657653 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3F5A3A2EFC3E0C00657653 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3F5A442EFC3E0C00657653 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5D3F5A2B2EFC3E0A00657653 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3F5A382EFC3E0C00657653 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D3F5A422EFC3E0C00657653 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5D3F5A3E2EFC3E0C00657653 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D3F5A2E2EFC3E0A00657653 /* MathKitApp */;
+			targetProxy = 5D3F5A3D2EFC3E0C00657653 /* PBXContainerItemProxy */;
+		};
+		5D3F5A482EFC3E0C00657653 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5D3F5A2E2EFC3E0A00657653 /* MathKitApp */;
+			targetProxy = 5D3F5A472EFC3E0C00657653 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5D3F5A4E2EFC3E0C00657653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5SLX4F29EU;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5D3F5A4F2EFC3E0C00657653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5SLX4F29EU;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		5D3F5A512EFC3E0C00657653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5SLX4F29EU;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = example.MathKit.MathKitApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		5D3F5A522EFC3E0C00657653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5SLX4F29EU;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = example.MathKit.MathKitApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		5D3F5A542EFC3E0C00657653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5SLX4F29EU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = example.MathKit.MathKitAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MathKitApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MathKitApp";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		5D3F5A552EFC3E0C00657653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5SLX4F29EU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = example.MathKit.MathKitAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MathKitApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MathKitApp";
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+		5D3F5A572EFC3E0C00657653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5SLX4F29EU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = example.MathKit.MathKitAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = MathKitApp;
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		5D3F5A582EFC3E0C00657653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5SLX4F29EU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = example.MathKit.MathKitAppUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = MathKitApp;
+				XROS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5D3F5A2A2EFC3E0A00657653 /* Build configuration list for PBXProject "MathKitApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D3F5A4E2EFC3E0C00657653 /* Debug */,
+				5D3F5A4F2EFC3E0C00657653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D3F5A502EFC3E0C00657653 /* Build configuration list for PBXNativeTarget "MathKitApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D3F5A512EFC3E0C00657653 /* Debug */,
+				5D3F5A522EFC3E0C00657653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D3F5A532EFC3E0C00657653 /* Build configuration list for PBXNativeTarget "MathKitAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D3F5A542EFC3E0C00657653 /* Debug */,
+				5D3F5A552EFC3E0C00657653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5D3F5A562EFC3E0C00657653 /* Build configuration list for PBXNativeTarget "MathKitAppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D3F5A572EFC3E0C00657653 /* Debug */,
+				5D3F5A582EFC3E0C00657653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		5D795BB62F1FA9EF006F35A6 /* XCLocalSwiftPackageReference "../../../swift-mathkit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../swift-mathkit";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5D3F5A5A2EFC3E2100657653 /* MathKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MathKit;
+		};
+		5D795BB72F1FA9EF006F35A6 /* MathKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MathKit;
+		};
+		5D795BB92F1FA9EF006F35A6 /* MathKitMetal */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MathKitMetal;
+		};
+		5D795BBB2F1FA9EF006F35A6 /* MathTransform */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MathTransform;
+		};
+		5DA393A32F094A01007F24B3 /* MathKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MathKit;
+		};
+		5DA393A52F094A01007F24B3 /* MathKitMetal */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MathKitMetal;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 5D3F5A272EFC3E0A00657653 /* Project object */;
+}
