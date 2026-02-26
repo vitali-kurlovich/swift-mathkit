@@ -1,7 +1,4 @@
 //
-//  ControlPointsTransform+CGPoint.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 11.01.26.
 //
 
