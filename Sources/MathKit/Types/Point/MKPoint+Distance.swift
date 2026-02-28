@@ -1,13 +1,11 @@
 //
-//  MKPoint+Distance.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 18.01.26.
 //
 
 public extension MKPoint {
     @inlinable var magnitudeSquared: Float {
-        (x * x).addingProduct(y, y)
+        let s = self * self
+        return s.x + s.y
     }
 
     @inlinable var magnitude: Float {
