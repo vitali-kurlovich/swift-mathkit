@@ -13,10 +13,6 @@ struct Benchmark: ParsableCommand {
     @Argument(help: "The phrase to repeat.")
     var `repeat`: Int = 5
 
-    func benchmark(name _: String, task _: @escaping (BenchmarkContext) -> Void) {}
-
-    func prepare() {}
-
     mutating func run() throws {
         //  runLerpBenchmark()
         //  runTransformBenchmark()

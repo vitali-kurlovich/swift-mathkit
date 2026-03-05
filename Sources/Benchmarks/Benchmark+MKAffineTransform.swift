@@ -1,7 +1,4 @@
 //
-//  Benchmark+MKAffineTransform.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 11.01.26.
 //
 
@@ -15,9 +12,9 @@ import MathKit
 
 extension Benchmark {
     func runAffineBenchmark() {
-        let benchmark = BenchmarkExecuter()
+        let benchmark = BenchmarkExecuter(repeatCount: self.repeat)
         #if canImport(CoreGraphics)
-            benchmark.benchmark(name: "CGAffineTransform") { context in
+            benchmark(name: "CGAffineTransform") {
                 var acum: CGFloat = 0.0
 
                 for _ in 0 ..< 10_000_000 {
@@ -34,11 +31,11 @@ extension Benchmark {
                     acum += affine.determinant
                 }
 
-                context.blackHole(acum)
+                blackHole(acum)
             }
         #endif // canImport(CoreGraphics)
 
-        benchmark.benchmark(name: "MKAffineTransform (CGFloat)") { context in
+        benchmark(name: "MKAffineTransform (CGFloat)") {
             var acum: CGFloat = 0.0
 
             for _ in 0 ..< 10_000_000 {
@@ -55,10 +52,10 @@ extension Benchmark {
                 acum += affine.determinant
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
 
-        benchmark.benchmark(name: "MKAffineTransform (Float16)") { context in
+        benchmark(name: "MKAffineTransform (Float16)") {
             var acum: Float16 = 0.0
 
             for _ in 0 ..< 10_000_000 {
@@ -75,11 +72,11 @@ extension Benchmark {
                 acum += affine.determinant
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
 
         #if canImport(CoreGraphics)
-            benchmark.benchmark(name: "CGAffineTransform mul") { context in
+            benchmark(name: "CGAffineTransform mul") {
                 var acum: CGFloat = 0.0
 
                 let translation = CGAffineTransform(translationX: 20, y: 30)
@@ -97,11 +94,11 @@ extension Benchmark {
                     acum += (p.x + p.y)
                 }
 
-                context.blackHole(acum)
+                blackHole(acum)
             }
         #endif // canImport(CoreGraphics)
 
-        benchmark.benchmark(name: "MKAffineTransform mul (Double)") { context in
+        benchmark(name: "MKAffineTransform mul (Double)") {
             var acum = 0.0
 
             let translation = MKAffineTransform<Double>(translationByX: 20, byY: 30)
@@ -119,10 +116,10 @@ extension Benchmark {
                 acum += (p.x + p.y)
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
 
-        benchmark.benchmark(name: "MKAffineTransform mul (CGFloat)") { context in
+        benchmark(name: "MKAffineTransform mul (CGFloat)") {
             var acum: CGFloat = 0.0
 
             let translation = MKAffineTransform<CGFloat>(translationByX: 20, byY: 30)
@@ -140,10 +137,10 @@ extension Benchmark {
                 acum += (p.x + p.y)
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
 
-        benchmark.benchmark(name: "MKAffineTransform mul (Float16)") { context in
+        benchmark(name: "MKAffineTransform mul (Float16)") {
             var acum: Float16 = 0.0
 
             let translation = MKAffineTransform<Float16>(translationByX: 20, byY: 30)
@@ -161,16 +158,16 @@ extension Benchmark {
                 acum += (p.x + p.y)
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
 
         benchmark.start()
     }
 
     func runAffineInverseBenchmark() {
-        let benchmark = BenchmarkExecuter()
+        let benchmark = BenchmarkExecuter(repeatCount: self.repeat)
         #if canImport(CoreGraphics)
-            benchmark.benchmark(name: "CGAffineTransform inverted") { context in
+            benchmark(name: "CGAffineTransform inverted") {
                 var acum: CGFloat = 0.0
 
                 let translation = CGAffineTransform(translationX: 20, y: 30)
@@ -190,10 +187,10 @@ extension Benchmark {
                     acum += (p.x + p.y)
                 }
 
-                context.blackHole(acum)
+                blackHole(acum)
             }
         #endif // canImport(CoreGraphics)
-        benchmark.benchmark(name: "MKAffineTransform inverse") { context in
+        benchmark(name: "MKAffineTransform inverse") {
             var acum: CGFloat = 0.0
 
             let translation = MKAffineTransform<CGFloat>(translationByX: 20, byY: 30)
@@ -211,16 +208,16 @@ extension Benchmark {
                 acum += (p.x + p.y)
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
 
         benchmark.start()
     }
 
     func runAffineRotateBenchmark() {
-        let benchmark = BenchmarkExecuter()
+        let benchmark = BenchmarkExecuter(repeatCount: self.repeat)
         #if canImport(CoreGraphics)
-            benchmark.benchmark(name: "CGAffineTransform rotate") { context in
+            benchmark(name: "CGAffineTransform rotate") {
                 var acum = 0.0
 
                 var affine = CGAffineTransform.identity
@@ -230,10 +227,10 @@ extension Benchmark {
                     acum += affine.determinant
                 }
 
-                context.blackHole(acum)
+                blackHole(acum)
             }
         #endif // canImport(CoreGraphics)
-        benchmark.benchmark(name: "MKAffineTransform rotate (Double)") { context in
+        benchmark(name: "MKAffineTransform rotate (Double)") {
             var acum = 0.0
 
             var affine = MKAffineTransform<Double>.identity
@@ -243,10 +240,10 @@ extension Benchmark {
                 acum += affine.determinant
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
 
-        benchmark.benchmark(name: "MKAffineTransform rotate simd (CGFloat)") { context in
+        benchmark(name: "MKAffineTransform rotate simd (CGFloat)") {
             var acum: CGFloat = 0.0
 
             var affine = MKAffineTransform<CGFloat>.identity
@@ -256,10 +253,10 @@ extension Benchmark {
                 acum += affine.determinant
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
 
-        benchmark.benchmark(name: "MKAffineTransform rotate simd (Float16)") { context in
+        benchmark(name: "MKAffineTransform rotate simd (Float16)") {
             var acum: Float16 = 0.0
 
             var affine = MKAffineTransform<Float16>.identity
@@ -269,7 +266,7 @@ extension Benchmark {
                 acum += affine.determinant
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
 
         benchmark.start()

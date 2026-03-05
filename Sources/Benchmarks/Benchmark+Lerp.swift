@@ -16,9 +16,9 @@ import MathKit
 
 extension Benchmark {
     func runLerpBenchmark() {
-        let benchmark = BenchmarkExecuter()
+        let benchmark = BenchmarkExecuter(repeatCount: self.repeat)
 
-        benchmark.benchmark(name: "Lerp Double") { context in
+        benchmark(name: "Lerp Double") {
             var acum = 0.0
             for _ in 0 ..< 10_000_000 {
                 acum += lerp(20.0, 40.0, t: 0.0)
@@ -26,10 +26,10 @@ extension Benchmark {
                 acum += lerp(20.0, 40.0, t: 1.0)
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
 
-        benchmark.benchmark(name: "Lerp CGPoint") { context in
+        benchmark(name: "Lerp CGPoint") {
             var acum: CGFloat = 0
 
             for _ in 0 ..< 10_000_000 {
@@ -49,10 +49,10 @@ extension Benchmark {
                              CGPoint(x: 60, y: 80), t: 1.0).y
             }
 
-            context.blackHole(acum)
+            blackHole(acum)
         }
         #if canImport(CoreGraphics)
-            benchmark.benchmark(name: "Lerp CGVector") { context in
+            benchmark(name: "Lerp CGVector") {
                 var acum: CGFloat = 0
 
                 for _ in 0 ..< 10_000_000 {
@@ -75,7 +75,7 @@ extension Benchmark {
                                  CGVector(dx: 60, dy: 80), t: 1.0).dy
                 }
 
-                context.blackHole(acum)
+                blackHole(acum)
             }
 
         #endif // canImport(CoreGraphics)
