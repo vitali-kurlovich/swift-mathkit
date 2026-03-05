@@ -55,7 +55,7 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "Benchmarks",
             ],
-            path: "Sources/Benchmarks"
+            path: "Benchmarks"
         ),
     ]
 )
