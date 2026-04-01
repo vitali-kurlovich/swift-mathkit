@@ -41,3 +41,21 @@ public extension MKAffineTransform {
         m22 = (a21 * transform.m12).addingProduct(m22, transform.m22)
     }
 }
+
+public extension MKAffineTransform {
+    @inlinable func prepended(_ transform: Self) -> Self {
+        var tr = self
+        tr.prepend(transform)
+        return tr
+    }
+
+    @inlinable func appended(_ transform: Self) -> Self {
+        var tr = self
+        tr.append(transform)
+        return tr
+    }
+
+    @inlinable func concatenating(_ transform: Self) -> Self {
+        appended(transform)
+    }
+}

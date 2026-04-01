@@ -25,6 +25,10 @@ public extension MKSize {
     @inlinable static var zero: Self {
         .init()
     }
+
+    @inlinable static var identity: Self {
+        self.init(width: 1, height: 1)
+    }
 }
 
 public extension MKSize {

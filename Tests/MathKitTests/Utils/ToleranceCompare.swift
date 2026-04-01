@@ -1,7 +1,4 @@
 //
-//  ToleranceCompare.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 24.12.25.
 //
 
@@ -62,6 +59,12 @@ public extension MKRect {
     func isEqual(to other: Self, tolerance: Float) -> Bool {
         origin.isEqual(to: other.origin, tolerance: tolerance) &&
             size.isEqual(to: other.size, tolerance: tolerance)
+    }
+}
+
+public extension MKAngle {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        radians.isEqual(to: other.radians, tolerance: tolerance)
     }
 }
 

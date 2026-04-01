@@ -43,62 +43,6 @@ public extension MKAffineTransform {
     }
 }
 
-public extension MKAffineTransform {
-    /**
-     Creates an affine transformation matrix from translation values.
-     The matrix takes the following form:
-
-         [ 1  0  0 ]
-         [ 0  1  0 ]
-         [ x  y  1 ]
-     */
-    @inlinable init(translationByX x: Float, byY y: Float) {
-        self.init(m11: 1, m12: 0,
-                  m21: 0, m22: 1,
-                  tx: x, ty: y)
-    }
-
-    @inlinable static func translation(x: Float, y: Float) -> Self {
-        .init(translationByX: x, byY: y)
-    }
-}
-
-public extension MKAffineTransform {
-    /**
-     Creates an affine transformation matrix from scaling values.
-     The matrix takes the following form:
-
-     [ x  0  0 ]
-     [ 0  y  0 ]
-     [ 0  0  1 ]
-     */
-    @inlinable init(scaleByX x: Float, byY y: Float) {
-        self.init(m11: x, m12: 0,
-                  m21: 0, m22: y,
-                  tx: 0, ty: 0)
-    }
-
-    /**
-     Creates an affine transformation matrix from scaling a single value.
-     The matrix takes the following form:
-
-     [ f  0  0 ]
-     [ 0  f  0 ]
-     [ 0  0  1 ]
-     */
-    @inlinable init(scale factor: Float) {
-        self.init(scaleByX: factor, byY: factor)
-    }
-
-    @inlinable static func scale(_ scale: Float) -> Self {
-        .init(scale: scale)
-    }
-
-    @inlinable static func scale(x: Float, y: Float) -> Self {
-        .init(scaleByX: x, byY: y)
-    }
-}
-
 // Invert
 public extension MKAffineTransform {
     @inlinable var determinant: Float {

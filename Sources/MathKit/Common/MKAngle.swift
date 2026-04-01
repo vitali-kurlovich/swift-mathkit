@@ -36,3 +36,19 @@ public nonisolated struct MKAngle<Float: FloatingPoint & Sendable>: Hashable & S
 public extension MKAngle {
     static var zero: Self { .init() }
 }
+
+public extension MKAngle {
+    @inlinable static prefix func - (_ angle: Self) -> Self {
+        .init(radians: -angle.radians)
+    }
+}
+
+extension MKAngle: AdditiveArithmetic {
+    public static func + (lhs: MKAngle<Float>, rhs: MKAngle<Float>) -> MKAngle<Float> {
+        .init(radians: lhs.radians + rhs.radians)
+    }
+
+    public static func - (lhs: MKAngle<Float>, rhs: MKAngle<Float>) -> MKAngle<Float> {
+        .init(radians: lhs.radians - rhs.radians)
+    }
+}

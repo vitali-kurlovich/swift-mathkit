@@ -45,8 +45,10 @@ extension MKAffineTransformTests {
 
     @Test("Scale - x: y:")
     func scaleXY() {
+        let size = MKSize<Double>(width: 4, height: 7)
+
         #expect(
-            MKAffineTransform<Double>.identity.scaled(x: 4, y: 7) == .scale(x: 4, y: 7)
+            MKAffineTransform<Double>.identity.scaled(size) == .scale(x: 4, y: 7)
         )
 
         var mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)

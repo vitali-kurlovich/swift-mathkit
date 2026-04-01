@@ -7,7 +7,6 @@ import Testing
 
 private let tolerance: Double = 0.00000001
 
-// Init
 extension MKAffineTransformTests {
     @Test("Init")
     func initTransform() {
@@ -16,7 +15,6 @@ extension MKAffineTransformTests {
     }
 }
 
-// identity
 extension MKAffineTransformTests {
     @Test("identity")
     func identity() {

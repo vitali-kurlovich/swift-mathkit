@@ -20,14 +20,16 @@ extension MKAffineTransformTests {
 
         let expected = MKAffineTransform<Double>(m11: 1.0, m12: 2.0, m21: 3.0, m22: 4.0, tx: 115.0, ty: 166.0)
 
-        #expect(mk.translated(x: 20, y: 30) == expected)
+        let vector = MKVector<Double>(dx: 20, dy: 30)
 
-        mk.translate(x: 20, y: 30)
+        #expect(mk.translated(vector) == expected)
+
+        mk.translate(vector)
 
         #expect(mk == expected)
 
         var tr = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-        tr.prepend(.translation(x: 20, y: 30))
+        tr.prepend(.translation(vector))
 
         #expect(mk == tr)
     }
