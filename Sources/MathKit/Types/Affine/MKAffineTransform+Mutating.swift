@@ -2,22 +2,9 @@
 //  Created by Vitali Kurlovich on 11.01.26.
 //
 
+// MKAffineTransform+Scale
+
 public extension MKAffineTransform {
-    @inlinable mutating func scale(_ scale: Float) {
-        m11 *= scale
-        m12 *= scale
-        m21 *= scale
-        m22 *= scale
-    }
-
-    @inlinable mutating func scale(x: Float, y: Float) {
-        m11 *= x
-        m12 *= x
-
-        m21 *= y
-        m22 *= y
-    }
-
     @inlinable mutating func prepend(_ transform: Self) {
         let a11 = m11, a12 = m12
         let a21 = m21, a22 = m22

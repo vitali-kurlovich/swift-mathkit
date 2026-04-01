@@ -60,7 +60,7 @@ extension MKAffineTransformTests {
     }
 }
 
-// MKAffineTransformTests+Translate
+// MKAffineTransformTests+Scale
 
 // Mutation
 extension MKAffineTransformTests {
@@ -80,32 +80,6 @@ extension MKAffineTransformTests {
         tr.prepend(.rotation(.radians(.pi / 4)))
 
         #expect(mk.isEqual(to: tr, tolerance: tolerance))
-    }
-
-    @Test("Scale")
-    func scale() {
-        var mk = MKAffineTransform<Double>.identity
-        mk.scale(6)
-        #expect(
-            mk == .scale(6)
-        )
-
-        mk = .identity
-        mk.scale(x: 4, y: 7)
-
-        #expect(
-            mk == .scale(x: 4, y: 7)
-        )
-
-        mk = .init(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-
-        var tr = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-
-        mk.scale(x: 20, y: 50)
-
-        tr.prepend(.scale(x: 20, y: 50))
-
-        #expect(mk == tr)
     }
 
     @Test("Append")
