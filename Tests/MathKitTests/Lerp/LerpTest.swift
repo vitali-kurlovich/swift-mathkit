@@ -36,6 +36,36 @@ struct LerpTests {
                      CGPoint(x: 60, y: 80), t: 0.5)
                 .isEqual(to: CGPoint(x: 35, y: 50), tolerance: tolerance))
     }
+
+    @Test("MKPoint")
+    func mkpoint() {
+        #expect(lerp(MKPoint<Double>(x: 10, y: 20),
+                     MKPoint<Double>(x: 60, y: 80), t: 0.0)
+                .isEqual(to: MKPoint<Double>(x: 10, y: 20), tolerance: tolerance))
+
+        #expect(lerp(MKPoint<Double>(x: 10, y: 20),
+                     MKPoint<Double>(x: 60, y: 80), t: 1.0)
+                .isEqual(to: MKPoint<Double>(x: 60, y: 80), tolerance: tolerance))
+
+        #expect(lerp(MKPoint<Double>(x: 10, y: 20),
+                     MKPoint<Double>(x: 60, y: 80), t: 0.5)
+                .isEqual(to: MKPoint<Double>(x: 35, y: 50), tolerance: tolerance))
+    }
+
+    @Test("MKSize")
+    func size() {
+        #expect(lerp(MKSize<Double>(width: 10, height: 20),
+                     MKSize<Double>(width: 60, height: 80), t: 0.0)
+                .isEqual(to: MKSize(width: 10, height: 20), tolerance: tolerance))
+
+        #expect(lerp(MKSize<Double>(width: 10, height: 20),
+                     MKSize<Double>(width: 60, height: 80), t: 1.0)
+                .isEqual(to: MKSize(width: 60, height: 80), tolerance: tolerance))
+
+        #expect(lerp(MKSize<Double>(width: 10, height: 20),
+                     MKSize<Double>(width: 60, height: 80), t: 0.5)
+                .isEqual(to: MKSize(width: 35, height: 50), tolerance: tolerance))
+    }
 }
 
 #if canImport(CoreGraphics)
