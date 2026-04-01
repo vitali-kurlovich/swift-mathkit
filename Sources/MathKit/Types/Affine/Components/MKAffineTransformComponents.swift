@@ -19,6 +19,28 @@ public struct MKAffineTransformComponents<Float: FloatingPoint & Sendable>: Hash
 
 public extension MKAffineTransform {
     @inlinable
+    init(_ components: MKAffineTransformComponents<Float>) where Float == Double {
+        self.init(scale: components.scale, rotation: components.rotation, translation: components.translation)
+    }
+
+    @inlinable
+    init(_ components: MKAffineTransformComponents<Float>) where Float == Swift.Float {
+        self.init(scale: components.scale, rotation: components.rotation, translation: components.translation)
+    }
+
+    @inlinable
+    init(_ components: MKAffineTransformComponents<Float>) where Float == CGFloat {
+        self.init(scale: components.scale, rotation: components.rotation, translation: components.translation)
+    }
+
+    @inlinable
+    init(_ components: MKAffineTransformComponents<Float>) where Float == Float16 {
+        self.init(scale: components.scale, rotation: components.rotation, translation: components.translation)
+    }
+}
+
+public extension MKAffineTransform {
+    @inlinable
     func decomposed() -> MKAffineTransformComponents<Float> where Float == Double {
         let scale: MKSize<Float> = .init(width: (m11 * m11 + m21 * m21).squareRoot(),
                                          height: (m12 * m12 + m22 * m22).squareRoot())

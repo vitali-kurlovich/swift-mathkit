@@ -51,4 +51,12 @@ extension MKAngle: AdditiveArithmetic {
     public static func - (lhs: MKAngle<Float>, rhs: MKAngle<Float>) -> MKAngle<Float> {
         .init(radians: lhs.radians - rhs.radians)
     }
+
+    @inlinable public static func += (left: inout Self, right: Self) {
+        left = left + right
+    }
+
+    @inlinable public static func -= (left: inout Self, right: Self) {
+        left = left - right
+    }
 }
