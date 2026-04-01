@@ -1,16 +1,8 @@
 //
-//  MKAffineTransform+Mutating.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 11.01.26.
 //
 
 public extension MKAffineTransform {
-    @inlinable mutating func translate(x: Float, y: Float) {
-        tx += (m11 * x).addingProduct(m21, y)
-        ty += (m12 * x).addingProduct(m22, y)
-    }
-
     @inlinable mutating func scale(_ scale: Float) {
         m11 *= scale
         m12 *= scale

@@ -60,21 +60,10 @@ extension MKAffineTransformTests {
     }
 }
 
+// MKAffineTransformTests+Translate
+
 // Mutation
 extension MKAffineTransformTests {
-    @Test("Translate")
-    func translate() {
-        var mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-        mk.translate(x: 20, y: 30)
-
-        #expect(mk == .init(m11: 1.0, m12: 2.0, m21: 3.0, m22: 4.0, tx: 115.0, ty: 166.0))
-
-        var tr = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-        tr.prepend(.translation(x: 20, y: 30))
-
-        #expect(mk == tr)
-    }
-
     @Test("Rotate")
     func rotate() {
         var mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
