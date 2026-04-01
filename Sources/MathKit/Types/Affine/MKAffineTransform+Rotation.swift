@@ -77,29 +77,51 @@ public extension MKAffineTransform {
      [ -sin α   cos α  0 ]
      [    0       0    1 ]
      */
-    mutating func rotate(_ angle: MKAngle<Float>) where Float == Double {
+    @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == Double {
         let (s, c) = angle.sincos
         rotate(s: s, c: c)
     }
 
-    mutating func rotate(_ angle: MKAngle<Float>) where Float == Swift.Float {
+    @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == Swift.Float {
         let (s, c) = angle.sincos
         rotate(s: s, c: c)
     }
 
-    mutating func rotate(_ angle: MKAngle<Float>) where Float == CGFloat {
+    @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == CGFloat {
         let (s, c) = angle.sincos
         rotate(s: s, c: c)
     }
 
-    mutating func rotate(_ angle: MKAngle<Float>) where Float == Float16 {
+    @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == Float16 {
         let (s, c) = angle.sincos
         rotate(s: s, c: c)
     }
 }
 
+public extension MKAffineTransform {
+    @inlinable mutating func rotated(_ angle: MKAngle<Float>) -> Self where Float == Double {
+        let (s, c) = angle.sincos
+        return rotated(s: s, c: c)
+    }
+
+    @inlinable mutating func rotated(_ angle: MKAngle<Float>) -> Self where Float == Swift.Float {
+        let (s, c) = angle.sincos
+        return rotated(s: s, c: c)
+    }
+
+    @inlinable mutating func rotated(_ angle: MKAngle<Float>) -> Self where Float == CGFloat {
+        let (s, c) = angle.sincos
+        return rotated(s: s, c: c)
+    }
+
+    @inlinable mutating func rotated(_ angle: MKAngle<Float>) -> Self where Float == Float16 {
+        let (s, c) = angle.sincos
+        return rotated(s: s, c: c)
+    }
+}
+
 extension MKAffineTransform {
-    private mutating func rotate(s: Float, c: Float) {
+    @inlinable mutating func rotate(s: Float, c: Float) {
         let m11 = self.m11
         let m12 = self.m12
 
@@ -114,5 +136,11 @@ extension MKAffineTransform {
 
         m22 *= c
         m22.addProduct(-m12, s)
+    }
+
+    @inlinable func rotated(s: Float, c: Float) -> Self {
+        var tr = self
+        tr.rotate(s: s, c: c)
+        return tr
     }
 }
