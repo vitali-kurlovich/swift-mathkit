@@ -6,6 +6,14 @@ import MathKit
 import Testing
 
 extension MKAffineTransformTests {
+    @Test("Init scale")
+    func initScale() {
+        #expect(MKAffineTransform<Double>(scale: 4) == .init(m11: 4.0, m12: 0.0, m21: 0.0, m22: 4.0, tx: 0.0, ty: 0.0))
+        #expect(MKAffineTransform<Double>(scale: 4) == .scale(4))
+        #expect(MKAffineTransform<Double>(scaleByX: 3, byY: 5) == .init(m11: 3.0, m12: 0.0, m21: 0.0, m22: 5.0, tx: 0.0, ty: 0.0))
+        #expect(MKAffineTransform<Double>(scaleByX: 3, byY: 5) == .scale(x: 3, y: 5))
+    }
+
     @Test("Scale")
     func scale() {
         #expect(

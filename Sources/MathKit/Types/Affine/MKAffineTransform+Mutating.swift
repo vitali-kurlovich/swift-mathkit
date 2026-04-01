@@ -2,8 +2,6 @@
 //  Created by Vitali Kurlovich on 11.01.26.
 //
 
-// MKAffineTransform+Scale
-
 public extension MKAffineTransform {
     @inlinable mutating func prepend(_ transform: Self) {
         let a11 = m11, a12 = m12
