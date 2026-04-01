@@ -1,7 +1,4 @@
 //
-//  MKAffineTransformTests.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 6.01.26.
 //
 
@@ -205,5 +202,27 @@ extension MKAffineTransformTests {
         let mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
         let rect = MKRect<Double>(x: 20, y: 90, width: 200, height: 120)
         #expect(mk.transform(rect) == .init(x: 295.0, y: 406.0, width: 560.0, height: 880.0))
+    }
+}
+
+// identity
+extension MKAffineTransformTests {
+    @Test("identity")
+    func identity() {
+        let tr = MKAffineTransform<Double>.identity
+
+        #expect(tr.isIdentity)
+
+        #expect(MKAffineTransform<Double>.scale(1).isIdentity)
+        #expect(MKAffineTransform<Double>.scale(2).isIdentity == false)
+        #expect(MKAffineTransform<Double>.scale(x: 0, y: 1).isIdentity == false)
+        #expect(MKAffineTransform<Double>.scale(x: 1, y: 0).isIdentity == false)
+
+        #expect(MKAffineTransform<Double>.rotation(.zero).isIdentity)
+        #expect(MKAffineTransform<Double>.rotation(.degrees(2)).isIdentity == false)
+
+        #expect(MKAffineTransform<Double>.translation(x: 0, y: 0).isIdentity)
+        #expect(MKAffineTransform<Double>.translation(x: 1, y: 0).isIdentity == false)
+        #expect(MKAffineTransform<Double>.translation(x: 0, y: 1).isIdentity == false)
     }
 }
