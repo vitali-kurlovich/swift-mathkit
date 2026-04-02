@@ -2,6 +2,7 @@
 //  Created by Vitali Kurlovich on 01.04.2026.
 //
 
+import Foundation
 import MathKit
 import Testing
 
@@ -44,8 +45,14 @@ extension MKAffineTransformTests {
 
         let point = MKPoint<Double>(x: 20, y: 50)
 
+        let cgPoint = CGPoint(x: 20, y: 50)
+
         #expect(
             mk.inverse(point).isEqual(to: inverted.transform(point), tolerance: tolerance)
+        )
+
+        #expect(
+            mk.inverse(cgPoint).isEqual(to: inverted.transform(cgPoint), tolerance: tolerance)
         )
     }
 }

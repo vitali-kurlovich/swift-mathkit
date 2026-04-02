@@ -1,7 +1,4 @@
 //
-//  MKAffineTransform+Transform.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
@@ -29,5 +26,17 @@ public extension MKAffineTransform {
         let det = determinant
         return .init(x: (m22 * (point.x - tx) + m21 * (ty - point.y)) / det,
                      y: (m12 * tx - m11 * ty - m12 * point.x + m11 * point.y) / det)
+    }
+}
+
+public extension MKPoint {
+    @inlinable func applying(_ t: MKAffineTransform<Float>) -> Self {
+        t.transform(self)
+    }
+}
+
+public extension MKRect {
+    @inlinable func applying(_ t: MKAffineTransform<Float>) -> Self {
+        t.transform(self)
     }
 }

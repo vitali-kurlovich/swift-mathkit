@@ -42,21 +42,17 @@ extension MKAffineTransformTests {
     func rotateDouble() {
         var mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
 
+        #expect(mk.rotated(.zero).isEqual(to: mk, tolerance: tolerance))
+
         let expected = MKAffineTransform<Double>(m11: 2.8284271247461903, m12: 4.242640687119286,
                                                  m21: 1.4142135623730954, m22: 1.4142135623730956,
                                                  tx: 5.0, ty: 6.0)
 
-        #expect(
-            mk.rotated(.radians(.pi / 4)).isEqual(to: expected,
-                                                  tolerance: tolerance)
-        )
+        #expect(mk.rotated(.radians(.pi / 4)).isEqual(to: expected, tolerance: tolerance))
 
         mk.rotate(.radians(.pi / 4))
 
-        #expect(
-            mk.isEqual(to: expected,
-                       tolerance: tolerance)
-        )
+        #expect(mk.isEqual(to: expected, tolerance: tolerance))
 
         var tr = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
         tr.prepend(.rotation(.radians(.pi / 4)))
@@ -68,21 +64,17 @@ extension MKAffineTransformTests {
     func rotateFloat() {
         var mk = MKAffineTransform<Float>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
 
+        #expect(mk.rotated(.zero).isEqual(to: mk, tolerance: halfTolerance))
+
         let expected = MKAffineTransform<Float>(m11: 2.8284271247461903, m12: 4.242640687119286,
                                                 m21: 1.4142135623730954, m22: 1.4142135623730956,
                                                 tx: 5.0, ty: 6.0)
 
-        #expect(
-            mk.rotated(.radians(.pi / 4)).isEqual(to: expected,
-                                                  tolerance: halfTolerance)
-        )
+        #expect(mk.rotated(.radians(.pi / 4)).isEqual(to: expected, tolerance: halfTolerance))
 
         mk.rotate(.radians(.pi / 4))
 
-        #expect(
-            mk.isEqual(to: expected,
-                       tolerance: halfTolerance)
-        )
+        #expect(mk.isEqual(to: expected, tolerance: halfTolerance))
 
         var tr = MKAffineTransform<Float>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
         tr.prepend(.rotation(.radians(.pi / 4)))
@@ -94,21 +86,17 @@ extension MKAffineTransformTests {
     func rotateFloat16() {
         var mk = MKAffineTransform<Float16>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
 
+        #expect(mk.rotated(.zero).isEqual(to: mk, tolerance: lowTolerance))
+
         let expected = MKAffineTransform<Float16>(m11: 2.8284271247461903, m12: 4.242640687119286,
                                                   m21: 1.4142135623730954, m22: 1.4142135623730956,
                                                   tx: 5.0, ty: 6.0)
 
-        #expect(
-            mk.rotated(.radians(.pi / 4)).isEqual(to: expected,
-                                                  tolerance: lowTolerance)
-        )
+        #expect(mk.rotated(.radians(.pi / 4)).isEqual(to: expected, tolerance: lowTolerance))
 
         mk.rotate(.radians(.pi / 4))
 
-        #expect(
-            mk.isEqual(to: expected,
-                       tolerance: lowTolerance)
-        )
+        #expect(mk.isEqual(to: expected, tolerance: lowTolerance))
 
         var tr = MKAffineTransform<Float16>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
         tr.prepend(.rotation(.radians(.pi / 4)))
@@ -120,21 +108,17 @@ extension MKAffineTransformTests {
     func rotateCGFloat() {
         var mk = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
 
+        #expect(mk.rotated(.zero).isEqual(to: mk, tolerance: tolerance))
+
         let expected = MKAffineTransform<CGFloat>(m11: 2.8284271247461903, m12: 4.242640687119286,
                                                   m21: 1.4142135623730954, m22: 1.4142135623730956,
                                                   tx: 5.0, ty: 6.0)
 
-        #expect(
-            mk.rotated(.radians(.pi / 4)).isEqual(to: expected,
-                                                  tolerance: CGFloat(tolerance))
-        )
+        #expect(mk.rotated(.radians(.pi / 4)).isEqual(to: expected, tolerance: CGFloat(tolerance)))
 
         mk.rotate(.radians(.pi / 4))
 
-        #expect(
-            mk.isEqual(to: expected,
-                       tolerance: CGFloat(tolerance))
-        )
+        #expect(mk.isEqual(to: expected, tolerance: CGFloat(tolerance)))
 
         var tr = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
         tr.prepend(.rotation(.radians(.pi / 4)))

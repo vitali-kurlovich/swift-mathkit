@@ -5,6 +5,7 @@
 //  Created by Vitali Kurlovich on 01.04.2026.
 //
 
+import Foundation
 import MathKit
 import Testing
 
@@ -15,6 +16,9 @@ extension MKAffineTransformTests {
     func transform_point() {
         var mk = MKAffineTransform<Double>()
         let point = MKPoint<Double>(x: 20, y: 40)
+
+        let cgPoint = CGPoint(x: 20, y: 40)
+
         #expect(mk.transform(point) == point)
 
         mk.translate(x: 2, y: 5)
@@ -22,13 +26,22 @@ extension MKAffineTransformTests {
         mk.scale(x: 4, y: 3)
         mk.rotate(.radians(.pi / 4))
 
-        #expect(mk.transform(point).isEqual(to: MKPoint(x: -128, y: 55), tolerance: tolerance))
+        #expect(point.applying(mk).isEqual(to: .init(x: -128, y: 55), tolerance: tolerance))
+        #expect(cgPoint.applying(mk).isEqual(to: .init(x: -128, y: 55), tolerance: tolerance))
+
+        let tr = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        #expect(point.applying(tr).isEqual(to: .init(x: 145, y: 206), tolerance: tolerance))
+
+        #expect(cgPoint.applying(tr).isEqual(to: .init(x: 145, y: 206), tolerance: tolerance))
     }
 
     @Test("Transform Rect")
     func transform_rect() {
         let mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
         let rect = MKRect<Double>(x: 20, y: 90, width: 200, height: 120)
-        #expect(mk.transform(rect) == .init(x: 295.0, y: 406.0, width: 560.0, height: 880.0))
+        let cgRect = CGRect(x: 20, y: 90, width: 200, height: 120)
+
+        #expect(rect.applying(mk).isEqual(to: .init(x: 295.0, y: 406.0, width: 560.0, height: 880.0), tolerance: tolerance))
+        #expect(cgRect.applying(mk).isEqual(to: .init(x: 295.0, y: 406.0, width: 560.0, height: 880.0), tolerance: tolerance))
     }
 }

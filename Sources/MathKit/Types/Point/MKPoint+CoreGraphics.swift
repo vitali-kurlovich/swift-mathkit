@@ -11,7 +11,7 @@ public extension MKPoint {
 }
 
 public extension CGPoint {
-    init<F: BinaryFloatingPoint>(_ p: MKPoint<F>) {
+    @inlinable init<F: BinaryFloatingPoint>(_ p: MKPoint<F>) {
         self.init(x: CGFloat(p.x), y: CGFloat(p.y))
     }
 }

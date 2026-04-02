@@ -1,12 +1,9 @@
 //
-//  MKRect+Bounds.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
 public extension MKRect {
-    static func bounds(_ p0: MKPoint<Float>, _ p1: MKPoint<Float>, _ p2: MKPoint<Float>, _ p3: MKPoint<Float>) -> Self {
+    @inlinable static func bounds(_ p0: MKPoint<Float>, _ p1: MKPoint<Float>, _ p2: MKPoint<Float>, _ p3: MKPoint<Float>) -> Self {
         let minX = min(p0.x, p1.x, p2.x, p3.x)
         let maxX = max(p0.x, p1.x, p2.x, p3.x)
 
