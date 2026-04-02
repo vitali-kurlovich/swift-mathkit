@@ -27,7 +27,7 @@ public extension MKRect {
     @inlinable static var zero: Self {
         .init()
     }
-    
+
     @inlinable static var identity: Self {
         .init(origin: .zero, size: .identity)
     }
@@ -35,46 +35,45 @@ public extension MKRect {
 
 public extension MKRect {
     @inlinable var center: MKPoint<Float> {
-        .init(x: self.midX , y: self.midY)
+        .init(x: midX, y: midY)
     }
-    
+
     @inlinable var top: MKPoint<Float> {
-        .init(x: self.midX , y: self.minY)
+        .init(x: midX, y: minY)
     }
-    
+
     @inlinable var bottom: MKPoint<Float> {
-        .init(x: self.midX , y: self.maxY)
+        .init(x: midX, y: maxY)
     }
 }
 
 public extension MKRect {
     @inlinable var topLeft: MKPoint<Float> {
-        .init(x: self.minX , y: self.minY)
+        .init(x: minX, y: minY)
     }
-    
+
     @inlinable var left: MKPoint<Float> {
-        .init(x: self.minX , y: self.midY)
+        .init(x: minX, y: midY)
     }
-    
+
     @inlinable var bottomLeft: MKPoint<Float> {
-        .init(x: self.minX , y: self.maxY)
+        .init(x: minX, y: maxY)
     }
 }
 
 public extension MKRect {
     @inlinable var topRight: MKPoint<Float> {
-        .init(x: self.maxX , y: self.minY)
+        .init(x: maxX, y: minY)
     }
-    
+
     @inlinable var right: MKPoint<Float> {
-        .init(x: self.maxX , y: self.midY)
+        .init(x: maxX, y: midY)
     }
-    
+
     @inlinable var bottomRight: MKPoint<Float> {
-        .init(x: self.maxX , y: self.maxY)
+        .init(x: maxX, y: maxY)
     }
 }
-
 
 public extension MKRect {
     @inlinable var x: Float { origin.x }
