@@ -111,3 +111,20 @@ struct MKVectorTests {
         #expect(vec.isEqual(to: .init(dx: 0.5, dy: 0.5), tolerance: tolerance))
     }
 }
+
+#if canImport(CoreGraphics)
+
+    import CoreGraphics
+
+    extension MKVectorTests {
+        @Test("Convert to CGVector")
+        func convert() throws {
+            let vector = MKVector<Double>(dx: 10.0, dy: 20.0)
+            let cgVector = CGVector(CGPoint(x: 20.0, y: 10.0))
+
+            #expect(CGVector(vector) == .init(dx: 10.0, dy: 20.0))
+            #expect(MKVector(cgVector) == .init(dx: 20.0, dy: 10.0))
+        }
+    }
+
+#endif // canImport(CoreGraphics)

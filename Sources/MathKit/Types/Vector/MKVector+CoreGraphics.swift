@@ -6,8 +6,8 @@
     import CoreGraphics
 
     public extension MKVector {
-        @inlinable init(_ v: CGVector) where Float == CGFloat {
-            self.init(dx: v.dx, dy: v.dy)
+        @inlinable init(_ v: CGVector) where Float: BinaryFloatingPoint {
+            self.init(dx: Float(v.dx), dy: Float(v.dy))
         }
     }
 
