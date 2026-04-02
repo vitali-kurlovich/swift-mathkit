@@ -68,7 +68,7 @@ extension MKRectTests {
     func topCenter( args: (Rect, Point) ) {
         let (rect, point) = args
         
-        #expect( rect.topCenter.isEqual(to: point, tolerance: tolerance) )
+        #expect( rect.top.isEqual(to: point, tolerance: tolerance) )
     }
     
     @Test("Center", arguments: [
@@ -90,7 +90,7 @@ extension MKRectTests {
     func nottomCenter( args: (Rect, Point) ) {
         let (rect, point) = args
         
-        #expect( rect.bottomCenter.isEqual(to: point, tolerance: tolerance) )
+        #expect( rect.bottom.isEqual(to: point, tolerance: tolerance) )
     }
     
     

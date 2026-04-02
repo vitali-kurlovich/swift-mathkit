@@ -38,11 +38,11 @@ public extension MKRect {
         .init(x: self.midX , y: self.midY)
     }
     
-    @inlinable var topCenter: MKPoint<Float> {
+    @inlinable var top: MKPoint<Float> {
         .init(x: self.midX , y: self.minY)
     }
     
-    @inlinable var bottomCenter: MKPoint<Float> {
+    @inlinable var bottom: MKPoint<Float> {
         .init(x: self.midX , y: self.maxY)
     }
 }
