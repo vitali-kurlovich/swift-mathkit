@@ -68,6 +68,14 @@ public extension MKAngle {
     }
 }
 
+public extension MKAffineTransformComponents {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        scale.isEqual(to: other.scale, tolerance: tolerance) &&
+            rotation.isEqual(to: other.rotation, tolerance: tolerance) &&
+            translation.isEqual(to: other.translation, tolerance: tolerance)
+    }
+}
+
 #if canImport(CoreGraphics)
 
     public extension CGVector {
