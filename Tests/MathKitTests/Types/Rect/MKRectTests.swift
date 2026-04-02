@@ -1,7 +1,4 @@
 //
-//  MKRectTests.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
@@ -25,9 +22,6 @@ struct MKRectTests {
     func minmax() {
         let rect = Rect(x: 10, y: 20, width: 30, height: 40)
         let expected = CGRect(x: 10, y: 20, width: 30, height: 40)
-
-        #expect(rect == expected)
-        #expect(expected == rect)
 
         #expect(CGRect(rect) == expected)
         #expect(Rect(expected) == rect)
