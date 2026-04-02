@@ -26,27 +26,27 @@ public extension MKAffineTransform {
         case .fill:
             return transformFill(from: src, to: target)
         case .aspectFit:
-            fatalError("Not implemented")
+            return transformAspectFit(from: src, to: target)
         case .aspectFill:
             fatalError("Not implemented")
         case .center:
             return transformCenter(from: src, to: target)
         case .top:
-            fatalError("Not implemented")
+            return transformTop(from: src, to: target)
         case .bottom:
-            fatalError("Not implemented")
+            return transformBottom(from: src, to: target)
         case .left:
-            fatalError("Not implemented")
+            return transformLeft(from: src, to: target)
         case .right:
-            fatalError("Not implemented")
+            return transformRight(from: src, to: target)
         case .topLeft:
-            fatalError("Not implemented")
+            return transformTopLeft(from: src, to: target)
         case .topRight:
-            fatalError("Not implemented")
+            return transformTopRight(from: src, to: target)
         case .bottomLeft:
-            fatalError("Not implemented")
+            return transformBottomLeft(from: src, to: target)
         case .bottomRight:
-            fatalError("Not implemented")
+            return transformBottomRight(from: src, to: target)
         }
     }
 }
@@ -61,9 +61,83 @@ extension MKAffineTransform {
                      tx: target.origin.x - scaleX * src.origin.x,
                      ty: target.origin.y - scaleY * src.origin.y)
     }
+}
+
+extension MKAffineTransform {
+    @inlinable static func transformAspectFit(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
+        let aspectRatio = src.size.aspectRatio
+
+        let dest: MKRect<Float>
+
+        if target.width <= target.height * aspectRatio {
+            let width = target.width
+            let height = width / aspectRatio
+
+            let minX = target.midX - width / 2
+            let minY = target.midY - height / 2
+
+            dest = .init(x: minX, y: minY, width: width, height: height)
+        } else {
+            let height = target.height
+            let width = height * aspectRatio
+
+            let minX = target.midX - width / 2
+            let minY = target.midY - height / 2
+
+            dest = .init(x: minX, y: minY, width: width, height: height)
+        }
+
+        return transformFill(from: src, to: dest)
+    }
+}
+
+extension MKAffineTransform {
+    @inlinable static func transformTop(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
+        let offset = target.top - src.top
+        return .translation(offset)
+    }
 
     @inlinable static func transformCenter(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
         let offset = target.center - src.center
+        return .translation(offset)
+    }
+
+    @inlinable static func transformBottom(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
+        let offset = target.bottom - src.bottom
+        return .translation(offset)
+    }
+}
+
+extension MKAffineTransform {
+    @inlinable static func transformTopLeft(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
+        let offset = target.topLeft - src.topLeft
+        return .translation(offset)
+    }
+
+    @inlinable static func transformLeft(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
+        let offset = target.left - src.left
+        return .translation(offset)
+    }
+
+    @inlinable static func transformBottomLeft(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
+        let offset = target.bottomLeft - src.bottomLeft
+        return .translation(offset)
+    }
+}
+
+extension MKAffineTransform {
+    @inlinable static func transformTopRight(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
+        let offset = target.topRight - src.topRight
+        return .translation(offset)
+    }
+
+    @inlinable static func transformRight(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
+        let offset = target.right - src.right
+        return .translation(offset)
+    }
+
+    @inlinable static func transformBottomRight(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
+        let offset = target.bottomRight - src.bottomRight
         return .translation(offset)
     }
 }

@@ -25,6 +25,14 @@ struct MKSizeTests {
         #expect(size.height == 1)
     }
 
+    @Test("aspectRatio")
+    func aspectRatio() throws {
+        #expect(MKSize<Double>.identity.aspectRatio.isEqual(to: 1, tolerance: tolerance))
+
+        #expect(MKSize<Double>(width: 2, height: 1).aspectRatio.isEqual(to: 2, tolerance: tolerance))
+        #expect(MKSize<Double>(width: 2, height: 4).aspectRatio.isEqual(to: 0.5, tolerance: tolerance))
+    }
+
     @Test("Multiply")
     func mul() throws {
         var size = MKSize<Double>(width: 2, height: 3) * 2

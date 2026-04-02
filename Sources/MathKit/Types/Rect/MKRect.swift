@@ -34,6 +34,12 @@ public extension MKRect {
 }
 
 public extension MKRect {
+    @inlinable var aspectRatio: Float {
+        size.aspectRatio
+    }
+}
+
+public extension MKRect {
     @inlinable var center: MKPoint<Float> {
         .init(x: midX, y: midY)
     }

@@ -29,6 +29,14 @@ struct MKRectTests {
         #expect(rect.size == .identity)
     }
 
+    @Test("aspectRatio")
+    func aspectRatio() throws {
+        #expect(Rect.identity.aspectRatio.isEqual(to: 1, tolerance: tolerance))
+
+        #expect(Rect(x: 20, y: 10, width: 200, height: 100).aspectRatio.isEqual(to: 2, tolerance: tolerance))
+        #expect(Rect(x: 20, y: 10, width: 200, height: 400).aspectRatio.isEqual(to: 0.5, tolerance: tolerance))
+    }
+
     @Test("Min/Max")
     func minmax() {
         let rect = Rect(x: 10, y: 20, width: 30, height: 40)

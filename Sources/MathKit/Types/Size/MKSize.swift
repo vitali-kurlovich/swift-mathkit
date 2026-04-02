@@ -29,6 +29,12 @@ public extension MKSize {
 }
 
 public extension MKSize {
+    @inlinable var aspectRatio: Float {
+        width / height
+    }
+}
+
+public extension MKSize {
     @inlinable static func * (left: Self, right: Self) -> Self {
         .init(width: left.width * right.width, height: left.height * right.height)
     }
