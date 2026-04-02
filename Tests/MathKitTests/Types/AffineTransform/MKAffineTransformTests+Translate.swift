@@ -11,7 +11,10 @@ extension MKAffineTransformTests {
     @Test("Init translation")
     func initTranslation() {
         #expect(MKAffineTransform<Double>(translationByX: 3, byY: 6) == .init(m11: 1.0, m12: 0.0, m21: 0.0, m22: 1.0, tx: 3.0, ty: 6.0))
-        #expect(MKAffineTransform<Double>(translationByX: 3, byY: 6) == .translation(x: 3, y: 6))
+
+        let point = MKPoint<Double>(x: 3, y: 6)
+
+        #expect(MKAffineTransform<Double>(translationByX: 3, byY: 6) == .translation(point))
     }
 
     @Test("Translate")
@@ -21,8 +24,12 @@ extension MKAffineTransformTests {
         let expected = MKAffineTransform<Double>(m11: 1.0, m12: 2.0, m21: 3.0, m22: 4.0, tx: 115.0, ty: 166.0)
 
         let vector = MKVector<Double>(dx: 20, dy: 30)
-
+        let point = MKPoint<Double>(x: 20, y: 30)
         #expect(mk.translated(vector) == expected)
+
+        var copy = mk
+        copy.translate(point)
+        #expect(copy == expected)
 
         mk.translate(vector)
 
