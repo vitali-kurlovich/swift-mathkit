@@ -28,7 +28,7 @@ public extension MKAffineTransform {
         case .aspectFit:
             return transformAspectFit(from: src, to: target)
         case .aspectFill:
-            fatalError("Not implemented")
+            return transformAspectFill(from: src, to: target)
         case .center:
             return transformCenter(from: src, to: target)
         case .top:
@@ -67,28 +67,40 @@ extension MKAffineTransform {
     @inlinable static func transformAspectFit(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
         let aspectRatio = src.size.aspectRatio
 
-        let dest: MKRect<Float>
+        let size: MKSize<Float>
 
         if target.width <= target.height * aspectRatio {
-            let width = target.width
-            let height = width / aspectRatio
-
-            let minX = target.midX - width / 2
-            let minY = target.midY - height / 2
-
-            dest = .init(x: minX, y: minY, width: width, height: height)
+            size = .init(width: target.width,
+                         height: target.width / aspectRatio)
         } else {
-            let height = target.height
-            let width = height * aspectRatio
-
-            let minX = target.midX - width / 2
-            let minY = target.midY - height / 2
-
-            dest = .init(x: minX, y: minY, width: width, height: height)
+            size = .init(width: target.height * aspectRatio,
+                         height: target.height)
         }
+
+        let dest = MKRect(origin: target.center - size / 2, size: size)
 
         return transformFill(from: src, to: dest)
     }
+
+    @inlinable static func transformAspectFill(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
+        let aspectRatio = src.size.aspectRatio
+
+        let size: MKSize<Float>
+
+        if target.width >= target.height * aspectRatio {
+            size = .init(width: target.width,
+                         height: target.width / aspectRatio)
+
+        } else {
+            size = .init(width: target.height * aspectRatio,
+                         height: target.height)
+        }
+
+        let dest = MKRect(origin: target.center - size / 2, size: size)
+
+        return transformFill(from: src, to: dest)
+    }
+    //
 }
 
 extension MKAffineTransform {

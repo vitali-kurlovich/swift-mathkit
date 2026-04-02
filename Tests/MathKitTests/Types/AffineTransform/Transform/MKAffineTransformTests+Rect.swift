@@ -91,6 +91,48 @@ extension MKAffineTransformTests {
         )
     }
 
+    @Test("Transform aspectFill", arguments: [
+        (MKRect<Double>(x: 0, y: 0, width: 200, height: 100),
+         MKRect<Double>(x: 10, y: 20, width: 200, height: 100),
+         MKRect<Double>(x: 10, y: 20, width: 200, height: 100)),
+
+        (MKRect<Double>(x: 0, y: 0, width: 200, height: 100),
+         MKRect<Double>(x: 10, y: 20, width: 400, height: 200),
+         MKRect<Double>(x: 10, y: 20, width: 400, height: 200)),
+
+        (MKRect<Double>(x: 0, y: 0, width: 200, height: 100),
+         MKRect<Double>(x: 10, y: 20, width: 380, height: 200),
+         MKRect<Double>(x: 0, y: 20, width: 400, height: 200)),
+
+        // ---
+
+        (MKRect<Double>(x: 0, y: 0, width: 100, height: 200),
+         MKRect<Double>(x: 10, y: 20, width: 100, height: 200),
+         MKRect<Double>(x: 10, y: 20, width: 100, height: 200)),
+
+        (MKRect<Double>(x: 0, y: 0, width: 100, height: 200),
+         MKRect<Double>(x: 10, y: 20, width: 200, height: 400),
+         MKRect<Double>(x: 10, y: 20, width: 200, height: 400)),
+
+        (MKRect<Double>(x: 0, y: 0, width: 100, height: 200),
+         MKRect<Double>(x: 10, y: 20, width: 200, height: 380),
+         MKRect<Double>(x: 10, y: 10, width: 200, height: 400)),
+
+    ])
+    func aspectFillTransform(_ args: (MKRect<Double>, MKRect<Double>, MKRect<Double>)) throws {
+        let (src, dest, expect) = args
+
+        let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .aspectFill)
+
+        #expect(
+            src.applying(tr).isEqual(to: expect, tolerance: tolerance)
+        )
+
+        #expect(
+            src.size.aspectRatio.isEqual(to: expect.size.aspectRatio, tolerance: tolerance)
+        )
+    }
+
     @Test("Transform center", arguments: [
         (MKRect<Double>(x: 0, y: 0, width: 200, height: 100), MKRect<Double>(x: 0, y: 0, width: 200, height: 100)),
         (MKRect<Double>(x: 10, y: 20, width: 200, height: 100), MKRect<Double>(x: 10, y: 20, width: 200, height: 100)),
