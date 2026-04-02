@@ -1,7 +1,4 @@
 //
-//  MKAngle.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 28.12.25.
 //
 

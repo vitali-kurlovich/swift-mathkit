@@ -1,7 +1,4 @@
 //
-//  MKAngle+sincos.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 12.01.26.
 //
 
