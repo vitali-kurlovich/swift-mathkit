@@ -5,6 +5,8 @@
 import MathKit
 import Testing
 
+private let tolerance: Double = 0.00000001
+
 extension MKAffineTransformTests {
     @Test("Init scale")
     func initScale() {
@@ -24,6 +26,10 @@ extension MKAffineTransformTests {
         mk.scale(6)
         #expect(
             mk == .scale(6)
+        )
+
+        #expect(
+            mk.isEqual(to: .init(m11: 6, m12: 0, m21: 0, m22: 6, tx: 0, ty: 0), tolerance: tolerance)
         )
 
         mk = .init(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
@@ -51,7 +57,13 @@ extension MKAffineTransformTests {
             MKAffineTransform<Double>.identity.scaled(size) == .scale(x: 4, y: 7)
         )
 
-        var mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
+        var mk: MKAffineTransform<Double> = .scale(size)
+
+        #expect(
+            mk.isEqual(to: .init(m11: 4, m12: 0, m21: 0, m22: 7, tx: 0, ty: 0), tolerance: tolerance)
+        )
+
+        mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
         var tr = mk
 
         let expected = MKAffineTransform<Double>(m11: 10, m12: 20, m21: 60, m22: 80, tx: 5, ty: 6)

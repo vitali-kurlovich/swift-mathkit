@@ -21,6 +21,10 @@ public extension MKAffineTransform {
         .init(translationByX: x, byY: y)
     }
 
+    @inlinable static func translation(_ origin: MKPoint<Float>) -> Self {
+        .translation(x: origin.x, y: origin.y)
+    }
+
     @inlinable static func translation(_ vector: MKVector<Float>) -> Self {
         .translation(x: vector.dx, y: vector.dy)
     }
@@ -30,6 +34,10 @@ public extension MKAffineTransform {
     @inlinable mutating func translate(x: Float, y: Float) {
         tx += (m11 * x).addingProduct(m21, y)
         ty += (m12 * x).addingProduct(m22, y)
+    }
+
+    @inlinable mutating func translate(_ origin: MKPoint<Float>) {
+        translate(x: origin.x, y: origin.y)
     }
 
     @inlinable mutating func translate(_ vector: MKVector<Float>) {
