@@ -31,7 +31,11 @@ public nonisolated struct MKAngle<Float: FloatingPoint & Sendable>: Hashable & S
 }
 
 public extension MKAngle {
-    static var zero: Self { .init() }
+    @inlinable static var zero: Self { .init() }
+
+    @inlinable static var identity: Self {
+        .init(radians: .pi * 2)
+    }
 }
 
 public extension MKAngle {
