@@ -1,7 +1,4 @@
 //
-//  MKPoint+VectorMath.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 19.01.26.
 //
 

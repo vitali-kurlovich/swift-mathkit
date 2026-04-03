@@ -142,6 +142,48 @@ struct MKVectorTests {
             vector.magnitudeSquared == 1
         )
     }
+
+    @Test("Dot")
+    func dot() {
+        #expect(
+            MKVector<Double>(dx: 0, dy: 1).dot(MKVector<Double>(dx: 0, dy: 1)) == 1
+        )
+
+        #expect(
+            MKVector<Double>(dx: 0, dy: -1).dot(MKVector<Double>(dx: 0, dy: 1)) == -1
+        )
+
+        #expect(
+            MKVector<Double>(dx: -6, dy: 3).dot(MKVector<Double>(dx: 5, dy: -2)) == -36
+        )
+
+        #expect(
+            MKVector<Double>(dx: 10, dy: 0).dot(MKVector<Double>(dx: 0, dy: 10)) == 0
+        )
+
+        #expect(
+            MKVector<Double>(dx: sqrt(3) / 2, dy: -1 / 2).dot(MKVector<Double>(dx: 1 / 2, dy: sqrt(3) / 2)) == 0
+        )
+    }
+
+    @Test("Cross")
+    func cross() {
+        #expect(
+            MKVector<Double>(dx: 10, dy: 0).cross(MKVector<Double>(dx: 0, dy: 10)) == 100
+        )
+
+        #expect(
+            MKVector<Double>(dx: 0, dy: 10).cross(MKVector<Double>(dx: 10, dy: 0)) == -100
+        )
+
+        #expect(
+            MKVector<Double>(dx: 10, dy: 0).cross(MKVector<Double>(dx: 10, dy: 10)) == 100
+        )
+
+        #expect(
+            MKVector<Double>(dx: sqrt(3) / 2, dy: -1 / 2).cross(MKVector<Double>(dx: 1 / 2, dy: sqrt(3) / 2)).isEqual(to: 1, tolerance: tolerance)
+        )
+    }
 }
 
 #if canImport(CoreGraphics)
