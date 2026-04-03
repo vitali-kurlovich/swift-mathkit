@@ -1,13 +1,9 @@
 //
-//  MKAffineTransform+Utils.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 6.01.26.
 //
 
-@testable import MathKit
-
 import Foundation
+import MathKit
 
 extension MKAffineTransform {
     func isEqual(to other: Self, tolerance: Float) -> Bool {

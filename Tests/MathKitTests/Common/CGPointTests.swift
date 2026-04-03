@@ -1,7 +1,4 @@
 //
-//  CGPointTests.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 29.12.25.
 //
 
