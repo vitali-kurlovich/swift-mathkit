@@ -163,46 +163,28 @@ struct MKPointTests {
         )
     }
 
-    @Test("Dot")
-    func dot() {
-        #expect(
-            Point(x: 0, y: 1).dot(Point(x: 0, y: 1)) == 1
-        )
-
-        #expect(
-            Point(x: 0, y: -1).dot(Point(x: 0, y: 1)) == -1
-        )
-
-        #expect(
-            Point(x: -6, y: 3).dot(Point(x: 5, y: -2)) == -36
-        )
-
-        #expect(
-            Point(x: 10, y: 0).dot(Point(x: 0, y: 10)) == 0
-        )
-
-        #expect(
-            Point(x: sqrt(3) / 2, y: -1 / 2).dot(Point(x: 1 / 2, y: sqrt(3) / 2)) == 0
-        )
+    @Test("Dot", arguments: [
+        (Point(x: 0, y: 1), Point(x: 0, y: 1), 1.0),
+        (Point(x: 0, y: -1), Point(x: 0, y: 1), -1.0),
+        (Point(x: -6, y: 3), Point(x: 5, y: -2), -36.0),
+        (Point(x: 10, y: 0), Point(x: 0, y: 10), 0.0),
+        (Point(x: 0.8660254038, y: -0.5), Point(x: 0.5, y: 0.8660254038), 0.0),
+    ])
+    func _dot(_ args: (Point, Point, Double)) {
+        let (first, second, expect) = args
+        #expect(first.dot(second).isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Cross")
-    func cross() {
-        #expect(
-            Point(x: 10, y: 0).cross(Point(x: 0, y: 10)) == 100
-        )
+    @Test("Cross", arguments: [
+        (Point(x: 10, y: 0), Point(x: 0, y: 10), 100.0),
+        (Point(x: 0, y: 10), Point(x: 10, y: 0), -100.0),
+        (Point(x: 10, y: 0), Point(x: 10, y: 10), 100.0),
+        (Point(x: 0.8660254038, y: -0.5), Point(x: 0.5, y: 0.8660254038), 1.0),
 
-        #expect(
-            Point(x: 0, y: 10).cross(Point(x: 10, y: 0)) == -100
-        )
-
-        #expect(
-            Point(x: 10, y: 0).cross(Point(x: 10, y: 10)) == 100
-        )
-
-        #expect(
-            Point(x: sqrt(3) / 2, y: -1 / 2).cross(Point(x: 1 / 2, y: sqrt(3) / 2)).isEqual(to: 1, tolerance: tolerance)
-        )
+    ])
+    func _cross(_ args: (Point, Point, Double)) {
+        let (first, second, expect) = args
+        #expect(first.cross(second).isEqual(to: expect, tolerance: tolerance))
     }
 
     @Test("Vector")

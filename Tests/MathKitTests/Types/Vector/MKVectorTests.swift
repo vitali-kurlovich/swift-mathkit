@@ -146,46 +146,28 @@ struct MKVectorTests {
         )
     }
 
-    @Test("Dot")
-    func dot() {
-        #expect(
-            MKVector<Double>(dx: 0, dy: 1).dot(MKVector<Double>(dx: 0, dy: 1)) == 1
-        )
-
-        #expect(
-            MKVector<Double>(dx: 0, dy: -1).dot(MKVector<Double>(dx: 0, dy: 1)) == -1
-        )
-
-        #expect(
-            MKVector<Double>(dx: -6, dy: 3).dot(MKVector<Double>(dx: 5, dy: -2)) == -36
-        )
-
-        #expect(
-            MKVector<Double>(dx: 10, dy: 0).dot(MKVector<Double>(dx: 0, dy: 10)) == 0
-        )
-
-        #expect(
-            MKVector<Double>(dx: 0.8660254038, dy: -0.5).dot(MKVector<Double>(dx: 0.5, dy: 0.8660254038)) == 0
-        )
+    @Test("Dot", arguments: [
+        (MKVector<Double>(dx: 0, dy: 1), MKVector<Double>(dx: 0, dy: 1), 1.0),
+        (MKVector<Double>(dx: 0, dy: -1), MKVector<Double>(dx: 0, dy: 1), -1.0),
+        (MKVector<Double>(dx: -6, dy: 3), MKVector<Double>(dx: 5, dy: -2), -36.0),
+        (MKVector<Double>(dx: 10, dy: 0), MKVector<Double>(dx: 0, dy: 10), 0.0),
+        (MKVector<Double>(dx: 0.8660254038, dy: -0.5), MKVector<Double>(dx: 0.5, dy: 0.8660254038), 0.0),
+    ])
+    func dot(_ args: (MKVector<Double>, MKVector<Double>, Double)) {
+        let (first, second, expect) = args
+        #expect(first.dot(second).isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Cross")
-    func cross() {
-        #expect(
-            MKVector<Double>(dx: 10, dy: 0).cross(MKVector<Double>(dx: 0, dy: 10)) == 100
-        )
+    @Test("Cross", arguments: [
+        (MKVector<Double>(dx: 10, dy: 0), MKVector<Double>(dx: 0, dy: 10), 100.0),
+        (MKVector<Double>(dx: 0, dy: 10), MKVector<Double>(dx: 10, dy: 0), -100.0),
+        (MKVector<Double>(dx: 10, dy: 0), MKVector<Double>(dx: 10, dy: 10), 100.0),
+        (MKVector<Double>(dx: 0.8660254038, dy: -0.5), MKVector<Double>(dx: 0.5, dy: 0.8660254038), 1.0),
 
-        #expect(
-            MKVector<Double>(dx: 0, dy: 10).cross(MKVector<Double>(dx: 10, dy: 0)) == -100
-        )
-
-        #expect(
-            MKVector<Double>(dx: 10, dy: 0).cross(MKVector<Double>(dx: 10, dy: 10)) == 100
-        )
-
-        #expect(
-            MKVector<Double>(dx: 0.8660254038, dy: -0.5).cross(MKVector<Double>(dx: 0.5, dy: 0.8660254038)).isEqual(to: 1, tolerance: tolerance)
-        )
+    ])
+    func cross(_ args: (MKVector<Double>, MKVector<Double>, Double)) {
+        let (first, second, expect) = args
+        #expect(first.cross(second).isEqual(to: expect, tolerance: tolerance))
     }
 }
 
