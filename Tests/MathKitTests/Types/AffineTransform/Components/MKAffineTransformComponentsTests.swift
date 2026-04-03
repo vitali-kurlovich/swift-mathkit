@@ -6,8 +6,8 @@ import Foundation
 import MathKit
 import Testing
 
-private let tolerance: Double = 0.000001
-private let halfTolerance: Float32 = 0.0001
+private let tolerance: Double = 0.00000000000001
+private let halfTolerance: Float32 = 0.00001
 private let lowTolerance: Float16 = 0.1
 
 @Suite("MKAffineTransformComponents")
@@ -62,7 +62,7 @@ extension MKAffineTransformComponentsTests {
         let components = tr.decomposed()
 
         #expect(components.scale.isEqual(to: .identity, tolerance: tolerance))
-        #expect(components.rotation.isEqual(to: .radians(.pi / 4), tolerance: 0.001))
+        #expect(components.rotation.isEqual(to: .radians(.pi / 4), tolerance: tolerance))
         #expect(components.translation == .zero)
     }
 
@@ -82,7 +82,7 @@ extension MKAffineTransformComponentsTests {
         let components = tr.decomposed()
 
         #expect(components.scale.isEqual(to: size, tolerance: tolerance))
-        #expect(components.rotation.isEqual(to: .radians(.pi / 4), tolerance: 0.001))
+        #expect(components.rotation.isEqual(to: .radians(.pi / 4), tolerance: tolerance))
 
         #expect(components.translation.isEqual(to: offset, tolerance: tolerance))
     }
@@ -101,7 +101,7 @@ extension MKAffineTransformComponentsTests {
         let components = tr.decomposed()
 
         #expect(components.scale.isEqual(to: size, tolerance: tolerance))
-        #expect(components.rotation.isEqual(to: .radians(.pi / 4), tolerance: 0.001))
+        #expect(components.rotation.isEqual(to: .radians(.pi / 4), tolerance: tolerance))
 
         #expect(components.translation.isEqual(to: offset, tolerance: tolerance))
     }
@@ -120,7 +120,7 @@ extension MKAffineTransformComponentsTests {
         let components = tr.decomposed()
 
         #expect(components.scale.isEqual(to: size, tolerance: halfTolerance))
-        #expect(components.rotation.isEqual(to: .radians(.pi / 4), tolerance: 0.001))
+        #expect(components.rotation.isEqual(to: .radians(.pi / 4), tolerance: halfTolerance))
 
         #expect(components.translation.isEqual(to: offset, tolerance: halfTolerance))
     }
