@@ -189,219 +189,115 @@ struct MKVectorTests {
 }
 
 extension MKVectorTests {
-    @Test("Rotate <Double>")
-    func rotate_Double() {
-        let v = MKVector<Double>(dx: 1, dy: 0)
-        let v1 = MKVector<Double>(dx: 2, dy: 0)
+    @Test("Rotate <Double>",
+          arguments: [
+              (MKVector<Double>(dx: 1, dy: 0), MKAngle<Double>(radians: 0.5 * .pi), MKVector<Double>(dx: 0, dy: 1)),
+              (MKVector<Double>(dx: 2, dy: 0), MKAngle<Double>(radians: 0.5 * .pi), MKVector<Double>(dx: 0, dy: 2)),
+
+              (MKVector<Double>(dx: 1, dy: 0), MKAngle<Double>(radians: .pi), MKVector<Double>(dx: -1, dy: 0)),
+              (MKVector<Double>(dx: 2, dy: 0), MKAngle<Double>(radians: .pi), MKVector<Double>(dx: -2, dy: 0)),
+
+              (MKVector<Double>(dx: 1, dy: 0), MKAngle<Double>(radians: 1.5 * .pi), MKVector<Double>(dx: 0, dy: -1)),
+              (MKVector<Double>(dx: 2, dy: 0), MKAngle<Double>(radians: 1.5 * .pi), MKVector<Double>(dx: 0, dy: -2)),
+
+              (MKVector<Double>(dx: 1, dy: 0), MKAngle<Double>(radians: 2 * .pi), MKVector<Double>(dx: 1, dy: 0)),
+              (MKVector<Double>(dx: 2, dy: 0), MKAngle<Double>(radians: 2 * .pi), MKVector<Double>(dx: 2, dy: 0)),
+
+              (MKVector<Double>(dx: 1, dy: 0), MKAngle<Double>(degrees: 45), MKVector<Double>(dx: 0.7071067811865475, dy: 0.7071067811865475)),
+              (MKVector<Double>(dx: 2, dy: 0), MKAngle<Double>(degrees: 45), MKVector<Double>(dx: 1.414213562373095, dy: 1.414213562373095)),
+
+              (MKVector<Double>(dx: 1, dy: 0), MKAngle<Double>(degrees: 60), MKVector<Double>(dx: 0.5, dy: 0.8660254037844386)),
+              (MKVector<Double>(dx: 2, dy: 0), MKAngle<Double>(degrees: 60), MKVector<Double>(dx: 1, dy: 1.732050807568877)),
+          ])
+    func rotate_Double(_ args: (MKVector<Double>, MKAngle<Double>, MKVector<Double>)) {
+        let (vec, angle, expect) = args
 
         #expect(
-            v.rotated(.radians(.pi / 2)).isEqual(to: .init(dx: 0, dy: 1), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi / 2)).isEqual(to: .init(dx: 0, dy: 2), tolerance: tolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(.pi)).isEqual(to: .init(dx: -1, dy: 0), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi)).isEqual(to: .init(dx: -2, dy: 0), tolerance: tolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(.pi + .pi / 2)).isEqual(to: .init(dx: 0, dy: -1), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi + .pi / 2)).isEqual(to: .init(dx: 0, dy: -2), tolerance: tolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(2 * .pi)).isEqual(to: .init(dx: 1, dy: 0), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(2 * .pi)).isEqual(to: .init(dx: 2, dy: 0), tolerance: tolerance)
-        )
-
-        #expect(
-            v.rotated(.degrees(45)).isEqual(to: .init(dx: 1.0 / 2.0.squareRoot(), dy: 1.0 / 2.0.squareRoot()), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.degrees(45)).isEqual(to: .init(dx: 2.0 / 2.0.squareRoot(), dy: 2.0 / 2.0.squareRoot()), tolerance: tolerance)
-        )
-
-        #expect(
-            v.rotated(.degrees(60)).isEqual(to: .init(dx: 0.5, dy: 3.0.squareRoot() / 2), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.degrees(60)).isEqual(to: .init(dx: 1, dy: 3.0.squareRoot()), tolerance: tolerance)
+            vec.rotated(angle).isEqual(to: expect, tolerance: tolerance)
         )
     }
 
-    @Test("Rotate <CGFloat>")
-    func rotate_CGFloat() {
-        let v = MKVector<CGFloat>(dx: 1, dy: 0)
-        let v1 = MKVector<CGFloat>(dx: 2, dy: 0)
+    @Test("Rotate <CGFloat>",
+          arguments: [
+              (MKVector<CGFloat>(dx: 1, dy: 0), MKAngle<CGFloat>(radians: 0.5 * .pi), MKVector<CGFloat>(dx: 0, dy: 1)),
+              (MKVector<CGFloat>(dx: 2, dy: 0), MKAngle<CGFloat>(radians: 0.5 * .pi), MKVector<CGFloat>(dx: 0, dy: 2)),
+
+              (MKVector<CGFloat>(dx: 1, dy: 0), MKAngle<CGFloat>(radians: .pi), MKVector<CGFloat>(dx: -1, dy: 0)),
+              (MKVector<CGFloat>(dx: 2, dy: 0), MKAngle<CGFloat>(radians: .pi), MKVector<CGFloat>(dx: -2, dy: 0)),
+
+              (MKVector<CGFloat>(dx: 1, dy: 0), MKAngle<CGFloat>(radians: 1.5 * .pi), MKVector<CGFloat>(dx: 0, dy: -1)),
+              (MKVector<CGFloat>(dx: 2, dy: 0), MKAngle<CGFloat>(radians: 1.5 * .pi), MKVector<CGFloat>(dx: 0, dy: -2)),
+
+              (MKVector<CGFloat>(dx: 1, dy: 0), MKAngle<CGFloat>(radians: 2 * .pi), MKVector<CGFloat>(dx: 1, dy: 0)),
+              (MKVector<CGFloat>(dx: 2, dy: 0), MKAngle<CGFloat>(radians: 2 * .pi), MKVector<CGFloat>(dx: 2, dy: 0)),
+
+              (MKVector<CGFloat>(dx: 1, dy: 0), MKAngle<CGFloat>(degrees: 45), MKVector<CGFloat>(dx: 0.7071067811865475, dy: 0.7071067811865475)),
+              (MKVector<CGFloat>(dx: 2, dy: 0), MKAngle<CGFloat>(degrees: 45), MKVector<CGFloat>(dx: 1.414213562373095, dy: 1.414213562373095)),
+
+              (MKVector<CGFloat>(dx: 1, dy: 0), MKAngle<CGFloat>(degrees: 60), MKVector<CGFloat>(dx: 0.5, dy: 0.8660254037844386)),
+              (MKVector<CGFloat>(dx: 2, dy: 0), MKAngle<CGFloat>(degrees: 60), MKVector<CGFloat>(dx: 1, dy: 1.732050807568877)),
+          ])
+    func rotate_CGFloat(_ args: (MKVector<CGFloat>, MKAngle<CGFloat>, MKVector<CGFloat>)) {
+        let (vec, angle, expect) = args
 
         #expect(
-            v.rotated(.radians(.pi / 2)).isEqual(to: .init(dx: 0, dy: 1), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi / 2)).isEqual(to: .init(dx: 0, dy: 2), tolerance: tolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(.pi)).isEqual(to: .init(dx: -1, dy: 0), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi)).isEqual(to: .init(dx: -2, dy: 0), tolerance: tolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(.pi + .pi / 2)).isEqual(to: .init(dx: 0, dy: -1), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi + .pi / 2)).isEqual(to: .init(dx: 0, dy: -2), tolerance: tolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(2 * .pi)).isEqual(to: .init(dx: 1, dy: 0), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(2 * .pi)).isEqual(to: .init(dx: 2, dy: 0), tolerance: tolerance)
-        )
-
-        #expect(
-            v.rotated(.degrees(45)).isEqual(to: .init(dx: 1.0 / 2.0.squareRoot(), dy: 1.0 / 2.0.squareRoot()), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.degrees(45)).isEqual(to: .init(dx: 2.0 / 2.0.squareRoot(), dy: 2.0 / 2.0.squareRoot()), tolerance: tolerance)
-        )
-
-        #expect(
-            v.rotated(.degrees(60)).isEqual(to: .init(dx: 0.5, dy: 3.0.squareRoot() / 2), tolerance: tolerance)
-        )
-
-        #expect(
-            v1.rotated(.degrees(60)).isEqual(to: .init(dx: 1, dy: 3.0.squareRoot()), tolerance: tolerance)
+            vec.rotated(angle).isEqual(to: expect, tolerance: tolerance)
         )
     }
 
-    @Test("Rotate <Float>")
-    func rotate_Float() {
-        let v = MKVector<Float>(dx: 1, dy: 0)
-        let v1 = MKVector<Float>(dx: 2, dy: 0)
+    @Test("Rotate <Float>",
+          arguments: [
+              (MKVector<Float>(dx: 1, dy: 0), MKAngle<Float>(radians: 0.5 * .pi), MKVector<Float>(dx: 0, dy: 1)),
+              (MKVector<Float>(dx: 2, dy: 0), MKAngle<Float>(radians: 0.5 * .pi), MKVector<Float>(dx: 0, dy: 2)),
+
+              (MKVector<Float>(dx: 1, dy: 0), MKAngle<Float>(radians: .pi), MKVector<Float>(dx: -1, dy: 0)),
+              (MKVector<Float>(dx: 2, dy: 0), MKAngle<Float>(radians: .pi), MKVector<Float>(dx: -2, dy: 0)),
+
+              (MKVector<Float>(dx: 1, dy: 0), MKAngle<Float>(radians: 1.5 * .pi), MKVector<Float>(dx: 0, dy: -1)),
+              (MKVector<Float>(dx: 2, dy: 0), MKAngle<Float>(radians: 1.5 * .pi), MKVector<Float>(dx: 0, dy: -2)),
+
+              (MKVector<Float>(dx: 1, dy: 0), MKAngle<Float>(radians: 2 * .pi), MKVector<Float>(dx: 1, dy: 0)),
+              (MKVector<Float>(dx: 2, dy: 0), MKAngle<Float>(radians: 2 * .pi), MKVector<Float>(dx: 2, dy: 0)),
+
+              (MKVector<Float>(dx: 1, dy: 0), MKAngle<Float>(degrees: 45), MKVector<Float>(dx: 0.7071067811865475, dy: 0.7071067811865475)),
+              (MKVector<Float>(dx: 2, dy: 0), MKAngle<Float>(degrees: 45), MKVector<Float>(dx: 1.414213562373095, dy: 1.414213562373095)),
+
+              (MKVector<Float>(dx: 1, dy: 0), MKAngle<Float>(degrees: 60), MKVector<Float>(dx: 0.5, dy: 0.8660254037844386)),
+              (MKVector<Float>(dx: 2, dy: 0), MKAngle<Float>(degrees: 60), MKVector<Float>(dx: 1, dy: 1.732050807568877)),
+          ])
+    func rotate_Float(_ args: (MKVector<Float>, MKAngle<Float>, MKVector<Float>)) {
+        let (vec, angle, expect) = args
 
         #expect(
-            v.rotated(.radians(.pi / 2)).isEqual(to: .init(dx: 0, dy: 1), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi / 2)).isEqual(to: .init(dx: 0, dy: 2), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(.pi)).isEqual(to: .init(dx: -1, dy: 0), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi)).isEqual(to: .init(dx: -2, dy: 0), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(.pi + .pi / 2)).isEqual(to: .init(dx: 0, dy: -1), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi + .pi / 2)).isEqual(to: .init(dx: 0, dy: -2), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(2 * .pi)).isEqual(to: .init(dx: 1, dy: 0), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(2 * .pi)).isEqual(to: .init(dx: 2, dy: 0), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v.rotated(.degrees(45)).isEqual(to: .init(dx: 1.0 / Float(2.0).squareRoot(), dy: 1.0 / Float(2.0).squareRoot()), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v1.rotated(.degrees(45)).isEqual(to: .init(dx: 2.0 / Float(2.0).squareRoot(), dy: 2.0 / Float(2.0).squareRoot()), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v.rotated(.degrees(60)).isEqual(to: .init(dx: 0.5, dy: Float(3.0).squareRoot() / 2), tolerance: halfTolerance)
-        )
-
-        #expect(
-            v1.rotated(.degrees(60)).isEqual(to: .init(dx: 1, dy: Float(3.0).squareRoot()), tolerance: halfTolerance)
+            vec.rotated(angle).isEqual(to: expect, tolerance: halfTolerance)
         )
     }
 
-    @Test("Rotate <Float16>")
-    func rotate_Float16() {
-        let v = MKVector<Float16>(dx: 1, dy: 0)
-        let v1 = MKVector<Float16>(dx: 2, dy: 0)
+    @Test("Rotate <Float16>",
+          arguments: [
+              (MKVector<Float16>(dx: 1, dy: 0), MKAngle<Float16>(radians: 0.5 * .pi), MKVector<Float16>(dx: 0, dy: 1)),
+              (MKVector<Float16>(dx: 2, dy: 0), MKAngle<Float16>(radians: 0.5 * .pi), MKVector<Float16>(dx: 0, dy: 2)),
+
+              (MKVector<Float16>(dx: 1, dy: 0), MKAngle<Float16>(radians: .pi), MKVector<Float16>(dx: -1, dy: 0)),
+              (MKVector<Float16>(dx: 2, dy: 0), MKAngle<Float16>(radians: .pi), MKVector<Float16>(dx: -2, dy: 0)),
+
+              (MKVector<Float16>(dx: 1, dy: 0), MKAngle<Float16>(radians: 1.5 * .pi), MKVector<Float16>(dx: 0, dy: -1)),
+              (MKVector<Float16>(dx: 2, dy: 0), MKAngle<Float16>(radians: 1.5 * .pi), MKVector<Float16>(dx: 0, dy: -2)),
+
+              (MKVector<Float16>(dx: 1, dy: 0), MKAngle<Float16>(radians: 2 * .pi), MKVector<Float16>(dx: 1, dy: 0)),
+              (MKVector<Float16>(dx: 2, dy: 0), MKAngle<Float16>(radians: 2 * .pi), MKVector<Float16>(dx: 2, dy: 0)),
+
+              (MKVector<Float16>(dx: 1, dy: 0), MKAngle<Float16>(degrees: 45), MKVector<Float16>(dx: 0.7071067811865475, dy: 0.7071067811865475)),
+              (MKVector<Float16>(dx: 2, dy: 0), MKAngle<Float16>(degrees: 45), MKVector<Float16>(dx: 1.414213562373095, dy: 1.414213562373095)),
+
+              (MKVector<Float16>(dx: 1, dy: 0), MKAngle<Float16>(degrees: 60), MKVector<Float16>(dx: 0.5, dy: 0.8660254037844386)),
+              (MKVector<Float16>(dx: 2, dy: 0), MKAngle<Float16>(degrees: 60), MKVector<Float16>(dx: 1, dy: 1.732050807568877)),
+          ])
+    func rotate_Float16(_ args: (MKVector<Float16>, MKAngle<Float16>, MKVector<Float16>)) {
+        let (vec, angle, expect) = args
 
         #expect(
-            v.rotated(.radians(.pi / 2)).isEqual(to: .init(dx: 0, dy: 1), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi / 2)).isEqual(to: .init(dx: 0, dy: 2), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(.pi)).isEqual(to: .init(dx: -1, dy: 0), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi)).isEqual(to: .init(dx: -2, dy: 0), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(.pi + .pi / 2)).isEqual(to: .init(dx: 0, dy: -1), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(.pi + .pi / 2)).isEqual(to: .init(dx: 0, dy: -2), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v.rotated(.radians(2 * .pi)).isEqual(to: .init(dx: 1, dy: 0), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v1.rotated(.radians(2 * .pi)).isEqual(to: .init(dx: 2, dy: 0), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v.rotated(.degrees(45)).isEqual(to: .init(dx: 1.0 / Float16(2.0).squareRoot(), dy: 1.0 / Float16(2.0).squareRoot()), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v1.rotated(.degrees(45)).isEqual(to: .init(dx: 2.0 / Float16(2.0).squareRoot(), dy: 2.0 / Float16(2.0).squareRoot()), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v.rotated(.degrees(60)).isEqual(to: .init(dx: 0.5, dy: Float16(3.0).squareRoot() / 2), tolerance: lowTolerance)
-        )
-
-        #expect(
-            v1.rotated(.degrees(60)).isEqual(to: .init(dx: 1, dy: Float16(3.0).squareRoot()), tolerance: lowTolerance)
+            vec.rotated(angle).isEqual(to: expect, tolerance: lowTolerance)
         )
     }
 }
