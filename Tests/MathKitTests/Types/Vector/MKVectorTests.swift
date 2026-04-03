@@ -110,6 +110,38 @@ struct MKVectorTests {
 
         #expect(vec.isEqual(to: .init(dx: 0.5, dy: 0.5), tolerance: tolerance))
     }
+
+    @Test("Magnitude")
+    func magnitude() {
+        let vector = MKVector<Double>(dx: 3, dy: 4)
+
+        #expect(
+            vector.magnitudeSquared == 25
+        )
+
+        #expect(
+            vector.magnitude == 5
+        )
+    }
+
+    @Test("Normalize")
+    func normalize() {
+        var vector = MKVector<Double>(dx: -30, dy: 40)
+
+        #expect(
+            vector.normalized() == MKVector<Double>(dx: -3 / 5, dy: 4 / 5)
+        )
+
+        vector.normalize()
+
+        #expect(
+            vector == MKVector<Double>(dx: -3 / 5, dy: 4 / 5)
+        )
+
+        #expect(
+            vector.magnitudeSquared == 1
+        )
+    }
 }
 
 #if canImport(CoreGraphics)

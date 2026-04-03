@@ -165,10 +165,12 @@ struct MKPointTests {
 
     @Test("Dot")
     func dot() {
-        // {{Sqrt[3]/2, -(1/2)}, {1/2, Sqrt[3]/2}}
-
         #expect(
             Point(x: 0, y: 1).dot(Point(x: 0, y: 1)) == 1
+        )
+
+        #expect(
+            Point(x: 0, y: -1).dot(Point(x: 0, y: 1)) == -1
         )
 
         #expect(
