@@ -76,6 +76,13 @@ public extension MKAffineTransformComponents {
     }
 }
 
+public extension MKVectorComponents {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        magnitude.isEqual(to: other.magnitude, tolerance: tolerance) &&
+            rotation.isEqual(to: other.rotation, tolerance: tolerance)
+    }
+}
+
 #if canImport(CoreGraphics)
 
     public extension CGVector {

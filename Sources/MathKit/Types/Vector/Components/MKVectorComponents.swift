@@ -68,3 +68,33 @@ public extension MKVector {
         self.init(magnitude: components.magnitude, rotation: components.rotation)
     }
 }
+
+public extension MKVector {
+    @inlinable
+    func decomposed() -> MKVectorComponents<Float> where Float == Double {
+        let radians = atan2(dy, dx)
+        let rotation = MKAngle<Float>(radians: radians)
+        return .init(magnitude: magnitude, rotation: rotation)
+    }
+
+    @inlinable
+    func decomposed() -> MKVectorComponents<Float> where Float == Swift.Float {
+        let radians = atan2f(dy, dx)
+        let rotation = MKAngle<Float>(radians: radians)
+        return .init(magnitude: magnitude, rotation: rotation)
+    }
+
+    @inlinable
+    func decomposed() -> MKVectorComponents<Float> where Float == CGFloat {
+        let radians = Float(atan2(Double(dy), Double(dx)))
+        let rotation = MKAngle<Float>(radians: radians)
+        return .init(magnitude: magnitude, rotation: rotation)
+    }
+
+    @inlinable
+    func decomposed() -> MKVectorComponents<Float> where Float == Float16 {
+        let radians = atan2f(Swift.Float(dy), Swift.Float(dx))
+        let rotation = MKAngle<Float>(radians: Float(radians))
+        return .init(magnitude: magnitude, rotation: rotation)
+    }
+}
