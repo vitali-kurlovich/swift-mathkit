@@ -183,7 +183,7 @@ struct MKVectorTests {
         )
 
         #expect(
-            MKVector<Double>(dx: sqrt(3) / 2, dy: -1 / 2).cross(MKVector<Double>(dx: 1 / 2, dy: sqrt(3) / 2)).isEqual(to: 1, tolerance: tolerance)
+            MKVector<Double>(dx: 0.8660254038, dy: -0.5).cross(MKVector<Double>(dx: 0.5, dy: 0.8660254038)).isEqual(to: 1, tolerance: tolerance)
         )
     }
 }
