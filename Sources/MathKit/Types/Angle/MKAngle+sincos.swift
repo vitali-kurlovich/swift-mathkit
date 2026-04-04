@@ -82,8 +82,8 @@ import Foundation
             if self == .zero {
                 return (0, 1)
             }
-            let s = sin(Float32(radians))
-            let c = cos(Float32(radians))
+            let s = sin(Swift.Float(radians))
+            let c = cos(Swift.Float(radians))
 
             return (Float(s), Float(c))
         }

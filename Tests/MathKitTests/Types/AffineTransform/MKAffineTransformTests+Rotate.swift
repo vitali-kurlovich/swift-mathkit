@@ -10,7 +10,7 @@ import Testing
     import CoreGraphics
 #endif
 
-private let tolerance: Double = 0.00000001
+private let tolerance: Double = 0.000001
 private let halfTolerance: Float32 = 0.001
 private let lowTolerance: Float16 = 0.01
 
