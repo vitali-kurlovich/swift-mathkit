@@ -1,7 +1,4 @@
 //
-//  CGPoint+CGVector.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 30.12.25.
 //
 
