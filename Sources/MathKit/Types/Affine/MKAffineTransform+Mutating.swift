@@ -3,6 +3,33 @@
 //
 
 public extension MKAffineTransform {
+    @inlinable mutating func append(_ transform: Self) {
+        let ax = tx
+
+        tx = transform.tx.addingProduct(tx, transform.m11).addingProduct(ty, transform.m21)
+        ty = transform.ty.addingProduct(ax, transform.m12).addingProduct(ty, transform.m22)
+
+        let a11 = m11
+        m11 *= transform.m11
+        m11.addProduct(m12, transform.m21)
+
+        m12 = (a11 * transform.m12).addingProduct(m12, transform.m22)
+
+        let a21 = m21
+        m21 *= transform.m11
+        m21.addProduct(m22, transform.m21)
+
+        m22 = (a21 * transform.m12).addingProduct(m22, transform.m22)
+    }
+
+    @inlinable func appended(_ transform: Self) -> Self {
+        var tr = self
+        tr.append(transform)
+        return tr
+    }
+}
+
+public extension MKAffineTransform {
     @inlinable mutating func prepend(_ transform: Self) {
         let a11 = m11, a12 = m12
         let a21 = m21, a22 = m22
@@ -22,39 +49,14 @@ public extension MKAffineTransform {
         ty = ay + a12 * bx + a22 * by
     }
 
-    @inlinable mutating func append(_ transform: Self) {
-        let ax = tx
-
-        tx = transform.tx.addingProduct(tx, transform.m11).addingProduct(ty, transform.m21)
-        ty = transform.ty.addingProduct(ax, transform.m12).addingProduct(ty, transform.m22)
-
-        let a11 = m11
-        m11 *= transform.m11
-        m11.addProduct(m12, transform.m21)
-
-        m12 = (a11 * transform.m12).addingProduct(m12, transform.m22)
-
-        let a21 = m21
-        m21 *= transform.m11
-        m21.addProduct(m22, transform.m21)
-
-        m22 = (a21 * transform.m12).addingProduct(m22, transform.m22)
-    }
-}
-
-public extension MKAffineTransform {
     @inlinable func prepended(_ transform: Self) -> Self {
         var tr = self
         tr.prepend(transform)
         return tr
     }
+}
 
-    @inlinable func appended(_ transform: Self) -> Self {
-        var tr = self
-        tr.append(transform)
-        return tr
-    }
-
+public extension MKAffineTransform {
     @inlinable func concatenating(_ transform: Self) -> Self {
         appended(transform)
     }

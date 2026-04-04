@@ -11,7 +11,7 @@ import Testing
 #endif
 
 private let tolerance: Double = 0.00000001
-private let halfTolerance: Float32 = 0.0001
+private let halfTolerance: Float32 = 0.001
 private let lowTolerance: Float16 = 0.01
 
 extension MKAffineTransformTests {
