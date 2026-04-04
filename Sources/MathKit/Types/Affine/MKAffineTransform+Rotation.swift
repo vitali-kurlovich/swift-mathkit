@@ -99,22 +99,22 @@ public extension MKAffineTransform {
 }
 
 public extension MKAffineTransform {
-    @inlinable mutating func rotated(_ angle: MKAngle<Float>) -> Self where Float == Double {
+    @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == Double {
         let (s, c) = angle.sincos
         return rotated(s: s, c: c)
     }
 
-    @inlinable mutating func rotated(_ angle: MKAngle<Float>) -> Self where Float == Swift.Float {
+    @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == Swift.Float {
         let (s, c) = angle.sincos
         return rotated(s: s, c: c)
     }
 
-    @inlinable mutating func rotated(_ angle: MKAngle<Float>) -> Self where Float == CGFloat {
+    @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == CGFloat {
         let (s, c) = angle.sincos
         return rotated(s: s, c: c)
     }
 
-    @inlinable mutating func rotated(_ angle: MKAngle<Float>) -> Self where Float == Float16 {
+    @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == Float16 {
         let (s, c) = angle.sincos
         return rotated(s: s, c: c)
     }
