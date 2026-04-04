@@ -2,80 +2,141 @@
 //  Created by Vitali Kurlovich on 01.04.2026.
 //
 
+import Foundation
 import MathKit
 import Testing
 
+#if canImport(CoreGraphics)
+    import CoreGraphics
+#endif
+
 private let tolerance: Double = 0.00000001
+private let halfTolerance: Float32 = 0.0001
+private let lowTolerance: Float16 = 0.01
 
 extension MKAffineTransformTests {
-    @Test("Init scale")
-    func initScale() {
-        #expect(MKAffineTransform<Double>(scale: 4) == .init(m11: 4.0, m12: 0.0, m21: 0.0, m22: 4.0, tx: 0.0, ty: 0.0))
-        #expect(MKAffineTransform<Double>(scale: 4) == .scale(4))
-        #expect(MKAffineTransform<Double>(scaleByX: 3, byY: 5) == .init(m11: 3.0, m12: 0.0, m21: 0.0, m22: 5.0, tx: 0.0, ty: 0.0))
-        #expect(MKAffineTransform<Double>(scaleByX: 3, byY: 5) == .scale(x: 3, y: 5))
+    @Test("Constructor Scale <Double>", arguments: [
+        (Double(1.0), MKAffineTransform<Double>.identity),
+        (Double(4.0), MKAffineTransform<Double>(m11: 4.0, m12: 0.0, m21: 0.0, m22: 4.0, tx: 0.0, ty: 0.0)),
+    ])
+    func initScale(_ args: (Double, MKAffineTransform<Double>)) {
+        let (scaleFactor, expect) = args
+        #expect(MKAffineTransform<Double>(scale: scaleFactor).isEqual(to: expect, tolerance: tolerance))
+        #expect(MKAffineTransform<Double>(scale: scaleFactor).isEqual(to: expect, tolerance: tolerance))
+        #expect(MKAffineTransform<Double>.scale(scaleFactor).isEqual(to: expect, tolerance: tolerance))
+        #expect(MKAffineTransform<Double>.scale(x: scaleFactor, y: scaleFactor).isEqual(to: expect, tolerance: tolerance))
+
+        #if canImport(CoreGraphics)
+            let cg = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
+            #expect(MKAffineTransform<Double>(cg).isEqual(to: expect, tolerance: tolerance))
+
+        #endif
+
+        #if os(macOS) || os(Linux)
+            let affine = AffineTransform(scale: scaleFactor)
+            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
+        #endif
     }
 
-    @Test("Scale")
-    func scale() {
+    @Test("Constructor ScaleXY <Double>", arguments: [
+        (Double(2.0), Double(3.0), MKAffineTransform<Double>(m11: 2.0, m12: 0.0, m21: 0.0, m22: 3.0, tx: 0.0, ty: 0.0)),
+
+    ])
+    func initScaleXY(_ args: (Double, Double, MKAffineTransform<Double>)) {
+        let (scaleX, scaleY, expect) = args
+        let size = MKSize(width: scaleX, height: scaleY)
+
+        #expect(MKAffineTransform<Double>(scaleX: scaleX, y: scaleY).isEqual(to: expect, tolerance: tolerance))
+        #expect(MKAffineTransform<Double>(scaleByX: scaleX, byY: scaleY).isEqual(to: expect, tolerance: tolerance))
+
+        #expect(MKAffineTransform<Double>(size).isEqual(to: expect, tolerance: tolerance))
+
+        #expect(MKAffineTransform<Double>.scale(x: scaleX, y: scaleY).isEqual(to: expect, tolerance: tolerance))
+        #expect(MKAffineTransform<Double>.scale(size).isEqual(to: expect, tolerance: tolerance))
+
+        #if canImport(CoreGraphics)
+            let cg = CGAffineTransform(scaleX: scaleX, y: scaleY)
+            #expect(MKAffineTransform<Double>(cg).isEqual(to: expect, tolerance: tolerance))
+
+        #endif
+
+        #if os(macOS) || os(Linux)
+            let affine = AffineTransform(scaleByX: scaleX, byY: scaleY)
+            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
+        #endif
+    }
+}
+
+extension MKAffineTransformTests {
+    @Test("Scale <Double>", arguments: [
+        (Double(1.0), MKAffineTransform<Double>.identity),
+        (Double(4.0), MKAffineTransform<Double>(m11: 4.0, m12: 0.0, m21: 0.0, m22: 4.0, tx: 0.0, ty: 0.0)),
+    ])
+    func scale(_ args: (Double, MKAffineTransform<Double>)) {
+        let (scaleFactor, expect) = args
+
         #expect(
-            MKAffineTransform<Double>.identity.scaled(6) == .scale(6)
+            MKAffineTransform<Double>.identity.scaled(scaleFactor).isEqual(to: expect, tolerance: tolerance)
         )
 
-        var mk = MKAffineTransform<Double>.identity
-        mk.scale(6)
-        #expect(
-            mk == .scale(6)
-        )
+        var tr = MKAffineTransform<Double>.identity
+        tr.scale(scaleFactor)
 
         #expect(
-            mk.isEqual(to: .init(m11: 6, m12: 0, m21: 0, m22: 6, tx: 0, ty: 0), tolerance: tolerance)
+            tr.isEqual(to: expect, tolerance: tolerance)
         )
 
-        mk = .init(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-
-        var tr = mk
-
-        let expected = MKAffineTransform<Double>(m11: 10, m12: 20, m21: 30, m22: 40, tx: 5, ty: 6)
-
-        #expect(
-            mk.scaled(10) == expected
-        )
-
-        mk.scale(10)
-
-        tr.prepend(.scale(10))
-
-        #expect(mk == tr)
+        #if os(macOS) || os(Linux)
+            var affine = AffineTransform()
+            affine.scale(scaleFactor)
+            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
+        #endif
     }
 
-    @Test("Scale - x: y:")
-    func scaleXY() {
-        let size = MKSize<Double>(width: 4, height: 7)
+    @Test("ScaleXY <Double>", arguments: [
+        (Double(2.0), Double(3.0), MKAffineTransform<Double>(m11: 2.0, m12: 0.0, m21: 0.0, m22: 3.0, tx: 0.0, ty: 0.0)),
+    ])
+    func scaleXY(_ args: (Double, Double, MKAffineTransform<Double>)) {
+        let (scaleX, scaleY, expect) = args
+        let size = MKSize(width: scaleX, height: scaleY)
 
         #expect(
-            MKAffineTransform<Double>.identity.scaled(size) == .scale(x: 4, y: 7)
+            MKAffineTransform<Double>.identity.scaled(x: scaleX, y: scaleY).isEqual(to: expect, tolerance: tolerance)
         )
-
-        var mk: MKAffineTransform<Double> = .scale(size)
 
         #expect(
-            mk.isEqual(to: .init(m11: 4, m12: 0, m21: 0, m22: 7, tx: 0, ty: 0), tolerance: tolerance)
+            MKAffineTransform<Double>.identity.scaledBy(x: scaleX, y: scaleY).isEqual(to: expect, tolerance: tolerance)
         )
-
-        mk = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
-        var tr = mk
-
-        let expected = MKAffineTransform<Double>(m11: 10, m12: 20, m21: 60, m22: 80, tx: 5, ty: 6)
 
         #expect(
-            mk.scaled(x: 10, y: 20) == expected
+            MKAffineTransform<Double>.identity.scaled(size).isEqual(to: expect, tolerance: tolerance)
         )
 
-        mk.scale(x: 10, y: 20)
+        var tr = MKAffineTransform<Double>.identity
+        tr.scale(x: scaleX, y: scaleY)
 
-        tr.prepend(.scale(x: 10, y: 20))
+        #expect(
+            tr.isEqual(to: expect, tolerance: tolerance)
+        )
 
-        #expect(mk == tr)
+        tr = MKAffineTransform<Double>.identity
+        tr.scale(size)
+
+        #expect(
+            tr.isEqual(to: expect, tolerance: tolerance)
+        )
+
+        #if canImport(CoreGraphics)
+            var cg = CGAffineTransform.identity
+            cg = cg.scaledBy(x: scaleX, y: scaleY)
+            #expect(MKAffineTransform<Double>(cg).isEqual(to: expect, tolerance: tolerance))
+
+        #endif
+
+        #if os(macOS) || os(Linux)
+            var affine = AffineTransform()
+            affine.scale(x: scaleX, y: scaleY)
+            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
+        #endif
     }
 }

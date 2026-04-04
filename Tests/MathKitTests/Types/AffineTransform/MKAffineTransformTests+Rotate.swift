@@ -8,7 +8,6 @@ import Testing
 
 #if canImport(CoreGraphics)
     import CoreGraphics
-
 #endif
 
 private let tolerance: Double = 0.00000001

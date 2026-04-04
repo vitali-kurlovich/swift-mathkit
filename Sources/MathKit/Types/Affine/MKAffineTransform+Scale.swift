@@ -11,10 +11,18 @@ public extension MKAffineTransform {
      [ 0  y  0 ]
      [ 0  0  1 ]
      */
-    @inlinable init(scaleByX x: Float, byY y: Float) {
-        self.init(m11: x, m12: 0,
-                  m21: 0, m22: y,
+    @inlinable init(scaleX sx: Float, y sy: Float) {
+        self.init(m11: sx, m12: 0,
+                  m21: 0, m22: sy,
                   tx: 0, ty: 0)
+    }
+
+    @inlinable init(scaleByX x: Float, byY y: Float) {
+        self.init(scaleX: x, y: y)
+    }
+
+    @inlinable init(_ size: MKSize<Float>) {
+        self.init(scaleX: size.width, y: size.height)
     }
 
     /**
@@ -26,15 +34,17 @@ public extension MKAffineTransform {
      [ 0  0  1 ]
      */
     @inlinable init(scale factor: Float) {
-        self.init(scaleByX: factor, byY: factor)
+        self.init(scaleX: factor, y: factor)
     }
+}
 
+public extension MKAffineTransform {
     @inlinable static func scale(_ scale: Float) -> Self {
         .init(scale: scale)
     }
 
     @inlinable static func scale(x: Float, y: Float) -> Self {
-        .init(scaleByX: x, byY: y)
+        .init(scaleX: x, y: y)
     }
 
     @inlinable static func scale(_ size: MKSize<Float>) -> Self {
@@ -63,6 +73,12 @@ public extension MKAffineTransform {
 }
 
 public extension MKAffineTransform {
+    @inlinable func scaled(_ scale: Float) -> Self {
+        var tr = self
+        tr.scale(scale)
+        return tr
+    }
+
     @inlinable func scaledBy(x: Float, y: Float) -> Self {
         var tr = self
         tr.scale(x: x, y: y)
@@ -71,12 +87,6 @@ public extension MKAffineTransform {
 
     @inlinable func scaled(x: Float, y: Float) -> Self {
         scaledBy(x: x, y: y)
-    }
-
-    @inlinable func scaled(_ scale: Float) -> Self {
-        var tr = self
-        tr.scale(scale)
-        return tr
     }
 
     @inlinable func scaled(_ size: MKSize<Float>) -> Self {
