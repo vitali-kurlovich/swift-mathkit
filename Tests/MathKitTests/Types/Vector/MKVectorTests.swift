@@ -13,43 +13,48 @@ private let lowTolerance: Float16 = 0.1
 @Suite("MKVector")
 struct MKVectorTests {}
 
-extension MKVectorTests {
-    @Test("Constructor <Double>")
-    func constructorDouble() throws {
-        let vc = MKVector<Double>(dx: 2, dy: 3)
-        let cg = CGVector(vc)
-        let conv = MKVector<Double>(cg)
+#if canImport(CoreGraphics)
+    import CoreGraphics
 
-        #expect(vc.isEqual(to: conv, tolerance: tolerance))
+    extension MKVectorTests {
+        @Test("Constructor <Double>")
+        func constructorDouble() throws {
+            let vc = MKVector<Double>(dx: 2, dy: 3)
+            let cg = CGVector(vc)
+            let conv = MKVector<Double>(cg)
+
+            #expect(vc.isEqual(to: conv, tolerance: tolerance))
+        }
+
+        @Test("Constructor <CGFloat>")
+        func constructorCGFloat() throws {
+            let vc = MKVector<CGFloat>(dx: 2, dy: 3)
+            let cg = CGVector(vc)
+            let conv = MKVector<CGFloat>(cg)
+
+            #expect(vc.isEqual(to: conv, tolerance: tolerance))
+        }
+
+        @Test("Constructor <Float>")
+        func constructorFloat() throws {
+            let vc = MKVector<Float>(dx: 2, dy: 3)
+            let cg = CGVector(vc)
+            let conv = MKVector<Float>(cg)
+
+            #expect(vc.isEqual(to: conv, tolerance: halfTolerance))
+        }
+
+        @Test("Constructor <Float16>")
+        func constructorFloat16() throws {
+            let vc = MKVector<Float16>(dx: 2, dy: 3)
+            let cg = CGVector(vc)
+            let conv = MKVector<Float16>(cg)
+
+            #expect(vc.isEqual(to: conv, tolerance: lowTolerance))
+        }
     }
 
-    @Test("Constructor <CGFloat>")
-    func constructorCGFloat() throws {
-        let vc = MKVector<CGFloat>(dx: 2, dy: 3)
-        let cg = CGVector(vc)
-        let conv = MKVector<CGFloat>(cg)
-
-        #expect(vc.isEqual(to: conv, tolerance: tolerance))
-    }
-
-    @Test("Constructor <Float>")
-    func constructorFloat() throws {
-        let vc = MKVector<Float>(dx: 2, dy: 3)
-        let cg = CGVector(vc)
-        let conv = MKVector<Float>(cg)
-
-        #expect(vc.isEqual(to: conv, tolerance: halfTolerance))
-    }
-
-    @Test("Constructor <Float16>")
-    func constructorFloat16() throws {
-        let vc = MKVector<Float16>(dx: 2, dy: 3)
-        let cg = CGVector(vc)
-        let conv = MKVector<Float16>(cg)
-
-        #expect(vc.isEqual(to: conv, tolerance: lowTolerance))
-    }
-}
+#endif
 
 extension MKVectorTests {
     @Test("Zero")
