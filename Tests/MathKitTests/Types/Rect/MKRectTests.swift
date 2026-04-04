@@ -6,10 +6,52 @@ import Foundation
 import MathKit
 import Testing
 
-private let tolerance: CGFloat = 0.00000001
+private let tolerance: Double = 0.0000000001
+private let halfTolerance: Float32 = 0.0001
+private let lowTolerance: Float16 = 0.1
 
 @Suite("MKPoint")
-struct MKRectTests {
+struct MKRectTests {}
+
+extension MKRectTests {
+    @Test("Constructor <Double>")
+    func constructorDouble() throws {
+        let rect = MKRect<Double>(x: 1, y: 2, width: 3, height: 4)
+        let cg = CGRect(rect)
+        let conv = MKRect<Double>(cg)
+
+        #expect(rect.isEqual(to: conv, tolerance: tolerance))
+    }
+
+    @Test("Constructor <CGFloat>")
+    func constructorCGFloat() throws {
+        let rect = MKRect<CGFloat>(x: 1, y: 2, width: 3, height: 4)
+        let cg = CGRect(rect)
+        let conv = MKRect<CGFloat>(cg)
+
+        #expect(rect.isEqual(to: conv, tolerance: tolerance))
+    }
+
+    @Test("Constructor <Float>")
+    func constructorFloat() throws {
+        let rect = MKRect<Float>(x: 1, y: 2, width: 3, height: 4)
+        let cg = CGRect(rect)
+        let conv = MKRect<Float>(cg)
+
+        #expect(rect.isEqual(to: conv, tolerance: halfTolerance))
+    }
+
+    @Test("Constructor <Float16>")
+    func constructorFloat16() throws {
+        let rect = MKRect<Float16>(x: 1, y: 2, width: 3, height: 4)
+        let cg = CGRect(rect)
+        let conv = MKRect<Float16>(cg)
+
+        #expect(rect.isEqual(to: conv, tolerance: lowTolerance))
+    }
+}
+
+extension MKRectTests {
     typealias Rect = MKRect<CGFloat>
     typealias Point = MKPoint<CGFloat>
 

@@ -11,7 +11,7 @@ public extension MKRect {
 }
 
 public extension CGRect {
-    init<F: BinaryFloatingPoint>(_ rect: MKRect<F>) {
+    @inlinable init<F: BinaryFloatingPoint>(_ rect: MKRect<F>) {
         self.init(origin: .init(rect.origin), size: .init(rect.size))
     }
 }

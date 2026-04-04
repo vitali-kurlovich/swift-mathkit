@@ -6,10 +6,52 @@ import Foundation
 import MathKit
 import Testing
 
-private let tolerance: Double = 0.00000001
+private let tolerance: Double = 0.0000000001
+private let halfTolerance: Float32 = 0.0001
+private let lowTolerance: Float16 = 0.1
 
 @Suite("MKPoint")
-struct MKPointTests {
+struct MKPointTests {}
+
+extension MKPointTests {
+    @Test("Constructor <Double>")
+    func constructorDouble() throws {
+        let pt = MKPoint<Double>(x: 2, y: 3)
+        let point = CGPoint(pt)
+        let conv = MKPoint<Double>(point)
+
+        #expect(pt.isEqual(to: conv, tolerance: tolerance))
+    }
+
+    @Test("Constructor <CGFloat>")
+    func constructorCGFloat() throws {
+        let pt = MKPoint<CGFloat>(x: 2, y: 3)
+        let point = CGPoint(pt)
+        let conv = MKPoint<CGFloat>(point)
+
+        #expect(pt.isEqual(to: conv, tolerance: tolerance))
+    }
+
+    @Test("Constructor <Float>")
+    func constructorFloat() throws {
+        let pt = MKPoint<Float>(x: 2, y: 3)
+        let point = CGPoint(pt)
+        let conv = MKPoint<Float>(point)
+
+        #expect(pt.isEqual(to: conv, tolerance: halfTolerance))
+    }
+
+    @Test("Constructor <Float16>")
+    func constructorFloat16() throws {
+        let pt = MKPoint<Float16>(x: 2, y: 3)
+        let point = CGPoint(pt)
+        let conv = MKPoint<Float16>(point)
+
+        #expect(pt.isEqual(to: conv, tolerance: lowTolerance))
+    }
+}
+
+extension MKPointTests {
     typealias Point = MKPoint<Double>
     typealias Vector = MKVector<Double>
     typealias Size = MKSize<Double>

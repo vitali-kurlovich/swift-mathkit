@@ -12,7 +12,7 @@
     }
 
     public extension CGVector {
-        init<F: BinaryFloatingPoint>(_ p: MKVector<F>) {
+        @inlinable init<F: BinaryFloatingPoint>(_ p: MKVector<F>) {
             self.init(dx: CGFloat(p.dx), dy: CGFloat(p.dy))
         }
     }

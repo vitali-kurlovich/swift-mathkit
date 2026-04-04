@@ -2,13 +2,56 @@
 //  Created by Vitali Kurlovich on 02.04.2026.
 //
 
+import Foundation
 import MathKit
 import Testing
 
-private let tolerance: Double = 0.00000001
+private let tolerance: Double = 0.0000000001
+private let halfTolerance: Float32 = 0.0001
+private let lowTolerance: Float16 = 0.1
 
 @Suite("MKSize")
-struct MKSizeTests {
+struct MKSizeTests {}
+
+extension MKSizeTests {
+    @Test("Constructor <Double>")
+    func constructorDouble() throws {
+        let size = MKSize<Double>(width: 1, height: 2)
+        let cg = CGSize(size)
+        let conv = MKSize<Double>(cg)
+
+        #expect(size.isEqual(to: conv, tolerance: tolerance))
+    }
+
+    @Test("Constructor <CGFloat>")
+    func constructorCGFloat() throws {
+        let size = MKSize<CGFloat>(width: 1, height: 2)
+        let cg = CGSize(size)
+        let conv = MKSize<CGFloat>(cg)
+
+        #expect(size.isEqual(to: conv, tolerance: tolerance))
+    }
+
+    @Test("Constructor <Float>")
+    func constructorFloat() throws {
+        let size = MKSize<Float>(width: 1, height: 2)
+        let cg = CGSize(size)
+        let conv = MKSize<Float>(cg)
+
+        #expect(size.isEqual(to: conv, tolerance: halfTolerance))
+    }
+
+    @Test("Constructor <Float16>")
+    func constructorFloat16() throws {
+        let size = MKSize<Float16>(width: 1, height: 2)
+        let cg = CGSize(size)
+        let conv = MKSize<Float16>(cg)
+
+        #expect(size.isEqual(to: conv, tolerance: lowTolerance))
+    }
+}
+
+extension MKSizeTests {
     @Test("Zero")
     func zero() throws {
         let size = MKSize<Double>.zero
