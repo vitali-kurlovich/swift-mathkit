@@ -7,14 +7,14 @@ import Foundation
 public struct MKAffineTransformComponents<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     @inlinable
     public init(translation: MKVector<Float> = .zero, rotation: MKAngle<Float> = .zero, scale: MKSize<Float> = .identity) {
+        self.translation = translation
         self.scale = scale
         self.rotation = rotation
-        self.translation = translation
     }
 
+    public var translation: MKVector<Float>
     public var scale: MKSize<Float>
     public var rotation: MKAngle<Float>
-    public var translation: MKVector<Float>
 }
 
 public extension MKAffineTransform {
