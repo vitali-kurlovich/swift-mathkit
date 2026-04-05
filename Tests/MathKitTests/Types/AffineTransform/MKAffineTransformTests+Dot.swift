@@ -56,7 +56,7 @@ extension MKAffineTransformTests {
             #expect(MKAffineTransform<Double>(cgConcat).isEqual(to: expect, tolerance: tolerance))
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             var firstAffine = AffineTransform(first)
             let secondAffine = AffineTransform(second)
 
@@ -104,7 +104,7 @@ extension MKAffineTransformTests {
             #expect(MKAffineTransform<Double>(cgConcat).isEqual(to: expect, tolerance: tolerance))
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             var firstAffine = AffineTransform(first)
             let secondAffine = AffineTransform(second)
 

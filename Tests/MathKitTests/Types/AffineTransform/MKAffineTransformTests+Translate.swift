@@ -38,7 +38,7 @@ extension MKAffineTransformTests {
 
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             let affine = AffineTransform(translationByX: offsetX, byY: offsetY)
             #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
         #endif
@@ -94,7 +94,7 @@ extension MKAffineTransformTests {
 
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             var affine = AffineTransform(src)
             affine.translate(x: offsetX, y: offsetY)
             #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))

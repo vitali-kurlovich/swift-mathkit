@@ -288,7 +288,7 @@ extension MKAffineTransformComponentsTests {
 
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             var affine = AffineTransform.identity
             affine.translate(x: .init(offset.dx), y: .init(offset.dy))
             affine.rotate(byRadians: .init(angle.radians))
@@ -359,7 +359,7 @@ extension MKAffineTransformComponentsTests {
 
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             var affine = AffineTransform.identity
             affine.translate(x: .init(offset.dx), y: .init(offset.dy))
             affine.rotate(byRadians: .init(angle.radians))
@@ -430,7 +430,8 @@ extension MKAffineTransformComponentsTests {
 
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
+
             var affine = AffineTransform.identity
             affine.translate(x: .init(offset.dx), y: .init(offset.dy))
             affine.rotate(byRadians: .init(angle.radians))
@@ -501,7 +502,7 @@ extension MKAffineTransformComponentsTests {
 
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             var affine = AffineTransform.identity
             affine.translate(x: .init(offset.dx), y: .init(offset.dy))
             affine.rotate(byRadians: .init(angle.radians))

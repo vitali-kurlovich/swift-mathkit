@@ -32,7 +32,7 @@ extension MKAffineTransformTests {
 
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             let affine = AffineTransform(scale: scaleFactor)
             #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
         #endif
@@ -60,7 +60,7 @@ extension MKAffineTransformTests {
 
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             let affine = AffineTransform(scaleByX: scaleX, byY: scaleY)
             #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
         #endif
@@ -86,7 +86,7 @@ extension MKAffineTransformTests {
             tr.isEqual(to: expect, tolerance: tolerance)
         )
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             var affine = AffineTransform()
             affine.scale(scaleFactor)
             #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
@@ -133,7 +133,7 @@ extension MKAffineTransformTests {
 
         #endif
 
-        #if os(macOS) || os(Linux)
+        #if os(macOS)
             var affine = AffineTransform()
             affine.scale(x: scaleX, y: scaleY)
             #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))

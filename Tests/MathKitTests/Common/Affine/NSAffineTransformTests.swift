@@ -2,7 +2,7 @@
 //  Created by Vitali Kurlovich on 04.04.2026.
 //
 
-#if os(macOS) || os(Linux)
+#if os(macOS)
 
     import Foundation
     import MathKit
