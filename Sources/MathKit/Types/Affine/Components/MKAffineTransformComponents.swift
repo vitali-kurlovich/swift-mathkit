@@ -42,69 +42,52 @@ public extension MKAffineTransform {
 public extension MKAffineTransform {
     @inlinable
     func decomposed() -> MKAffineTransformComponents<Float> where Float == Double {
-        let scale = MKSize<Float>(width: (m11 * m11 + m21 * m21).squareRoot(),
-                                  height: (m12 * m12 + m22 * m22).squareRoot())
+        let radians = atan2(m12, m11)
+        let rotation = MKAngle(radians: radians)
 
-        var tr = appended(.scale(x: 1 / scale.width, y: 1 / scale.height))
+        let scale = MKSize(width: (m11 * m11 + m12 * m12).squareRoot(),
+                           height: (m21 * m21 + m22 * m22).squareRoot())
 
-        let radians = atan2(tr.m12, tr.m11)
-        let rotation = MKAngle<Float>(radians: radians)
-
-        tr = tr.appended(.rotation(-rotation))
-
-        let translation = MKVector<Float>(dx: tr.tx, dy: tr.ty)
+        let translation = MKVector(dx: tx, dy: ty)
 
         return .init(scale: scale, rotation: rotation, translation: translation)
     }
 
     @inlinable
     func decomposed() -> MKAffineTransformComponents<Float> where Float == Swift.Float {
-        let scale = MKSize(width: (m11 * m11 + m21 * m21).squareRoot(),
-                           height: (m12 * m12 + m22 * m22).squareRoot())
-
-        var tr = appended(.scale(x: 1 / scale.width, y: 1 / scale.height))
-        let radians = atan2f(tr.m12, tr.m11)
+        let radians = atan2f(m12, m11)
         let rotation = MKAngle(radians: radians)
 
-        tr = tr.appended(.rotation(-rotation))
+        let scale = MKSize(width: (m11 * m11 + m12 * m12).squareRoot(),
+                           height: (m21 * m21 + m22 * m22).squareRoot())
 
-        let translation = MKVector(dx: tr.tx, dy: tr.ty)
+        let translation = MKVector(dx: tx, dy: ty)
 
         return .init(scale: scale, rotation: rotation, translation: translation)
     }
 
     @inlinable
     func decomposed() -> MKAffineTransformComponents<Float> where Float == CGFloat {
-        let scale = MKSize(width: (m11 * m11 + m21 * m21).squareRoot(),
-                           height: (m12 * m12 + m22 * m22).squareRoot())
-
-        var tr = appended(.scale(x: 1 / scale.width, y: 1 / scale.height))
-
-        let radians = Float(atan2(Double(tr.m12), Double(tr.m11)))
-
+        let radians = Float(atan2(Double(m12), Double(m11)))
         let rotation = MKAngle(radians: radians)
 
-        tr = tr.appended(.rotation(-rotation))
+        let scale = MKSize(width: (m11 * m11 + m12 * m12).squareRoot(),
+                           height: (m21 * m21 + m22 * m22).squareRoot())
 
-        let translation = MKVector(dx: tr.tx, dy: tr.ty)
+        let translation = MKVector(dx: tx, dy: ty)
 
         return .init(scale: scale, rotation: rotation, translation: translation)
     }
 
     @inlinable
     func decomposed() -> MKAffineTransformComponents<Float> where Float == Float16 {
-        let scale = MKSize(width: (m11 * m11 + m21 * m21).squareRoot(),
-                           height: (m12 * m12 + m22 * m22).squareRoot())
-
-        var tr = appended(.scale(x: 1 / scale.width, y: 1 / scale.height))
-
-        let radians = atan2f(Swift.Float(tr.m12), Swift.Float(tr.m11))
-
+        let radians = atan2f(Swift.Float(m12), Swift.Float(m11))
         let rotation = MKAngle(radians: Float(radians))
 
-        tr = tr.appended(.rotation(-rotation))
+        let scale = MKSize(width: (m11 * m11 + m12 * m12).squareRoot(),
+                           height: (m21 * m21 + m22 * m22).squareRoot())
 
-        let translation = MKVector(dx: tr.tx, dy: tr.ty)
+        let translation = MKVector(dx: tx, dy: ty)
 
         return .init(scale: scale, rotation: rotation, translation: translation)
     }
