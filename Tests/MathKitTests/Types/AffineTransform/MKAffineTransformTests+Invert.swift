@@ -9,50 +9,83 @@ import Testing
 private let tolerance: Double = 0.00000001
 
 extension MKAffineTransformTests {
-    @Test("Invert")
-    func invert() throws {
-        var mk = MKAffineTransform<Double>()
-        mk.translate(x: 2, y: 5)
-        mk.rotate(.radians(.pi / 4))
-        mk.scale(x: 4, y: 3)
-        mk.rotate(.radians(.pi / 4))
+    @Test("Invert <Double>", arguments: [
+        (MKAffineTransform<Double>.identity, MKAffineTransform<Double>.identity),
 
-        var inv = MKAffineTransform<Double>()
-        inv.rotate(.radians(-.pi / 4))
-        inv.scale(x: 1 / 4, y: 1 / 3)
-        inv.rotate(.radians(-.pi / 4))
-        inv.translate(x: -2, y: -5)
+        (MKAffineTransform<Double>(scaleByX: 2, byY: 4), MKAffineTransform<Double>(scaleByX: 0.5, byY: 0.25)),
 
-        let inverted = try #require(mk.inverted())
+        (MKAffineTransform<Double>(translationX: 2, y: 4), MKAffineTransform<Double>(translationX: -2, y: -4)),
 
-        #expect(inv.isEqual(to: inverted, tolerance: tolerance))
+        (MKAffineTransform<Double>(MKAngle<Double>.radians(.pi)), MKAffineTransform<Double>(MKAngle<Double>.radians(-.pi))),
 
-        mk.invert()
+        (MKAffineTransform<Double>(MKAngle<Double>.radians(.pi / 4)), MKAffineTransform<Double>(MKAngle<Double>.radians(-.pi / 4))),
 
-        #expect(inv.isEqual(to: mk, tolerance: tolerance))
-    }
+        (
+            MKAffineTransform<Double>(translation: .init(dx: 2, dy: -4),
+                                      rotation: .degrees(-120),
+                                      scale: .init(width: 5, height: 4)),
 
-    @Test("Invert point")
-    func invertPoint() throws {
-        var mk = MKAffineTransform<Double>()
+            MKAffineTransform<Double>(scaleX: 0.2, y: 0.25).rotated(.degrees(120)).translated(x: -2, y: 4)
+        ),
 
-        mk.translate(x: 2, y: 5)
-        mk.rotate(.radians(.pi / 4))
-        mk.scale(x: 4, y: 3)
-        mk.rotate(.radians(.pi / 4))
+    ])
+    func invertDouble(_ args: (MKAffineTransform<Double>, MKAffineTransform<Double>)) throws {
+        let (tr, expect) = args
 
-        let inverted = try #require(mk.inverted())
+        let inverted = try #require(tr.inverted())
+        #expect(inverted.isEqual(to: expect, tolerance: tolerance))
 
-        let point = MKPoint<Double>(x: 20, y: 50)
+        var t = tr
+        t.invert()
+        #expect(t.isEqual(to: expect, tolerance: tolerance))
 
-        let cgPoint = CGPoint(x: 20, y: 50)
+        let points: [MKPoint<Double>] = [
+            .zero,
+            MKPoint<Double>(x: 0, y: 2),
+            MKPoint<Double>(x: 2, y: 6),
+            MKPoint<Double>(x: 2, y: 0),
 
-        #expect(
-            mk.inverse(point).isEqual(to: inverted.transform(point), tolerance: tolerance)
-        )
+            MKPoint<Double>(x: 0, y: -2),
+            MKPoint<Double>(x: -2, y: -6),
+            MKPoint<Double>(x: -2, y: 0),
+        ]
 
-        #expect(
-            mk.inverse(cgPoint).isEqual(to: inverted.transform(cgPoint), tolerance: tolerance)
-        )
+        for p in points {
+            let tp = p.applying(tr)
+
+            #expect(tp.applying(inverted).isEqual(to: p, tolerance: tolerance))
+            #expect(tr.inverse(tp).isEqual(to: p, tolerance: tolerance))
+            #expect(tp.applyingInverse(tr).isEqual(to: p, tolerance: tolerance))
+
+            #if canImport(CoreGraphics)
+                let cg = CGAffineTransform(tr)
+                let cgInverted = cg.inverted()
+
+                let cg_tp = CGPoint(p).applying(cg)
+                #expect(
+                    MKPoint<Double>(cg_tp.applying(cgInverted)).isEqual(to: p, tolerance: tolerance)
+                )
+            #endif
+        }
+
+        #expect(tr.scaled(x: 0, y: 1).inverted() == nil)
+        #expect(tr.scaled(x: 1, y: 0).inverted() == nil)
+        #expect(tr.scaled(x: 0, y: 0).inverted() == nil)
+
+        #if canImport(CoreGraphics)
+            let cg = CGAffineTransform(tr)
+            #expect(MKAffineTransform<Double>(cg.inverted()).isEqual(to: expect, tolerance: tolerance))
+        #endif
+
+        #if os(macOS)
+            var affine = AffineTransform(tr)
+            let affineInverted = try #require(affine.inverted())
+
+            #expect(MKAffineTransform<Double>(affineInverted).isEqual(to: expect, tolerance: tolerance))
+
+            affine.invert()
+            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
+
+        #endif
     }
 }
