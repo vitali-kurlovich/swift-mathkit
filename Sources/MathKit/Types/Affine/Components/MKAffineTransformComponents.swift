@@ -6,7 +6,7 @@ import Foundation
 
 public struct MKAffineTransformComponents<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     @inlinable
-    public init(scale: MKSize<Float> = .init(width: 1, height: 1), rotation: MKAngle<Float> = .zero, translation: MKVector<Float> = .zero) {
+    public init(scale: MKSize<Float> = .identity, rotation: MKAngle<Float> = .zero, translation: MKVector<Float> = .zero) {
         self.scale = scale
         self.rotation = rotation
         self.translation = translation

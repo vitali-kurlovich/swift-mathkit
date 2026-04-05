@@ -18,8 +18,8 @@ private let lowTolerance: Float16 = 0.1
 struct MKAffineTransformComponentsTests {}
 
 extension MKAffineTransformComponentsTests {
-    @Test("Identity")
-    func identity() {
+    @Test("Identity <Double>")
+    func identityDouble() {
         let tr = MKAffineTransform<Double>.identity
         let components = tr.decomposed()
 
@@ -27,9 +27,7 @@ extension MKAffineTransformComponentsTests {
         #expect(components.rotation == .zero)
         #expect(components.translation == .zero)
 
-        let transformComponents = MKAffineTransformComponents(scale: components.scale,
-                                                              rotation: components.rotation,
-                                                              translation: components.translation)
+        let transformComponents = MKAffineTransformComponents<Double>()
 
         let transform = MKAffineTransform(transformComponents)
 
@@ -46,8 +44,46 @@ extension MKAffineTransformComponentsTests {
         #endif
     }
 
-    @Test("Translate")
-    func translate() {
+    @Test("Identity <Float>")
+    func identityFloat() {
+        let tr = MKAffineTransform<Float>.identity
+        let components = tr.decomposed()
+
+        #expect(components.scale == MKSize<Float>.identity)
+        #expect(components.rotation == .zero)
+        #expect(components.translation == .zero)
+
+        let transformComponents = MKAffineTransformComponents<Float>()
+
+        let transform = MKAffineTransform(transformComponents)
+
+        #expect(
+            tr.isEqual(to: transform, tolerance: halfTolerance)
+        )
+    }
+
+    @Test("Identity <Float16>")
+    func identityFloat16() {
+        let tr = MKAffineTransform<Float16>.identity
+        let components = tr.decomposed()
+
+        #expect(components.scale == MKSize<Float16>.identity)
+        #expect(components.rotation == .zero)
+        #expect(components.translation == .zero)
+
+        let transformComponents = MKAffineTransformComponents<Float16>()
+
+        let transform = MKAffineTransform(transformComponents)
+
+        #expect(
+            tr.isEqual(to: transform, tolerance: lowTolerance)
+        )
+    }
+}
+
+extension MKAffineTransformComponentsTests {
+    @Test("Translate <Double>")
+    func translateDouble() {
         var tr = MKAffineTransform<Double>.identity
 
         let translation: MKVector<Double> = .init(dx: 20, dy: 40)
@@ -59,14 +95,12 @@ extension MKAffineTransformComponentsTests {
         #expect(components.rotation == .zero)
         #expect(components.translation == translation)
 
-        let transformComponents = MKAffineTransformComponents(scale: components.scale,
-                                                              rotation: components.rotation,
-                                                              translation: components.translation)
+        let transformComponents = MKAffineTransformComponents(translation: components.translation)
 
         let transform = MKAffineTransform(transformComponents)
 
         #expect(
-            tr.isEqual(to: transform, tolerance: tolerance)
+            tr == transform
         )
 
         #if canImport(CoreGraphics)
@@ -80,6 +114,52 @@ extension MKAffineTransformComponentsTests {
         #endif
     }
 
+    @Test("Translate <Float>")
+    func translateFloat() {
+        var tr = MKAffineTransform<Float>.identity
+
+        let translation: MKVector<Float> = .init(dx: 20, dy: 40)
+        tr.translate(translation)
+
+        let components = tr.decomposed()
+
+        #expect(components.scale == .identity)
+        #expect(components.rotation == .zero)
+        #expect(components.translation == translation)
+
+        let transformComponents = MKAffineTransformComponents(translation: components.translation)
+
+        let transform = MKAffineTransform(transformComponents)
+
+        #expect(
+            tr == transform
+        )
+    }
+
+    @Test("Translate <Float16>")
+    func translateFloat16() {
+        var tr = MKAffineTransform<Float16>.identity
+
+        let translation: MKVector<Float16> = .init(dx: 20, dy: 40)
+        tr.translate(translation)
+
+        let components = tr.decomposed()
+
+        #expect(components.scale == .identity)
+        #expect(components.rotation == .zero)
+        #expect(components.translation == translation)
+
+        let transformComponents = MKAffineTransformComponents(translation: components.translation)
+
+        let transform = MKAffineTransform(transformComponents)
+
+        #expect(
+            tr == transform
+        )
+    }
+}
+
+extension MKAffineTransformComponentsTests {
     @Test("Scale")
     func scale() {
         var tr = MKAffineTransform<Double>.identity
@@ -175,7 +255,6 @@ extension MKAffineTransformComponentsTests {
         #expect(components.rotation.isEqual(to: angle, tolerance: tolerance))
         #expect(components.translation.isEqual(to: offset, tolerance: tolerance))
 
-        
         let transformComponents = MKAffineTransformComponents(scale: components.scale,
                                                               rotation: components.rotation,
                                                               translation: components.translation)
@@ -185,8 +264,7 @@ extension MKAffineTransformComponentsTests {
         #expect(
             tr.isEqual(to: transform, tolerance: tolerance)
         )
-        
-        
+
         #if canImport(CoreGraphics)
             var cg = CGAffineTransform.identity
             cg = cg.translatedBy(x: .init(offset.dx), y: .init(offset.dy))
@@ -247,7 +325,7 @@ extension MKAffineTransformComponentsTests {
         #expect(components.scale.isEqual(to: scale, tolerance: tolerance))
         #expect(components.rotation.isEqual(to: angle, tolerance: tolerance))
         #expect(components.translation.isEqual(to: offset, tolerance: tolerance))
-        
+
         let transformComponents = MKAffineTransformComponents(scale: components.scale,
                                                               rotation: components.rotation,
                                                               translation: components.translation)
@@ -328,7 +406,7 @@ extension MKAffineTransformComponentsTests {
         #expect(
             tr.isEqual(to: transform, tolerance: halfTolerance)
         )
-        
+
         #if canImport(CoreGraphics)
             var cg = CGAffineTransform.identity
             cg = cg.translatedBy(x: .init(offset.dx), y: .init(offset.dy))
@@ -390,7 +468,6 @@ extension MKAffineTransformComponentsTests {
         #expect(components.rotation.isEqual(to: angle, tolerance: lowTolerance))
         #expect(components.translation.isEqual(to: offset, tolerance: lowTolerance))
 
-        
         let transformComponents = MKAffineTransformComponents(scale: components.scale,
                                                               rotation: components.rotation,
                                                               translation: components.translation)
@@ -400,8 +477,7 @@ extension MKAffineTransformComponentsTests {
         #expect(
             tr.isEqual(to: transform, tolerance: lowTolerance)
         )
-        
-        
+
         #if canImport(CoreGraphics)
             var cg = CGAffineTransform.identity
             cg = cg.translatedBy(x: .init(offset.dx), y: .init(offset.dy))
