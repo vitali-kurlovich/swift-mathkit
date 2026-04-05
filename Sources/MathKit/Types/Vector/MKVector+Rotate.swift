@@ -7,14 +7,16 @@ import Foundation
 public extension MKVector where Float == Double {
     @inlinable
     mutating func rotate(_ angle: MKAngle<Float>) {
-        let (s, c) = angle.sincos
-        let _dx = dx
+        if angle != .zero {
+            let (s, c) = angle.sincos
+            let _dx = dx
 
-        dx *= c
-        dx.addProduct(dy, -s)
+            dx *= c
+            dx.addProduct(dy, -s)
 
-        dy *= c
-        dy.addProduct(_dx, s)
+            dy *= c
+            dy.addProduct(_dx, s)
+        }
     }
 
     @inlinable
@@ -28,14 +30,16 @@ public extension MKVector where Float == Double {
 public extension MKVector where Float == Swift.Float {
     @inlinable
     mutating func rotate(_ angle: MKAngle<Float>) {
-        let (s, c) = angle.sincos
-        let _dx = dx
+        if angle != .zero {
+            let (s, c) = angle.sincos
+            let _dx = dx
 
-        dx *= c
-        dx.addProduct(dy, -s)
+            dx *= c
+            dx.addProduct(dy, -s)
 
-        dy *= c
-        dy.addProduct(_dx, s)
+            dy *= c
+            dy.addProduct(_dx, s)
+        }
     }
 
     @inlinable
@@ -49,14 +53,16 @@ public extension MKVector where Float == Swift.Float {
 public extension MKVector where Float == CGFloat {
     @inlinable
     mutating func rotate(_ angle: MKAngle<Float>) {
-        let (s, c) = angle.sincos
-        let _dx = dx
+        if angle != .zero {
+            let (s, c) = angle.sincos
+            let _dx = dx
 
-        dx *= c
-        dx.addProduct(dy, -s)
+            dx *= c
+            dx.addProduct(dy, -s)
 
-        dy *= c
-        dy.addProduct(_dx, s)
+            dy *= c
+            dy.addProduct(_dx, s)
+        }
     }
 
     func rotated(_ angle: MKAngle<Float>) -> Self {
@@ -69,14 +75,16 @@ public extension MKVector where Float == CGFloat {
 public extension MKVector where Float == Float16 {
     @inlinable
     mutating func rotate(_ angle: MKAngle<Float>) {
-        let (s, c) = angle.sincos
-        let _dx = dx
+        if angle != .zero {
+            let (s, c) = angle.sincos
+            let _dx = dx
 
-        dx *= c
-        dx.addProduct(dy, -s)
+            dx *= c
+            dx.addProduct(dy, -s)
 
-        dy *= c
-        dy.addProduct(_dx, s)
+            dy *= c
+            dy.addProduct(_dx, s)
+        }
     }
 
     @inlinable

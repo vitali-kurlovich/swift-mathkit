@@ -1,7 +1,4 @@
 //
-//  MKAffineTransform+Rotation.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 11.01.26.
 //
 
@@ -18,10 +15,14 @@ public extension MKAffineTransform where Float == Double {
      */
 
     @inlinable init(_ angle: MKAngle<Float>) {
-        let (s, c) = angle.sincos
-        self.init(m11: c, m12: s,
-                  m21: -s, m22: c,
-                  tx: 0, ty: 0)
+        if angle == .zero {
+            self.init()
+        } else {
+            let (s, c) = angle.sincos
+            self.init(m11: c, m12: s,
+                      m21: -s, m22: c,
+                      tx: 0, ty: 0)
+        }
     }
 
     @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
@@ -31,10 +32,14 @@ public extension MKAffineTransform where Float == Double {
 
 public extension MKAffineTransform where Float == Swift.Float {
     @inlinable init(_ angle: MKAngle<Float>) {
-        let (s, c) = angle.sincos
-        self.init(m11: c, m12: s,
-                  m21: -s, m22: c,
-                  tx: 0, ty: 0)
+        if angle == .zero {
+            self.init()
+        } else {
+            let (s, c) = angle.sincos
+            self.init(m11: c, m12: s,
+                      m21: -s, m22: c,
+                      tx: 0, ty: 0)
+        }
     }
 
     @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
@@ -44,10 +49,14 @@ public extension MKAffineTransform where Float == Swift.Float {
 
 public extension MKAffineTransform where Float == CGFloat {
     @inlinable init(_ angle: MKAngle<Float>) {
-        let (s, c) = angle.sincos
-        self.init(m11: c, m12: s,
-                  m21: -s, m22: c,
-                  tx: 0, ty: 0)
+        if angle == .zero {
+            self.init()
+        } else {
+            let (s, c) = angle.sincos
+            self.init(m11: c, m12: s,
+                      m21: -s, m22: c,
+                      tx: 0, ty: 0)
+        }
     }
 
     @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
@@ -57,10 +66,14 @@ public extension MKAffineTransform where Float == CGFloat {
 
 public extension MKAffineTransform where Float == Float16 {
     @inlinable init(_ angle: MKAngle<Float>) where Float == Float16 {
-        let (s, c) = angle.sincos
-        self.init(m11: c, m12: s,
-                  m21: -s, m22: c,
-                  tx: 0, ty: 0)
+        if angle == .zero {
+            self.init()
+        } else {
+            let (s, c) = angle.sincos
+            self.init(m11: c, m12: s,
+                      m21: -s, m22: c,
+                      tx: 0, ty: 0)
+        }
     }
 
     @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
@@ -78,45 +91,69 @@ public extension MKAffineTransform {
      [    0       0    1 ]
      */
     @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == Double {
-        let (s, c) = angle.sincos
-        rotate(s: s, c: c)
+        if angle != .zero {
+            let (s, c) = angle.sincos
+            rotate(s: s, c: c)
+        }
     }
 
     @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == Swift.Float {
-        let (s, c) = angle.sincos
-        rotate(s: s, c: c)
+        if angle != .zero {
+            let (s, c) = angle.sincos
+            rotate(s: s, c: c)
+        }
     }
 
     @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == CGFloat {
-        let (s, c) = angle.sincos
-        rotate(s: s, c: c)
+        if angle != .zero {
+            let (s, c) = angle.sincos
+            rotate(s: s, c: c)
+        }
     }
 
     @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == Float16 {
-        let (s, c) = angle.sincos
-        rotate(s: s, c: c)
+        if angle != .zero {
+            let (s, c) = angle.sincos
+            rotate(s: s, c: c)
+        }
     }
 }
 
 public extension MKAffineTransform {
     @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == Double {
-        let (s, c) = angle.sincos
-        return rotated(s: s, c: c)
+        if angle == .zero {
+            return self
+        } else {
+            let (s, c) = angle.sincos
+            return rotated(s: s, c: c)
+        }
     }
 
     @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == Swift.Float {
-        let (s, c) = angle.sincos
-        return rotated(s: s, c: c)
+        if angle == .zero {
+            return self
+        } else {
+            let (s, c) = angle.sincos
+            return rotated(s: s, c: c)
+        }
     }
 
     @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == CGFloat {
-        let (s, c) = angle.sincos
-        return rotated(s: s, c: c)
+        if angle == .zero {
+            return self
+        } else {
+            let (s, c) = angle.sincos
+            return rotated(s: s, c: c)
+        }
     }
 
     @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == Float16 {
-        let (s, c) = angle.sincos
-        return rotated(s: s, c: c)
+        if angle == .zero {
+            return self
+        } else {
+            let (s, c) = angle.sincos
+            return rotated(s: s, c: c)
+        }
     }
 }
 

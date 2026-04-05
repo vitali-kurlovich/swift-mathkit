@@ -20,30 +20,42 @@ public struct MKVectorComponents<Float: FloatingPoint & Sendable>: Hashable, Sen
 public extension MKVector {
     @inlinable
     init(magnitude: Float, rotation: MKAngle<Float>) where Float == Double {
-        let (s, c) = rotation.sincos
-
-        self.init(dx: c * magnitude, dy: s * magnitude)
+        if rotation == .zero {
+            self.init(dx: magnitude, dy: 0)
+        } else {
+            let (s, c) = rotation.sincos
+            self.init(dx: c * magnitude, dy: s * magnitude)
+        }
     }
 
     @inlinable
     init(magnitude: Float, rotation: MKAngle<Float>) where Float == Swift.Float {
-        let (s, c) = rotation.sincos
-
-        self.init(dx: c * magnitude, dy: s * magnitude)
+        if rotation == .zero {
+            self.init(dx: magnitude, dy: 0)
+        } else {
+            let (s, c) = rotation.sincos
+            self.init(dx: c * magnitude, dy: s * magnitude)
+        }
     }
 
     @inlinable
     init(magnitude: Float, rotation: MKAngle<Float>) where Float == CGFloat {
-        let (s, c) = rotation.sincos
-
-        self.init(dx: c * magnitude, dy: s * magnitude)
+        if rotation == .zero {
+            self.init(dx: magnitude, dy: 0)
+        } else {
+            let (s, c) = rotation.sincos
+            self.init(dx: c * magnitude, dy: s * magnitude)
+        }
     }
 
     @inlinable
     init(magnitude: Float, rotation: MKAngle<Float>) where Float == Float16 {
-        let (s, c) = rotation.sincos
-
-        self.init(dx: c * magnitude, dy: s * magnitude)
+        if rotation == .zero {
+            self.init(dx: magnitude, dy: 0)
+        } else {
+            let (s, c) = rotation.sincos
+            self.init(dx: c * magnitude, dy: s * magnitude)
+        }
     }
 }
 
