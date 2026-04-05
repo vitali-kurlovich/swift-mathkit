@@ -55,9 +55,11 @@ public func lerp<Float: FloatingPoint & Sendable>(_ v0: MKRect<Float>,
 public func lerp<Float: FloatingPoint & Sendable>(_ v0: MKAffineTransformComponents<Float>,
                                                   _ v1: MKAffineTransformComponents<Float>, t: Float) -> MKAffineTransformComponents<Float>
 {
-    .init(scale: lerp(v0.scale, v1.scale, t: t),
-          rotation: lerp(v0.rotation, v1.rotation, t: t),
-          translation: lerp(v0.translation, v1.translation, t: t))
+    .init(
+        translation: lerp(v0.translation, v1.translation, t: t),
+        rotation: lerp(v0.rotation, v1.rotation, t: t),
+        scale: lerp(v0.scale, v1.scale, t: t)
+    )
 }
 
 #if canImport(CoreGraphics)

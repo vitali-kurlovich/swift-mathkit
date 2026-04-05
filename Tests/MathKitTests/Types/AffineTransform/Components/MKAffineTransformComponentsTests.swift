@@ -173,9 +173,9 @@ extension MKAffineTransformComponentsTests {
         #expect(components.rotation == .zero)
         #expect(components.translation == .zero)
 
-        let transformComponents = MKAffineTransformComponents(scale: components.scale,
+        let transformComponents = MKAffineTransformComponents(translation: components.translation,
                                                               rotation: components.rotation,
-                                                              translation: components.translation)
+                                                              scale: components.scale)
 
         let transform = MKAffineTransform(transformComponents)
 
@@ -207,9 +207,9 @@ extension MKAffineTransformComponentsTests {
         #expect(components.rotation.isEqual(to: .radians(.pi / 4), tolerance: tolerance))
         #expect(components.translation == .zero)
 
-        let transformComponents = MKAffineTransformComponents(scale: components.scale,
+        let transformComponents = MKAffineTransformComponents(translation: components.translation,
                                                               rotation: components.rotation,
-                                                              translation: components.translation)
+                                                              scale: components.scale)
 
         let transform = MKAffineTransform(transformComponents)
 
@@ -255,9 +255,9 @@ extension MKAffineTransformComponentsTests {
         #expect(components.rotation.isEqual(to: angle, tolerance: tolerance))
         #expect(components.translation.isEqual(to: offset, tolerance: tolerance))
 
-        let transformComponents = MKAffineTransformComponents(scale: components.scale,
+        let transformComponents = MKAffineTransformComponents(translation: components.translation,
                                                               rotation: components.rotation,
-                                                              translation: components.translation)
+                                                              scale: components.scale)
 
         let transform = MKAffineTransform(transformComponents)
 
@@ -326,9 +326,9 @@ extension MKAffineTransformComponentsTests {
         #expect(components.rotation.isEqual(to: angle, tolerance: tolerance))
         #expect(components.translation.isEqual(to: offset, tolerance: tolerance))
 
-        let transformComponents = MKAffineTransformComponents(scale: components.scale,
+        let transformComponents = MKAffineTransformComponents(translation: components.translation,
                                                               rotation: components.rotation,
-                                                              translation: components.translation)
+                                                              scale: components.scale)
 
         let transform = MKAffineTransform(transformComponents)
 
@@ -397,9 +397,9 @@ extension MKAffineTransformComponentsTests {
         #expect(components.rotation.isEqual(to: angle, tolerance: halfTolerance))
         #expect(components.translation.isEqual(to: offset, tolerance: halfTolerance))
 
-        let transformComponents = MKAffineTransformComponents(scale: components.scale,
+        let transformComponents = MKAffineTransformComponents(translation: components.translation,
                                                               rotation: components.rotation,
-                                                              translation: components.translation)
+                                                              scale: components.scale)
 
         let transform = MKAffineTransform(transformComponents)
 
@@ -468,9 +468,9 @@ extension MKAffineTransformComponentsTests {
         #expect(components.rotation.isEqual(to: angle, tolerance: lowTolerance))
         #expect(components.translation.isEqual(to: offset, tolerance: lowTolerance))
 
-        let transformComponents = MKAffineTransformComponents(scale: components.scale,
+        let transformComponents = MKAffineTransformComponents(translation: components.translation,
                                                               rotation: components.rotation,
-                                                              translation: components.translation)
+                                                              scale: components.scale)
 
         let transform = MKAffineTransform(transformComponents)
 

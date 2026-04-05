@@ -6,7 +6,10 @@ import Foundation
 
 public extension MKAffineTransform {
     /// Translate   Rotate  Scale
-    @inlinable init(scale: MKSize<Float>, rotation: MKAngle<Float>, translation: MKVector<Float>) where Float == Double {
+    @inlinable init(translation: MKVector<Float> = .zero,
+                    rotation: MKAngle<Float> = .zero,
+                    scale: MKSize<Float> = .identity) where Float == Double
+    {
         if rotation == .zero {
             self.init(m11: 1, m12: 0,
                       m21: 0, m22: 1,
@@ -29,7 +32,10 @@ public extension MKAffineTransform {
     }
 
     /// Translate   Rotate  Scale
-    @inlinable init(scale: MKSize<Float>, rotation: MKAngle<Float>, translation: MKVector<Float>) where Float == Swift.Float {
+    @inlinable init(translation: MKVector<Float> = .zero,
+                    rotation: MKAngle<Float> = .zero,
+                    scale: MKSize<Float> = .identity) where Float == Swift.Float
+    {
         if rotation == .zero {
             self.init(m11: 1, m12: 0,
                       m21: 0, m22: 1,
@@ -52,7 +58,10 @@ public extension MKAffineTransform {
     }
 
     /// Translate   Rotate  Scale
-    @inlinable init(scale: MKSize<Float>, rotation: MKAngle<Float>, translation: MKVector<Float>) where Float == CGFloat {
+    @inlinable init(translation: MKVector<Float> = .zero,
+                    rotation: MKAngle<Float> = .zero,
+                    scale: MKSize<Float> = .identity) where Float == CGFloat
+    {
         if rotation == .zero {
             self.init(m11: 1, m12: 0,
                       m21: 0, m22: 1,
@@ -75,7 +84,10 @@ public extension MKAffineTransform {
     }
 
     /// Translate   Rotate  Scale
-    @inlinable init(scale: MKSize<Float>, rotation: MKAngle<Float>, translation: MKVector<Float>) where Float == Float16 {
+    @inlinable init(translation: MKVector<Float> = .zero,
+                    rotation: MKAngle<Float> = .zero,
+                    scale: MKSize<Float> = .identity) where Float == Float16
+    {
         if rotation == .zero {
             self.init(m11: 1, m12: 0,
                       m21: 0, m22: 1,

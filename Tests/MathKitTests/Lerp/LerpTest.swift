@@ -100,11 +100,13 @@ struct LerpTests {
 
     @Test("MKAffineTransformComponents")
     func affineComponents() {
-        let from = MKAffineTransformComponents(scale: .init(width: 2.0, height: 3.0), rotation: .degrees(10), translation: .init(dx: -10, dy: -20))
+        let from = MKAffineTransformComponents(translation: .init(dx: -10, dy: -20),
+                                               rotation: .degrees(10),
+                                               scale: .init(width: 2.0, height: 3.0))
 
-        let to = MKAffineTransformComponents(scale: .init(width: 12.0, height: 23.0), rotation: .degrees(110), translation: .init(dx: 50, dy: 60))
+        let to = MKAffineTransformComponents(translation: .init(dx: 50, dy: 60), rotation: .degrees(110), scale: .init(width: 12.0, height: 23.0))
 
-        let mid = MKAffineTransformComponents(scale: .init(width: 7.0, height: 13.0), rotation: .degrees(60), translation: .init(dx: 20, dy: 20))
+        let mid = MKAffineTransformComponents(translation: .init(dx: 20, dy: 20), rotation: .degrees(60), scale: .init(width: 7.0, height: 13.0))
 
         #expect(lerp(from, to, t: 0.0).isEqual(to: from, tolerance: tolerance))
         #expect(lerp(from, to, t: 1.0).isEqual(to: to, tolerance: tolerance))

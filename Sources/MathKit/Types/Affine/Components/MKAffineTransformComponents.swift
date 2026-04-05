@@ -6,7 +6,7 @@ import Foundation
 
 public struct MKAffineTransformComponents<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     @inlinable
-    public init(scale: MKSize<Float> = .identity, rotation: MKAngle<Float> = .zero, translation: MKVector<Float> = .zero) {
+    public init(translation: MKVector<Float> = .zero, rotation: MKAngle<Float> = .zero, scale: MKSize<Float> = .identity) {
         self.scale = scale
         self.rotation = rotation
         self.translation = translation
@@ -20,22 +20,22 @@ public struct MKAffineTransformComponents<Float: FloatingPoint & Sendable>: Hash
 public extension MKAffineTransform {
     @inlinable
     init(_ components: MKAffineTransformComponents<Float>) where Float == Double {
-        self.init(scale: components.scale, rotation: components.rotation, translation: components.translation)
+        self.init(translation: components.translation, rotation: components.rotation, scale: components.scale)
     }
 
     @inlinable
     init(_ components: MKAffineTransformComponents<Float>) where Float == Swift.Float {
-        self.init(scale: components.scale, rotation: components.rotation, translation: components.translation)
+        self.init(translation: components.translation, rotation: components.rotation, scale: components.scale)
     }
 
     @inlinable
     init(_ components: MKAffineTransformComponents<Float>) where Float == CGFloat {
-        self.init(scale: components.scale, rotation: components.rotation, translation: components.translation)
+        self.init(translation: components.translation, rotation: components.rotation, scale: components.scale)
     }
 
     @inlinable
     init(_ components: MKAffineTransformComponents<Float>) where Float == Float16 {
-        self.init(scale: components.scale, rotation: components.rotation, translation: components.translation)
+        self.init(translation: components.translation, rotation: components.rotation, scale: components.scale)
     }
 }
 
@@ -50,7 +50,7 @@ public extension MKAffineTransform {
 
         let translation = MKVector(dx: tx, dy: ty)
 
-        return .init(scale: scale, rotation: rotation, translation: translation)
+        return .init(translation: translation, rotation: rotation, scale: scale)
     }
 
     @inlinable
@@ -63,7 +63,7 @@ public extension MKAffineTransform {
 
         let translation = MKVector(dx: tx, dy: ty)
 
-        return .init(scale: scale, rotation: rotation, translation: translation)
+        return .init(translation: translation, rotation: rotation, scale: scale)
     }
 
     @inlinable
@@ -76,7 +76,7 @@ public extension MKAffineTransform {
 
         let translation = MKVector(dx: tx, dy: ty)
 
-        return .init(scale: scale, rotation: rotation, translation: translation)
+        return .init(translation: translation, rotation: rotation, scale: scale)
     }
 
     @inlinable
@@ -89,6 +89,6 @@ public extension MKAffineTransform {
 
         let translation = MKVector(dx: tx, dy: ty)
 
-        return .init(scale: scale, rotation: rotation, translation: translation)
+        return .init(translation: translation, rotation: rotation, scale: scale)
     }
 }
