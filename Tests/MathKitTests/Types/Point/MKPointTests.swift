@@ -14,36 +14,68 @@ private let lowTolerance: Float16 = 0.1
 struct MKPointTests {}
 
 extension MKPointTests {
-    @Test("Constructor <Double>")
-    func constructorDouble() throws {
-        let pt = MKPoint<Double>(x: 2, y: 3)
+    @Test("Constructor <Double>", arguments: [
+        MKPoint<Double>.zero,
+        MKPoint<Double>.identity,
+        -MKPoint<Double>.identity,
+        MKPoint<Double>(x: 0, y: 1),
+        MKPoint<Double>(x: 1, y: 0),
+        MKPoint<Double>(x: 4, y: 8),
+        MKPoint<Double>(x: -4, y: 8),
+        MKPoint<Double>(x: 4, y: -8),
+    ])
+    func constructorDouble(_ pt: MKPoint<Double>) throws {
         let point = CGPoint(pt)
         let conv = MKPoint<Double>(point)
 
         #expect(pt.isEqual(to: conv, tolerance: tolerance))
     }
 
-    @Test("Constructor <CGFloat>")
-    func constructorCGFloat() throws {
-        let pt = MKPoint<CGFloat>(x: 2, y: 3)
+    @Test("Constructor <CGFloat>", arguments: [
+        MKPoint<CGFloat>.zero,
+        MKPoint<CGFloat>.identity,
+        -MKPoint<CGFloat>.identity,
+        MKPoint<CGFloat>(x: 0, y: 1),
+        MKPoint<CGFloat>(x: 1, y: 0),
+        MKPoint<CGFloat>(x: 4, y: 8),
+        MKPoint<CGFloat>(x: -4, y: 8),
+        MKPoint<CGFloat>(x: 4, y: -8),
+    ])
+    func constructorCGFloat(_ pt: MKPoint<CGFloat>) throws {
         let point = CGPoint(pt)
         let conv = MKPoint<CGFloat>(point)
 
         #expect(pt.isEqual(to: conv, tolerance: tolerance))
     }
 
-    @Test("Constructor <Float>")
-    func constructorFloat() throws {
-        let pt = MKPoint<Float>(x: 2, y: 3)
+    @Test("Constructor <Float>", arguments: [
+        MKPoint<Float>.zero,
+        MKPoint<Float>.identity,
+        -MKPoint<Float>.identity,
+        MKPoint<Float>(x: 0, y: 1),
+        MKPoint<Float>(x: 1, y: 0),
+        MKPoint<Float>(x: 4, y: 8),
+        MKPoint<Float>(x: -4, y: 8),
+        MKPoint<Float>(x: 4, y: -8),
+    ])
+    func constructorFloat(_ pt: MKPoint<Float>) throws {
         let point = CGPoint(pt)
         let conv = MKPoint<Float>(point)
 
         #expect(pt.isEqual(to: conv, tolerance: halfTolerance))
     }
 
-    @Test("Constructor <Float16>")
-    func constructorFloat16() throws {
-        let pt = MKPoint<Float16>(x: 2, y: 3)
+    @Test("Constructor <Float16>", arguments: [
+        MKPoint<Float16>.zero,
+        MKPoint<Float16>.identity,
+        -MKPoint<Float16>.identity,
+        MKPoint<Float16>(x: 0, y: 1),
+        MKPoint<Float16>(x: 1, y: 0),
+        MKPoint<Float16>(x: 4, y: 8),
+        MKPoint<Float16>(x: -4, y: 8),
+        MKPoint<Float16>(x: 4, y: -8),
+    ])
+    func constructorFloat16(_ pt: MKPoint<Float16>) throws {
         let point = CGPoint(pt)
         let conv = MKPoint<Float16>(point)
 
@@ -58,116 +90,214 @@ extension MKPointTests {
 
     @Test("Zero")
     func zero() {
-        #expect(
-            Point.zero.x == 0
-        )
-        #expect(
-            Point.zero.y == 0
-        )
+        #expect(MKPoint<Double>.zero.x == 0)
+        #expect(MKPoint<Double>.zero.y == 0)
     }
 
-    @Test("AdditiveArithmetic")
-    func additiveArithmetic() {
-        var left = Point(x: 5, y: 6)
-        var right = Point(x: 10, y: 20)
+    @Test("Identity")
+    func identity() throws {
+        #expect(MKPoint<Double>.identity.x == 1)
+        #expect(MKPoint<Double>.identity.y == 1)
+    }
+}
 
-        #expect(
-            (left + right).isEqual(to: .init(x: 15, y: 26), tolerance: tolerance)
-        )
+extension MKPointTests {
+    @Test("Negative",
+          arguments: [
+              (MKPoint<Double>.zero, MKPoint<Double>.zero),
+              (MKPoint<Double>.identity, MKPoint<Double>(x: -1, y: -1)),
+              (MKPoint<Double>(x: -2, y: -3), MKPoint<Double>(x: 2, y: 3)),
+          ])
+    func negative(_ args: (MKPoint<Double>, MKPoint<Double>)) throws {
+        let (pt, expect) = args
+        #expect((-pt).isEqual(to: expect, tolerance: tolerance))
+        var mp = pt
+        mp.negate()
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
+    }
+}
 
-        #expect(
-            (left - right).isEqual(to: .init(x: -5, y: -14), tolerance: tolerance)
-        )
+extension MKPointTests {
+    @Test("Addittion <Double>",
+          arguments: [
+              (MKPoint<Double>.zero, MKPoint<Double>.zero, MKPoint<Double>.zero),
+              (MKPoint<Double>.zero, MKPoint<Double>.identity, MKPoint<Double>.identity),
+              (MKPoint<Double>.identity, MKPoint<Double>.zero, MKPoint<Double>.identity),
 
-        left += .init(x: 20, y: 30)
+              (MKPoint<Double>(x: 4, y: 5), MKPoint<Double>.zero, MKPoint<Double>(x: 4, y: 5)),
+              (MKPoint<Double>(x: 4, y: 5), MKPoint<Double>(x: 10, y: 20), MKPoint<Double>(x: 14, y: 25)),
 
-        #expect(
-            left.isEqual(to: .init(x: 25, y: 36), tolerance: tolerance)
-        )
+          ])
+    func addDouble(_ args: (MKPoint<Double>, MKPoint<Double>, MKPoint<Double>)) throws {
+        let (pt, add, expect) = args
 
-        right -= .init(x: 20, y: 30)
+        #expect((pt + add).isEqual(to: expect, tolerance: tolerance))
 
-        #expect(
-            right.isEqual(to: .init(x: -10, y: -10), tolerance: tolerance)
-        )
+        var mp = pt
+        mp += add
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Arithmetic")
-    func arithmetic() {
-        let left = Point(x: 5, y: 6)
+    @Test("Substraction <Double>",
+          arguments: [
+              (MKPoint<Double>.zero, MKPoint<Double>.zero, MKPoint<Double>.zero),
+              (MKPoint<Double>.identity, MKPoint<Double>.zero, MKPoint<Double>.identity),
+              (MKPoint<Double>.zero, MKPoint<Double>.identity, -MKPoint<Double>.identity),
 
-        #expect(
-            (-left).isEqual(to: .init(x: -5, y: -6), tolerance: tolerance)
-        )
+              (MKPoint<Double>(x: 4, y: 5), MKPoint<Double>.zero, MKPoint<Double>(x: 4, y: 5)),
+              (MKPoint<Double>(x: 4, y: 5), MKPoint<Double>(x: 10, y: 20), MKPoint<Double>(x: -6, y: -15)),
+          ])
+    func subDouble(_ args: (MKPoint<Double>, MKPoint<Double>, MKPoint<Double>)) throws {
+        let (pt, sub, expect) = args
 
-        var point = Point(x: 3, y: 4)
+        #expect((pt - sub).isEqual(to: expect, tolerance: tolerance))
 
-        point *= Point(x: 2, y: 3)
+        var mp = pt
+        mp -= sub
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
+    }
+}
 
-        #expect(
-            point.isEqual(to: .init(x: 6, y: 12), tolerance: tolerance)
-        )
+extension MKPointTests {
+    @Test("Multiply Scalar <Double>", arguments: [
+        (MKPoint<Double>.zero, 0, MKPoint<Double>.zero),
+        (MKPoint<Double>.identity, 0, MKPoint<Double>.zero),
 
-        point *= 2
+        (MKPoint<Double>.zero, 1, MKPoint<Double>.zero),
+        (MKPoint<Double>.identity, 1, MKPoint<Double>.identity),
 
-        #expect(
-            point.isEqual(to: .init(x: 12, y: 24), tolerance: tolerance)
-        )
+        (MKPoint<Double>(x: 4, y: 8), 1, MKPoint<Double>(x: 4, y: 8)),
+        (MKPoint<Double>(x: 4, y: 8), -1, MKPoint<Double>(x: -4, y: -8)),
 
-        point /= 2
+        (MKPoint<Double>(x: 4, y: 8), 10, MKPoint<Double>(x: 40, y: 80)),
+        (MKPoint<Double>(x: 4, y: 8), -10, MKPoint<Double>(x: -40, y: -80)),
 
-        #expect(
-            point.isEqual(to: .init(x: 6, y: 12), tolerance: tolerance)
-        )
+    ])
+    func mulScalarDouble(_ args: (MKPoint<Double>, Double, MKPoint<Double>)) throws {
+        let (pt, scalar, expect) = args
 
-        point /= Point(x: 2, y: 3)
-
-        #expect(
-            point.isEqual(to: .init(x: 3, y: 4), tolerance: tolerance)
-        )
+        #expect((pt * scalar).isEqual(to: expect, tolerance: tolerance))
+        var mp = pt
+        mp *= scalar
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Add Product")
-    func addProduct() {
-        var point = Point(x: 3, y: 4)
+    @Test("Multiply <Double>", arguments: [
+        (MKPoint<Double>.zero, MKPoint<Double>.zero, MKPoint<Double>.zero),
+        (MKPoint<Double>.identity, MKPoint<Double>.zero, MKPoint<Double>.zero),
 
-        #expect(
-            point.addingProduct(Point(x: 2, y: 3), Point(x: 6, y: 4)) == Point(x: 15, y: 16)
-        )
+        (MKPoint<Double>.zero, MKPoint<Double>.identity, MKPoint<Double>.zero),
+        (MKPoint<Double>.identity, MKPoint<Double>.identity, MKPoint<Double>.identity),
 
-        point.addProduct(Point(x: 2, y: 3), Point(x: 6, y: 4))
+        (MKPoint<Double>(x: 4, y: 8), MKPoint<Double>.identity, MKPoint<Double>(x: 4, y: 8)),
+        (MKPoint<Double>(x: 4, y: 8), -MKPoint<Double>.identity, MKPoint<Double>(x: -4, y: -8)),
 
-        #expect(point == Point(x: 15, y: 16))
+        (MKPoint<Double>(x: 4, y: 8), MKPoint<Double>(x: 10, y: 20), MKPoint<Double>(x: 40, y: 160)),
+        (MKPoint<Double>(x: 4, y: 8), MKPoint<Double>(x: -10, y: -20), MKPoint<Double>(x: -40, y: -160)),
+
+    ])
+    func mulDouble(_ args: (MKPoint<Double>, MKPoint<Double>, MKPoint<Double>)) throws {
+        let (pt, mul, expect) = args
+
+        #expect((pt * mul).isEqual(to: expect, tolerance: tolerance))
+        var mp = pt
+        mp *= mul
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Scalar")
-    func scalar() {
-        let left = Point(x: 5, y: 6)
+    @Test("Add Product <Double>", arguments: [
+        (MKPoint<Double>.zero, MKPoint<Double>.zero, MKPoint<Double>.zero, MKPoint<Double>.zero),
+        (MKPoint<Double>.zero, MKPoint<Double>.identity, MKPoint<Double>.zero, MKPoint<Double>.zero),
+
+        (MKPoint<Double>.identity, MKPoint<Double>.zero, MKPoint<Double>.zero, MKPoint<Double>.identity),
+
+        (MKPoint<Double>(x: 2, y: 3), MKPoint<Double>(x: 3, y: 4), MKPoint<Double>(x: 10, y: 5), MKPoint<Double>(x: 32, y: 23)),
+
+    ])
+    func addProductDouble(_ args: (MKPoint<Double>, MKPoint<Double>, MKPoint<Double>, MKPoint<Double>)) {
+        let (base, left, right, expect) = args
 
         #expect(
-            (left * 2).isEqual(to: .init(x: 10, y: 12), tolerance: tolerance)
+            base.addingProduct(left, right).isEqual(to: expect, tolerance: tolerance)
         )
 
-        #expect(
-            (2 * left).isEqual(to: left * 2, tolerance: tolerance)
-        )
+        var mbase = base
+        mbase.addProduct(left, right)
 
         #expect(
-            (left / 2).isEqual(to: .init(x: 2.5, y: 3), tolerance: tolerance)
+            mbase.isEqual(to: expect, tolerance: tolerance)
         )
     }
+}
 
-    @Test("Magnitude")
-    func magnitude() {
-        let point = Point(x: 3, y: 4)
+extension MKPointTests {
+    @Test("Divide Scalar <Double>", arguments: [
+        (MKPoint<Double>.zero, 1, MKPoint<Double>.zero),
+        (MKPoint<Double>.identity, 1, MKPoint<Double>.identity),
 
-        #expect(
-            point.magnitudeSquared == 25
-        )
+        (MKPoint<Double>(x: 4, y: 8), 1, MKPoint<Double>(x: 4, y: 8)),
+        (MKPoint<Double>(x: 4, y: 8), -1, MKPoint<Double>(x: -4, y: -8)),
 
-        #expect(
-            point.magnitude == 5
-        )
+        (MKPoint<Double>(x: 4, y: 8), 10, MKPoint<Double>(x: 0.4, y: 0.8)),
+        (MKPoint<Double>(x: 4, y: 8), -10, MKPoint<Double>(x: -0.4, y: -0.8)),
+
+    ])
+    func divScalarDouble(_ args: (MKPoint<Double>, Double, MKPoint<Double>)) throws {
+        let (pt, scalar, expect) = args
+
+        #expect((pt / scalar).isEqual(to: expect, tolerance: tolerance))
+        var mp = pt
+        mp /= scalar
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
+    }
+
+    @Test("Divide <Double>", arguments: [
+        (MKPoint<Double>.zero, MKPoint<Double>.identity, MKPoint<Double>.zero),
+        (MKPoint<Double>.identity, MKPoint<Double>.identity, MKPoint<Double>.identity),
+
+        (MKPoint<Double>(x: 4, y: 8), MKPoint<Double>.identity, MKPoint<Double>(x: 4, y: 8)),
+        (MKPoint<Double>(x: 4, y: 8), -MKPoint<Double>.identity, MKPoint<Double>(x: -4, y: -8)),
+
+        (MKPoint<Double>(x: 4, y: 8), MKPoint<Double>(x: 2, y: 4), MKPoint<Double>(x: 2, y: 2)),
+        (MKPoint<Double>(x: 4, y: 8), MKPoint<Double>(x: -2, y: -4), MKPoint<Double>(x: -2, y: -2)),
+
+    ])
+    func divDouble(_ args: (MKPoint<Double>, MKPoint<Double>, MKPoint<Double>)) throws {
+        let (pt, divider, expect) = args
+
+        #expect((pt / divider).isEqual(to: expect, tolerance: tolerance))
+        var mp = pt
+        mp /= divider
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
+    }
+}
+
+extension MKPointTests {
+    @Test("Magnitude <Double>", arguments: [
+        (MKPoint<Double>.zero, 0),
+
+        (MKPoint<Double>(x: 0, y: 1), 1),
+        (MKPoint<Double>(x: 1, y: 0), 1),
+
+        (MKPoint<Double>(x: 0, y: -1), 1),
+        (MKPoint<Double>(x: -1, y: 0), 1),
+
+        (MKPoint<Double>(x: 0, y: 5), 5),
+        (MKPoint<Double>(x: 5, y: 0), 5),
+
+        (MKPoint<Double>(x: 0, y: -5), 5),
+        (MKPoint<Double>(x: -5, y: 0), 5),
+
+        (MKPoint<Double>(x: 3, y: 4), 5),
+        (MKPoint<Double>(x: -3, y: -4), 5),
+        (MKPoint<Double>(x: 3, y: -4), 5),
+        (MKPoint<Double>(x: -3, y: 4), 5),
+    ])
+    func magnitudeDouble(_ args: (MKPoint<Double>, Double)) {
+        let (pt, expect) = args
+
+        #expect(pt.magnitudeSquared.isEqual(to: expect * expect, tolerance: tolerance))
+        #expect(pt.magnitude.isEqual(to: expect, tolerance: tolerance))
     }
 
     @Test("Distance")

@@ -6,6 +6,11 @@ public extension MKVector {
     @inlinable static prefix func - (_ vector: Self) -> Self {
         .init(dx: -vector.dx, dy: -vector.dy)
     }
+
+    @inlinable mutating func negate() {
+        dx.negate()
+        dy.negate()
+    }
 }
 
 public extension MKVector {

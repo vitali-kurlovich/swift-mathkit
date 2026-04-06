@@ -1,13 +1,15 @@
 //
-//  MKPoint+Arithmetic.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
 public extension MKPoint {
     @inlinable static prefix func - (_ point: Self) -> Self {
         .init(x: -point.x, y: -point.y)
+    }
+
+    @inlinable mutating func negate() {
+        x.negate()
+        y.negate()
     }
 }
 

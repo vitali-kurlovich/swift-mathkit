@@ -59,87 +59,96 @@ struct MKVectorTests {}
 extension MKVectorTests {
     @Test("Zero")
     func zero() throws {
-        let vec = MKVector<Double>.zero
-
-        #expect(vec.dx == 0)
-        #expect(vec.dy == 0)
+        #expect(MKVector<Double>.zero.dx == 0)
+        #expect(MKVector<Double>.zero.dy == 0)
     }
 
     @Test("Identity")
     func identity() throws {
-        let vec = MKVector<Double>.identity
+        #expect(MKVector<Double>.identity.dx == 1)
+        #expect(MKVector<Double>.identity.dy == 1)
+    }
+}
 
-        #expect(vec.dx == 1)
-        #expect(vec.dy == 1)
+extension MKVectorTests {
+    @Test("Negative",
+          arguments: [
+              (MKVector<Double>.zero, MKVector<Double>.zero),
+              (MKVector<Double>.identity, MKVector<Double>(dx: -1, dy: -1)),
+              (MKVector<Double>(dx: -2, dy: -3), MKVector<Double>(dx: 2, dy: 3)),
+          ])
+    func negative(_ args: (MKVector<Double>, MKVector<Double>)) throws {
+        let (vec, expect) = args
+        #expect((-vec).isEqual(to: expect, tolerance: tolerance))
+        var mv = vec
+        mv.negate()
+        #expect(mv.isEqual(to: expect, tolerance: tolerance))
+    }
+}
+
+extension MKVectorTests {
+    @Test("Addittion <Double>",
+          arguments: [
+              (MKVector<Double>.zero, MKVector<Double>.zero, MKVector<Double>.zero),
+              (MKVector<Double>.zero, MKVector<Double>.identity, MKVector<Double>.identity),
+              (MKVector<Double>.identity, MKVector<Double>.zero, MKVector<Double>.identity),
+
+              (MKVector<Double>(dx: 4, dy: 5), MKVector<Double>.zero, MKVector<Double>(dx: 4, dy: 5)),
+              (MKVector<Double>(dx: 4, dy: 5), MKVector<Double>(dx: 10, dy: 20), MKVector<Double>(dx: 14, dy: 25)),
+
+          ])
+    func addDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) throws {
+        let (vec, add, expect) = args
+
+        #expect((vec + add).isEqual(to: expect, tolerance: tolerance))
+
+        var mv = vec
+        mv += add
+        #expect(mv.isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Negative")
-    func negative() throws {
-        let vec = MKVector<Double>(dx: 2, dy: 3)
+    @Test("Substraction <Double>",
+          arguments: [
+              (MKVector<Double>.zero, MKVector<Double>.zero, MKVector<Double>.zero),
+              (MKVector<Double>.identity, MKVector<Double>.zero, MKVector<Double>.identity),
+              (MKVector<Double>.zero, MKVector<Double>.identity, -MKVector<Double>.identity),
 
-        #expect((-vec).dx == -2)
-        #expect((-vec).dy == -3)
+              (MKVector<Double>(dx: 4, dy: 5), MKVector<Double>.zero, MKVector<Double>(dx: 4, dy: 5)),
+              (MKVector<Double>(dx: 4, dy: 5), MKVector<Double>(dx: 10, dy: 20), MKVector<Double>(dx: -6, dy: -15)),
+          ])
+    func subDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) throws {
+        let (vec, sub, expect) = args
+
+        #expect((vec - sub).isEqual(to: expect, tolerance: tolerance))
+
+        var mv = vec
+        mv -= sub
+        #expect(mv.isEqual(to: expect, tolerance: tolerance))
     }
+}
 
-    @Test("Addittion")
-    func add() throws {
-        var vec = MKVector<Double>(dx: 2, dy: 3) + MKVector<Double>(dx: 10, dy: 7)
+extension MKVectorTests {
+    @Test("Multiply Scalar <Double>", arguments: [
+        (MKVector<Double>.zero, 0, MKVector<Double>.zero),
+        (MKVector<Double>.identity, 0, MKVector<Double>.zero),
 
-        #expect(vec.isEqual(to: .init(dx: 12, dy: 10), tolerance: tolerance))
+        (MKVector<Double>.zero, 1, MKVector<Double>.zero),
+        (MKVector<Double>.identity, 1, MKVector<Double>.identity),
 
-        vec += MKVector<Double>(dx: 8, dy: 10)
+        (MKVector<Double>(dx: 4, dy: 8), 1, MKVector<Double>(dx: 4, dy: 8)),
+        (MKVector<Double>(dx: 4, dy: 8), -1, MKVector<Double>(dx: -4, dy: -8)),
 
-        #expect(vec.isEqual(to: .init(dx: 20, dy: 20), tolerance: tolerance))
-    }
+        (MKVector<Double>(dx: 4, dy: 8), 10, MKVector<Double>(dx: 40, dy: 80)),
+        (MKVector<Double>(dx: 4, dy: 8), -10, MKVector<Double>(dx: -40, dy: -80)),
 
-    @Test("Addittion Size")
-    func addSize() throws {
-        var vec = MKVector<Double>(dx: 2, dy: 3) + MKSize<Double>(width: 10, height: 7)
+    ])
+    func mulScalarDouble(_ args: (MKVector<Double>, Double, MKVector<Double>)) throws {
+        let (vec, scalar, expect) = args
 
-        #expect(vec.isEqual(to: .init(dx: 12, dy: 10), tolerance: tolerance))
-
-        vec += MKSize<Double>(width: 8, height: 10)
-
-        #expect(vec.isEqual(to: .init(dx: 20, dy: 20), tolerance: tolerance))
-    }
-
-    @Test("Substraction")
-    func sub() throws {
-        var vec = MKVector<Double>(dx: 2, dy: 3) - MKVector<Double>(dx: 4, dy: 6)
-
-        #expect(vec.isEqual(to: .init(dx: -2, dy: -3), tolerance: tolerance))
-
-        vec -= MKVector<Double>(dx: 8, dy: 10)
-
-        #expect(vec.isEqual(to: .init(dx: -10, dy: -13), tolerance: tolerance))
-    }
-
-    @Test("Substraction Size")
-    func subSize() throws {
-        var vec = MKVector<Double>(dx: 2, dy: 3) - MKSize<Double>(width: 4, height: 6)
-
-        #expect(vec.isEqual(to: .init(dx: -2, dy: -3), tolerance: tolerance))
-
-        vec -= MKSize<Double>(width: 8, height: 10)
-
-        #expect(vec.isEqual(to: .init(dx: -10, dy: -13), tolerance: tolerance))
-    }
-
-    @Test("Multiply")
-    func mul() throws {
-        var vec = MKVector<Double>(dx: 2, dy: 3) * 2
-
-        #expect(vec.isEqual(to: .init(dx: 4, dy: 6), tolerance: tolerance))
-
-        vec *= 3
-
-        #expect(vec.isEqual(to: .init(dx: 12, dy: 18), tolerance: tolerance))
-
-        #expect((0.5 * vec).isEqual(to: .init(dx: 6, dy: 9), tolerance: tolerance))
-
-        vec *= MKVector<Double>(dx: 20, dy: 10)
-
-        #expect(vec.isEqual(to: .init(dx: 240, dy: 180), tolerance: tolerance))
+        #expect((vec * scalar).isEqual(to: expect, tolerance: tolerance))
+        var mv = vec
+        mv *= scalar
+        #expect(mv.isEqual(to: expect, tolerance: tolerance))
     }
 
     @Test("Divide")
@@ -158,7 +167,9 @@ extension MKVectorTests {
 
         #expect(vec.isEqual(to: .init(dx: 0.5, dy: 0.5), tolerance: tolerance))
     }
+}
 
+extension MKVectorTests {
     @Test("Magnitude")
     func magnitude() {
         let vector = MKVector<Double>(dx: 3, dy: 4)

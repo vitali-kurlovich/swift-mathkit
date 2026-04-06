@@ -2,7 +2,7 @@
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
-public nonisolated struct MKPoint<Float: FloatingPoint & Sendable>: Hashable, Sendable {
+public struct MKPoint<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     public var x: Float
     public var y: Float
 
@@ -19,5 +19,9 @@ public extension MKPoint {
 
     @inlinable static var zero: Self {
         .init()
+    }
+
+    @inlinable static var identity: Self {
+        .init(x: 1, y: 1)
     }
 }
