@@ -9,7 +9,9 @@ import Testing
 private let tolerance: Double = 0.00000001
 
 @Suite("MKAngle")
-struct MKAngleTests {
+struct MKAngleTests {}
+
+extension MKAngleTests {
     @Test("Zero")
     func zero() {
         let angle = MKAngle<Double>.zero
@@ -25,22 +27,57 @@ struct MKAngleTests {
         #expect(angle.radians == 2 * .pi)
         #expect(angle.degrees.isEqual(to: 360.0, tolerance: tolerance))
     }
+}
 
-    @Test("Addittion")
-    func add() throws {
-        var angle = MKAngle<Double>.degrees(180)
+extension MKAngleTests {
+    @Test("Negate", arguments: [
+        (MKAngle<Double>.zero, MKAngle<Double>.zero),
+        (MKAngle<Double>.radians(.pi / 2), MKAngle<Double>.radians(-.pi / 2)),
+    ])
+    func negateDouble(_ args: (MKAngle<Double>, MKAngle<Double>)) throws {
+        let (angle, expect) = args
 
-        angle += .degrees(20)
+        #expect((-angle).isEqual(to: expect, tolerance: tolerance))
 
-        #expect(angle.degrees.isEqual(to: 200.0, tolerance: tolerance))
+        var ma = angle
+        ma.negate()
+
+        #expect(ma.isEqual(to: expect, tolerance: tolerance))
+    }
+}
+
+extension MKAngleTests {
+    @Test("Addittion", arguments: [
+        (MKAngle<Double>.zero, MKAngle<Double>.zero, MKAngle<Double>.zero),
+        (MKAngle<Double>.zero, MKAngle<Double>.degrees(20), MKAngle<Double>.degrees(20)),
+        (MKAngle<Double>.degrees(120), MKAngle<Double>.degrees(20), MKAngle<Double>.degrees(140)),
+        (MKAngle<Double>.degrees(120), MKAngle<Double>.degrees(-20), MKAngle<Double>.degrees(100)),
+
+    ])
+    func addDouble(_ args: (MKAngle<Double>, MKAngle<Double>, MKAngle<Double>)) throws {
+        let (angle, add, expect) = args
+
+        #expect((angle + add).isEqual(to: expect, tolerance: tolerance))
+
+        var ma = angle
+        ma += add
+        #expect(ma.isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Substraction")
-    func sub() throws {
-        var angle = MKAngle<Double>.degrees(180)
+    @Test("Substraction", arguments: [
+        (MKAngle<Double>.zero, MKAngle<Double>.zero, MKAngle<Double>.zero),
+        (MKAngle<Double>.zero, MKAngle<Double>.degrees(20), MKAngle<Double>.degrees(-20)),
+        (MKAngle<Double>.degrees(120), MKAngle<Double>.degrees(20), MKAngle<Double>.degrees(100)),
+        (MKAngle<Double>.degrees(120), MKAngle<Double>.degrees(-20), MKAngle<Double>.degrees(140)),
 
-        angle -= .degrees(20)
+    ])
+    func subDouble(_ args: (MKAngle<Double>, MKAngle<Double>, MKAngle<Double>)) throws {
+        let (angle, add, expect) = args
 
-        #expect(angle.degrees.isEqual(to: 160.0, tolerance: tolerance))
+        #expect((angle - add).isEqual(to: expect, tolerance: tolerance))
+
+        var ma = angle
+        ma -= add
+        #expect(ma.isEqual(to: expect, tolerance: tolerance))
     }
 }

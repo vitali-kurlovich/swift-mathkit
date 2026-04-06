@@ -42,6 +42,10 @@ public extension MKAngle {
     @inlinable static prefix func - (_ angle: Self) -> Self {
         .init(radians: -angle.radians)
     }
+
+    @inlinable mutating func negate() {
+        radians.negate()
+    }
 }
 
 extension MKAngle: AdditiveArithmetic {
