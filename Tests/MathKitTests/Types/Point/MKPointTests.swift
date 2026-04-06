@@ -300,35 +300,49 @@ extension MKPointTests {
         #expect(pt.magnitude.isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Distance")
-    func distance() {
-        let point = Point(x: -1, y: -2)
+    @Test("Distance <Double>", arguments: [
+        (MKPoint<Double>.zero, MKPoint<Double>.zero, 0),
+        (MKPoint<Double>.identity, MKPoint<Double>.identity, 0),
+        (-MKPoint<Double>.identity, -MKPoint<Double>.identity, 0),
+        (MKPoint<Double>(x: -3, y: 4), MKPoint<Double>(x: -3, y: 4), 0),
 
-        #expect(
-            point.distanceSquared(to: Point(x: 2, y: 2)) == 25
-        )
+        (MKPoint<Double>.zero, MKPoint<Double>(x: -3, y: 4), 5),
 
-        #expect(
-            point.distance(to: Point(x: 2, y: 2)) == 5
-        )
+        (MKPoint<Double>(x: 3, y: -4), MKPoint<Double>(x: -3, y: 4), 10),
+
+    ])
+    func distanceDouble(_ args: (MKPoint<Double>, MKPoint<Double>, Double)) {
+        let (first, second, expect) = args
+
+        #expect(first.distanceSquared(to: second).isEqual(to: expect * expect, tolerance: tolerance))
+        #expect(first.distance(to: second).isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Normalize")
-    func normalize() {
-        var point = Point(x: -30, y: 40)
+    @Test("Normalize", arguments: [
+        (MKPoint<Double>.identity, MKPoint<Double>(x: 0.7071067812, y: 0.7071067812)),
+        (MKPoint<Double>(x: 0.7071067812, y: 0.7071067812), MKPoint<Double>(x: 0.7071067812, y: 0.7071067812)),
+
+        (MKPoint<Double>(x: 30, y: 40), MKPoint<Double>(x: 0.6, y: 0.8)),
+        (MKPoint<Double>(x: -30, y: 40), MKPoint<Double>(x: -0.6, y: 0.8)),
+        (MKPoint<Double>(x: -30, y: -40), MKPoint<Double>(x: -0.6, y: -0.8)),
+        (MKPoint<Double>(x: 30, y: -40), MKPoint<Double>(x: 0.6, y: -0.8)),
+    ])
+    func normalizeDouble(_ args: (MKPoint<Double>, MKPoint<Double>)) {
+        let (point, expect) = args
 
         #expect(
-            point.normalized() == Point(x: -3 / 5, y: 4 / 5)
+            point.normalized().isEqual(to: expect, tolerance: tolerance)
         )
 
-        point.normalize()
+        var mpoint = point
+        mpoint.normalize()
 
         #expect(
-            point == Point(x: -3 / 5, y: 4 / 5)
+            mpoint.isEqual(to: expect, tolerance: tolerance)
         )
 
         #expect(
-            point.magnitudeSquared == 1
+            mpoint.magnitudeSquared.isEqual(to: 1, tolerance: tolerance)
         )
     }
 
