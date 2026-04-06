@@ -1,11 +1,8 @@
 //
-//  MKAffineTransform.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 6.01.26.
 //
 
-public nonisolated struct MKAffineTransform<Float: FloatingPoint & Sendable>: Hashable, Sendable {
+public struct MKAffineTransform<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     public var m11: Float
     public var m12: Float
     public var m21: Float
