@@ -13,7 +13,17 @@ public extension MKPoint {
         return .init(x: left.x + right.dx, y: left.y + right.dy)
     }
 
-    @inlinable static func + (left: MKVector<Float>, right: Self) -> Self {
-        right + left
+    @inlinable static func += (left: inout Self, right: MKVector<Float>) {
+        left = left + right
+    }
+}
+
+public extension MKPoint {
+    @inlinable static func - (left: Self, right: MKVector<Float>) -> Self {
+        return .init(x: left.x - right.dx, y: left.y - right.dy)
+    }
+
+    @inlinable static func -= (left: inout Self, right: MKVector<Float>) {
+        left = left - right
     }
 }

@@ -138,6 +138,47 @@ extension MKPointTests {
         #expect(mp.isEqual(to: expect, tolerance: tolerance))
     }
 
+    @Test("Addittion Vector <Double>",
+          arguments: [
+              (MKPoint<Double>.zero, MKVector<Double>.zero, MKPoint<Double>.zero),
+              (MKPoint<Double>.zero, MKVector<Double>.identity, MKPoint<Double>.identity),
+              (MKPoint<Double>.identity, MKVector<Double>.zero, MKPoint<Double>.identity),
+
+              (MKPoint<Double>(x: 4, y: 5), MKVector<Double>.zero, MKPoint<Double>(x: 4, y: 5)),
+              (MKPoint<Double>(x: 4, y: 5), MKVector<Double>(dx: 10, dy: 20), MKPoint<Double>(x: 14, y: 25)),
+
+          ])
+    func addVectorDouble(_ args: (MKPoint<Double>, MKVector<Double>, MKPoint<Double>)) throws {
+        let (pt, add, expect) = args
+
+        #expect((pt + add).isEqual(to: expect, tolerance: tolerance))
+
+        var mp = pt
+        mp += add
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
+    }
+
+    @Test("Addittion Size <Double>",
+          arguments: [
+              (MKPoint<Double>.zero, MKSize<Double>.zero, MKPoint<Double>.zero),
+              (MKPoint<Double>.zero, MKSize<Double>.identity, MKPoint<Double>.identity),
+              (MKPoint<Double>.identity, MKSize<Double>.zero, MKPoint<Double>.identity),
+
+              (MKPoint<Double>(x: 4, y: 5), MKSize<Double>.zero, MKPoint<Double>(x: 4, y: 5)),
+              (MKPoint<Double>(x: 4, y: 5), MKSize<Double>(width: 10, height: 20), MKPoint<Double>(x: 14, y: 25)),
+          ])
+    func addSizeDouble(_ args: (MKPoint<Double>, MKSize<Double>, MKPoint<Double>)) throws {
+        let (pt, add, expect) = args
+
+        #expect((pt + add).isEqual(to: expect, tolerance: tolerance))
+
+        var mp = pt
+        mp += add
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
+    }
+}
+
+extension MKPointTests {
     @Test("Substraction <Double>",
           arguments: [
               (MKPoint<Double>.zero, MKPoint<Double>.zero, MKPoint<Double>.zero),
@@ -148,6 +189,44 @@ extension MKPointTests {
               (MKPoint<Double>(x: 4, y: 5), MKPoint<Double>(x: 10, y: 20), MKPoint<Double>(x: -6, y: -15)),
           ])
     func subDouble(_ args: (MKPoint<Double>, MKPoint<Double>, MKPoint<Double>)) throws {
+        let (pt, sub, expect) = args
+
+        #expect((pt - sub).isEqual(to: expect, tolerance: tolerance))
+
+        var mp = pt
+        mp -= sub
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
+    }
+
+    @Test("Substraction Vector <Double>",
+          arguments: [
+              (MKPoint<Double>.zero, MKVector<Double>.zero, MKPoint<Double>.zero),
+              (MKPoint<Double>.identity, MKVector<Double>.zero, MKPoint<Double>.identity),
+              (MKPoint<Double>.zero, MKVector<Double>.identity, -MKPoint<Double>.identity),
+
+              (MKPoint<Double>(x: 4, y: 5), MKVector<Double>.zero, MKPoint<Double>(x: 4, y: 5)),
+              (MKPoint<Double>(x: 4, y: 5), MKVector<Double>(dx: 10, dy: 20), MKPoint<Double>(x: -6, y: -15)),
+          ])
+    func subVectorDouble(_ args: (MKPoint<Double>, MKVector<Double>, MKPoint<Double>)) throws {
+        let (pt, sub, expect) = args
+
+        #expect((pt - sub).isEqual(to: expect, tolerance: tolerance))
+
+        var mp = pt
+        mp -= sub
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
+    }
+
+    @Test("Substraction Size <Double>",
+          arguments: [
+              (MKPoint<Double>.zero, MKSize<Double>.zero, MKPoint<Double>.zero),
+              (MKPoint<Double>.identity, MKSize<Double>.zero, MKPoint<Double>.identity),
+              (MKPoint<Double>.zero, MKSize<Double>.identity, -MKPoint<Double>.identity),
+
+              (MKPoint<Double>(x: 4, y: 5), MKSize<Double>.zero, MKPoint<Double>(x: 4, y: 5)),
+              (MKPoint<Double>(x: 4, y: 5), MKSize<Double>(width: 10, height: 20), MKPoint<Double>(x: -6, y: -15)),
+          ])
+    func subVectorDouble(_ args: (MKPoint<Double>, MKSize<Double>, MKPoint<Double>)) throws {
         let (pt, sub, expect) = args
 
         #expect((pt - sub).isEqual(to: expect, tolerance: tolerance))
@@ -368,50 +447,5 @@ extension MKPointTests {
     func _cross(_ args: (Point, Point, Double)) {
         let (first, second, expect) = args
         #expect(first.cross(second).isEqual(to: expect, tolerance: tolerance))
-    }
-
-    @Test("Vector")
-    func vector() {
-        let point = Point(x: 5, y: 6)
-
-        let vector = Vector(Point(x: 10, y: 20))
-
-        #expect(
-            Point(vector).isEqual(to: Point(x: 10, y: 20), tolerance: tolerance)
-        )
-
-        #expect(
-            (point + vector).isEqual(to: Point(x: 15, y: 26), tolerance: tolerance)
-        )
-
-        #expect(
-            (vector + point).isEqual(to: Point(x: 15, y: 26), tolerance: tolerance)
-        )
-    }
-
-    @Test("Size")
-    func size() {
-        var point = Point(x: 5, y: 6)
-        let size = Size(width: 10, height: 20)
-
-        #expect(
-            (point + size).isEqual(to: Point(x: 15, y: 26), tolerance: tolerance)
-        )
-
-        #expect(
-            (point - size).isEqual(to: Point(x: -5, y: -14), tolerance: tolerance)
-        )
-
-        point += size
-
-        #expect(
-            point.isEqual(to: Point(x: 15, y: 26), tolerance: tolerance)
-        )
-
-        point -= size
-
-        #expect(
-            point.isEqual(to: Point(x: 5, y: 6), tolerance: tolerance)
-        )
     }
 }
