@@ -56,3 +56,14 @@ public extension MKVector {
         left = left / right
     }
 }
+
+public extension MKVector {
+    @inlinable func addingProduct(_ left: Self, _ right: Self) -> Self {
+        .init(dx: dx.addingProduct(left.dx, right.dx), dy: dy.addingProduct(left.dy, right.dy))
+    }
+
+    @inlinable mutating func addProduct(_ left: Self, _ right: Self) {
+        dx.addProduct(left.dx, right.dx)
+        dy.addProduct(left.dy, right.dy)
+    }
+}

@@ -54,13 +54,12 @@ public extension MKPoint {
     }
 }
 
-// addingProduct
 public extension MKPoint {
-    func addingProduct(_ left: Self, _ right: Self) -> Self {
+    @inlinable func addingProduct(_ left: Self, _ right: Self) -> Self {
         .init(x: x.addingProduct(left.x, right.x), y: y.addingProduct(left.y, right.y))
     }
 
-    mutating func addProduct(_ left: Self, _ right: Self) {
+    @inlinable mutating func addProduct(_ left: Self, _ right: Self) {
         x.addProduct(left.x, right.x)
         y.addProduct(left.y, right.y)
     }

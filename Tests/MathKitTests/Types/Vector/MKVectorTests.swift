@@ -143,62 +143,159 @@ extension MKVectorTests {
 
     ])
     func mulScalarDouble(_ args: (MKVector<Double>, Double, MKVector<Double>)) throws {
-        let (vec, scalar, expect) = args
+        let (pt, scalar, expect) = args
 
-        #expect((vec * scalar).isEqual(to: expect, tolerance: tolerance))
-        var mv = vec
-        mv *= scalar
-        #expect(mv.isEqual(to: expect, tolerance: tolerance))
+        #expect((pt * scalar).isEqual(to: expect, tolerance: tolerance))
+        var mp = pt
+        mp *= scalar
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Divide")
-    func div() throws {
-        var vec = MKVector<Double>(dx: 8, dy: 12) / 2
+    @Test("Multiply <Double>", arguments: [
+        (MKVector<Double>.zero, MKVector<Double>.zero, MKVector<Double>.zero),
+        (MKVector<Double>.identity, MKVector<Double>.zero, MKVector<Double>.zero),
 
-        #expect(vec.isEqual(to: .init(dx: 4, dy: 6), tolerance: tolerance))
+        (MKVector<Double>.zero, MKVector<Double>.identity, MKVector<Double>.zero),
+        (MKVector<Double>.identity, MKVector<Double>.identity, MKVector<Double>.identity),
 
-        vec /= 2
+        (MKVector<Double>(dx: 4, dy: 8), MKVector<Double>.identity, MKVector<Double>(dx: 4, dy: 8)),
+        (MKVector<Double>(dx: 4, dy: 8), -MKVector<Double>.identity, MKVector<Double>(dx: -4, dy: -8)),
 
-        #expect(vec.isEqual(to: .init(dx: 2, dy: 3), tolerance: tolerance))
+        (MKVector<Double>(dx: 4, dy: 8), MKVector<Double>(dx: 10, dy: 20), MKVector<Double>(dx: 40, dy: 160)),
+        (MKVector<Double>(dx: 4, dy: 8), MKVector<Double>(dx: -10, dy: -20), MKVector<Double>(dx: -40, dy: -160)),
 
-        #expect((6 / vec).isEqual(to: .init(dx: 3, dy: 2), tolerance: tolerance))
+    ])
+    func mulDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) throws {
+        let (pt, mul, expect) = args
 
-        vec /= MKVector<Double>(dx: 4, dy: 6)
+        #expect((pt * mul).isEqual(to: expect, tolerance: tolerance))
+        var mp = pt
+        mp *= mul
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
+    }
 
-        #expect(vec.isEqual(to: .init(dx: 0.5, dy: 0.5), tolerance: tolerance))
+    @Test("Add Product <Double>", arguments: [
+        (MKVector<Double>.zero, MKVector<Double>.zero, MKVector<Double>.zero, MKVector<Double>.zero),
+        (MKVector<Double>.zero, MKVector<Double>.identity, MKVector<Double>.zero, MKVector<Double>.zero),
+
+        (MKVector<Double>.identity, MKVector<Double>.zero, MKVector<Double>.zero, MKVector<Double>.identity),
+
+        (MKVector<Double>(dx: 2, dy: 3), MKVector<Double>(dx: 3, dy: 4), MKVector<Double>(dx: 10, dy: 5), MKVector<Double>(dx: 32, dy: 23)),
+
+    ])
+    func addProductDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>, MKVector<Double>)) {
+        let (base, left, right, expect) = args
+
+        #expect(
+            base.addingProduct(left, right).isEqual(to: expect, tolerance: tolerance)
+        )
+
+        var mbase = base
+        mbase.addProduct(left, right)
+
+        #expect(
+            mbase.isEqual(to: expect, tolerance: tolerance)
+        )
     }
 }
 
 extension MKVectorTests {
-    @Test("Magnitude")
-    func magnitude() {
-        let vector = MKVector<Double>(dx: 3, dy: 4)
+    @Test("Divide Scalar <Double>", arguments: [
+        (MKVector<Double>.zero, 1, MKVector<Double>.zero),
+        (MKVector<Double>.identity, 1, MKVector<Double>.identity),
 
-        #expect(
-            vector.magnitudeSquared == 25
-        )
+        (MKVector<Double>(dx: 4, dy: 8), 1, MKVector<Double>(dx: 4, dy: 8)),
+        (MKVector<Double>(dx: 4, dy: 8), -1, MKVector<Double>(dx: -4, dy: -8)),
 
-        #expect(
-            vector.magnitude == 5
-        )
+        (MKVector<Double>(dx: 4, dy: 8), 10, MKVector<Double>(dx: 0.4, dy: 0.8)),
+        (MKVector<Double>(dx: 4, dy: 8), -10, MKVector<Double>(dx: -0.4, dy: -0.8)),
+
+    ])
+    func divScalarDouble(_ args: (MKVector<Double>, Double, MKVector<Double>)) throws {
+        let (pt, scalar, expect) = args
+
+        #expect((pt / scalar).isEqual(to: expect, tolerance: tolerance))
+        var mp = pt
+        mp /= scalar
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
     }
 
-    @Test("Normalize")
-    func normalize() {
-        var vector = MKVector<Double>(dx: -30, dy: 40)
+    @Test("Divide <Double>", arguments: [
+        (MKVector<Double>.zero, MKVector<Double>.identity, MKVector<Double>.zero),
+        (MKVector<Double>.identity, MKVector<Double>.identity, MKVector<Double>.identity),
+
+        (MKVector<Double>(dx: 4, dy: 8), MKVector<Double>.identity, MKVector<Double>(dx: 4, dy: 8)),
+        (MKVector<Double>(dx: 4, dy: 8), -MKVector<Double>.identity, MKVector<Double>(dx: -4, dy: -8)),
+
+        (MKVector<Double>(dx: 4, dy: 8), MKVector<Double>(dx: 2, dy: 4), MKVector<Double>(dx: 2, dy: 2)),
+        (MKVector<Double>(dx: 4, dy: 8), MKVector<Double>(dx: -2, dy: -4), MKVector<Double>(dx: -2, dy: -2)),
+
+    ])
+    func divDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) throws {
+        let (pt, divider, expect) = args
+
+        #expect((pt / divider).isEqual(to: expect, tolerance: tolerance))
+        var mp = pt
+        mp /= divider
+        #expect(mp.isEqual(to: expect, tolerance: tolerance))
+    }
+}
+
+extension MKVectorTests {
+    @Test("Magnitude <Double>", arguments: [
+        (MKVector<Double>.zero, 0),
+
+        (MKVector<Double>(dx: 0, dy: 1), 1),
+        (MKVector<Double>(dx: 1, dy: 0), 1),
+
+        (MKVector<Double>(dx: 0, dy: -1), 1),
+        (MKVector<Double>(dx: -1, dy: 0), 1),
+
+        (MKVector<Double>(dx: 0, dy: 5), 5),
+        (MKVector<Double>(dx: 5, dy: 0), 5),
+
+        (MKVector<Double>(dx: 0, dy: -5), 5),
+        (MKVector<Double>(dx: -5, dy: 0), 5),
+
+        (MKVector<Double>(dx: 3, dy: 4), 5),
+        (MKVector<Double>(dx: -3, dy: -4), 5),
+        (MKVector<Double>(dx: 3, dy: -4), 5),
+        (MKVector<Double>(dx: -3, dy: 4), 5),
+    ])
+    func magnitudeDouble(_ args: (MKVector<Double>, Double)) {
+        let (pt, expect) = args
+
+        #expect(pt.magnitudeSquared.isEqual(to: expect * expect, tolerance: tolerance))
+        #expect(pt.magnitude.isEqual(to: expect, tolerance: tolerance))
+    }
+}
+
+extension MKVectorTests {
+    @Test("Normalize", arguments: [
+        (MKVector<Double>.identity, MKVector<Double>(dx: 0.7071067812, dy: 0.7071067812)),
+        (MKVector<Double>(dx: 0.7071067812, dy: 0.7071067812), MKVector<Double>(dx: 0.7071067812, dy: 0.7071067812)),
+
+        (MKVector<Double>(dx: 30, dy: 40), MKVector<Double>(dx: 0.6, dy: 0.8)),
+        (MKVector<Double>(dx: -30, dy: 40), MKVector<Double>(dx: -0.6, dy: 0.8)),
+        (MKVector<Double>(dx: -30, dy: -40), MKVector<Double>(dx: -0.6, dy: -0.8)),
+        (MKVector<Double>(dx: 30, dy: -40), MKVector<Double>(dx: 0.6, dy: -0.8)),
+    ])
+    func normalizeDouble(_ args: (MKVector<Double>, MKVector<Double>)) {
+        let (vec, expect) = args
 
         #expect(
-            vector.normalized() == MKVector<Double>(dx: -3 / 5, dy: 4 / 5)
+            vec.normalized().isEqual(to: expect, tolerance: tolerance)
         )
 
-        vector.normalize()
+        var mvec = vec
+        mvec.normalize()
 
         #expect(
-            vector == MKVector<Double>(dx: -3 / 5, dy: 4 / 5)
+            mvec.isEqual(to: expect, tolerance: tolerance)
         )
 
         #expect(
-            vector.magnitudeSquared == 1
+            mvec.magnitudeSquared.isEqual(to: 1, tolerance: tolerance)
         )
     }
 

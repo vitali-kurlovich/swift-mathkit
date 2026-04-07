@@ -2,7 +2,7 @@
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
-public nonisolated struct MKVector<Float: FloatingPoint & Sendable>: Hashable, Sendable {
+public struct MKVector<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     public var dx: Float
     public var dy: Float
 
