@@ -18,6 +18,15 @@ private let lowTolerance: Float16 = 0.1
 struct MKAffineTransformComponentsTests {}
 
 extension MKAffineTransformComponentsTests {
+    @Test("Zero")
+    func zero() {
+        #expect(MKAffineTransformComponents<Double>.zero.translation == .zero)
+        #expect(MKAffineTransformComponents<Double>.zero.rotation == .zero)
+        #expect(MKAffineTransformComponents<Double>.zero.scale == .identity)
+    }
+}
+
+extension MKAffineTransformComponentsTests {
     @Test("Identity <Double>")
     func identityDouble() {
         let tr = MKAffineTransform<Double>.identity

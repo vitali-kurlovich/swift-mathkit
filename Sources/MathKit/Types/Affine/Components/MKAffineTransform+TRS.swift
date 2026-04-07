@@ -4,11 +4,11 @@
 
 import Foundation
 
-public extension MKAffineTransform {
+public extension MKAffineTransform where Float == Double {
     /// Translate   Rotate  Scale
     @inlinable init(translation: MKVector<Float> = .zero,
                     rotation: MKAngle<Float> = .zero,
-                    scale: MKSize<Float> = .identity) where Float == Double
+                    scale: MKSize<Float> = .identity)
     {
         if rotation == .zero {
             self.init(m11: 1, m12: 0,
@@ -31,10 +31,17 @@ public extension MKAffineTransform {
         }
     }
 
+    @inlinable
+    init(_ components: MKAffineTransformComponents<Float>) {
+        self.init(translation: components.translation, rotation: components.rotation, scale: components.scale)
+    }
+}
+
+public extension MKAffineTransform where Float == Swift.Float {
     /// Translate   Rotate  Scale
     @inlinable init(translation: MKVector<Float> = .zero,
                     rotation: MKAngle<Float> = .zero,
-                    scale: MKSize<Float> = .identity) where Float == Swift.Float
+                    scale: MKSize<Float> = .identity)
     {
         if rotation == .zero {
             self.init(m11: 1, m12: 0,
@@ -57,10 +64,17 @@ public extension MKAffineTransform {
         }
     }
 
+    @inlinable
+    init(_ components: MKAffineTransformComponents<Float>) {
+        self.init(translation: components.translation, rotation: components.rotation, scale: components.scale)
+    }
+}
+
+public extension MKAffineTransform where Float == CGFloat {
     /// Translate   Rotate  Scale
     @inlinable init(translation: MKVector<Float> = .zero,
                     rotation: MKAngle<Float> = .zero,
-                    scale: MKSize<Float> = .identity) where Float == CGFloat
+                    scale: MKSize<Float> = .identity)
     {
         if rotation == .zero {
             self.init(m11: 1, m12: 0,
@@ -83,10 +97,17 @@ public extension MKAffineTransform {
         }
     }
 
+    @inlinable
+    init(_ components: MKAffineTransformComponents<Float>) {
+        self.init(translation: components.translation, rotation: components.rotation, scale: components.scale)
+    }
+}
+
+public extension MKAffineTransform where Float == Float16 {
     /// Translate   Rotate  Scale
     @inlinable init(translation: MKVector<Float> = .zero,
                     rotation: MKAngle<Float> = .zero,
-                    scale: MKSize<Float> = .identity) where Float == Float16
+                    scale: MKSize<Float> = .identity)
     {
         if rotation == .zero {
             self.init(m11: 1, m12: 0,
@@ -107,5 +128,10 @@ public extension MKAffineTransform {
             m21 *= scale.height
             m22 *= scale.height
         }
+    }
+
+    @inlinable
+    init(_ components: MKAffineTransformComponents<Float>) {
+        self.init(translation: components.translation, rotation: components.rotation, scale: components.scale)
     }
 }

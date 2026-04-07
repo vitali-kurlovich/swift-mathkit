@@ -1,13 +1,8 @@
 //
-//  MKAffineTransformComponents+MKAffineTransform.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 07.04.2026.
 //
 
 import Foundation
-
-
 
 public extension MKAffineTransform {
     @inlinable
@@ -62,4 +57,3 @@ public extension MKAffineTransform {
         return .init(translation: translation, rotation: rotation, scale: scale)
     }
 }
-

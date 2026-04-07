@@ -84,10 +84,6 @@ extension MKPointTests {
 }
 
 extension MKPointTests {
-    typealias Point = MKPoint<Double>
-    typealias Vector = MKVector<Double>
-    typealias Size = MKSize<Double>
-
     @Test("Zero")
     func zero() {
         #expect(MKPoint<Double>.zero.x == 0)
@@ -426,25 +422,25 @@ extension MKPointTests {
     }
 
     @Test("Dot", arguments: [
-        (Point(x: 0, y: 1), Point(x: 0, y: 1), 1.0),
-        (Point(x: 0, y: -1), Point(x: 0, y: 1), -1.0),
-        (Point(x: -6, y: 3), Point(x: 5, y: -2), -36.0),
-        (Point(x: 10, y: 0), Point(x: 0, y: 10), 0.0),
-        (Point(x: 0.8660254038, y: -0.5), Point(x: 0.5, y: 0.8660254038), 0.0),
+        (MKPoint<Double>(x: 0, y: 1), MKPoint<Double>(x: 0, y: 1), 1.0),
+        (MKPoint<Double>(x: 0, y: -1), MKPoint<Double>(x: 0, y: 1), -1.0),
+        (MKPoint<Double>(x: -6, y: 3), MKPoint<Double>(x: 5, y: -2), -36.0),
+        (MKPoint<Double>(x: 10, y: 0), MKPoint<Double>(x: 0, y: 10), 0.0),
+        (MKPoint<Double>(x: 0.8660254038, y: -0.5), MKPoint<Double>(x: 0.5, y: 0.8660254038), 0.0),
     ])
-    func _dot(_ args: (Point, Point, Double)) {
+    func dotDouble(_ args: (MKPoint<Double>, MKPoint<Double>, Double)) {
         let (first, second, expect) = args
         #expect(first.dot(second).isEqual(to: expect, tolerance: tolerance))
     }
 
     @Test("Cross", arguments: [
-        (Point(x: 10, y: 0), Point(x: 0, y: 10), 100.0),
-        (Point(x: 0, y: 10), Point(x: 10, y: 0), -100.0),
-        (Point(x: 10, y: 0), Point(x: 10, y: 10), 100.0),
-        (Point(x: 0.8660254038, y: -0.5), Point(x: 0.5, y: 0.8660254038), 1.0),
+        (MKPoint<Double>(x: 10, y: 0), MKPoint<Double>(x: 0, y: 10), 100.0),
+        (MKPoint<Double>(x: 0, y: 10), MKPoint<Double>(x: 10, y: 0), -100.0),
+        (MKPoint<Double>(x: 10, y: 0), MKPoint<Double>(x: 10, y: 10), 100.0),
+        (MKPoint<Double>(x: 0.8660254038, y: -0.5), MKPoint<Double>(x: 0.5, y: 0.8660254038), 1.0),
 
     ])
-    func _cross(_ args: (Point, Point, Double)) {
+    func cross(_ args: (MKPoint<Double>, MKPoint<Double>, Double)) {
         let (first, second, expect) = args
         #expect(first.cross(second).isEqual(to: expect, tolerance: tolerance))
     }
