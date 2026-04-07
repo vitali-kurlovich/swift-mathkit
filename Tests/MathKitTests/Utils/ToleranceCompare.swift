@@ -41,6 +41,13 @@ public extension MKPoint {
     }
 }
 
+public extension MKUnitPoint {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        x.isEqual(to: other.x, tolerance: tolerance) &&
+            y.isEqual(to: other.y, tolerance: tolerance)
+    }
+}
+
 public extension MKVector {
     func isEqual(to other: Self, tolerance: Float) -> Bool {
         dx.isEqual(to: other.dx, tolerance: tolerance) &&

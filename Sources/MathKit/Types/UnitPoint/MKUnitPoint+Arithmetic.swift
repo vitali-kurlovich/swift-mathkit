@@ -1,8 +1,8 @@
 //
-//  Created by Vitali Kurlovich on 10.01.26.
+//  Created by Vitali Kurlovich on 07.04.2026.
 //
 
-public extension MKPoint {
+public extension MKUnitPoint {
     @inlinable static prefix func - (_ point: Self) -> Self {
         .init(x: -point.x, y: -point.y)
     }
@@ -13,7 +13,7 @@ public extension MKPoint {
     }
 }
 
-public extension MKPoint {
+public extension MKUnitPoint {
     @inlinable static func * (point: Self, scalar: Float) -> Self {
         return .init(x: point.x * scalar, y: point.y * scalar)
     }
@@ -35,7 +35,7 @@ public extension MKPoint {
     }
 }
 
-public extension MKPoint {
+public extension MKUnitPoint {
     @inlinable static func * (left: Self, right: Self) -> Self {
         .init(x: left.x * right.x, y: left.y * right.y)
     }
@@ -53,7 +53,7 @@ public extension MKPoint {
     }
 }
 
-public extension MKPoint {
+public extension MKUnitPoint {
     @inlinable func addingProduct(_ left: Self, _ right: Self) -> Self {
         .init(x: x.addingProduct(left.x, right.x), y: y.addingProduct(left.y, right.y))
     }

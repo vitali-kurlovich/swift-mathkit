@@ -16,11 +16,7 @@ public nonisolated struct MKRect<Float: FloatingPoint & Sendable>: Hashable, Sen
 }
 
 public extension MKRect {
-    @inlinable init() {
-        self.init(origin: .zero, size: .zero)
-    }
-
-    @inlinable init(x: Float, y: Float, width: Float, height: Float) {
+    @inlinable init(x: Float = 0, y: Float = 0, width: Float = 0, height: Float = 0) {
         self.init(origin: .init(x: x, y: y), size: .init(width: width, height: height))
     }
 
