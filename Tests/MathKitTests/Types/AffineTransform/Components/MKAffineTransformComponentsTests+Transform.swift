@@ -58,12 +58,32 @@ extension MKAffineTransformComponentsTests {
         )
 
         #expect(
+            p.applying(comp.affine).isEqual(to: expect, tolerance: tolerance)
+        )
+
+        #expect(
             comp.transform(p).isEqual(to: expect, tolerance: tolerance)
         )
 
         let tr = MKAffineTransform(comp)
         #expect(
             p.applying(tr).isEqual(to: expect, tolerance: tolerance)
+        )
+
+        // - Inverse
+        #expect(
+            expect.applyingInverse(comp).isEqual(to: p, tolerance: tolerance)
+        )
+
+        #expect(
+            expect.applying(comp.inverseAffine).isEqual(to: p, tolerance: tolerance)
+        )
+
+        #expect(
+            comp.affine.inverse(expect).isEqual(to: p, tolerance: tolerance)
+        )
+        #expect(
+            comp.inverse(expect).isEqual(to: p, tolerance: tolerance)
         )
     }
 }
@@ -112,12 +132,32 @@ extension MKAffineTransformComponentsTests {
         )
 
         #expect(
+            p.applying(comp.affine).isEqual(to: expect, tolerance: tolerance)
+        )
+
+        #expect(
             comp.transform(p).isEqual(to: expect, tolerance: tolerance)
         )
 
         let tr = MKAffineTransform(comp)
         #expect(
             p.applying(tr).isEqual(to: expect, tolerance: tolerance)
+        )
+
+        // - Inverse
+        #expect(
+            expect.applyingInverse(comp).isEqual(to: p, tolerance: tolerance)
+        )
+
+        #expect(
+            expect.applying(comp.inverseAffine).isEqual(to: p, tolerance: tolerance)
+        )
+
+        #expect(
+            comp.affine.inverse(expect).isEqual(to: p, tolerance: tolerance)
+        )
+        #expect(
+            comp.inverse(expect).isEqual(to: p, tolerance: tolerance)
         )
     }
 }
@@ -166,12 +206,32 @@ extension MKAffineTransformComponentsTests {
         )
 
         #expect(
+            p.applying(comp.affine).isEqual(to: expect, tolerance: halfTolerance)
+        )
+
+        #expect(
             comp.transform(p).isEqual(to: expect, tolerance: halfTolerance)
         )
 
         let tr = MKAffineTransform(comp)
         #expect(
             p.applying(tr).isEqual(to: expect, tolerance: halfTolerance)
+        )
+
+        // - Inverse
+        #expect(
+            expect.applyingInverse(comp).isEqual(to: p, tolerance: halfTolerance)
+        )
+
+        #expect(
+            expect.applying(comp.inverseAffine).isEqual(to: p, tolerance: halfTolerance)
+        )
+
+        #expect(
+            comp.affine.inverse(expect).isEqual(to: p, tolerance: halfTolerance)
+        )
+        #expect(
+            comp.inverse(expect).isEqual(to: p, tolerance: halfTolerance)
         )
     }
 }
@@ -220,12 +280,32 @@ extension MKAffineTransformComponentsTests {
         )
 
         #expect(
+            p.applying(comp.affine).isEqual(to: expect, tolerance: lowTolerance)
+        )
+
+        #expect(
             comp.transform(p).isEqual(to: expect, tolerance: lowTolerance)
         )
 
         let tr = MKAffineTransform(comp)
         #expect(
             p.applying(tr).isEqual(to: expect, tolerance: lowTolerance)
+        )
+
+        // - Inverse
+        #expect(
+            expect.applyingInverse(comp).isEqual(to: p, tolerance: lowTolerance)
+        )
+
+        #expect(
+            expect.applying(comp.inverseAffine).isEqual(to: p, tolerance: lowTolerance)
+        )
+
+        #expect(
+            comp.affine.inverse(expect).isEqual(to: p, tolerance: lowTolerance)
+        )
+        #expect(
+            comp.inverse(expect).isEqual(to: p, tolerance: lowTolerance)
         )
     }
 }
