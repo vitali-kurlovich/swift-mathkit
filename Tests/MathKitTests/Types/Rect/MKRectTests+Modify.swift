@@ -39,38 +39,3 @@ extension MKRectTests {
         )
     }
 }
-
-extension MKRectTests {
-    @Test("Union <Double>", arguments: [
-        (MKRect<Double>.zero, MKRect<Double>.zero, MKRect<Double>.zero),
-
-        (MKRect<Double>.zero, MKRect<Double>.null, MKRect<Double>.zero),
-        (MKRect<Double>.null, MKRect<Double>.zero, MKRect<Double>.zero),
-
-        (MKRect<Double>.null, MKRect<Double>.null, MKRect<Double>.null),
-
-        (MKRect<Double>.infinite, MKRect<Double>.zero, MKRect<Double>.infinite),
-        (MKRect<Double>.zero, MKRect<Double>.infinite, MKRect<Double>.infinite),
-
-        (MKRect<Double>(x: -1, y: 2), MKRect<Double>.null, MKRect<Double>(x: -1, y: 2)),
-        (MKRect<Double>.null, MKRect<Double>(x: -1, y: 2), MKRect<Double>(x: -1, y: 2)),
-
-        (MKRect<Double>.infinite, MKRect<Double>(x: -1, y: 2), MKRect<Double>.infinite),
-        (MKRect<Double>(x: -1, y: 2), MKRect<Double>.infinite, MKRect<Double>.infinite),
-
-        (MKRect<Double>(x: -1, y: 2), MKRect<Double>.zero, MKRect<Double>(x: -1, y: 0, width: 1, height: 2)),
-        (MKRect<Double>(x: -1, y: -2), MKRect<Double>(x: 2, y: 1), MKRect<Double>(x: -1, y: -2, width: 3, height: 3)),
-    ])
-    func unionDouble(_ args: (MKRect<Double>, MKRect<Double>, MKRect<Double>)) {
-        let (first, second, expect) = args
-        #expect(first.union(second).isEqual(to: expect, tolerance: tolerance))
-        #expect(second.union(first).isEqual(to: expect, tolerance: tolerance))
-
-        let cgFirst = CGRect(first)
-        let cgSecond = CGRect(second)
-
-        #expect(
-            MKRect<Double>(cgFirst.union(cgSecond)).isEqual(to: expect, tolerance: tolerance)
-        )
-    }
-}

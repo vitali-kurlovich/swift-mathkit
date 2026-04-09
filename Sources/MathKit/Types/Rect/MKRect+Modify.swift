@@ -28,28 +28,3 @@ public extension MKRect {
         return rect
     }
 }
-
-public extension MKRect {
-    @inlinable
-    func union(_ other: MKRect<Float>) -> MKRect<Float> {
-        if isInfinite || other.isInfinite {
-            return .infinite
-        }
-
-        if isNull {
-            return other
-        }
-
-        if other.isNull {
-            return self
-        }
-
-        let minX = min(self.minX, other.minX)
-        let minY = min(self.minY, other.minY)
-
-        let maxX = max(self.maxX, other.maxX)
-        let maxY = max(self.maxY, other.maxY)
-
-        return MKRect<Float>(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
-    }
-}
