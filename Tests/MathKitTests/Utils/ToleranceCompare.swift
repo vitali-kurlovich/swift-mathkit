@@ -9,7 +9,7 @@ public extension FloatingPoint {
     func isEqual(to other: Self, tolerance: Self) -> Bool {
         // Ensure the tolerance is non-negative
         assert(tolerance >= 0)
-        return abs(self - other) <= tolerance
+        return self == other || abs(self - other) <= tolerance
     }
 }
 

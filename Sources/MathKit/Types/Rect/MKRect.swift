@@ -1,7 +1,4 @@
 //
-//  MKRect.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
@@ -24,8 +21,34 @@ public extension MKRect {
         .init()
     }
 
+    @inlinable static var infinite: Self {
+        .init(x: -Float.greatestFiniteMagnitude.ulp,
+              y: -Float.greatestFiniteMagnitude.ulp,
+              width: Float.greatestFiniteMagnitude.ulp + Float.greatestFiniteMagnitude.ulp,
+              height: Float.greatestFiniteMagnitude.ulp + Float.greatestFiniteMagnitude.ulp)
+    }
+
+    @inlinable static var null: Self {
+        .init(x: Float.infinity, y: Float.infinity)
+    }
+
     @inlinable static var identity: Self {
         .init(origin: .zero, size: .identity)
+    }
+}
+
+public extension MKRect {
+    @inlinable var isEmpty: Bool {
+        size.width == 0 || size.height == 0
+    }
+
+    @inlinable var isInfinite: Bool {
+        width == Float.greatestFiniteMagnitude.ulp + Float.greatestFiniteMagnitude.ulp &&
+            height == Float.greatestFiniteMagnitude.ulp + Float.greatestFiniteMagnitude.ulp
+    }
+
+    @inlinable var isNull: Bool {
+        x == Float.infinity && y == Float.infinity
     }
 }
 
