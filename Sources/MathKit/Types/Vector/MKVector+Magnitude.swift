@@ -17,10 +17,12 @@ public extension MKVector {
 }
 
 public extension MKVector {
+    @inlinable
     func normalized() -> Self {
         MathKit.normalize(self)
     }
 
+    @inlinable
     mutating func normalize() {
         self /= magnitude
     }

@@ -83,6 +83,14 @@ public extension MKAffineTransformComponents {
     }
 }
 
+public extension MKPivot {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        center.isEqual(to: other.center, tolerance: tolerance) &&
+            x.isEqual(to: other.x, tolerance: tolerance) &&
+            y.isEqual(to: other.y, tolerance: tolerance)
+    }
+}
+
 public extension MKVectorComponents {
     func isEqual(to other: Self, tolerance: Float) -> Bool {
         magnitude.isEqual(to: other.magnitude, tolerance: tolerance) &&
