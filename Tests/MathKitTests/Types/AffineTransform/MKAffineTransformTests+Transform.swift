@@ -11,6 +11,7 @@ private let tolerance: Double = 0.00000001
 extension MKAffineTransformTests {
     @Test("Transform Point <Double>", arguments: [
         (MKPoint<Double>.zero, MKAffineTransform<Double>.identity, MKPoint<Double>.zero),
+        (MKPoint<Double>(x: 10, y: 20), MKAffineTransform<Double>.identity, MKPoint<Double>(x: 10, y: 20)),
         (MKPoint<Double>(x: 10, y: 20), MKAffineTransform<Double>(translationX: 2, y: 3), MKPoint<Double>(x: 12, y: 23)),
         (MKPoint<Double>(x: 20, y: 40), MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6), MKPoint<Double>(x: 145, y: 206)),
         (MKPoint<Double>(x: -10, y: 20), MKAffineTransform<Double>(m11: 7, m12: 8, m21: 9, m22: 10, tx: 11, ty: 12), MKPoint<Double>(x: 121, y: 132)),
@@ -35,6 +36,26 @@ extension MKAffineTransformTests {
             let result = affine.transform(CGPoint(p))
             #expect(MKPoint<Double>(result).isEqual(to: expect, tolerance: tolerance))
         #endif
+    }
+}
+
+extension MKAffineTransformTests {
+    @Test("Transform Vector <Double>", arguments: [
+        (MKVector<Double>.zero, MKAffineTransform<Double>.identity, MKVector<Double>.zero),
+        (MKVector<Double>(dx: 10, dy: 20), MKAffineTransform<Double>.identity, MKVector<Double>(dx: 10, dy: 20)),
+        (MKVector<Double>(dx: 10, dy: 20), MKAffineTransform<Double>(translationX: 2, y: 3), MKVector<Double>(dx: 10, dy: 20)),
+        (MKVector<Double>(dx: 10, dy: 20), MKAffineTransform<Double>(scaleX: 2, y: 3), MKVector<Double>(dx: 20, dy: 60)),
+        (MKVector<Double>(dx: 10, dy: 20), MKAffineTransform<Double>(.degrees(90)), MKVector<Double>(dx: -20, dy: 10)),
+    ])
+    func transformVectorDouble(_ args: (MKVector<Double>, MKAffineTransform<Double>, MKVector<Double>)) {
+        let (p, tr, expect) = args
+        #expect(
+            p.applying(tr).isEqual(to: expect, tolerance: tolerance)
+        )
+
+        #expect(
+            tr.transform(p).isEqual(to: expect, tolerance: tolerance)
+        )
     }
 }
 

@@ -10,6 +10,11 @@ public extension MKAffineTransform {
               y: ty.addingProduct(m12, point.x).addingProduct(m22, point.y))
     }
 
+    @inlinable func transform(_ vector: MKVector<Float>) -> MKVector<Float> {
+        .init(dx: (m11 * vector.dx).addingProduct(m21, vector.dy),
+              dy: (m12 * vector.dx).addingProduct(m22, vector.dy))
+    }
+
     @inlinable func transform(_ rect: MKRect<Float>) -> MKRect<Float> {
         let p0 = transform(MKPoint(x: rect.minX, y: rect.minY))
         let p1 = transform(MKPoint(x: rect.maxX, y: rect.minY))
@@ -30,6 +35,12 @@ public extension MKAffineTransform {
 }
 
 public extension MKPoint {
+    @inlinable func applying(_ t: MKAffineTransform<Float>) -> Self {
+        t.transform(self)
+    }
+}
+
+public extension MKVector {
     @inlinable func applying(_ t: MKAffineTransform<Float>) -> Self {
         t.transform(self)
     }
