@@ -4,7 +4,7 @@
 
 import Foundation
 
-public extension MKAffineTransform where Float == Double {
+public extension MKAffineTransform where Float: BinaryFloatingPoint {
     /**
      Creates an affine transformation matrix from rotation value (angle in radians).
      The matrix takes the following form:
@@ -30,57 +30,6 @@ public extension MKAffineTransform where Float == Double {
     }
 }
 
-public extension MKAffineTransform where Float == Swift.Float {
-    @inlinable init(_ angle: MKAngle<Float>) {
-        if angle == .zero {
-            self.init()
-        } else {
-            let (s, c) = angle.sincos
-            self.init(m11: c, m12: s,
-                      m21: -s, m22: c,
-                      tx: 0, ty: 0)
-        }
-    }
-
-    @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
-        .init(angle)
-    }
-}
-
-public extension MKAffineTransform where Float == CGFloat {
-    @inlinable init(_ angle: MKAngle<Float>) {
-        if angle == .zero {
-            self.init()
-        } else {
-            let (s, c) = angle.sincos
-            self.init(m11: c, m12: s,
-                      m21: -s, m22: c,
-                      tx: 0, ty: 0)
-        }
-    }
-
-    @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
-        .init(angle)
-    }
-}
-
-public extension MKAffineTransform where Float == Float16 {
-    @inlinable init(_ angle: MKAngle<Float>) where Float == Float16 {
-        if angle == .zero {
-            self.init()
-        } else {
-            let (s, c) = angle.sincos
-            self.init(m11: c, m12: s,
-                      m21: -s, m22: c,
-                      tx: 0, ty: 0)
-        }
-    }
-
-    @inlinable static func rotation(_ angle: MKAngle<Float>) -> Self {
-        .init(angle)
-    }
-}
-
 public extension MKAffineTransform {
     /**
      Mutates an affine transformation matrix from a rotation value (angle α in radians).
@@ -90,28 +39,8 @@ public extension MKAffineTransform {
      [ -sin α   cos α  0 ]
      [    0       0    1 ]
      */
-    @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == Double {
-        if angle != .zero {
-            let (s, c) = angle.sincos
-            rotate(s: s, c: c)
-        }
-    }
 
-    @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == Swift.Float {
-        if angle != .zero {
-            let (s, c) = angle.sincos
-            rotate(s: s, c: c)
-        }
-    }
-
-    @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == CGFloat {
-        if angle != .zero {
-            let (s, c) = angle.sincos
-            rotate(s: s, c: c)
-        }
-    }
-
-    @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float == Float16 {
+    @inlinable mutating func rotate(_ angle: MKAngle<Float>) where Float: BinaryFloatingPoint {
         if angle != .zero {
             let (s, c) = angle.sincos
             rotate(s: s, c: c)
@@ -120,34 +49,7 @@ public extension MKAffineTransform {
 }
 
 public extension MKAffineTransform {
-    @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == Double {
-        if angle == .zero {
-            return self
-        } else {
-            let (s, c) = angle.sincos
-            return rotated(s: s, c: c)
-        }
-    }
-
-    @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == Swift.Float {
-        if angle == .zero {
-            return self
-        } else {
-            let (s, c) = angle.sincos
-            return rotated(s: s, c: c)
-        }
-    }
-
-    @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == CGFloat {
-        if angle == .zero {
-            return self
-        } else {
-            let (s, c) = angle.sincos
-            return rotated(s: s, c: c)
-        }
-    }
-
-    @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float == Float16 {
+    @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float: BinaryFloatingPoint {
         if angle == .zero {
             return self
         } else {

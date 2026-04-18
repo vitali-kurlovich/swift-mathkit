@@ -7,73 +7,25 @@ import Foundation
 #if canImport(simd)
     import simd
 
-    public extension MKAngle where Float == Double {
+    public extension MKAngle where Float: BinaryFloatingPoint {
         @inlinable var sincos: (Float, Float) {
-            let simdAngle = SIMD2<Double>(radians, radians)
-            let (s, c) = simd.sincos(simdAngle)
-            return (s.x, c.x)
-        }
-    }
+            let double = Double(radians)
 
-    public extension MKAngle where Float == Swift.Float {
-        @inlinable var sincos: (Float, Float) {
-            let simdAngle = SIMD2(radians, radians)
+            let simdAngle = SIMD2<Double>(double, double)
             let (s, c) = simd.sincos(simdAngle)
-            return (s.x, c.x)
-        }
-    }
 
-    public extension MKAngle where Float == Float16 {
-        @inlinable var sincos: (Float, Float) {
-            let simdAngle = SIMD2(Swift.Float(radians), Swift.Float(radians))
-            let (s, c) = simd.sincos(simdAngle)
-            return (Float(s.x), Float(c.x))
-        }
-    }
-
-    public extension MKAngle where Float == CGFloat {
-        @inlinable var sincos: (Float, Float) {
-            let simdAngle = SIMD2(Double(radians), Double(radians))
-            let (s, c) = simd.sincos(simdAngle)
             return (Float(s.x), Float(c.x))
         }
     }
 
 #else
 
-    public extension MKAngle where Float == Double {
+    public extension MKAngle where Float: BinaryFloatingPoint {
         @inlinable var sincos: (Float, Float) {
-            let s = sin(radians)
-            let c = cos(radians)
-
-            return (s, c)
-        }
-    }
-
-    public extension MKAngle where Float == Swift.Float {
-        @inlinable var sincos: (Float, Float) {
-            let s = sin(radians)
-            let c = cos(radians)
-
-            return (s, c)
-        }
-    }
-
-    public extension MKAngle where Float == Float16 {
-        @inlinable var sincos: (Float, Float) {
-            let s = sin(Swift.Float(radians))
-            let c = cos(Swift.Float(radians))
+            let s = sin(Double(radians))
+            let c = cos(Double(radians))
 
             return (Float(s), Float(c))
-        }
-    }
-
-    public extension MKAngle where Float == CGFloat {
-        @inlinable var sincos: (Float, Float) {
-            let s = sin(radians)
-            let c = cos(radians)
-
-            return (s, c)
         }
     }
 

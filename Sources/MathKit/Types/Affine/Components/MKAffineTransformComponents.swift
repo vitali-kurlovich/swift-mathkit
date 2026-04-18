@@ -2,8 +2,6 @@
 //  Created by Vitali Kurlovich on 01.04.2026.
 //
 
-import Foundation
-
 public struct MKAffineTransformComponents<Float: FloatingPoint & Sendable>: Hashable, Sendable {
     @inlinable
     public init(translation: MKVector<Float> = .zero, rotation: MKAngle<Float> = .zero, scale: MKSize<Float> = .identity) {

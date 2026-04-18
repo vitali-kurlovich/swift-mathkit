@@ -13,7 +13,6 @@ let package = Package(
     ],
     products: [
         .library(name: "MathKit", targets: ["MathKit"]),
-        .library(name: "MathTransform", targets: ["MathTransform"]),
     ],
     dependencies: [
         .package(url: "https://github.com/vitali-kurlovich/Benchmarks", from: "0.3.0"),
@@ -29,11 +28,6 @@ let package = Package(
             ]
         ),
 
-        .target(
-            name: "MathTransform",
-            dependencies: ["MathKit"]
-        ),
-
         .testTarget(
             name: "MathKitTests",
             dependencies: [
@@ -41,17 +35,10 @@ let package = Package(
             ]
         ),
 
-        .testTarget(
-            name: "MathTransformTests",
-            dependencies: [
-                "MathKit", "MathTransform",
-            ]
-        ),
-
         .executableTarget(
             name: "MathKitBenchmarks",
             dependencies: [
-                "MathKit", "MathTransform",
+                "MathKit",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "Benchmarks",
             ],
