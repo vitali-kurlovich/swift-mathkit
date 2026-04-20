@@ -155,29 +155,3 @@ extension MKObject {
         }
     }
 }
-
-import SwiftUI
-
-#Preview {
-    @Previewable @StateObject var scene = MKScene([MKObject.example])
-
-    @Previewable @State var angle = 30.0
-
-    let startDate = Date.now
-
-    VStack {
-        MKSceneView(scene: scene)
-
-        Button("Rotate") {
-            scene.objects.first?.rotation = .degrees(angle)
-        }
-        Text("Angle:\(angle)")
-            .onChange(of: angle) {
-                scene.objects.first?.rotation = .degrees(angle)
-            }
-
-        Slider(value: $angle, in: 0 ... 360)
-    }.onAppear {
-        scene.objects.first?.rotation = .degrees(angle)
-    }
-}
