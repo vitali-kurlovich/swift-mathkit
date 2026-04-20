@@ -37,7 +37,7 @@
     #Preview {
         @Previewable @StateObject var scene = MKScene([MKObject.example])
 
-        @Previewable @State var angle = 0.0
+        @Previewable @State var angle = 30.0
 
         let startDate = Date.now
 
@@ -50,6 +50,8 @@
                 }
 
             Slider(value: $angle, in: 0 ... 360)
+        }.onAppear {
+            scene.objects.first?.rotation = .degrees(angle)
         }
     }
 
