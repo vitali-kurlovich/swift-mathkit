@@ -43,7 +43,7 @@
 
         VStack {
             MKSceneView(scene: scene)
-           
+
             Text("Angle:\(angle)")
                 .onChange(of: angle) {
                     scene.objects.first?.rotation = .degrees(angle)

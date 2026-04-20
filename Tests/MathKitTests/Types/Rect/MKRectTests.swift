@@ -96,6 +96,15 @@ extension MKRectTests {
         let (rect, expect) = args
 
         #expect(rect.isInfinite == expect)
+
+        #if canImport(CoreGraphics)
+            let cgRect = CGRect(rect)
+            #expect(cgRect.isInfinite == expect)
+
+            let rev = MKRect<Double>(cgRect)
+            #expect(rev.isInfinite == expect)
+
+        #endif
     }
 
     @Test("isNull", arguments: [
@@ -111,6 +120,15 @@ extension MKRectTests {
         let (rect, expect) = args
 
         #expect(rect.isNull == expect)
+
+        #if canImport(CoreGraphics)
+            let cgRect = CGRect(rect)
+            #expect(cgRect.isNull == expect)
+
+            let rev = MKRect<Double>(cgRect)
+            #expect(rev.isNull == expect)
+
+        #endif
     }
 }
 

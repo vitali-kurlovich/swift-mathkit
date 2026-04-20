@@ -5,13 +5,25 @@
 import Foundation
 
 public extension MKRect {
-    @inlinable init(_ rect: CGRect) where Float: BinaryFloatingPoint {
-        self.init(origin: .init(rect.origin), size: .init(rect.size))
+    init(_ rect: CGRect) where Float: BinaryFloatingPoint {
+        if rect.isInfinite {
+            self = .infinite
+        } else if rect.isNull {
+            self = .null
+        } else {
+            self.init(origin: .init(rect.origin), size: .init(rect.size))
+        }
     }
 }
 
 public extension CGRect {
-    @inlinable init<F: BinaryFloatingPoint>(_ rect: MKRect<F>) {
-        self.init(origin: .init(rect.origin), size: .init(rect.size))
+    init<F: BinaryFloatingPoint>(_ rect: MKRect<F>) {
+        if rect.isInfinite {
+            self = .infinite
+        } else if rect.isNull {
+            self = .null
+        } else {
+            self.init(origin: .init(rect.origin), size: .init(rect.size))
+        }
     }
 }
