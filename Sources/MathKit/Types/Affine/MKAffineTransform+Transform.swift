@@ -2,7 +2,7 @@
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
-// Transform
+/// Transform
 public extension MKAffineTransform {
     /// Apply transform to the point
     @inlinable func transform(_ point: MKPoint<Float>) -> MKPoint<Float> {

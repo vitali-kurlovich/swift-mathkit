@@ -11,15 +11,15 @@
         }
 
         @inlinable static func * (vector: Self, scalar: CGFloat) -> Self {
-            return .init(dx: vector.dx * scalar, dy: vector.dy * scalar)
+            .init(dx: vector.dx * scalar, dy: vector.dy * scalar)
         }
 
         @inlinable static func * (scalar: CGFloat, vector: Self) -> Self {
-            return .init(dx: vector.dx * scalar, dy: vector.dy * scalar)
+            .init(dx: vector.dx * scalar, dy: vector.dy * scalar)
         }
 
         @inlinable static func / (left: Self, scalar: CGFloat) -> Self {
-            return .init(dx: left.dx / scalar, dy: left.dy / scalar)
+            .init(dx: left.dx / scalar, dy: left.dy / scalar)
         }
     }
 

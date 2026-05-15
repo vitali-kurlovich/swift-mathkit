@@ -13,7 +13,7 @@
 
     public extension CGPoint {
         @inlinable static func + (left: Self, right: CGVector) -> Self {
-            return .init(x: left.x + right.dx, y: left.y + right.dy)
+            .init(x: left.x + right.dx, y: left.y + right.dy)
         }
 
         @inlinable static func + (left: CGVector, right: Self) -> Self {

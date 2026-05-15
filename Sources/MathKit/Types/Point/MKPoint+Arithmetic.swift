@@ -15,7 +15,7 @@ public extension MKPoint {
 
 public extension MKPoint {
     @inlinable static func * (point: Self, scalar: Float) -> Self {
-        return .init(x: point.x * scalar, y: point.y * scalar)
+        .init(x: point.x * scalar, y: point.y * scalar)
     }
 
     @inlinable static func * (scalar: Float, point: Self) -> Self {
@@ -27,7 +27,7 @@ public extension MKPoint {
     }
 
     @inlinable static func / (left: Self, scalar: Float) -> Self {
-        return .init(x: left.x / scalar, y: left.y / scalar)
+        .init(x: left.x / scalar, y: left.y / scalar)
     }
 
     @inlinable static func /= (left: inout Self, scalar: Float) {

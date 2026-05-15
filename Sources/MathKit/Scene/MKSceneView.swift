@@ -16,13 +16,13 @@
         var drag: some Gesture {
             DragGesture(minimumDistance: 0)
                 .onChanged { value in
-                    self.isDragging = true
+                    isDragging = true
 
                     configuration.boundsColor = .cyan
                     point = .init(value.location)
                 }
                 .onEnded { _ in
-                    self.isDragging = false
+                    isDragging = false
                     configuration.boundsColor = .blue
                     point = nil
                 }

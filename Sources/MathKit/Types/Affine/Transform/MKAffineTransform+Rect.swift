@@ -67,14 +67,12 @@ extension MKAffineTransform {
     @inlinable static func transformAspectFit(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
         let aspectRatio = src.size.aspectRatio
 
-        let size: MKSize<Float>
-
-        if target.width <= target.height * aspectRatio {
-            size = .init(width: target.width,
-                         height: target.width / aspectRatio)
+        let size: MKSize<Float> = if target.width <= target.height * aspectRatio {
+            .init(width: target.width,
+                  height: target.width / aspectRatio)
         } else {
-            size = .init(width: target.height * aspectRatio,
-                         height: target.height)
+            .init(width: target.height * aspectRatio,
+                  height: target.height)
         }
 
         let dest = MKRect(origin: target.center - size / 2, size: size)
@@ -85,15 +83,13 @@ extension MKAffineTransform {
     @inlinable static func transformAspectFill(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
         let aspectRatio = src.size.aspectRatio
 
-        let size: MKSize<Float>
-
-        if target.width >= target.height * aspectRatio {
-            size = .init(width: target.width,
-                         height: target.width / aspectRatio)
+        let size: MKSize<Float> = if target.width >= target.height * aspectRatio {
+            .init(width: target.width,
+                  height: target.width / aspectRatio)
 
         } else {
-            size = .init(width: target.height * aspectRatio,
-                         height: target.height)
+            .init(width: target.height * aspectRatio,
+                  height: target.height)
         }
 
         let dest = MKRect(origin: target.center - size / 2, size: size)

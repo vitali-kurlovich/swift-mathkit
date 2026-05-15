@@ -4,7 +4,7 @@
 
 public extension MKPoint {
     @inlinable var magnitudeSquared: Float {
-        return x * x + y * y
+        x * x + y * y
     }
 
     @inlinable var magnitude: Float {

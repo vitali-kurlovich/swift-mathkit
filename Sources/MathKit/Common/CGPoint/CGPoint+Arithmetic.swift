@@ -10,14 +10,14 @@ public extension CGPoint {
     }
 
     @inlinable static func * (point: Self, scalar: CGFloat) -> Self {
-        return .init(x: point.x * scalar, y: point.y * scalar)
+        .init(x: point.x * scalar, y: point.y * scalar)
     }
 
     @inlinable static func * (scalar: CGFloat, point: Self) -> Self {
-        return .init(x: point.x * scalar, y: point.y * scalar)
+        .init(x: point.x * scalar, y: point.y * scalar)
     }
 
     @inlinable static func / (left: Self, scalar: CGFloat) -> Self {
-        return .init(x: left.x / scalar, y: left.y / scalar)
+        .init(x: left.x / scalar, y: left.y / scalar)
     }
 }

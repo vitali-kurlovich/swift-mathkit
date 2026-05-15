@@ -18,7 +18,7 @@ struct MKVectorTests {}
 
     extension MKVectorTests {
         @Test("Constructor <Double>")
-        func constructorDouble() throws {
+        func constructorDouble() {
             let vc = MKVector<Double>(dx: 2, dy: 3)
             let cg = CGVector(vc)
             let conv = MKVector<Double>(cg)
@@ -27,7 +27,7 @@ struct MKVectorTests {}
         }
 
         @Test("Constructor <CGFloat>")
-        func constructorCGFloat() throws {
+        func constructorCGFloat() {
             let vc = MKVector<CGFloat>(dx: 2, dy: 3)
             let cg = CGVector(vc)
             let conv = MKVector<CGFloat>(cg)
@@ -36,7 +36,7 @@ struct MKVectorTests {}
         }
 
         @Test("Constructor <Float>")
-        func constructorFloat() throws {
+        func constructorFloat() {
             let vc = MKVector<Float>(dx: 2, dy: 3)
             let cg = CGVector(vc)
             let conv = MKVector<Float>(cg)
@@ -45,7 +45,7 @@ struct MKVectorTests {}
         }
 
         @Test("Constructor <Float16>")
-        func constructorFloat16() throws {
+        func constructorFloat16() {
             let vc = MKVector<Float16>(dx: 2, dy: 3)
             let cg = CGVector(vc)
             let conv = MKVector<Float16>(cg)
@@ -58,13 +58,13 @@ struct MKVectorTests {}
 
 extension MKVectorTests {
     @Test("Zero")
-    func zero() throws {
+    func zero() {
         #expect(MKVector<Double>.zero.dx == 0)
         #expect(MKVector<Double>.zero.dy == 0)
     }
 
     @Test("Identity")
-    func identity() throws {
+    func identity() {
         #expect(MKVector<Double>.identity.dx == 1)
         #expect(MKVector<Double>.identity.dy == 1)
     }
@@ -77,7 +77,7 @@ extension MKVectorTests {
               (MKVector<Double>.identity, MKVector<Double>(dx: -1, dy: -1)),
               (MKVector<Double>(dx: -2, dy: -3), MKVector<Double>(dx: 2, dy: 3)),
           ])
-    func negative(_ args: (MKVector<Double>, MKVector<Double>)) throws {
+    func negative(_ args: (MKVector<Double>, MKVector<Double>)) {
         let (vec, expect) = args
         #expect((-vec).isEqual(to: expect, tolerance: tolerance))
         var mv = vec
@@ -97,7 +97,7 @@ extension MKVectorTests {
               (MKVector<Double>(dx: 4, dy: 5), MKVector<Double>(dx: 10, dy: 20), MKVector<Double>(dx: 14, dy: 25)),
 
           ])
-    func addDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) throws {
+    func addDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) {
         let (vec, add, expect) = args
 
         #expect((vec + add).isEqual(to: expect, tolerance: tolerance))
@@ -116,7 +116,7 @@ extension MKVectorTests {
               (MKVector<Double>(dx: 4, dy: 5), MKVector<Double>.zero, MKVector<Double>(dx: 4, dy: 5)),
               (MKVector<Double>(dx: 4, dy: 5), MKVector<Double>(dx: 10, dy: 20), MKVector<Double>(dx: -6, dy: -15)),
           ])
-    func subDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) throws {
+    func subDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) {
         let (vec, sub, expect) = args
 
         #expect((vec - sub).isEqual(to: expect, tolerance: tolerance))
@@ -142,7 +142,7 @@ extension MKVectorTests {
         (MKVector<Double>(dx: 4, dy: 8), -10, MKVector<Double>(dx: -40, dy: -80)),
 
     ])
-    func mulScalarDouble(_ args: (MKVector<Double>, Double, MKVector<Double>)) throws {
+    func mulScalarDouble(_ args: (MKVector<Double>, Double, MKVector<Double>)) {
         let (pt, scalar, expect) = args
 
         #expect((pt * scalar).isEqual(to: expect, tolerance: tolerance))
@@ -165,7 +165,7 @@ extension MKVectorTests {
         (MKVector<Double>(dx: 4, dy: 8), MKVector<Double>(dx: -10, dy: -20), MKVector<Double>(dx: -40, dy: -160)),
 
     ])
-    func mulDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) throws {
+    func mulDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) {
         let (pt, mul, expect) = args
 
         #expect((pt * mul).isEqual(to: expect, tolerance: tolerance))
@@ -211,7 +211,7 @@ extension MKVectorTests {
         (MKVector<Double>(dx: 4, dy: 8), -10, MKVector<Double>(dx: -0.4, dy: -0.8)),
 
     ])
-    func divScalarDouble(_ args: (MKVector<Double>, Double, MKVector<Double>)) throws {
+    func divScalarDouble(_ args: (MKVector<Double>, Double, MKVector<Double>)) {
         let (pt, scalar, expect) = args
 
         #expect((pt / scalar).isEqual(to: expect, tolerance: tolerance))
@@ -231,7 +231,7 @@ extension MKVectorTests {
         (MKVector<Double>(dx: 4, dy: 8), MKVector<Double>(dx: -2, dy: -4), MKVector<Double>(dx: -2, dy: -2)),
 
     ])
-    func divDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) throws {
+    func divDouble(_ args: (MKVector<Double>, MKVector<Double>, MKVector<Double>)) {
         let (pt, divider, expect) = args
 
         #expect((pt / divider).isEqual(to: expect, tolerance: tolerance))
@@ -444,7 +444,7 @@ extension MKVectorTests {
 
     extension MKVectorTests {
         @Test("Convert to CGVector")
-        func convert() throws {
+        func convert() {
             let vector = MKVector<Double>(dx: 10.0, dy: 20.0)
             let cgVector = CGVector(CGPoint(x: 20.0, y: 10.0))
 

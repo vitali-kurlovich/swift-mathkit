@@ -5,7 +5,7 @@
 public extension MKRect {
     @inlinable
     func offsetBy(_ offset: MKVector<Float>) -> Self {
-        return offsetBy(dx: offset.dx, dy: offset.dy)
+        offsetBy(dx: offset.dx, dy: offset.dy)
     }
 
     @inlinable
@@ -18,7 +18,7 @@ public extension MKRect {
             return .infinite
         }
 
-        if dx == 0 && dy == 0 {
+        if dx == 0, dy == 0 {
             return self
         }
 
@@ -32,11 +32,11 @@ public extension MKRect {
 public extension MKRect {
     @inlinable
     func inset(by insets: MKEdgeInsets<Float>) -> Self? {
-        let minX = self.minX + insets.left
-        let maxX = self.maxX - insets.right
+        let minX = minX + insets.left
+        let maxX = maxX - insets.right
 
-        let minY = self.minY + insets.top
-        let maxY = self.maxY - insets.bottom
+        let minY = minY + insets.top
+        let maxY = maxY - insets.bottom
 
         let width = maxX - minX
         let height = maxY - minY

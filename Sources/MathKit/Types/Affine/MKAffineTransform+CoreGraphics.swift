@@ -4,7 +4,7 @@
 
 import Foundation
 
-// Transform
+/// Transform
 public extension MKAffineTransform where Float: BinaryFloatingPoint {
     @inlinable func transform(_ point: CGPoint) -> CGPoint {
         .init(transform(MKPoint(point)))
@@ -17,7 +17,7 @@ public extension MKAffineTransform where Float: BinaryFloatingPoint {
     }
 }
 
-// Inverse Transform
+/// Inverse Transform
 public extension MKAffineTransform where Float: BinaryFloatingPoint {
     @inlinable func inverse(_ point: CGPoint) -> CGPoint {
         .init(inverse(MKPoint(point)))
@@ -25,13 +25,13 @@ public extension MKAffineTransform where Float: BinaryFloatingPoint {
 }
 
 public extension CGPoint {
-    @inlinable func applying<Float>(_ t: MKAffineTransform<Float>) -> Self where Float: BinaryFloatingPoint {
+    @inlinable func applying(_ t: MKAffineTransform<some BinaryFloatingPoint>) -> Self {
         t.transform(self)
     }
 }
 
 public extension CGRect {
-    @inlinable func applying<Float>(_ t: MKAffineTransform<Float>) -> Self where Float: BinaryFloatingPoint {
+    @inlinable func applying(_ t: MKAffineTransform<some BinaryFloatingPoint>) -> Self {
         t.transform(self)
     }
 }

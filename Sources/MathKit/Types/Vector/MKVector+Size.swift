@@ -4,7 +4,7 @@
 
 public extension MKVector {
     @inlinable static func + (left: Self, size: MKSize<Float>) -> Self {
-        return .init(dx: left.dx + size.width, dy: left.dy + size.height)
+        .init(dx: left.dx + size.width, dy: left.dy + size.height)
     }
 
     @inlinable static func += (left: inout Self, size: MKSize<Float>) {
@@ -14,7 +14,7 @@ public extension MKVector {
 
 public extension MKVector {
     @inlinable static func - (left: Self, size: MKSize<Float>) -> Self {
-        return .init(dx: left.dx - size.width, dy: left.dy - size.height)
+        .init(dx: left.dx - size.width, dy: left.dy - size.height)
     }
 
     @inlinable static func -= (left: inout Self, size: MKSize<Float>) {

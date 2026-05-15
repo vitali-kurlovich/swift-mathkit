@@ -17,11 +17,11 @@ public extension MKRect {
             return self
         }
 
-        let minX = min(self.minX, other.minX)
-        let minY = min(self.minY, other.minY)
+        let minX = min(minX, other.minX)
+        let minY = min(minY, other.minY)
 
-        let maxX = max(self.maxX, other.maxX)
-        let maxY = max(self.maxY, other.maxY)
+        let maxX = max(maxX, other.maxX)
+        let maxY = max(maxY, other.maxY)
 
         return MKRect<Float>(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
     }
@@ -38,11 +38,11 @@ public extension MKRect {
             return true
         }
 
-        let minX: Float = self.minX <= other.minX ? other.minX : self.minX
-        let maxX: Float = min(self.maxX, other.maxX)
+        let minX: Float = minX <= other.minX ? other.minX : minX
+        let maxX: Float = min(maxX, other.maxX)
 
-        let minY: Float = self.minY <= other.minY ? other.minY : self.minY
-        let maxY: Float = min(self.maxY, other.maxY)
+        let minY: Float = minY <= other.minY ? other.minY : minY
+        let maxY: Float = min(maxY, other.maxY)
 
         return maxX >= minX && maxY >= minY
     }
@@ -61,15 +61,15 @@ public extension MKRect {
             return self
         }
 
-        let minX: Float = self.minX <= other.minX ? other.minX : self.minX
-        let maxX: Float = min(self.maxX, other.maxX)
+        let minX: Float = minX <= other.minX ? other.minX : minX
+        let maxX: Float = min(maxX, other.maxX)
 
         guard maxX >= minX else {
             return nil
         }
 
-        let minY: Float = self.minY <= other.minY ? other.minY : self.minY
-        let maxY: Float = min(self.maxY, other.maxY)
+        let minY: Float = minY <= other.minY ? other.minY : minY
+        let maxY: Float = min(maxY, other.maxY)
 
         guard maxY >= minY else {
             return nil

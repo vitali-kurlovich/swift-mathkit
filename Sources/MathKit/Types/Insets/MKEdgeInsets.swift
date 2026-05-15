@@ -17,5 +17,7 @@ public struct MKEdgeInsets<Float: FloatingPoint & Sendable>: Hashable, Sendable 
 }
 
 public extension MKEdgeInsets {
-    static var zero: Self { .init() }
+    static var zero: Self {
+        .init()
+    }
 }

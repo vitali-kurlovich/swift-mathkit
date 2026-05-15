@@ -15,7 +15,7 @@ public extension MKVector {
 
 public extension MKVector {
     @inlinable static func * (vector: Self, scalar: Float) -> Self {
-        return .init(dx: vector.dx * scalar, dy: vector.dy * scalar)
+        .init(dx: vector.dx * scalar, dy: vector.dy * scalar)
     }
 
     @inlinable static func * (scalar: Float, vector: Self) -> Self {
@@ -27,7 +27,7 @@ public extension MKVector {
     }
 
     @inlinable static func * (left: Self, right: Self) -> Self {
-        return .init(dx: left.dx * right.dx, dy: left.dy * right.dy)
+        .init(dx: left.dx * right.dx, dy: left.dy * right.dy)
     }
 
     @inlinable static func *= (left: inout Self, right: Self) {
@@ -37,11 +37,11 @@ public extension MKVector {
 
 public extension MKVector {
     @inlinable static func / (vector: Self, scalar: Float) -> Self {
-        return .init(dx: vector.dx / scalar, dy: vector.dy / scalar)
+        .init(dx: vector.dx / scalar, dy: vector.dy / scalar)
     }
 
     @inlinable static func / (scalar: Float, vector: Self) -> Self {
-        return .init(dx: scalar / vector.dx, dy: scalar / vector.dy)
+        .init(dx: scalar / vector.dx, dy: scalar / vector.dy)
     }
 
     @inlinable static func /= (left: inout Self, scalar: Float) {
@@ -49,7 +49,7 @@ public extension MKVector {
     }
 
     @inlinable static func / (left: Self, right: Self) -> Self {
-        return .init(dx: left.dx / right.dx, dy: left.dy / right.dy)
+        .init(dx: left.dx / right.dx, dy: left.dy / right.dy)
     }
 
     @inlinable static func /= (left: inout Self, right: Self) {

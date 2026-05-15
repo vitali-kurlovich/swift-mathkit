@@ -5,7 +5,7 @@
 import Foundation
 
 public extension MKAffineTransform where Float: BinaryFloatingPoint {
-    /**
+    /*
      Creates an affine transformation matrix from rotation value (angle in radians).
      The matrix takes the following form:
 
@@ -31,7 +31,7 @@ public extension MKAffineTransform where Float: BinaryFloatingPoint {
 }
 
 public extension MKAffineTransform {
-    /**
+    /*
      Mutates an affine transformation matrix from a rotation value (angle α in radians).
      The matrix takes the following form:
 
@@ -61,8 +61,8 @@ public extension MKAffineTransform {
 
 extension MKAffineTransform {
     @inlinable mutating func rotate(s: Float, c: Float) {
-        let m11 = self.m11
-        let m12 = self.m12
+        let m11 = m11
+        let m12 = m12
 
         self.m11 *= c
         self.m11.addProduct(m21, s)

@@ -4,7 +4,6 @@
 
 #if canImport(CoreGraphics)
     import CoreGraphics
-
     import MathKit
     import Testing
 
@@ -17,7 +16,7 @@
 
     extension CGAffineTransformTests {
         @Test("Constructor <Double>")
-        func constructorDouble() throws {
+        func constructorDouble() {
             let tr = MKAffineTransform<Double>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
             let affine = CGAffineTransform(tr)
 
@@ -27,7 +26,7 @@
         }
 
         @Test("Constructor <CGFloat>")
-        func constructorCGFloat() throws {
+        func constructorCGFloat() {
             let tr = MKAffineTransform<CGFloat>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
             let affine = CGAffineTransform(tr)
 
@@ -37,7 +36,7 @@
         }
 
         @Test("Constructor <Float>")
-        func constructorFloat() throws {
+        func constructorFloat() {
             let tr = MKAffineTransform<Float>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
             let affine = CGAffineTransform(tr)
 
@@ -47,7 +46,7 @@
         }
 
         @Test("Constructor <Float16>")
-        func constructorFloat16() throws {
+        func constructorFloat16() {
             let tr = MKAffineTransform<Float16>(m11: 1, m12: 2, m21: 3, m22: 4, tx: 5, ty: 6)
             let affine = CGAffineTransform(tr)
 

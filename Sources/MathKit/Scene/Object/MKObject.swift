@@ -4,7 +4,7 @@
 
 import Foundation
 
-public class MKObject<Content> where Content: MKContent {
+public class MKObject<Content: MKContent> {
     public typealias Float = Content.Float
 
     public init(_ content: Content) {
@@ -121,7 +121,7 @@ extension MKObject {
 
 extension MKObject {
     func convert(_ point: MKPoint<Float>, from _: MKObject, to _: MKObject) -> MKPoint<Float> {
-        return point
+        point
     }
 }
 

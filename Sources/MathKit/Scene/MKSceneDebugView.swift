@@ -8,7 +8,7 @@
 #if canImport(SwiftUI)
     import SwiftUI
 
-    struct MKSceneDebugConfiguration: Hashable, Sendable {
+    struct MKSceneDebugConfiguration: Hashable {
         var showContentRect: Bool = true
         var showBounds: Bool = true
         var showContentBounds: Bool = true

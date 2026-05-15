@@ -37,7 +37,7 @@ extension MKAffineTransformTests {
               (MKRect<Double>(x: -110, y: -120, width: 20, height: 10), MKRect<Double>(x: -33, y: -20, width: 80, height: 300)),
 
           ])
-    func fillTransform(_ args: (MKRect<Double>, MKRect<Double>)) throws {
+    func fillTransform(_ args: (MKRect<Double>, MKRect<Double>)) {
         let (src, dest) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest)
@@ -77,7 +77,7 @@ extension MKAffineTransformTests {
          MKRect<Double>(x: 10, y: 30, width: 200, height: 400)),
 
     ])
-    func aspectFitTransform(_ args: (MKRect<Double>, MKRect<Double>, MKRect<Double>)) throws {
+    func aspectFitTransform(_ args: (MKRect<Double>, MKRect<Double>, MKRect<Double>)) {
         let (src, dest, expect) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .aspectFit)
@@ -119,7 +119,7 @@ extension MKAffineTransformTests {
          MKRect<Double>(x: 10, y: 10, width: 200, height: 400)),
 
     ])
-    func aspectFillTransform(_ args: (MKRect<Double>, MKRect<Double>, MKRect<Double>)) throws {
+    func aspectFillTransform(_ args: (MKRect<Double>, MKRect<Double>, MKRect<Double>)) {
         let (src, dest, expect) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .aspectFill)
@@ -150,7 +150,7 @@ extension MKAffineTransformTests {
         (MKRect<Double>(x: -50, y: -40, width: 20, height: 10), MKRect<Double>(x: 10, y: -20, width: 200, height: 100)),
         (MKRect<Double>(x: -110, y: -120, width: 420, height: 10), MKRect<Double>(x: -33, y: -20, width: 80, height: 300)),
     ])
-    func centerTransform(_ args: (MKRect<Double>, MKRect<Double>)) throws {
+    func centerTransform(_ args: (MKRect<Double>, MKRect<Double>)) {
         let (src, dest) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .center)
@@ -181,7 +181,7 @@ extension MKAffineTransformTests {
         (MKRect<Double>(x: -50, y: -40, width: 20, height: 10), MKRect<Double>(x: 10, y: -20, width: 200, height: 100)),
         (MKRect<Double>(x: -110, y: -120, width: 420, height: 10), MKRect<Double>(x: -33, y: -20, width: 80, height: 300)),
     ])
-    func topTransform(_ args: (MKRect<Double>, MKRect<Double>)) throws {
+    func topTransform(_ args: (MKRect<Double>, MKRect<Double>)) {
         let (src, dest) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .top)
@@ -212,7 +212,7 @@ extension MKAffineTransformTests {
         (MKRect<Double>(x: -50, y: -40, width: 20, height: 10), MKRect<Double>(x: 10, y: -20, width: 200, height: 100)),
         (MKRect<Double>(x: -110, y: -120, width: 420, height: 10), MKRect<Double>(x: -33, y: -20, width: 80, height: 300)),
     ])
-    func bottomTransform(_ args: (MKRect<Double>, MKRect<Double>)) throws {
+    func bottomTransform(_ args: (MKRect<Double>, MKRect<Double>)) {
         let (src, dest) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .bottom)
@@ -243,7 +243,7 @@ extension MKAffineTransformTests {
         (MKRect<Double>(x: -50, y: -40, width: 20, height: 10), MKRect<Double>(x: 10, y: -20, width: 200, height: 100)),
         (MKRect<Double>(x: -110, y: -120, width: 420, height: 10), MKRect<Double>(x: -33, y: -20, width: 80, height: 300)),
     ])
-    func leftTransform(_ args: (MKRect<Double>, MKRect<Double>)) throws {
+    func leftTransform(_ args: (MKRect<Double>, MKRect<Double>)) {
         let (src, dest) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .left)
@@ -274,7 +274,7 @@ extension MKAffineTransformTests {
         (MKRect<Double>(x: -50, y: -40, width: 20, height: 10), MKRect<Double>(x: 10, y: -20, width: 200, height: 100)),
         (MKRect<Double>(x: -110, y: -120, width: 420, height: 10), MKRect<Double>(x: -33, y: -20, width: 80, height: 300)),
     ])
-    func topLeftTransform(_ args: (MKRect<Double>, MKRect<Double>)) throws {
+    func topLeftTransform(_ args: (MKRect<Double>, MKRect<Double>)) {
         let (src, dest) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .topLeft)
@@ -305,7 +305,7 @@ extension MKAffineTransformTests {
         (MKRect<Double>(x: -50, y: -40, width: 20, height: 10), MKRect<Double>(x: 10, y: -20, width: 200, height: 100)),
         (MKRect<Double>(x: -110, y: -120, width: 420, height: 10), MKRect<Double>(x: -33, y: -20, width: 80, height: 300)),
     ])
-    func bottomLeftTransform(_ args: (MKRect<Double>, MKRect<Double>)) throws {
+    func bottomLeftTransform(_ args: (MKRect<Double>, MKRect<Double>)) {
         let (src, dest) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .bottomLeft)
@@ -336,7 +336,7 @@ extension MKAffineTransformTests {
         (MKRect<Double>(x: -50, y: -40, width: 20, height: 10), MKRect<Double>(x: 10, y: -20, width: 200, height: 100)),
         (MKRect<Double>(x: -110, y: -120, width: 420, height: 10), MKRect<Double>(x: -33, y: -20, width: 80, height: 300)),
     ])
-    func topRightTransform(_ args: (MKRect<Double>, MKRect<Double>)) throws {
+    func topRightTransform(_ args: (MKRect<Double>, MKRect<Double>)) {
         let (src, dest) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .topRight)
@@ -367,7 +367,7 @@ extension MKAffineTransformTests {
         (MKRect<Double>(x: -50, y: -40, width: 20, height: 10), MKRect<Double>(x: 10, y: -20, width: 200, height: 100)),
         (MKRect<Double>(x: -110, y: -120, width: 420, height: 10), MKRect<Double>(x: -33, y: -20, width: 80, height: 300)),
     ])
-    func rightTransform(_ args: (MKRect<Double>, MKRect<Double>)) throws {
+    func rightTransform(_ args: (MKRect<Double>, MKRect<Double>)) {
         let (src, dest) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .right)
@@ -398,7 +398,7 @@ extension MKAffineTransformTests {
         (MKRect<Double>(x: -50, y: -40, width: 20, height: 10), MKRect<Double>(x: 10, y: -20, width: 200, height: 100)),
         (MKRect<Double>(x: -110, y: -120, width: 420, height: 10), MKRect<Double>(x: -33, y: -20, width: 80, height: 300)),
     ])
-    func bottomRightTransform(_ args: (MKRect<Double>, MKRect<Double>)) throws {
+    func bottomRightTransform(_ args: (MKRect<Double>, MKRect<Double>)) {
         let (src, dest) = args
 
         let tr = MKAffineTransform.transform(from: src, to: dest, scaleMode: .bottomRight)

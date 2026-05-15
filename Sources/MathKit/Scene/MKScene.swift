@@ -14,7 +14,7 @@ protocol MKSceneDelegate<Content>: AnyObject {
     func sceneDidChange(_ scene: MKScene<Content>)
 }
 
-class MKScene<Content> where Content: MKContent {
+class MKScene<Content: MKContent> {
     #if canImport(Combine)
         let objectWillChange = ObservableObjectPublisher()
 

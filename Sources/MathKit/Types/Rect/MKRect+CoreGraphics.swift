@@ -17,7 +17,7 @@ public extension MKRect {
 }
 
 public extension CGRect {
-    init<F: BinaryFloatingPoint>(_ rect: MKRect<F>) {
+    init(_ rect: MKRect<some BinaryFloatingPoint>) {
         if rect.isInfinite {
             self = .infinite
         } else if rect.isNull {

@@ -25,7 +25,7 @@ public extension MKPivot {
 public extension MKPivot {
     @inlinable
     static func * (left: Self, scale: Float) -> Self {
-        return .init(center: left.center, x: left.x * scale, y: left.y * scale)
+        .init(center: left.center, x: left.x * scale, y: left.y * scale)
     }
 
     @inlinable

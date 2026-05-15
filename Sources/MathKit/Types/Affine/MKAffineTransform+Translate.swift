@@ -3,7 +3,7 @@
 //
 
 public extension MKAffineTransform {
-    /**
+    /*
      Creates an affine transformation matrix from translation values.
      The matrix takes the following form:
 

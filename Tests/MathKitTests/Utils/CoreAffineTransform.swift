@@ -8,12 +8,29 @@
     typealias CoreAffineTransform = CGAffineTransform
 
     extension CGAffineTransform {
-        var m11: CGFloat { a }
-        var m12: CGFloat { b }
-        var m21: CGFloat { c }
-        var m22: CGFloat { d }
-        var tX: CGFloat { tx }
-        var tY: CGFloat { ty }
+        var m11: CGFloat {
+            a
+        }
+
+        var m12: CGFloat {
+            b
+        }
+
+        var m21: CGFloat {
+            c
+        }
+
+        var m22: CGFloat {
+            d
+        }
+
+        var tX: CGFloat {
+            tx
+        }
+
+        var tY: CGFloat {
+            ty
+        }
     }
 
     extension CGAffineTransform {

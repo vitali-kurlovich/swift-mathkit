@@ -54,11 +54,11 @@ public extension MKSize {
 
 public extension MKSize {
     @inlinable static func * (size: Self, scalar: Float) -> Self {
-        return .init(width: size.width * scalar, height: size.height * scalar)
+        .init(width: size.width * scalar, height: size.height * scalar)
     }
 
     @inlinable static func * (scalar: Float, size: Self) -> Self {
-        return .init(width: size.width * scalar, height: size.height * scalar)
+        .init(width: size.width * scalar, height: size.height * scalar)
     }
 
     @inlinable static func *= (left: inout Self, scalar: Float) {
@@ -66,7 +66,7 @@ public extension MKSize {
     }
 
     @inlinable static func / (size: Self, scalar: Float) -> Self {
-        return .init(width: size.width / scalar, height: size.height / scalar)
+        .init(width: size.width / scalar, height: size.height / scalar)
     }
 
     @inlinable static func /= (left: inout Self, scalar: Float) {

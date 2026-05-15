@@ -7,7 +7,7 @@
     import Foundation
 
     public extension AffineTransform {
-        init<Float: BinaryFloatingPoint>(_ tr: MKAffineTransform<Float>) {
+        init(_ tr: MKAffineTransform<some BinaryFloatingPoint>) {
             self.init(m11: CGFloat(tr.m11), m12: CGFloat(tr.m12),
                       m21: CGFloat(tr.m21), m22: CGFloat(tr.m22),
                       tX: CGFloat(tr.tx), tY: CGFloat(tr.ty))
@@ -15,7 +15,7 @@
     }
 
     public extension NSAffineTransformStruct {
-        init<Float: BinaryFloatingPoint>(_ tr: MKAffineTransform<Float>) {
+        init(_ tr: MKAffineTransform<some BinaryFloatingPoint>) {
             self.init(m11: CGFloat(tr.m11), m12: CGFloat(tr.m12),
                       m21: CGFloat(tr.m21), m22: CGFloat(tr.m22),
                       tX: CGFloat(tr.tx), tY: CGFloat(tr.ty))
@@ -23,7 +23,7 @@
     }
 
     public extension NSAffineTransform {
-        convenience init<Float: BinaryFloatingPoint>(_ tr: MKAffineTransform<Float>) {
+        convenience init(_ tr: MKAffineTransform<some BinaryFloatingPoint>) {
             let t = AffineTransform(tr)
 
             self.init(transform: t)

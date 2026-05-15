@@ -21,7 +21,7 @@ extension MKAngleTests {
     }
 
     @Test("Identity")
-    func identity() throws {
+    func identity() {
         let angle = MKAngle<Double>.identity
 
         #expect(angle.radians == 2 * .pi)
@@ -34,7 +34,7 @@ extension MKAngleTests {
         (MKAngle<Double>.zero, MKAngle<Double>.zero),
         (MKAngle<Double>.radians(.pi / 2), MKAngle<Double>.radians(-.pi / 2)),
     ])
-    func negateDouble(_ args: (MKAngle<Double>, MKAngle<Double>)) throws {
+    func negateDouble(_ args: (MKAngle<Double>, MKAngle<Double>)) {
         let (angle, expect) = args
 
         #expect((-angle).isEqual(to: expect, tolerance: tolerance))
@@ -54,7 +54,7 @@ extension MKAngleTests {
         (MKAngle<Double>.degrees(120), MKAngle<Double>.degrees(-20), MKAngle<Double>.degrees(100)),
 
     ])
-    func addDouble(_ args: (MKAngle<Double>, MKAngle<Double>, MKAngle<Double>)) throws {
+    func addDouble(_ args: (MKAngle<Double>, MKAngle<Double>, MKAngle<Double>)) {
         let (angle, add, expect) = args
 
         #expect((angle + add).isEqual(to: expect, tolerance: tolerance))
@@ -71,7 +71,7 @@ extension MKAngleTests {
         (MKAngle<Double>.degrees(120), MKAngle<Double>.degrees(-20), MKAngle<Double>.degrees(140)),
 
     ])
-    func subDouble(_ args: (MKAngle<Double>, MKAngle<Double>, MKAngle<Double>)) throws {
+    func subDouble(_ args: (MKAngle<Double>, MKAngle<Double>, MKAngle<Double>)) {
         let (angle, add, expect) = args
 
         #expect((angle - add).isEqual(to: expect, tolerance: tolerance))

@@ -101,20 +101,45 @@ public extension MKRect {
 }
 
 public extension MKRect {
-    @inlinable var x: Float { origin.x }
-    @inlinable var y: Float { origin.y }
+    @inlinable var x: Float {
+        origin.x
+    }
 
-    @inlinable var width: Float { size.width }
-    @inlinable var height: Float { size.height }
+    @inlinable var y: Float {
+        origin.y
+    }
+
+    @inlinable var width: Float {
+        size.width
+    }
+
+    @inlinable var height: Float {
+        size.height
+    }
 }
 
 public extension MKRect {
-    @inlinable var minX: Float { origin.x }
-    @inlinable var minY: Float { origin.y }
+    @inlinable var minX: Float {
+        origin.x
+    }
 
-    @inlinable var maxX: Float { origin.x + size.width }
-    @inlinable var maxY: Float { origin.y + size.height }
+    @inlinable var minY: Float {
+        origin.y
+    }
 
-    @inlinable var midX: Float { origin.x + size.width / 2 }
-    @inlinable var midY: Float { origin.y + size.height / 2 }
+    @inlinable var maxX: Float {
+        origin.x + size.width
+    }
+
+    @inlinable var maxY: Float {
+        origin.y + size.height
+    }
+
+    @inlinable var midX: Float {
+        origin.x + size.width / 2
+    }
+
+    @inlinable var midY: Float {
+        origin.y + size.height / 2
+    }
 }

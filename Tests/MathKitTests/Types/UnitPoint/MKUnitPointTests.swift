@@ -21,7 +21,7 @@ extension MKUnitPointTests {
     }
 
     @Test("Identity")
-    func identity() throws {
+    func identity() {
         #expect(MKUnitPoint<Double>.identity.x == 1)
         #expect(MKUnitPoint<Double>.identity.y == 1)
     }
@@ -34,7 +34,7 @@ extension MKUnitPointTests {
               (MKUnitPoint<Double>.identity, MKUnitPoint<Double>(x: -1, y: -1)),
               (MKUnitPoint<Double>(x: -2, y: -3), MKUnitPoint<Double>(x: 2, y: 3)),
           ])
-    func negative(_ args: (MKUnitPoint<Double>, MKUnitPoint<Double>)) throws {
+    func negative(_ args: (MKUnitPoint<Double>, MKUnitPoint<Double>)) {
         let (pt, expect) = args
         #expect((-pt).isEqual(to: expect, tolerance: tolerance))
         var mp = pt
@@ -53,7 +53,7 @@ extension MKUnitPointTests {
               (MKUnitPoint<Double>(x: 4, y: 5), MKUnitPoint<Double>.zero, MKUnitPoint<Double>(x: 4, y: 5)),
               (MKUnitPoint<Double>(x: 4, y: 5), MKUnitPoint<Double>(x: 10, y: 20), MKUnitPoint<Double>(x: 14, y: 25)),
           ])
-    func addDouble(_ args: (MKUnitPoint<Double>, MKUnitPoint<Double>, MKUnitPoint<Double>)) throws {
+    func addDouble(_ args: (MKUnitPoint<Double>, MKUnitPoint<Double>, MKUnitPoint<Double>)) {
         let (pt, add, expect) = args
 
         #expect((pt + add).isEqual(to: expect, tolerance: tolerance))
@@ -74,7 +74,7 @@ extension MKUnitPointTests {
               (MKUnitPoint<Double>(x: 4, y: 5), MKUnitPoint<Double>.zero, MKUnitPoint<Double>(x: 4, y: 5)),
               (MKUnitPoint<Double>(x: 4, y: 5), MKUnitPoint<Double>(x: 10, y: 20), MKUnitPoint<Double>(x: -6, y: -15)),
           ])
-    func subDouble(_ args: (MKUnitPoint<Double>, MKUnitPoint<Double>, MKUnitPoint<Double>)) throws {
+    func subDouble(_ args: (MKUnitPoint<Double>, MKUnitPoint<Double>, MKUnitPoint<Double>)) {
         let (pt, sub, expect) = args
 
         #expect((pt - sub).isEqual(to: expect, tolerance: tolerance))
@@ -99,7 +99,7 @@ extension MKUnitPointTests {
         (MKUnitPoint<Double>(x: 4, y: 8), 10, MKUnitPoint<Double>(x: 40, y: 80)),
         (MKUnitPoint<Double>(x: 4, y: 8), -10, MKUnitPoint<Double>(x: -40, y: -80)),
     ])
-    func mulScalarDouble(_ args: (MKUnitPoint<Double>, Double, MKUnitPoint<Double>)) throws {
+    func mulScalarDouble(_ args: (MKUnitPoint<Double>, Double, MKUnitPoint<Double>)) {
         let (pt, scalar, expect) = args
 
         #expect((pt * scalar).isEqual(to: expect, tolerance: tolerance))
@@ -123,7 +123,7 @@ extension MKUnitPointTests {
         (MKUnitPoint<Double>(x: 4, y: 8), MKUnitPoint<Double>(x: -10, y: -20), MKUnitPoint<Double>(x: -40, y: -160)),
 
     ])
-    func mulDouble(_ args: (MKUnitPoint<Double>, MKUnitPoint<Double>, MKUnitPoint<Double>)) throws {
+    func mulDouble(_ args: (MKUnitPoint<Double>, MKUnitPoint<Double>, MKUnitPoint<Double>)) {
         let (pt, mul, expect) = args
 
         #expect((pt * mul).isEqual(to: expect, tolerance: tolerance))
@@ -167,7 +167,7 @@ extension MKUnitPointTests {
         (MKUnitPoint<Double>(x: 4, y: 8), 10, MKUnitPoint<Double>(x: 0.4, y: 0.8)),
         (MKUnitPoint<Double>(x: 4, y: 8), -10, MKUnitPoint<Double>(x: -0.4, y: -0.8)),
     ])
-    func divScalarDouble(_ args: (MKUnitPoint<Double>, Double, MKUnitPoint<Double>)) throws {
+    func divScalarDouble(_ args: (MKUnitPoint<Double>, Double, MKUnitPoint<Double>)) {
         let (pt, scalar, expect) = args
 
         #expect((pt / scalar).isEqual(to: expect, tolerance: tolerance))
@@ -186,7 +186,7 @@ extension MKUnitPointTests {
         (MKUnitPoint<Double>(x: 4, y: 8), MKUnitPoint<Double>(x: 2, y: 4), MKUnitPoint<Double>(x: 2, y: 2)),
         (MKUnitPoint<Double>(x: 4, y: 8), MKUnitPoint<Double>(x: -2, y: -4), MKUnitPoint<Double>(x: -2, y: -2)),
     ])
-    func divDouble(_ args: (MKUnitPoint<Double>, MKUnitPoint<Double>, MKUnitPoint<Double>)) throws {
+    func divDouble(_ args: (MKUnitPoint<Double>, MKUnitPoint<Double>, MKUnitPoint<Double>)) {
         let (pt, divider, expect) = args
 
         #expect((pt / divider).isEqual(to: expect, tolerance: tolerance))
@@ -208,7 +208,7 @@ extension MKUnitPointTests {
               (MKUnitPoint<Double>(x: 0.2, y: 0.4), MKPoint<Double>(x: 10, y: 20), MKPoint<Double>(x: 2, y: 8)),
 
           ])
-    func vectorDouble(_ args: (MKUnitPoint<Double>, MKPoint<Double>, MKPoint<Double>)) throws {
+    func vectorDouble(_ args: (MKUnitPoint<Double>, MKPoint<Double>, MKPoint<Double>)) {
         let (unit, pt, expect) = args
 
         #expect((pt * unit).isEqual(to: expect, tolerance: tolerance))
@@ -231,7 +231,7 @@ extension MKUnitPointTests {
 
               (MKUnitPoint<Double>(x: 0.2, y: 0.4), MKVector<Double>(dx: 10, dy: 20), MKVector<Double>(dx: 2, dy: 8)),
           ])
-    func vectorDouble(_ args: (MKUnitPoint<Double>, MKVector<Double>, MKVector<Double>)) throws {
+    func vectorDouble(_ args: (MKUnitPoint<Double>, MKVector<Double>, MKVector<Double>)) {
         let (unit, vec, expect) = args
 
         #expect((vec * unit).isEqual(to: expect, tolerance: tolerance))
@@ -254,7 +254,7 @@ extension MKUnitPointTests {
 
               (MKUnitPoint<Double>(x: 0.2, y: 0.4), MKSize<Double>(width: 10, height: 20), MKSize<Double>(width: 2, height: 8)),
           ])
-    func sizeDouble(_ args: (MKUnitPoint<Double>, MKSize<Double>, MKSize<Double>)) throws {
+    func sizeDouble(_ args: (MKUnitPoint<Double>, MKSize<Double>, MKSize<Double>)) {
         let (unit, size, expect) = args
 
         #expect((size * unit).isEqual(to: expect, tolerance: tolerance))
@@ -275,7 +275,7 @@ extension MKUnitPointTests {
 
               (MKUnitPoint<Double>(x: 0.2, y: 0.4), MKSize<Double>(width: 10, height: 20), MKVector<Double>(dx: 2, dy: 8)),
           ])
-    func sizeProjectDouble(_ args: (MKUnitPoint<Double>, MKSize<Double>, MKVector<Double>)) throws {
+    func sizeProjectDouble(_ args: (MKUnitPoint<Double>, MKSize<Double>, MKVector<Double>)) {
         let (unit, size, expect) = args
         #expect(size.projected(unit).isEqual(to: expect, tolerance: tolerance))
     }
@@ -297,7 +297,7 @@ extension MKUnitPointTests {
               (MKUnitPoint<Double>(x: 0.2, y: 0.4), MKRect<Double>(x: 100, y: 200, width: 10, height: 20), MKPoint<Double>(x: 102, y: 208)),
 
           ])
-    func rectProjectedDouble(_ args: (MKUnitPoint<Double>, MKRect<Double>, MKPoint<Double>)) throws {
+    func rectProjectedDouble(_ args: (MKUnitPoint<Double>, MKRect<Double>, MKPoint<Double>)) {
         let (unit, rect, expect) = args
         #expect(rect.projected(unit).isEqual(to: expect, tolerance: tolerance))
     }

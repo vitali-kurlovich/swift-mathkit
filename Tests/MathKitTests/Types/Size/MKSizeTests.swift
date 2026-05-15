@@ -15,7 +15,7 @@ struct MKSizeTests {}
 
 extension MKSizeTests {
     @Test("Constructor <Double>")
-    func constructorDouble() throws {
+    func constructorDouble() {
         let size = MKSize<Double>(width: 1, height: 2)
         let cg = CGSize(size)
         let conv = MKSize<Double>(cg)
@@ -24,7 +24,7 @@ extension MKSizeTests {
     }
 
     @Test("Constructor <CGFloat>")
-    func constructorCGFloat() throws {
+    func constructorCGFloat() {
         let size = MKSize<CGFloat>(width: 1, height: 2)
         let cg = CGSize(size)
         let conv = MKSize<CGFloat>(cg)
@@ -33,7 +33,7 @@ extension MKSizeTests {
     }
 
     @Test("Constructor <Float>")
-    func constructorFloat() throws {
+    func constructorFloat() {
         let size = MKSize<Float>(width: 1, height: 2)
         let cg = CGSize(size)
         let conv = MKSize<Float>(cg)
@@ -42,7 +42,7 @@ extension MKSizeTests {
     }
 
     @Test("Constructor <Float16>")
-    func constructorFloat16() throws {
+    func constructorFloat16() {
         let size = MKSize<Float16>(width: 1, height: 2)
         let cg = CGSize(size)
         let conv = MKSize<Float16>(cg)
@@ -53,7 +53,7 @@ extension MKSizeTests {
 
 extension MKSizeTests {
     @Test("Zero")
-    func zero() throws {
+    func zero() {
         let size = MKSize<Double>.zero
 
         #expect(size.width == 0)
@@ -61,7 +61,7 @@ extension MKSizeTests {
     }
 
     @Test("Identity")
-    func identity() throws {
+    func identity() {
         let size = MKSize<Double>.identity
 
         #expect(size.width == 1)
@@ -69,7 +69,7 @@ extension MKSizeTests {
     }
 
     @Test("aspectRatio")
-    func aspectRatio() throws {
+    func aspectRatio() {
         #expect(MKSize<Double>.identity.aspectRatio.isEqual(to: 1, tolerance: tolerance))
 
         #expect(MKSize<Double>(width: 2, height: 1).aspectRatio.isEqual(to: 2, tolerance: tolerance))
@@ -77,7 +77,7 @@ extension MKSizeTests {
     }
 
     @Test("Multiply")
-    func mul() throws {
+    func mul() {
         var size = MKSize<Double>(width: 2, height: 3) * 2
 
         #expect(size.isEqual(to: .init(width: 4, height: 6), tolerance: tolerance))
@@ -94,7 +94,7 @@ extension MKSizeTests {
     }
 
     @Test("Divide")
-    func div() throws {
+    func div() {
         var size = MKSize<Double>(width: 20, height: 30) / 2
 
         #expect(size.isEqual(to: .init(width: 10, height: 15), tolerance: tolerance))

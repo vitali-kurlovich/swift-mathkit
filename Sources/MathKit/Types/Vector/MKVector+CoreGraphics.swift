@@ -3,7 +3,8 @@
 //
 
 #if canImport(CoreGraphics)
-    import CoreGraphics
+    import struct CoreFoundation.CGFloat
+    import struct CoreGraphics.CGVector
 
     public extension MKVector {
         @inlinable init(_ v: CGVector) where Float: BinaryFloatingPoint {
@@ -12,7 +13,7 @@
     }
 
     public extension CGVector {
-        @inlinable init<F: BinaryFloatingPoint>(_ p: MKVector<F>) {
+        @inlinable init(_ p: MKVector<some BinaryFloatingPoint>) {
             self.init(dx: CGFloat(p.dx), dy: CGFloat(p.dy))
         }
     }

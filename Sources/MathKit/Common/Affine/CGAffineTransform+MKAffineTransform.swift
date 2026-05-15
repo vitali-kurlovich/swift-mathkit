@@ -6,7 +6,7 @@
     import CoreGraphics
 
     public extension CGAffineTransform {
-        init<Float: BinaryFloatingPoint>(_ tr: MKAffineTransform<Float>) {
+        init(_ tr: MKAffineTransform<some BinaryFloatingPoint>) {
             self.init(CGFloat(tr.m11), CGFloat(tr.m12),
                       CGFloat(tr.m21), CGFloat(tr.m22),
                       CGFloat(tr.tx), CGFloat(tr.ty))

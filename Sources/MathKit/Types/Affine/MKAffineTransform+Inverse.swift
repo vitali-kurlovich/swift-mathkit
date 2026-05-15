@@ -2,7 +2,7 @@
 //  Created by Vitali Kurlovich on 05.04.2026.
 //
 
-// Inverse Transform
+/// Inverse Transform
 public extension MKAffineTransform {
     @inlinable func inverse(_ point: MKPoint<Float>) -> MKPoint<Float> {
         let det = determinant
@@ -11,7 +11,7 @@ public extension MKAffineTransform {
     }
 }
 
-// Invert
+/// Invert
 public extension MKAffineTransform {
     @inlinable var determinant: Float {
         (m11 * m22).addingProduct(-m12, m21)
@@ -20,7 +20,7 @@ public extension MKAffineTransform {
     @inlinable mutating func invert() {
         let det = determinant
 
-        let tx = self.tx
+        let tx = tx
 
         self.tx = (m21 * ty).addingProduct(-m22, tx) / det
         ty = (m12 * tx).addingProduct(-m11, ty) / det
@@ -28,7 +28,7 @@ public extension MKAffineTransform {
         m12 = -m12 / det
         m21 = -m21 / det
 
-        let m11 = self.m11
+        let m11 = m11
 
         self.m11 = m22 / det
         m22 = m11 / det

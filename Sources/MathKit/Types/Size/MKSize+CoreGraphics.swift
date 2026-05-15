@@ -11,7 +11,7 @@ public extension MKSize {
 }
 
 public extension CGSize {
-    @inlinable init<F: BinaryFloatingPoint>(_ size: MKSize<F>) {
+    @inlinable init(_ size: MKSize<some BinaryFloatingPoint>) {
         self.init(width: CGFloat(size.width), height: CGFloat(size.height))
     }
 }

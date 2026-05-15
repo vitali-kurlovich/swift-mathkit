@@ -19,7 +19,7 @@ struct MKRectTests {}
 
 extension MKRectTests {
     @Test("Constructor <Double>")
-    func constructorDouble() throws {
+    func constructorDouble() {
         let rect = MKRect<Double>(x: 1, y: 2, width: 3, height: 4)
         let cg = CGRect(rect)
         let conv = MKRect<Double>(cg)
@@ -28,7 +28,7 @@ extension MKRectTests {
     }
 
     @Test("Constructor <CGFloat>")
-    func constructorCGFloat() throws {
+    func constructorCGFloat() {
         let rect = MKRect<CGFloat>(x: 1, y: 2, width: 3, height: 4)
         let cg = CGRect(rect)
         let conv = MKRect<CGFloat>(cg)
@@ -37,7 +37,7 @@ extension MKRectTests {
     }
 
     @Test("Constructor <Float>")
-    func constructorFloat() throws {
+    func constructorFloat() {
         let rect = MKRect<Float>(x: 1, y: 2, width: 3, height: 4)
         let cg = CGRect(rect)
         let conv = MKRect<Float>(cg)
@@ -46,7 +46,7 @@ extension MKRectTests {
     }
 
     @Test("Constructor <Float16>")
-    func constructorFloat16() throws {
+    func constructorFloat16() {
         let rect = MKRect<Float16>(x: 1, y: 2, width: 3, height: 4)
         let cg = CGRect(rect)
         let conv = MKRect<Float16>(cg)
@@ -63,7 +63,7 @@ extension MKRectTests {
     }
 
     @Test("Identity")
-    func identity() throws {
+    func identity() {
         #expect(MKRect<Double>.zero.origin == .zero)
         #expect(MKRect<Double>.zero.size == .zero)
     }
@@ -140,7 +140,7 @@ extension MKRectTests {
               (MKRect<Double>(x: 20, y: 10, width: 200, height: 400), 0.5),
 
           ])
-    func aspectRatio(_ args: (MKRect<Double>, Double)) throws {
+    func aspectRatio(_ args: (MKRect<Double>, Double)) {
         let (rect, expect) = args
         #expect(rect.aspectRatio.isEqual(to: expect, tolerance: tolerance))
     }

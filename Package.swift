@@ -25,14 +25,14 @@ let package = Package(
         .target(
             name: "MathKit",
             dependencies: [
-            ],
+            ]
         ),
 
         .testTarget(
             name: "MathKitTests",
             dependencies: [
                 "MathKit",
-            ],
+            ]
         ),
 
         .executableTarget(
@@ -42,7 +42,7 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "Benchmarks",
             ],
-            path: "Benchmarks",
+            path: "Benchmarks"
         ),
-    ],
+    ]
 )

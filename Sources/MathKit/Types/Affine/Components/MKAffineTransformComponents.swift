@@ -16,5 +16,7 @@ public struct MKAffineTransformComponents<Float: FloatingPoint & Sendable>: Hash
 }
 
 public extension MKAffineTransformComponents {
-    @inlinable static var zero: Self { .init() }
+    @inlinable static var zero: Self {
+        .init()
+    }
 }
