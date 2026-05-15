@@ -10,7 +10,7 @@
             MathKit.dot(MKVector(self), MKVector(other))
         }
 
-        @inlinable func cross(_ other: Self) -> Float {
+        @inlinable func cross(_ other: Self) -> CGFloat {
             MathKit.cross(MKVector(self), MKVector(other))
         }
     }
