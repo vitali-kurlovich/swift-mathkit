@@ -33,11 +33,11 @@
 
             let p = pivot.center + pivot.x
 
-            let path = NSBezierPath()
+            let path = CGMutablePath()
             path.move(to: .init(pivot.center))
-            path.line(to: .init(p))
+            path.addLine(to: .init(p))
 
-            return path.cgPath
+            return path
         }
 
         var cgPivotY: CGPath {
@@ -45,11 +45,11 @@
 
             let p = pivot.center + pivot.y
 
-            let path = NSBezierPath()
+            let path = CGMutablePath()
             path.move(to: .init(pivot.center))
-            path.line(to: .init(p))
+            path.addLine(to: .init(p))
 
-            return path.cgPath
+            return path
         }
     }
 
