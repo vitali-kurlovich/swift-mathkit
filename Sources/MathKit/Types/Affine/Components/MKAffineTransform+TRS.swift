@@ -4,6 +4,7 @@
 
 import Foundation
 
+@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKAffineTransform where Float: BinaryFloatingPoint {
     /// Translate   Rotate  Scale
     @inlinable init(translation: MKVector<Float> = .zero,

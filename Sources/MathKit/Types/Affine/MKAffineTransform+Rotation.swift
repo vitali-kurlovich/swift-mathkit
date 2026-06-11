@@ -4,6 +4,7 @@
 
 import Foundation
 
+@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKAffineTransform where Float: BinaryFloatingPoint {
     /*
      Creates an affine transformation matrix from rotation value (angle in radians).
@@ -30,6 +31,7 @@ public extension MKAffineTransform where Float: BinaryFloatingPoint {
     }
 }
 
+@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKAffineTransform {
     /*
      Mutates an affine transformation matrix from a rotation value (angle α in radians).
@@ -48,6 +50,7 @@ public extension MKAffineTransform {
     }
 }
 
+@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKAffineTransform {
     @inlinable func rotated(_ angle: MKAngle<Float>) -> Self where Float: BinaryFloatingPoint {
         if angle == .zero {

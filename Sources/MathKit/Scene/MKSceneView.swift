@@ -5,6 +5,7 @@
 #if canImport(SwiftUI)
     import SwiftUI
 
+    @available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
     struct MKSceneView<Content: MKContent>: View where Content.Float == Double {
         @StateObject var scene: MKScene<Content>
 
@@ -34,6 +35,7 @@
         }
     }
 
+    @available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *)
     #Preview {
         @Previewable @StateObject var scene = MKScene([MKObject.example])
 

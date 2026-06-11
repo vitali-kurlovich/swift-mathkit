@@ -4,6 +4,7 @@
 
 import Foundation
 
+@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKVector where Float == Double {
     @inlinable
     mutating func rotate(_ angle: MKAngle<Float>) {
@@ -27,6 +28,7 @@ public extension MKVector where Float == Double {
     }
 }
 
+@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKVector where Float == Swift.Float {
     @inlinable
     mutating func rotate(_ angle: MKAngle<Float>) {
@@ -50,6 +52,7 @@ public extension MKVector where Float == Swift.Float {
     }
 }
 
+@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKVector where Float == CGFloat {
     @inlinable
     mutating func rotate(_ angle: MKAngle<Float>) {
@@ -72,6 +75,7 @@ public extension MKVector where Float == CGFloat {
     }
 }
 
+@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKVector where Float == Float16 {
     @inlinable
     mutating func rotate(_ angle: MKAngle<Float>) {
