@@ -17,7 +17,9 @@ public extension FrechetDistance {
         B.Element == P,
         B.Index == Int
     {
-        if pathA.isEmpty || pathA.isEmpty { return .zero }
+        if pathA.isEmpty || pathA.isEmpty {
+            return .zero
+        }
 
         let countA = pathA.count
 
