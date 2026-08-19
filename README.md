@@ -6,4 +6,4 @@
 
 A Swift package containing generic linear algebra primitives alongside essential algorithms for matrix and vector computations on Apple platforms and Linux.
 
-Read [API Documentation](https://vitali-kurlovich.github.io/swift-mathkit/mathkit/documentation/mathkit/)
+For more info, you can read [MathKit API Documentation](https://vitali-kurlovich.github.io/swift-mathkit/mathkit/documentation/mathkit/)
