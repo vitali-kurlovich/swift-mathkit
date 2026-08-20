@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 extension MKObject {
     var transform: MKAffineTransform<Float> {
         if _updateFlags.contains(.transform) {
@@ -15,7 +14,6 @@ extension MKObject {
     }
 }
 
-@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 private extension MKObject {
     func invalidateTransform() {
         let affine = _transformComponents.affine

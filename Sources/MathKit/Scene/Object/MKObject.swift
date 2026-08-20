@@ -65,7 +65,6 @@ extension MKObject {
         }
     }
 
-    @available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
     var local: MKAffineTransform<Float> {
         _contentTransformComponents.inverseAffine
     }
@@ -96,7 +95,6 @@ extension MKObject {
         content.extent.size
     }
 
-    @available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
     var contentBounds: MKRect<Float> {
         if _updateFlags.contains(.contentBounds) {
             _contentBounds = content.extent.applying(local.appended(transform))
@@ -106,7 +104,6 @@ extension MKObject {
         return _contentBounds
     }
 
-    @available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
     var bounds: MKRect<Float> {
         if _updateFlags.contains(.bounds) {
             var bounds = contentBounds

@@ -7,7 +7,6 @@
     import struct CoreFoundation.CGFloat
     import struct CoreGraphics.CGVector
 
-    @available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
     public extension CGVector {
         @inlinable
         mutating func rotate(_ angle: MKAngle<Double>) {
@@ -56,7 +55,6 @@
 
     import struct SwiftUI.Angle
 
-    @available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
     public extension CGVector {
         @inlinable
         mutating func rotate(_ angle: Angle) {
