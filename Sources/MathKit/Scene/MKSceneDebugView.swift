@@ -24,7 +24,6 @@
         var pivotAxisYColor: Color = .blue
     }
 
-    @available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
     struct MKSceneDebugView<Content: MKContent>: View where Content.Float == Double {
         @StateObject var scene: MKScene<Content>
         @Binding var configuration: MKSceneDebugConfiguration
@@ -51,7 +50,6 @@
         }
     }
 
-    @available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
     private extension MKSceneDebugView {
         func drawContentRect(_ object: MKObject<Content>, in context: GraphicsContext, fill: Bool = false) {
             guard configuration.showContentRect else { return }

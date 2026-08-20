@@ -4,7 +4,6 @@
 
 import Foundation
 
-@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKAffineTransformComponents where Float: BinaryFloatingPoint {
     @inlinable var affine: MKAffineTransform<Float> {
         MKAffineTransform(self)
@@ -88,7 +87,6 @@ public extension MKAffineTransformComponents where Float: BinaryFloatingPoint {
     }
 }
 
-@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKPoint where Float: BinaryFloatingPoint {
     @inlinable func applying(_ t: MKAffineTransformComponents<Float>) -> Self {
         t.transform(self)

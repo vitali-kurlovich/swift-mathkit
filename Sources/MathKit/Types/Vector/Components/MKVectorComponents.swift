@@ -17,7 +17,6 @@ public struct MKVectorComponents<Float: FloatingPoint & Sendable>: Hashable, Sen
     }
 }
 
-@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKVector {
     @inlinable
     init(magnitude: Float, rotation: MKAngle<Float>) where Float == Double {
@@ -60,7 +59,6 @@ public extension MKVector {
     }
 }
 
-@available(macOS 14.0, iOS 17.0, tvOS 17.0, watchOS 10.0, *)
 public extension MKVector {
     @inlinable
     init(_ components: MKVectorComponents<Float>) where Float == Double {
