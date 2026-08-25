@@ -1,0 +1,55 @@
+//
+//  Created by Kurlovich Vitali on 8/25/26.
+//
+
+#if canImport(SwiftUI)
+
+    import SwiftUI
+
+    struct DrawableRect: Drawable {
+        let rect: CGRect
+        let color: Color
+
+        init(_ rect: CGRect, color: Color = .random()) {
+            self.rect = rect
+            self.color = color
+        }
+
+        func draw(_ context: GraphicsContext) {
+            var context = context
+
+            context.opacity = 0.8
+
+            let path = Path(rect)
+            context.fill(path, with: .color(color.opacity(0.5)))
+            context.stroke(path, with: .color(color))
+
+            let centerX = rect.midX
+            let centerY = rect.midY
+
+            var centerPath = Path()
+            centerPath.move(to: CGPoint(x: centerX - 5, y: centerY))
+            centerPath.addLine(to: CGPoint(x: centerX + 5, y: centerY))
+
+            centerPath.move(to: CGPoint(x: centerX, y: centerY - 5))
+            centerPath.addLine(to: CGPoint(x: centerX, y: centerY + 5))
+
+            context.stroke(centerPath, with: .color(color))
+
+            let text = Text(rect.debugDescription)
+                .font(.caption)
+                .foregroundStyle(color)
+
+            context.opacity = 1.0
+
+            context.draw(text, at: rect.origin, anchor: .bottomLeading)
+        }
+    }
+
+    extension DrawableRect {
+        var bounds: CGRect {
+            rect
+        }
+    }
+
+#endif
