@@ -13,9 +13,25 @@
         let layoutDirection: LayoutDirection
         let insets: EdgeInsets
 
+        let transform: CGAffineTransform
+
+        init(
+            label: String,
+            drawables: [any Drawable],
+            layoutDirection: LayoutDirection,
+            insets: EdgeInsets,
+            transform: CGAffineTransform = .identity
+        ) {
+            self.label = label
+            self.drawables = drawables
+            self.layoutDirection = layoutDirection
+            self.insets = insets
+            self.transform = transform
+        }
+
         func draw(_ ctx: GraphicsContext) {
             var context = ctx
-            context.transform = transform
+            context.transform = contentTransform.concatenating(transform)
 
             drawAxis(context)
 
@@ -31,10 +47,12 @@
                 let x = bounds.midX
                 let y = bounds.maxY
 
+                context.transform = contentTransform
                 context.draw(text, at: CGPoint(x: x, y: y), anchor: .bottom)
             }
 
             if bounds.isNull == false {
+                context.transform = contentTransform
                 context.stroke(Path(bounds), with: .foreground)
             }
         }
@@ -55,7 +73,7 @@
     }
 
     private extension DrawableCoordinateSystem {
-        var transform: CGAffineTransform {
+        var contentTransform: CGAffineTransform {
             let bounds = bounds
             return .identity.translatedBy(x: -bounds.minX, y: -bounds.minY)
         }
@@ -77,18 +95,61 @@
         }
 
         func drawAxis(_ context: GraphicsContext) {
-            let bounds = bounds
+            let bounds = bounds.applying(contentTransform)
 
-            var xAxis = Path()
-            xAxis.move(to: CGPoint(x: bounds.minX, y: 0))
-            xAxis.addLine(to: CGPoint(x: bounds.maxX, y: 0))
+            let xAxis = MKLine<CGFloat>(pivot: .zero, direction: .init(dx: 1, dy: 0)).applying(
+                .init(context.transform)
+            )
 
-            var yAxis = Path()
-            yAxis.move(to: CGPoint(x: 0, y: bounds.minY))
-            yAxis.addLine(to: CGPoint(x: 0, y: bounds.maxY))
+            let yAxis = MKLine<CGFloat>(pivot: .zero, direction: .init(dx: 0, dy: 1)).applying(
+                .init(context.transform)
+            )
 
-            context.stroke(xAxis, with: .color(.red), style: .init(dash: [1, 5, 1]))
-            context.stroke(yAxis, with: .color(.green), style: .init(dash: [1, 5, 1]))
+            var context = context
+            context.transform = .identity
+
+            let style: StrokeStyle = .init(dash: [3, 5])
+
+            if let segment = xAxis.intersection(.init(bounds)) {
+                var xAxis = Path()
+                xAxis.move(to: .init(segment.point1))
+                xAxis.addLine(to: .init(segment.point2))
+
+                context.stroke(xAxis, with: .color(.red), style: style)
+            }
+
+            if let segment = yAxis.intersection(.init(bounds)) {
+                var yAxis = Path()
+                yAxis.move(to: .init(segment.point1))
+                yAxis.addLine(to: .init(segment.point2))
+
+                context.stroke(yAxis, with: .color(.green), style: style)
+            }
+        }
+    }
+
+    #Preview {
+        let rect1 = DrawableRect(
+            CGRect(x: 0, y: 0, width: 200, height: 150),
+            color: .yellow
+        )
+
+        let rect2 = DrawableRect(
+            CGRect(x: -30, y: -20, width: 100, height: 250),
+            color: .indigo
+        )
+
+        let rect3 = DrawableRect(
+            CGRect(x: 130, y: 120, width: 350, height: 90)
+        )
+
+        HStack {
+            CoordinateSystemView()
+                .edgeInsets(.init(top: 32, leading: 32, bottom: 22, trailing: 32))
+                .label("Axis")
+                .plot([rect1, rect2])
+                .appendPlot(rect3)
+                .transform(.init(rotationAngle: 0.2))
         }
     }
 

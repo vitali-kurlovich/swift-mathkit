@@ -20,9 +20,8 @@
 
             context.opacity = 0.8
 
-            let path = Path(rect)
+            var path = Path(rect)
             context.fill(path, with: .color(color.opacity(0.5)))
-            context.stroke(path, with: .color(color))
 
             let centerX = rect.midX
             let centerY = rect.midY
@@ -34,6 +33,14 @@
             centerPath.move(to: CGPoint(x: centerX, y: centerY - 5))
             centerPath.addLine(to: CGPoint(x: centerX, y: centerY + 5))
 
+            centerPath = centerPath.applying(context.transform).strokedPath(.init())
+
+            path = path.applying(context.transform).strokedPath(.init(lineWidth: 1))
+
+            let textPoint = rect.origin.applying(context.transform)
+
+            context.transform = .identity
+            context.stroke(path, with: .color(color))
             context.stroke(centerPath, with: .color(color))
 
             let text = Text(rect.debugDescription)
@@ -42,7 +49,7 @@
 
             context.opacity = 1.0
 
-            context.draw(text, at: rect.origin, anchor: .bottomLeading)
+            context.draw(text, at: textPoint, anchor: .bottomLeading)
         }
     }
 
