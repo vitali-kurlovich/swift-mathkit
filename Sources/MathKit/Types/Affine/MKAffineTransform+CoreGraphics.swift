@@ -30,6 +30,16 @@ public extension CGPoint {
     }
 }
 
+public extension CGVector {
+    @inlinable func applying(_ t: MKAffineTransform<some BinaryFloatingPoint>) -> Self {
+        .init(t.transform(MKVector(self)))
+    }
+
+    @inlinable func applying(_ t: CGAffineTransform) -> Self {
+        applying(MKAffineTransform<CGFloat>(t))
+    }
+}
+
 public extension CGRect {
     @inlinable func applying(_ t: MKAffineTransform<some BinaryFloatingPoint>) -> Self {
         t.transform(self)
