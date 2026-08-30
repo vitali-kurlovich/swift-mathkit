@@ -14,12 +14,14 @@ public protocol Line2D {
 }
 
 public extension Line2D {
+    @inlinable
     func point(at t: Float) -> MKPoint<Float> {
         pivot + direction * t
     }
 }
 
 public extension Line2D {
+    @inlinable
     func intersection<L: Line2D>(_ other: L) -> MKPoint<Self.Float>? where L.Float == Self.Float {
         let D = direction.cross(other.direction)
 
