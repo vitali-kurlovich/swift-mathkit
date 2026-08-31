@@ -30,3 +30,9 @@ public extension MKLine {
         )
     }
 }
+
+public extension MKLine where Float: BinaryFloatingPoint {
+    @inlinable init(_ line: MKLine<some BinaryFloatingPoint & Sendable>) {
+        self.init(pivot: .init(line.pivot), direction: .init(line.direction))
+    }
+}
