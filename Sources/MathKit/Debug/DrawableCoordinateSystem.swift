@@ -42,13 +42,15 @@
             if label.isEmpty == false {
                 let text = Text(label)
                     .font(.subheadline)
-                    .foregroundStyle(.primary)
+
+                var resolvedText = context.resolve(text)
+                resolvedText.shading = .color(.primary)
 
                 let x = bounds.midX
                 let y = bounds.maxY
 
                 context.transform = contentTransform
-                context.draw(text, at: CGPoint(x: x, y: y), anchor: .bottom)
+                context.draw(resolvedText, at: CGPoint(x: x, y: y), anchor: .bottom)
             }
 
             if bounds.isNull == false {

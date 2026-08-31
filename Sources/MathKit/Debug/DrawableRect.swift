@@ -45,11 +45,13 @@
 
             let text = Text(rect.debugDescription)
                 .font(.caption)
-                .foregroundStyle(color)
+
+            var resolvedText = context.resolve(text)
+            resolvedText.shading = .color(color)
 
             context.opacity = 1.0
 
-            context.draw(text, at: textPoint, anchor: .bottomLeading)
+            context.draw(resolvedText, at: textPoint, anchor: .bottomLeading)
         }
     }
 
