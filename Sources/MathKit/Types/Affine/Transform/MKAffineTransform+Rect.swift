@@ -2,150 +2,281 @@
 //  Created by Vitali Kurlovich on 02.04.2026.
 //
 
-public enum ScaleMode {
-    case fill
-    case aspectFit
-    case aspectFill
-    case center
-    case top
-    case bottom
-    case left
-    case right
-    case topLeft
-    case topRight
-    case bottomLeft
-    case bottomRight
+public extension MKAffineTransform {
+    @inlinable static func transform(for src: MKRect<Float>, center dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
+        }
+
+        let offset = dst.center - src.center
+        return .init(translationX: offset.x, y: offset.y)
+    }
+
+    @inlinable static func transform(for src: MKRect<Float>, top dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
+        }
+
+        let offset = dst.top - src.top
+
+        return .init(translationX: offset.x, y: offset.y)
+    }
+
+    @inlinable static func transform(for src: MKRect<Float>, bottom dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
+        }
+
+        let offset = dst.bottom - src.bottom
+
+        return .init(translationX: offset.x, y: offset.y)
+    }
+
+    @inlinable static func transform(for src: MKRect<Float>, left dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
+        }
+
+        let offset = dst.left - src.left
+
+        return .init(translationX: offset.x, y: offset.y)
+    }
+
+    @inlinable static func transform(for src: MKRect<Float>, topLeft dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
+        }
+
+        let offset = dst.topLeft - src.topLeft
+
+        return .init(translationX: offset.x, y: offset.y)
+    }
+
+    @inlinable static func transform(for src: MKRect<Float>, bottomLeft dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
+        }
+
+        let offset = dst.bottomLeft - src.bottomLeft
+
+        return .init(translationX: offset.x, y: offset.y)
+    }
+
+    @inlinable static func transform(for src: MKRect<Float>, right dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
+        }
+
+        let offset = dst.right - src.right
+
+        return .init(translationX: offset.x, y: offset.y)
+    }
+
+    @inlinable static func transform(for src: MKRect<Float>, topRight dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
+        }
+
+        let offset = dst.topRight - src.topRight
+
+        return .init(translationX: offset.x, y: offset.y)
+    }
+
+    @inlinable static func transform(for src: MKRect<Float>, bottomRight dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
+        }
+
+        let offset = dst.bottomRight - src.bottomRight
+
+        return .init(translationX: offset.x, y: offset.y)
+    }
 }
 
 public extension MKAffineTransform {
-    @inlinable static func transform(from src: MKRect<Float>, to target: MKRect<Float>, scaleMode: ScaleMode = .fill) -> Self {
-        assert(src.width > 0)
-        assert(src.height > 0)
-
-        switch scaleMode {
-        case .fill:
-            return transformFill(from: src, to: target)
-        case .aspectFit:
-            return transformAspectFit(from: src, to: target)
-        case .aspectFill:
-            return transformAspectFill(from: src, to: target)
-        case .center:
-            return transformCenter(from: src, to: target)
-        case .top:
-            return transformTop(from: src, to: target)
-        case .bottom:
-            return transformBottom(from: src, to: target)
-        case .left:
-            return transformLeft(from: src, to: target)
-        case .right:
-            return transformRight(from: src, to: target)
-        case .topLeft:
-            return transformTopLeft(from: src, to: target)
-        case .topRight:
-            return transformTopRight(from: src, to: target)
-        case .bottomLeft:
-            return transformBottomLeft(from: src, to: target)
-        case .bottomRight:
-            return transformBottomRight(from: src, to: target)
-        }
-    }
-}
-
-extension MKAffineTransform {
-    @inlinable static func transformFill(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let scaleX = target.width / src.width
-        let scaleY = target.height / src.height
-
-        return .init(m11: scaleX, m12: 0,
-                     m21: 0, m22: scaleY,
-                     tx: target.origin.x - scaleX * src.origin.x,
-                     ty: target.origin.y - scaleY * src.origin.y)
-    }
-}
-
-extension MKAffineTransform {
-    @inlinable static func transformAspectFit(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let aspectRatio = src.size.aspectRatio
-
-        let size: MKSize<Float> = if target.width <= target.height * aspectRatio {
-            .init(width: target.width,
-                  height: target.width / aspectRatio)
-        } else {
-            .init(width: target.height * aspectRatio,
-                  height: target.height)
+    @inlinable static func transform(for src: MKRect<Float>, fill dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
         }
 
-        let dest = MKRect(origin: target.center - size / 2, size: size)
+        assert(src.width != 0)
+        assert(src.height != 0)
 
-        return transformFill(from: src, to: dest)
+        let scaleX = dst.width / src.width
+        let scaleY = dst.height / src.height
+
+        let scaleTransform = Self(scaleX: scaleX, y: scaleY)
+        let src = src.applying(scaleTransform)
+
+        let offsetTransform = Self.transform(for: src, center: dst)
+
+        return scaleTransform.concatenating(offsetTransform)
     }
+}
 
-    @inlinable static func transformAspectFill(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let aspectRatio = src.size.aspectRatio
-
-        let size: MKSize<Float> = if target.width >= target.height * aspectRatio {
-            .init(width: target.width,
-                  height: target.width / aspectRatio)
-
-        } else {
-            .init(width: target.height * aspectRatio,
-                  height: target.height)
+public extension MKAffineTransform {
+    @inlinable static func transform(for src: MKRect<Float>, aspectFit dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
         }
 
-        let dest = MKRect(origin: target.center - size / 2, size: size)
+        assert(src.width != 0)
+        assert(src.height != 0)
 
-        return transformFill(from: src, to: dest)
-    }
-    //
-}
+        let scale = src.height * dst.width <= dst.height * src.width ?
+            dst.width / src.width :
+            dst.height / src.height
 
-extension MKAffineTransform {
-    @inlinable static func transformTop(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let offset = target.top - src.top
-        return .translation(offset)
-    }
+        let scaleTransform = Self(scale: scale)
+        let src = src.applying(scaleTransform)
 
-    @inlinable static func transformCenter(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let offset = target.center - src.center
-        return .translation(offset)
+        let offsetTransform = Self.transform(for: src, center: dst)
+
+        return scaleTransform.concatenating(offsetTransform)
     }
 
-    @inlinable static func transformBottom(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let offset = target.bottom - src.bottom
-        return .translation(offset)
-    }
-}
+    @inlinable static func transform(for src: MKRect<Float>, aspectFill dst: MKRect<Float>) -> Self {
+        if dst == src {
+            return .identity
+        }
 
-extension MKAffineTransform {
-    @inlinable static func transformTopLeft(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let offset = target.topLeft - src.topLeft
-        return .translation(offset)
-    }
+        assert(src.width != 0)
+        assert(src.height != 0)
 
-    @inlinable static func transformLeft(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let offset = target.left - src.left
-        return .translation(offset)
-    }
+        let scale = src.height * dst.width <= dst.height * src.width ?
+            dst.height / src.height :
+            dst.width / src.width
 
-    @inlinable static func transformBottomLeft(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let offset = target.bottomLeft - src.bottomLeft
-        return .translation(offset)
+        let scaleTransform = Self(scale: scale)
+        let src = src.applying(scaleTransform)
+
+        let offsetTransform = Self.transform(for: src, center: dst)
+
+        return scaleTransform.concatenating(offsetTransform)
     }
 }
 
-extension MKAffineTransform {
-    @inlinable static func transformTopRight(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let offset = target.topRight - src.topRight
-        return .translation(offset)
+#if canImport(SwiftUI)
+    import SwiftUI
+
+    #Preview("Left") {
+        TransformVariantsPreview(
+            label: "Left",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, left: dst)
+        }
     }
 
-    @inlinable static func transformRight(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let offset = target.right - src.right
-        return .translation(offset)
+    #Preview("Center") {
+        TransformVariantsPreview(
+            label: "Center",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, center: dst)
+        }
     }
 
-    @inlinable static func transformBottomRight(from src: MKRect<Float>, to target: MKRect<Float>) -> Self {
-        let offset = target.bottomRight - src.bottomRight
-        return .translation(offset)
+    #Preview("Right") {
+        TransformVariantsPreview(
+            label: "Right",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, right: dst)
+        }
     }
-}
+
+    #Preview("Top") {
+        TransformVariantsPreview(
+            label: "Top",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, top: dst)
+        }
+    }
+
+    #Preview("Top Left") {
+        TransformVariantsPreview(
+            label: "Top Left",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, topLeft: dst)
+        }
+    }
+
+    #Preview("Top Right") {
+        TransformVariantsPreview(
+            label: "Top Right",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, topRight: dst)
+        }
+    }
+
+    #Preview("Bottom") {
+        TransformVariantsPreview(
+            label: "Bottom",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, bottom: dst)
+        }
+    }
+
+    #Preview("Bottom Left") {
+        TransformVariantsPreview(
+            label: "Bottom Left",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, bottomLeft: dst)
+        }
+    }
+
+    #Preview("Bottom Right") {
+        TransformVariantsPreview(
+            label: "Bottom Right",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, bottomRight: dst)
+        }
+    }
+
+    #Preview("Aspect Fit") {
+        TransformVariantsPreview(
+            label: "Aspect Fit",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, aspectFit: dst)
+        }
+    }
+
+    #Preview("Aspect Fill") {
+        TransformVariantsPreview(
+            label: "Aspect Fill",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, aspectFill: dst)
+        }
+    }
+
+    #Preview("Fill") {
+        TransformVariantsPreview(
+            label: "Fill",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, fill: dst)
+        }
+    }
+
+#endif

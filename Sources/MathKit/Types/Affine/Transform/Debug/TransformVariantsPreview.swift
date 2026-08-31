@@ -60,8 +60,7 @@
         }
     }
 
-    private
-    struct _TransformVariantsPreview: View {
+    private struct _TransformVariantsPreview: View {
         let label: String
         let src: MKRect<CGFloat>
         let dst: MKRect<CGFloat>
