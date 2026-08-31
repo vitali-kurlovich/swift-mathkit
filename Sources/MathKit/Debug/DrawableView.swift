@@ -12,7 +12,6 @@
         var body: some View {
             Canvas { context, _ in
                 drawable.draw(context)
-
             }.frame(width: drawable.bounds.width, height: drawable.bounds.height)
         }
     }

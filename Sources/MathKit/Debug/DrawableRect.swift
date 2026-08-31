@@ -59,4 +59,10 @@
         }
     }
 
+    extension DrawableRect {
+        init(_ rect: MKRect<some BinaryFloatingPoint>, color: Color = .random()) {
+            self.init(CGRect(rect), color: color)
+        }
+    }
+
 #endif

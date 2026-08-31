@@ -97,31 +97,26 @@
         func drawAxis(_ context: GraphicsContext) {
             let bounds = bounds.applying(contentTransform)
 
-            let xAxis = MKLine<CGFloat>(pivot: .zero, direction: .init(dx: 1, dy: 0)).applying(
-                .init(context.transform)
-            )
-
-            let yAxis = MKLine<CGFloat>(pivot: .zero, direction: .init(dx: 0, dy: 1)).applying(
-                .init(context.transform)
-            )
+            let xAxis = CGHorizontalLine(y: 0).applying(context.transform)
+            let yAxis = CGVerticalLine(x: 0).applying(context.transform)
 
             var context = context
             context.transform = .identity
 
             let style: StrokeStyle = .init(dash: [3, 5])
 
-            if let segment = xAxis.intersection(.init(bounds)) {
+            if let segment = xAxis.intersection(bounds) {
                 var xAxis = Path()
-                xAxis.move(to: .init(segment.point1))
-                xAxis.addLine(to: .init(segment.point2))
+                xAxis.move(to: segment.point1)
+                xAxis.addLine(to: segment.point2)
 
                 context.stroke(xAxis, with: .color(.red), style: style)
             }
 
-            if let segment = yAxis.intersection(.init(bounds)) {
+            if let segment = yAxis.intersection(bounds) {
                 var yAxis = Path()
-                yAxis.move(to: .init(segment.point1))
-                yAxis.addLine(to: .init(segment.point2))
+                yAxis.move(to: segment.point1)
+                yAxis.addLine(to: segment.point2)
 
                 context.stroke(yAxis, with: .color(.green), style: style)
             }
