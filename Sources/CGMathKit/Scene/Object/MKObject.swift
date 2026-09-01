@@ -2,8 +2,8 @@
 //  Created by Vitali Kurlovich on 04.04.2026.
 //
 
-public import MathKit
 import Foundation
+import MathKit
 
 public class MKObject<Content: MKContent> {
     public typealias Float = Content.Float

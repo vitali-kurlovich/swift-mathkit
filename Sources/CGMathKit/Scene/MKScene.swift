@@ -2,12 +2,9 @@
 //  Created by Vitali Kurlovich on 16.04.2026.
 //
 
-#if canImport(Combine)
-    import Combine
+import Combine
 
-    extension MKScene: ObservableObject {}
-
-#endif
+extension MKScene: ObservableObject {}
 
 protocol MKSceneDelegate<Content>: AnyObject {
     associatedtype Content: MKContent
@@ -15,10 +12,7 @@ protocol MKSceneDelegate<Content>: AnyObject {
 }
 
 class MKScene<Content: MKContent> {
-    #if canImport(Combine)
-        let objectWillChange = ObservableObjectPublisher()
-
-    #endif
+    let objectWillChange = ObservableObjectPublisher()
 
     init(_ objects: [MKObject<Content>] = []) {
         self.objects = objects
@@ -51,10 +45,7 @@ private extension MKScene {
     func notifySceneDidChange() {
         delegate?.sceneDidChange(self)
 
-        #if canImport(Combine)
-            objectWillChange.send()
-
-        #endif
+        objectWillChange.send()
     }
 }
 

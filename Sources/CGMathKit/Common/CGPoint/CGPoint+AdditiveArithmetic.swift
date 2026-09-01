@@ -2,13 +2,7 @@
 //  Created by Vitali Kurlovich on 30.12.25.
 //
 
-import Foundation
-
-#if canImport(CoreGraphics)
-    import CoreGraphics
-#else
-    extension CGPoint: Equatable {}
-#endif
+import struct CoreGraphics.CGPoint
 
 extension CGPoint: @retroactive AdditiveArithmetic {
     @inlinable public static func + (left: Self, right: Self) -> Self {

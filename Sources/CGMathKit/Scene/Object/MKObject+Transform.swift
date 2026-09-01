@@ -3,8 +3,7 @@
 //
 
 import Foundation
-
-public import MathKit
+import MathKit
 
 extension MKObject {
     var transform: MKAffineTransform<Float> {

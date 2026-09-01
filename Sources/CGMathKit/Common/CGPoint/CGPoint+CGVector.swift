@@ -2,23 +2,20 @@
 //  Created by Vitali Kurlovich on 30.12.25.
 //
 
-#if canImport(CoreGraphics)
-    import CoreGraphics
+import CoreGraphics
 
-    public extension CGPoint {
-        @inlinable init(_ vector: CGVector) {
-            self.init(x: vector.dx, y: vector.dy)
-        }
+public extension CGPoint {
+    @inlinable init(_ vector: CGVector) {
+        self.init(x: vector.dx, y: vector.dy)
+    }
+}
+
+public extension CGPoint {
+    @inlinable static func + (left: Self, right: CGVector) -> Self {
+        .init(x: left.x + right.dx, y: left.y + right.dy)
     }
 
-    public extension CGPoint {
-        @inlinable static func + (left: Self, right: CGVector) -> Self {
-            .init(x: left.x + right.dx, y: left.y + right.dy)
-        }
-
-        @inlinable static func + (left: CGVector, right: Self) -> Self {
-            right + left
-        }
+    @inlinable static func + (left: CGVector, right: Self) -> Self {
+        right + left
     }
-
-#endif // canImport(CoreGraphics)
+}

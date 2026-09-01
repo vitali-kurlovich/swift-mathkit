@@ -1,6 +1,7 @@
 //
 //  Created by Vitali Kurlovich on 10.01.26.
 //
+
 import Foundation
 
 public extension CGPoint {

@@ -2,8 +2,8 @@
 //  Created by Kurlovich Vitali on 8/24/26.
 //
 
-import MathKit
 import Foundation
+import MathKit
 
 public extension MKAffineTransform where Float: BinaryFloatingPoint {
     @inlinable static func transform(for src: CGRect, center dst: CGRect) -> Self {
@@ -105,131 +105,127 @@ public extension CGAffineTransform {
     }
 }
 
+#if canImport(SwiftUI)
+    import SwiftUI
 
+    #Preview("Left") {
+        TransformVariantsPreview(
+            label: "Left",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, left: dst)
+        }
+    }
 
- #if canImport(SwiftUI)
-     import SwiftUI
+    #Preview("Center") {
+        TransformVariantsPreview(
+            label: "Center",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, center: dst)
+        }
+    }
 
-     #Preview("Left") {
-         TransformVariantsPreview(
-             label: "Left",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, left: dst)
-         }
-     }
+    #Preview("Right") {
+        TransformVariantsPreview(
+            label: "Right",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, right: dst)
+        }
+    }
 
-     #Preview("Center") {
-         TransformVariantsPreview(
-             label: "Center",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, center: dst)
-         }
-     }
+    #Preview("Top") {
+        TransformVariantsPreview(
+            label: "Top",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, top: dst)
+        }
+    }
 
-     #Preview("Right") {
-         TransformVariantsPreview(
-             label: "Right",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, right: dst)
-         }
-     }
+    #Preview("Top Left") {
+        TransformVariantsPreview(
+            label: "Top Left",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, topLeft: dst)
+        }
+    }
 
-     #Preview("Top") {
-         TransformVariantsPreview(
-             label: "Top",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, top: dst)
-         }
-     }
+    #Preview("Top Right") {
+        TransformVariantsPreview(
+            label: "Top Right",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, topRight: dst)
+        }
+    }
 
-     #Preview("Top Left") {
-         TransformVariantsPreview(
-             label: "Top Left",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, topLeft: dst)
-         }
-     }
+    #Preview("Bottom") {
+        TransformVariantsPreview(
+            label: "Bottom",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, bottom: dst)
+        }
+    }
 
-     #Preview("Top Right") {
-         TransformVariantsPreview(
-             label: "Top Right",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, topRight: dst)
-         }
-     }
+    #Preview("Bottom Left") {
+        TransformVariantsPreview(
+            label: "Bottom Left",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, bottomLeft: dst)
+        }
+    }
 
-     #Preview("Bottom") {
-         TransformVariantsPreview(
-             label: "Bottom",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, bottom: dst)
-         }
-     }
+    #Preview("Bottom Right") {
+        TransformVariantsPreview(
+            label: "Bottom Right",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, bottomRight: dst)
+        }
+    }
 
-     #Preview("Bottom Left") {
-         TransformVariantsPreview(
-             label: "Bottom Left",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, bottomLeft: dst)
-         }
-     }
+    #Preview("Aspect Fit") {
+        TransformVariantsPreview(
+            label: "Aspect Fit",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, aspectFit: dst)
+        }
+    }
 
-     #Preview("Bottom Right") {
-         TransformVariantsPreview(
-             label: "Bottom Right",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, bottomRight: dst)
-         }
-     }
+    #Preview("Aspect Fill") {
+        TransformVariantsPreview(
+            label: "Aspect Fill",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, aspectFill: dst)
+        }
+    }
 
-     #Preview("Aspect Fit") {
-         TransformVariantsPreview(
-             label: "Aspect Fit",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, aspectFit: dst)
-         }
-     }
+    #Preview("Fill") {
+        TransformVariantsPreview(
+            label: "Fill",
+            src: .init(x: -5, y: -10, width: 150, height: 100),
+            dst: .init(x: 10, y: 20, width: 250, height: 100)
+        ) { src, dst in
+            .transform(for: src, fill: dst)
+        }
+    }
 
-     #Preview("Aspect Fill") {
-         TransformVariantsPreview(
-             label: "Aspect Fill",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, aspectFill: dst)
-         }
-     }
-
-     #Preview("Fill") {
-         TransformVariantsPreview(
-             label: "Fill",
-             src: .init(x: -5, y: -10, width: 150, height: 100),
-             dst: .init(x: 10, y: 20, width: 250, height: 100)
-         ) { src, dst in
-             .transform(for: src, fill: dst)
-         }
-     }
-
- #endif
-
- 
+#endif
