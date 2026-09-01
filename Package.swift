@@ -13,6 +13,7 @@ let package = Package(
     ],
     products: [
         .library(name: "MathKit", targets: ["MathKit"]),
+        .library(name: "CGMathKit", targets: ["CGMathKit"]),
     ],
     dependencies: [
         .package(url: "https://github.com/vitali-kurlovich/Benchmarks", from: "0.3.0"),
@@ -25,6 +26,13 @@ let package = Package(
         .target(
             name: "MathKit",
             dependencies: [
+            ]
+        ),
+
+        .target(
+            name: "CGMathKit",
+            dependencies: [
+                "MathKit",
             ]
         ),
 
