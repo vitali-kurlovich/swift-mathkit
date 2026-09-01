@@ -11,11 +11,27 @@ public extension CGPoint {
 }
 
 public extension CGPoint {
+    @inlinable static func + (left: CGVector, right: Self) -> Self {
+        right + left
+    }
+}
+
+public extension CGPoint {
     @inlinable static func + (left: Self, right: CGVector) -> Self {
         .init(x: left.x + right.dx, y: left.y + right.dy)
     }
 
-    @inlinable static func + (left: CGVector, right: Self) -> Self {
-        right + left
+    @inlinable static func += (left: inout Self, right: CGVector) {
+        left = left + right
+    }
+}
+
+public extension CGPoint {
+    @inlinable static func - (left: Self, right: CGVector) -> Self {
+        .init(x: left.x - right.dx, y: left.y - right.dy)
+    }
+
+    @inlinable static func -= (left: inout Self, right: CGVector) {
+        left = left - right
     }
 }
