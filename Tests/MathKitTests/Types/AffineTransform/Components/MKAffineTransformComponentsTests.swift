@@ -191,16 +191,6 @@ extension MKAffineTransformComponentsTests {
         #expect(
             tr.isEqual(to: transform, tolerance: tolerance)
         )
-
-        #if canImport(CoreGraphics)
-            var cg = CGAffineTransform.identity
-            cg = cg.scaledBy(x: size.width, y: size.height)
-
-            let comps = cg.decomposed()
-            #expect(comps.scale == .init(width: size.width, height: size.height))
-            #expect(comps.rotation == .zero)
-            #expect(comps.translation == .zero)
-        #endif
     }
 
     @Test("Rotate")
@@ -225,16 +215,6 @@ extension MKAffineTransformComponentsTests {
         #expect(
             tr.isEqual(to: transform, tolerance: tolerance)
         )
-
-        #if canImport(CoreGraphics)
-            var cg = CGAffineTransform.identity
-            cg = cg.rotated(by: angle.radians)
-
-            let comps = cg.decomposed()
-            #expect(comps.scale.isEqual(to: CGSize(width: 1, height: 1), tolerance: tolerance))
-            #expect(comps.rotation.isEqual(to: angle.radians, tolerance: tolerance))
-            #expect(comps.translation == .zero)
-        #endif
     }
 }
 
@@ -273,41 +253,6 @@ extension MKAffineTransformComponentsTests {
         #expect(
             tr.isEqual(to: transform, tolerance: tolerance)
         )
-
-        #if canImport(CoreGraphics)
-            var cg = CGAffineTransform.identity
-            cg = cg.translatedBy(x: .init(offset.dx), y: .init(offset.dy))
-            cg = cg.rotated(by: .init(angle.radians))
-            cg = cg.scaledBy(x: .init(scale.width), y: .init(scale.height))
-
-            #expect(
-                MKAffineTransform<Double>(cg).isEqual(to: tr, tolerance: tolerance)
-            )
-
-            let comps = cg.decomposed()
-            #expect(
-                MKVector<Double>(comps.translation).isEqual(to: offset, tolerance: tolerance)
-            )
-            #expect(
-                MKAngle<Double>(radians: comps.rotation).isEqual(to: angle, tolerance: tolerance)
-            )
-            #expect(
-                MKSize<Double>(comps.scale).isEqual(to: scale, tolerance: tolerance)
-            )
-
-        #endif
-
-        #if os(macOS)
-            var affine = AffineTransform.identity
-            affine.translate(x: .init(offset.dx), y: .init(offset.dy))
-            affine.rotate(byRadians: .init(angle.radians))
-            affine.scale(x: .init(scale.width), y: .init(scale.height))
-
-            #expect(
-                MKAffineTransform<Double>(affine).isEqual(to: tr, tolerance: tolerance)
-            )
-
-        #endif
     }
 
     @Test("Translate.Rotate.Scale <CGFloat>",
@@ -344,41 +289,6 @@ extension MKAffineTransformComponentsTests {
         #expect(
             tr.isEqual(to: transform, tolerance: tolerance)
         )
-
-        #if canImport(CoreGraphics)
-            var cg = CGAffineTransform.identity
-            cg = cg.translatedBy(x: .init(offset.dx), y: .init(offset.dy))
-            cg = cg.rotated(by: .init(angle.radians))
-            cg = cg.scaledBy(x: .init(scale.width), y: .init(scale.height))
-
-            #expect(
-                MKAffineTransform<CGFloat>(cg).isEqual(to: tr, tolerance: tolerance)
-            )
-
-            let comps = cg.decomposed()
-            #expect(
-                MKVector<CGFloat>(comps.translation).isEqual(to: offset, tolerance: tolerance)
-            )
-            #expect(
-                MKAngle<CGFloat>(radians: comps.rotation).isEqual(to: angle, tolerance: tolerance)
-            )
-            #expect(
-                MKSize<CGFloat>(comps.scale).isEqual(to: scale, tolerance: tolerance)
-            )
-
-        #endif
-
-        #if os(macOS)
-            var affine = AffineTransform.identity
-            affine.translate(x: .init(offset.dx), y: .init(offset.dy))
-            affine.rotate(byRadians: .init(angle.radians))
-            affine.scale(x: .init(scale.width), y: .init(scale.height))
-
-            #expect(
-                MKAffineTransform<CGFloat>(affine).isEqual(to: tr, tolerance: tolerance)
-            )
-
-        #endif
     }
 
     @Test("Translate.Rotate.Scale <Float>",
@@ -415,42 +325,6 @@ extension MKAffineTransformComponentsTests {
         #expect(
             tr.isEqual(to: transform, tolerance: halfTolerance)
         )
-
-        #if canImport(CoreGraphics)
-            var cg = CGAffineTransform.identity
-            cg = cg.translatedBy(x: .init(offset.dx), y: .init(offset.dy))
-            cg = cg.rotated(by: .init(angle.radians))
-            cg = cg.scaledBy(x: .init(scale.width), y: .init(scale.height))
-
-            #expect(
-                MKAffineTransform<Float>(cg).isEqual(to: tr, tolerance: halfTolerance)
-            )
-
-            let comps = cg.decomposed()
-            #expect(
-                MKVector<Float>(comps.translation).isEqual(to: offset, tolerance: halfTolerance)
-            )
-            #expect(
-                MKAngle<Float>(radians: Float(comps.rotation)).isEqual(to: angle, tolerance: halfTolerance)
-            )
-            #expect(
-                MKSize<Float>(comps.scale).isEqual(to: scale, tolerance: halfTolerance)
-            )
-
-        #endif
-
-        #if os(macOS)
-
-            var affine = AffineTransform.identity
-            affine.translate(x: .init(offset.dx), y: .init(offset.dy))
-            affine.rotate(byRadians: .init(angle.radians))
-            affine.scale(x: .init(scale.width), y: .init(scale.height))
-
-            #expect(
-                MKAffineTransform<Float>(affine).isEqual(to: tr, tolerance: halfTolerance)
-            )
-
-        #endif
     }
 
     @Test("Translate.Rotate.Scale <Float16>",
@@ -487,40 +361,5 @@ extension MKAffineTransformComponentsTests {
         #expect(
             tr.isEqual(to: transform, tolerance: lowTolerance)
         )
-
-        #if canImport(CoreGraphics)
-            var cg = CGAffineTransform.identity
-            cg = cg.translatedBy(x: .init(offset.dx), y: .init(offset.dy))
-            cg = cg.rotated(by: .init(angle.radians))
-            cg = cg.scaledBy(x: .init(scale.width), y: .init(scale.height))
-
-            #expect(
-                MKAffineTransform<Float16>(cg).isEqual(to: tr, tolerance: lowTolerance)
-            )
-
-            let comps = cg.decomposed()
-            #expect(
-                MKVector<Float16>(comps.translation).isEqual(to: offset, tolerance: lowTolerance)
-            )
-            #expect(
-                MKAngle<Float16>(radians: Float16(comps.rotation)).isEqual(to: angle, tolerance: lowTolerance)
-            )
-            #expect(
-                MKSize<Float16>(comps.scale).isEqual(to: scale, tolerance: lowTolerance)
-            )
-
-        #endif
-
-        #if os(macOS)
-            var affine = AffineTransform.identity
-            affine.translate(x: .init(offset.dx), y: .init(offset.dy))
-            affine.rotate(byRadians: .init(angle.radians))
-            affine.scale(x: .init(scale.width), y: .init(scale.height))
-
-            #expect(
-                MKAffineTransform<Float16>(affine).isEqual(to: tr, tolerance: lowTolerance)
-            )
-
-        #endif
     }
 }

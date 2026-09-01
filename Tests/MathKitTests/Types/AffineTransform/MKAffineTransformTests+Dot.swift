@@ -46,24 +46,6 @@ extension MKAffineTransformTests {
         var src = first
         src.append(second)
         #expect(src.isEqual(to: expect, tolerance: tolerance))
-
-        #if canImport(CoreGraphics)
-            let cgFirst = CGAffineTransform(first)
-            let cgSecond = CGAffineTransform(second)
-
-            let cgConcat = cgFirst.concatenating(cgSecond)
-
-            #expect(MKAffineTransform<Double>(cgConcat).isEqual(to: expect, tolerance: tolerance))
-        #endif
-
-        #if os(macOS)
-            var firstAffine = AffineTransform(first)
-            let secondAffine = AffineTransform(second)
-
-            firstAffine.append(secondAffine)
-
-            #expect(MKAffineTransform<Double>(firstAffine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 
     @Test("Prepend", arguments: [
@@ -94,23 +76,5 @@ extension MKAffineTransformTests {
         var src = first
         src.prepend(second)
         #expect(src.isEqual(to: expect, tolerance: tolerance))
-
-        #if canImport(CoreGraphics)
-            let cgFirst = CGAffineTransform(first)
-            let cgSecond = CGAffineTransform(second)
-
-            let cgConcat = cgSecond.concatenating(cgFirst)
-
-            #expect(MKAffineTransform<Double>(cgConcat).isEqual(to: expect, tolerance: tolerance))
-        #endif
-
-        #if os(macOS)
-            var firstAffine = AffineTransform(first)
-            let secondAffine = AffineTransform(second)
-
-            firstAffine.prepend(secondAffine)
-
-            #expect(MKAffineTransform<Double>(firstAffine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 }

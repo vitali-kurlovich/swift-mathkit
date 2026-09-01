@@ -36,17 +36,31 @@ let package = Package(
             ]
         ),
 
+        .target(
+            name: "MathKitUtils",
+            dependencies: [
+                "MathKit", "CGMathKit",
+            ]
+        ),
+
         .testTarget(
             name: "MathKitTests",
             dependencies: [
-                "MathKit",
+                "MathKit", "MathKitUtils",
+            ]
+        ),
+
+        .testTarget(
+            name: "CGMathKitTests",
+            dependencies: [
+                "CGMathKit", "MathKitUtils",
             ]
         ),
 
         .executableTarget(
             name: "MathKitBenchmarks",
             dependencies: [
-                "MathKit",
+                "MathKit", "CGMathKit",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "Benchmarks",
             ],

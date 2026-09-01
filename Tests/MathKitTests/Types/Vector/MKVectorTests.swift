@@ -13,49 +13,6 @@ private let lowTolerance: Float16 = 0.1
 @Suite("MKVector")
 struct MKVectorTests {}
 
-#if canImport(CoreGraphics)
-    import CoreGraphics
-
-    extension MKVectorTests {
-        @Test("Constructor <Double>")
-        func constructorDouble() {
-            let vc = MKVector<Double>(dx: 2, dy: 3)
-            let cg = CGVector(vc)
-            let conv = MKVector<Double>(cg)
-
-            #expect(vc.isEqual(to: conv, tolerance: tolerance))
-        }
-
-        @Test("Constructor <CGFloat>")
-        func constructorCGFloat() {
-            let vc = MKVector<CGFloat>(dx: 2, dy: 3)
-            let cg = CGVector(vc)
-            let conv = MKVector<CGFloat>(cg)
-
-            #expect(vc.isEqual(to: conv, tolerance: tolerance))
-        }
-
-        @Test("Constructor <Float>")
-        func constructorFloat() {
-            let vc = MKVector<Float>(dx: 2, dy: 3)
-            let cg = CGVector(vc)
-            let conv = MKVector<Float>(cg)
-
-            #expect(vc.isEqual(to: conv, tolerance: halfTolerance))
-        }
-
-        @Test("Constructor <Float16>")
-        func constructorFloat16() {
-            let vc = MKVector<Float16>(dx: 2, dy: 3)
-            let cg = CGVector(vc)
-            let conv = MKVector<Float16>(cg)
-
-            #expect(vc.isEqual(to: conv, tolerance: lowTolerance))
-        }
-    }
-
-#endif
-
 extension MKVectorTests {
     @Test("Zero")
     func zero() {
@@ -437,20 +394,3 @@ extension MKVectorTests {
         )
     }
 }
-
-#if canImport(CoreGraphics)
-
-    import CoreGraphics
-
-    extension MKVectorTests {
-        @Test("Convert to CGVector")
-        func convert() {
-            let vector = MKVector<Double>(dx: 10.0, dy: 20.0)
-            let cgVector = CGVector(CGPoint(x: 20.0, y: 10.0))
-
-            #expect(CGVector(vector) == .init(dx: 10.0, dy: 20.0))
-            #expect(MKVector(cgVector) == .init(dx: 20.0, dy: 10.0))
-        }
-    }
-
-#endif // canImport(CoreGraphics)

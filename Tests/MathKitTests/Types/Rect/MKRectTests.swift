@@ -4,6 +4,7 @@
 
 import Foundation
 import MathKit
+import MathKitUtils
 import Testing
 
 #if canImport(CoreGraphics)
@@ -14,46 +15,8 @@ private let tolerance: Double = 0.0000000001
 private let halfTolerance: Float32 = 0.0001
 private let lowTolerance: Float16 = 0.1
 
-@Suite("MKPoint")
+@Suite("MKRect")
 struct MKRectTests {}
-
-extension MKRectTests {
-    @Test("Constructor <Double>")
-    func constructorDouble() {
-        let rect = MKRect<Double>(x: 1, y: 2, width: 3, height: 4)
-        let cg = CGRect(rect)
-        let conv = MKRect<Double>(cg)
-
-        #expect(rect.isEqual(to: conv, tolerance: tolerance))
-    }
-
-    @Test("Constructor <CGFloat>")
-    func constructorCGFloat() {
-        let rect = MKRect<CGFloat>(x: 1, y: 2, width: 3, height: 4)
-        let cg = CGRect(rect)
-        let conv = MKRect<CGFloat>(cg)
-
-        #expect(rect.isEqual(to: conv, tolerance: tolerance))
-    }
-
-    @Test("Constructor <Float>")
-    func constructorFloat() {
-        let rect = MKRect<Float>(x: 1, y: 2, width: 3, height: 4)
-        let cg = CGRect(rect)
-        let conv = MKRect<Float>(cg)
-
-        #expect(rect.isEqual(to: conv, tolerance: halfTolerance))
-    }
-
-    @Test("Constructor <Float16>")
-    func constructorFloat16() {
-        let rect = MKRect<Float16>(x: 1, y: 2, width: 3, height: 4)
-        let cg = CGRect(rect)
-        let conv = MKRect<Float16>(cg)
-
-        #expect(rect.isEqual(to: conv, tolerance: lowTolerance))
-    }
-}
 
 extension MKRectTests {
     @Test("Zero")
@@ -96,15 +59,6 @@ extension MKRectTests {
         let (rect, expect) = args
 
         #expect(rect.isInfinite == expect)
-
-        #if canImport(CoreGraphics)
-            let cgRect = CGRect(rect)
-            #expect(cgRect.isInfinite == expect)
-
-            let rev = MKRect<Double>(cgRect)
-            #expect(rev.isInfinite == expect)
-
-        #endif
     }
 
     @Test("isNull", arguments: [
@@ -120,15 +74,6 @@ extension MKRectTests {
         let (rect, expect) = args
 
         #expect(rect.isNull == expect)
-
-        #if canImport(CoreGraphics)
-            let cgRect = CGRect(rect)
-            #expect(cgRect.isNull == expect)
-
-            let rev = MKRect<Double>(cgRect)
-            #expect(rev.isNull == expect)
-
-        #endif
     }
 }
 
@@ -150,8 +95,7 @@ extension MKRectTests {
         let rect = MKRect<CGFloat>(x: 10, y: 20, width: 30, height: 40)
         let expected = CGRect(x: 10, y: 20, width: 30, height: 40)
 
-        #expect(CGRect(rect) == expected)
-        #expect(MKRect<CGFloat>(expected) == rect)
+        // #expect(MKRect<CGFloat>(expected) == rect)
 
         #expect(rect.x == expected.origin.x)
         #expect(rect.y == expected.origin.y)

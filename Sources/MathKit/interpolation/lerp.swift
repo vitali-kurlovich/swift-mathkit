@@ -9,12 +9,6 @@ import Foundation
 }
 
 @inlinable
-public func lerp(_ v0: CGPoint, _ v1: CGPoint, t: CGFloat) -> CGPoint {
-    .init(x: lerp(v0.x, v1.x, t: t),
-          y: lerp(v0.y, v1.y, t: t))
-}
-
-@inlinable
 public func lerp<Float: FloatingPoint & Sendable>(_ v0: MKPoint<Float>, _ v1: MKPoint<Float>, t: Float) -> MKPoint<Float> {
     .init(x: lerp(v0.x, v1.x, t: t),
           y: lerp(v0.y, v1.y, t: t))
@@ -61,12 +55,3 @@ public func lerp<Float: FloatingPoint & Sendable>(_ v0: MKAffineTransformCompone
         scale: lerp(v0.scale, v1.scale, t: t)
     )
 }
-
-#if canImport(CoreGraphics)
-    import CoreGraphics
-
-    @inlinable public func lerp(_ v0: CGVector, _ v1: CGVector, t: CGFloat) -> CGVector {
-        CGVector(dx: lerp(v0.dx, v1.dx, t: t), dy: lerp(v0.dy, v1.dy, t: t))
-    }
-
-#endif // canImport(CoreGraphics)

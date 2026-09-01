@@ -33,16 +33,6 @@ extension MKAffineTransformTests {
         let (angle, expect) = args
         #expect(MKAffineTransform<Double>(angle).isEqual(to: expect, tolerance: tolerance))
         #expect(MKAffineTransform<Double>.rotation(angle).isEqual(to: expect, tolerance: tolerance))
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(rotationAngle: .init(angle.radians))
-            #expect(MKAffineTransform<Double>(cg).isEqual(to: expect, tolerance: tolerance))
-        #endif
-
-        #if os(macOS)
-            let affine = AffineTransform(rotationByRadians: .init(angle.radians))
-            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 
     @Test("Constructor Rotation <CGFloat>",
@@ -63,16 +53,6 @@ extension MKAffineTransformTests {
         let (angle, expect) = args
         #expect(MKAffineTransform<CGFloat>(angle).isEqual(to: expect, tolerance: tolerance))
         #expect(MKAffineTransform<CGFloat>.rotation(angle).isEqual(to: expect, tolerance: tolerance))
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(rotationAngle: .init(angle.radians))
-            #expect(MKAffineTransform<CGFloat>(cg).isEqual(to: expect, tolerance: tolerance))
-        #endif
-
-        #if os(macOS)
-            let affine = AffineTransform(rotationByRadians: .init(angle.radians))
-            #expect(MKAffineTransform<CGFloat>(affine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 
     @Test("Constructor Rotation <Float>",
@@ -93,16 +73,6 @@ extension MKAffineTransformTests {
         let (angle, expect) = args
         #expect(MKAffineTransform<Float>(angle).isEqual(to: expect, tolerance: halfTolerance))
         #expect(MKAffineTransform<Float>.rotation(angle).isEqual(to: expect, tolerance: halfTolerance))
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(rotationAngle: .init(angle.radians))
-            #expect(MKAffineTransform<Float>(cg).isEqual(to: expect, tolerance: halfTolerance))
-        #endif
-
-        #if os(macOS)
-            let affine = AffineTransform(rotationByRadians: .init(angle.radians))
-            #expect(MKAffineTransform<Float>(affine).isEqual(to: expect, tolerance: halfTolerance))
-        #endif
     }
 
     @Test("Constructor Rotation <Float16>",
@@ -123,16 +93,6 @@ extension MKAffineTransformTests {
         let (angle, expect) = args
         #expect(MKAffineTransform<Float16>(angle).isEqual(to: expect, tolerance: lowTolerance))
         #expect(MKAffineTransform<Float16>.rotation(angle).isEqual(to: expect, tolerance: lowTolerance))
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(rotationAngle: .init(angle.radians))
-            #expect(MKAffineTransform<Float16>(cg).isEqual(to: expect, tolerance: lowTolerance))
-        #endif
-
-        #if os(macOS)
-            let affine = AffineTransform(rotationByRadians: .init(angle.radians))
-            #expect(MKAffineTransform<Float16>(affine).isEqual(to: expect, tolerance: lowTolerance))
-        #endif
     }
 }
 
@@ -159,18 +119,6 @@ extension MKAffineTransformTests {
         tr.rotate(angle)
 
         #expect(tr.isEqual(to: expect, tolerance: tolerance))
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(src)
-            let rotated = cg.rotated(by: angle.radians)
-            #expect(MKAffineTransform<Double>(rotated).isEqual(to: expect, tolerance: tolerance))
-        #endif
-
-        #if os(macOS)
-            var affine = AffineTransform(src)
-            affine.rotate(byRadians: angle.radians)
-            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 
     @Test("Rotate<CGFloat>",
@@ -195,18 +143,6 @@ extension MKAffineTransformTests {
         tr.rotate(angle)
 
         #expect(tr.isEqual(to: expect, tolerance: tolerance))
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(src)
-            let rotated = cg.rotated(by: angle.radians)
-            #expect(MKAffineTransform<CGFloat>(rotated).isEqual(to: expect, tolerance: tolerance))
-        #endif
-
-        #if os(macOS)
-            var affine = AffineTransform(src)
-            affine.rotate(byRadians: angle.radians)
-            #expect(MKAffineTransform<CGFloat>(affine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 
     @Test("Rotate<Float>",
@@ -231,18 +167,6 @@ extension MKAffineTransformTests {
         tr.rotate(angle)
 
         #expect(tr.isEqual(to: expect, tolerance: halfTolerance))
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(src)
-            let rotated = cg.rotated(by: .init(angle.radians))
-            #expect(MKAffineTransform<Float>(rotated).isEqual(to: expect, tolerance: halfTolerance))
-        #endif
-
-        #if os(macOS)
-            var affine = AffineTransform(src)
-            affine.rotate(byRadians: .init(angle.radians))
-            #expect(MKAffineTransform<Float>(affine).isEqual(to: expect, tolerance: halfTolerance))
-        #endif
     }
 
     @Test("Rotate<Float16>",
@@ -267,17 +191,5 @@ extension MKAffineTransformTests {
         tr.rotate(angle)
 
         #expect(tr.isEqual(to: expect, tolerance: lowTolerance))
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(src)
-            let rotated = cg.rotated(by: .init(angle.radians))
-            #expect(MKAffineTransform<Float16>(rotated).isEqual(to: expect, tolerance: lowTolerance))
-        #endif
-
-        #if os(macOS)
-            var affine = AffineTransform(src)
-            affine.rotate(byRadians: .init(angle.radians))
-            #expect(MKAffineTransform<Float16>(affine).isEqual(to: expect, tolerance: lowTolerance))
-        #endif
     }
 }

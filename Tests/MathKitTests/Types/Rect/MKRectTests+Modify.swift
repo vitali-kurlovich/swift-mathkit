@@ -4,6 +4,7 @@
 
 import Foundation
 import MathKit
+import MathKitUtils
 import Testing
 
 #if canImport(CoreGraphics)
@@ -30,14 +31,6 @@ extension MKRectTests {
         #expect(
             rect.offsetBy(vec).isEqual(to: expect, tolerance: tolerance)
         )
-        #if canImport(CoreGraphics)
-            let cg = CGRect(rect)
-            let cgVec = CGVector(vec)
-
-            #expect(
-                MKRect<Double>(cg.offsetBy(dx: cgVec.dx, dy: cgVec.dy)).isEqual(to: expect, tolerance: tolerance)
-            )
-        #endif
     }
 
     @Test("inset <Double>", arguments: [

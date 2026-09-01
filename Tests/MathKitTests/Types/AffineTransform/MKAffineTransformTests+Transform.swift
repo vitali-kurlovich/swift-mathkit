@@ -25,17 +25,6 @@ extension MKAffineTransformTests {
         #expect(
             tr.transform(p).isEqual(to: expect, tolerance: tolerance)
         )
-
-        #if canImport(CoreGraphics)
-            let pt = CGPoint(p).applying(CGAffineTransform(tr))
-            #expect(MKPoint<Double>(pt).isEqual(to: expect, tolerance: tolerance))
-        #endif
-
-        #if os(macOS)
-            let affine = AffineTransform(tr)
-            let result = affine.transform(CGPoint(p))
-            #expect(MKPoint<Double>(result).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 }
 
@@ -92,11 +81,6 @@ extension MKAffineTransformTests {
         #expect(
             tr.transform(r).isEqual(to: expect, tolerance: tolerance)
         )
-
-        #if canImport(CoreGraphics)
-            let rt = CGRect(r).applying(CGAffineTransform(tr))
-            #expect(MKRect<Double>(rt).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 }
 
@@ -133,16 +117,5 @@ extension MKAffineTransformTests {
         #expect(
             tr.transform(s).isEqual(to: expect, tolerance: tolerance)
         )
-
-        #if canImport(CoreGraphics)
-            let st = CGSize(s).applying(CGAffineTransform(tr))
-            #expect(MKSize<Double>(st).isEqual(to: expect, tolerance: tolerance))
-        #endif
-
-        #if os(macOS)
-            let affine = AffineTransform(tr)
-            let result = affine.transform(CGSize(s))
-            #expect(MKSize<Double>(result).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 }

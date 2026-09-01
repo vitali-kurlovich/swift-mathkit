@@ -25,17 +25,6 @@ extension MKAffineTransformTests {
         #expect(MKAffineTransform<Double>(scale: scaleFactor).isEqual(to: expect, tolerance: tolerance))
         #expect(MKAffineTransform<Double>.scale(scaleFactor).isEqual(to: expect, tolerance: tolerance))
         #expect(MKAffineTransform<Double>.scale(x: scaleFactor, y: scaleFactor).isEqual(to: expect, tolerance: tolerance))
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
-            #expect(MKAffineTransform<Double>(cg).isEqual(to: expect, tolerance: tolerance))
-
-        #endif
-
-        #if os(macOS)
-            let affine = AffineTransform(scale: scaleFactor)
-            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 
     @Test("Constructor ScaleXY <Double>", arguments: [
@@ -53,17 +42,6 @@ extension MKAffineTransformTests {
 
         #expect(MKAffineTransform<Double>.scale(x: scaleX, y: scaleY).isEqual(to: expect, tolerance: tolerance))
         #expect(MKAffineTransform<Double>.scale(size).isEqual(to: expect, tolerance: tolerance))
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(scaleX: scaleX, y: scaleY)
-            #expect(MKAffineTransform<Double>(cg).isEqual(to: expect, tolerance: tolerance))
-
-        #endif
-
-        #if os(macOS)
-            let affine = AffineTransform(scaleByX: scaleX, byY: scaleY)
-            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 }
 
@@ -85,12 +63,6 @@ extension MKAffineTransformTests {
         #expect(
             tr.isEqual(to: expect, tolerance: tolerance)
         )
-
-        #if os(macOS)
-            var affine = AffineTransform()
-            affine.scale(scaleFactor)
-            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 
     @Test("ScaleXY <Double>", arguments: [
@@ -125,18 +97,5 @@ extension MKAffineTransformTests {
         #expect(
             tr.isEqual(to: expect, tolerance: tolerance)
         )
-
-        #if canImport(CoreGraphics)
-            var cg = CGAffineTransform.identity
-            cg = cg.scaledBy(x: scaleX, y: scaleY)
-            #expect(MKAffineTransform<Double>(cg).isEqual(to: expect, tolerance: tolerance))
-
-        #endif
-
-        #if os(macOS)
-            var affine = AffineTransform()
-            affine.scale(x: scaleX, y: scaleY)
-            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 }

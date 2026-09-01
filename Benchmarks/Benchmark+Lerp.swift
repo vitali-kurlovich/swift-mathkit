@@ -1,11 +1,9 @@
 //
-//  Benchmark+Lerp.swift
-//  swift-mathkit
-//
 //  Created by Vitali Kurlovich on 24.12.25.
 //
 
 import Benchmarks
+import CGMathKit
 import Foundation
 import MathKit
 
@@ -29,29 +27,31 @@ extension Benchmark {
             blackHole(acum)
         }
 
-        benchmark(name: "Lerp CGPoint") {
-            var acum: CGFloat = 0
+        #if canImport(CoreGraphics)
 
-            for _ in 0 ..< 10_000_000 {
-                acum += lerp(CGPoint(x: 10, y: 20),
-                             CGPoint(x: 60, y: 80), t: 0.0).x
-                acum -= lerp(CGPoint(x: 10, y: 20),
-                             CGPoint(x: 60, y: 80), t: 0.0).y
+            benchmark(name: "Lerp CGPoint") {
+                var acum: CGFloat = 0
 
-                acum += lerp(CGPoint(x: 10, y: 20),
-                             CGPoint(x: 60, y: 80), t: 0.5).x
-                acum -= lerp(CGPoint(x: 10, y: 20),
-                             CGPoint(x: 60, y: 80), t: 0.5).y
+                for _ in 0 ..< 10_000_000 {
+                    acum += lerp(CGPoint(x: 10, y: 20),
+                                 CGPoint(x: 60, y: 80), t: 0.0).x
+                    acum -= lerp(CGPoint(x: 10, y: 20),
+                                 CGPoint(x: 60, y: 80), t: 0.0).y
 
-                acum += lerp(CGPoint(x: 10, y: 20),
-                             CGPoint(x: 60, y: 80), t: 1.0).x
-                acum -= lerp(CGPoint(x: 10, y: 20),
-                             CGPoint(x: 60, y: 80), t: 1.0).y
+                    acum += lerp(CGPoint(x: 10, y: 20),
+                                 CGPoint(x: 60, y: 80), t: 0.5).x
+                    acum -= lerp(CGPoint(x: 10, y: 20),
+                                 CGPoint(x: 60, y: 80), t: 0.5).y
+
+                    acum += lerp(CGPoint(x: 10, y: 20),
+                                 CGPoint(x: 60, y: 80), t: 1.0).x
+                    acum -= lerp(CGPoint(x: 10, y: 20),
+                                 CGPoint(x: 60, y: 80), t: 1.0).y
+                }
+
+                blackHole(acum)
             }
 
-            blackHole(acum)
-        }
-        #if canImport(CoreGraphics)
             benchmark(name: "Lerp CGVector") {
                 var acum: CGFloat = 0
 

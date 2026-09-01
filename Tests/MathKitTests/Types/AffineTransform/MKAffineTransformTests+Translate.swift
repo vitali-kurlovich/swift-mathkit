@@ -30,18 +30,6 @@ extension MKAffineTransformTests {
         #expect(MKAffineTransform<Double>.translation(x: offsetX, y: offsetY).isEqual(to: expect, tolerance: tolerance))
         #expect(MKAffineTransform<Double>.translation(point).isEqual(to: expect, tolerance: tolerance))
         #expect(MKAffineTransform<Double>.translation(vector).isEqual(to: expect, tolerance: tolerance))
-
-        #if canImport(CoreGraphics)
-
-            let cg = CGAffineTransform(translationX: offsetX, y: offsetY)
-            #expect(MKAffineTransform<Double>(cg).isEqual(to: expect, tolerance: tolerance))
-
-        #endif
-
-        #if os(macOS)
-            let affine = AffineTransform(translationByX: offsetX, byY: offsetY)
-            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 
     @Test("Translate <Double>", arguments: [
@@ -85,19 +73,5 @@ extension MKAffineTransformTests {
         tr = src
         tr.translate(vector)
         #expect(tr.isEqual(to: expect, tolerance: tolerance))
-
-        #if canImport(CoreGraphics)
-
-            var cg = CGAffineTransform(src)
-            cg = cg.translatedBy(x: offsetX, y: offsetY)
-            #expect(MKAffineTransform<Double>(cg).isEqual(to: expect, tolerance: tolerance))
-
-        #endif
-
-        #if os(macOS)
-            var affine = AffineTransform(src)
-            affine.translate(x: offsetX, y: offsetY)
-            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
-        #endif
     }
 }

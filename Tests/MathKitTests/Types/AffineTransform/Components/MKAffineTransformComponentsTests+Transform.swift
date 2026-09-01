@@ -6,10 +6,6 @@ import Foundation
 import MathKit
 import Testing
 
-#if canImport(CoreGraphics)
-    import CoreGraphics
-#endif
-
 private let tolerance: Double = 0.000000000001
 private let halfTolerance: Float32 = 0.00001
 private let lowTolerance: Float16 = 0.1

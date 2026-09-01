@@ -5,7 +5,7 @@
 import Foundation
 import MathKit
 
-extension MKAffineTransform {
+public extension MKAffineTransform {
     func isEqual(to other: Self, tolerance: Float) -> Bool {
         m11.isEqual(to: other.m11, tolerance: tolerance) &&
             m12.isEqual(to: other.m12, tolerance: tolerance) &&

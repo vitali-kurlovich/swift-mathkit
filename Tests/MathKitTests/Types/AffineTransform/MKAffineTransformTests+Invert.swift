@@ -56,36 +56,10 @@ extension MKAffineTransformTests {
             #expect(tp.applying(inverted).isEqual(to: p, tolerance: tolerance))
             #expect(tr.inverse(tp).isEqual(to: p, tolerance: tolerance))
             #expect(tp.applyingInverse(tr).isEqual(to: p, tolerance: tolerance))
-
-            #if canImport(CoreGraphics)
-                let cg = CGAffineTransform(tr)
-                let cgInverted = cg.inverted()
-
-                let cg_tp = CGPoint(p).applying(cg)
-                #expect(
-                    MKPoint<Double>(cg_tp.applying(cgInverted)).isEqual(to: p, tolerance: tolerance)
-                )
-            #endif
         }
 
         #expect(tr.scaled(x: 0, y: 1).inverted() == nil)
         #expect(tr.scaled(x: 1, y: 0).inverted() == nil)
         #expect(tr.scaled(x: 0, y: 0).inverted() == nil)
-
-        #if canImport(CoreGraphics)
-            let cg = CGAffineTransform(tr)
-            #expect(MKAffineTransform<Double>(cg.inverted()).isEqual(to: expect, tolerance: tolerance))
-        #endif
-
-        #if os(macOS)
-            var affine = AffineTransform(tr)
-            let affineInverted = try #require(affine.inverted())
-
-            #expect(MKAffineTransform<Double>(affineInverted).isEqual(to: expect, tolerance: tolerance))
-
-            affine.invert()
-            #expect(MKAffineTransform<Double>(affine).isEqual(to: expect, tolerance: tolerance))
-
-        #endif
     }
 }

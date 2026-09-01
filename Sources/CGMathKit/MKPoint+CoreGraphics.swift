@@ -2,8 +2,8 @@
 //  Created by Vitali Kurlovich on 10.01.26.
 //
 
+public import MathKit
 import Foundation
-import MathKit
 
 public extension MKPoint {
     @inlinable init(_ p: CGPoint) where Float: BinaryFloatingPoint {

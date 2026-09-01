@@ -39,13 +39,6 @@ extension MKRectTests {
         let (first, second, expect) = args
         #expect(first.union(second).isEqual(to: expect, tolerance: tolerance))
         #expect(second.union(first).isEqual(to: expect, tolerance: tolerance))
-
-        let cgFirst = CGRect(first)
-        let cgSecond = CGRect(second)
-
-        #expect(
-            MKRect<Double>(cgFirst.union(cgSecond)).isEqual(to: expect, tolerance: tolerance)
-        )
     }
 }
 

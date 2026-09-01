@@ -19,21 +19,6 @@ struct LerpTests {
         #expect(lerp(2.0, 16.0, t: 0.5).isEqual(to: 9.0, tolerance: tolerance))
     }
 
-    @Test("CGPoint")
-    func point() {
-        #expect(lerp(CGPoint(x: 10, y: 20),
-                     CGPoint(x: 60, y: 80), t: 0.0)
-                .isEqual(to: CGPoint(x: 10, y: 20), tolerance: tolerance))
-
-        #expect(lerp(CGPoint(x: 10, y: 20),
-                     CGPoint(x: 60, y: 80), t: 1.0)
-                .isEqual(to: CGPoint(x: 60, y: 80), tolerance: tolerance))
-
-        #expect(lerp(CGPoint(x: 10, y: 20),
-                     CGPoint(x: 60, y: 80), t: 0.5)
-                .isEqual(to: CGPoint(x: 35, y: 50), tolerance: tolerance))
-    }
-
     @Test("MKPoint")
     func mkpoint() {
         #expect(lerp(MKPoint<Double>(x: 10, y: 20),
@@ -113,25 +98,3 @@ struct LerpTests {
         #expect(lerp(from, to, t: 0.5).isEqual(to: mid, tolerance: tolerance))
     }
 }
-
-#if canImport(CoreGraphics)
-    import CoreGraphics
-
-    extension LerpTests {
-        @Test("CGVector")
-        func vector() {
-            #expect(lerp(CGVector(dx: 10, dy: 20),
-                         CGVector(dx: 60, dy: 80), t: 0.0)
-                    .isEqual(to: CGVector(dx: 10, dy: 20), tolerance: tolerance))
-
-            #expect(lerp(CGVector(dx: 10, dy: 20),
-                         CGVector(dx: 60, dy: 80), t: 1.0)
-                    .isEqual(to: CGVector(dx: 60, dy: 80), tolerance: tolerance))
-
-            #expect(lerp(CGVector(dx: 10, dy: 20),
-                         CGVector(dx: 60, dy: 80), t: 0.5)
-                    .isEqual(to: CGVector(dx: 35, dy: 50), tolerance: tolerance))
-        }
-    }
-
-#endif // canImport(CoreGraphics)
