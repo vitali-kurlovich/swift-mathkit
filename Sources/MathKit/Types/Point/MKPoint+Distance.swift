@@ -27,10 +27,12 @@ public extension MKPoint {
 }
 
 public extension MKPoint {
+    @inlinable
     func normalized() -> Self {
         MathKit.normalize(self)
     }
 
+    @inlinable
     mutating func normalize() {
         self /= magnitude
     }

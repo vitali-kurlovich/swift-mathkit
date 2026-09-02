@@ -12,7 +12,7 @@ enum RectTransform {
     case heightOnly
 }
 
-extension MKRect {
+extension CGRect {
     func transform(_ transform: RectTransform) -> Self {
         switch transform {
         case .original:
@@ -44,13 +44,10 @@ extension MKRect {
 
 struct TransformVariantsPreview: View {
     let label: String
-    let src: MKRect<CGFloat>
-    let dst: MKRect<CGFloat>
+    let src: CGRect
+    let dst: CGRect
 
-    let transform: (
-        MKRect<CGFloat>,
-        MKRect<CGFloat>
-    ) -> MKAffineTransform<CGFloat>
+    let transform: (CGRect, CGRect) -> CGAffineTransform
 
     var body: some View {
         VStack {
@@ -62,13 +59,13 @@ struct TransformVariantsPreview: View {
 
 private struct _TransformVariantsPreview: View {
     let label: String
-    let src: MKRect<CGFloat>
-    let dst: MKRect<CGFloat>
+    let src: CGRect
+    let dst: CGRect
 
     let transform: (
-        MKRect<CGFloat>,
-        MKRect<CGFloat>
-    ) -> MKAffineTransform<CGFloat>
+        CGRect,
+        CGRect
+    ) -> CGAffineTransform
 
     var body: some View {
         HStack {
