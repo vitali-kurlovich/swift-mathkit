@@ -51,3 +51,13 @@ public extension CGRect {
         .init(x: maxX, y: maxY)
     }
 }
+
+public extension CGRect {
+    @inlinable var x: CGFloat {
+        origin.x
+    }
+    
+    @inlinable var y: CGFloat {
+        origin.y
+    }
+}
