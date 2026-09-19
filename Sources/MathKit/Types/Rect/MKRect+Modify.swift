@@ -50,3 +50,75 @@ public extension MKRect {
         inset(by: MKEdgeInsets(top: dy, left: dx, bottom: dy, right: dx))
     }
 }
+
+public extension MKRect {
+    @inlinable
+    func divide(by line: MKVerticalLine<Float>) -> (Self, Self) {
+        func first() -> Self {
+            if line.x < minX {
+                return .null
+            }
+
+            let maxX = min(maxX, line.x)
+
+            return .init(
+                x: minX,
+                y: minY,
+                width: maxX - minX,
+                height: maxY - minY
+            )
+        }
+
+        func second() -> Self {
+            if line.x > maxX {
+                return .null
+            }
+
+            let minX = max(minX, line.x)
+
+            return .init(
+                x: minX,
+                y: minY,
+                width: maxX - minX,
+                height: maxY - minY
+            )
+        }
+
+        return (first(), second())
+    }
+
+    @inlinable
+    func divide(by line: MKHorizontalLine<Float>) -> (Self, Self) {
+        func first() -> Self {
+            if line.y < minY {
+                return .null
+            }
+
+            let maxY = min(maxY, line.y)
+
+            return .init(
+                x: minX,
+                y: minY,
+                width: maxX - minX,
+                height: maxY - minY
+            )
+        }
+
+        func second() -> Self {
+            if line.y > maxY {
+                return .null
+            }
+
+            let minY = max(minY, line.y)
+
+            return .init(
+                x: minX,
+                y: minY,
+                width: maxX - minX,
+                height: maxY - minY
+            )
+        }
+
+        return (first(), second())
+    }
+}

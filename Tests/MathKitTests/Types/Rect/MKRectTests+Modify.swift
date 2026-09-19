@@ -98,3 +98,86 @@ extension MKRectTests {
         }
     }
 }
+
+extension MKRectTests {
+    @Test(
+        "Divide by vertical line <Double>",
+        arguments: [
+            (MKRect<Double>(x: -10, y: -20, width: 200, height: 100),
+             MKVerticalLine<Double>(x: -10),
+             (MKRect<Double>(x: -10, y: -20, width: 0, height: 100), MKRect<Double>(x: -10, y: -20, width: 200, height: 100))),
+
+            (.init(x: -10, y: -20, width: 200, height: 100),
+             .init(x: 100),
+             (.init(x: -10, y: -20, width: 110, height: 100), .init(x: 100, y: -20, width: 90, height: 100))),
+
+            (.init(x: -10, y: -20, width: 200, height: 100),
+             .init(x: 190),
+             (.init(x: -10, y: -20, width: 200, height: 100), .init(x: 190, y: -20, width: 0, height: 100))),
+
+            (.init(x: -10, y: -20, width: 200, height: 100),
+             .init(x: 191),
+             (.init(x: -10, y: -20, width: 200, height: 100), .null)),
+
+            (
+                .init(x: -10, y: -20, width: 200, height: 100),
+                .init(x: -11),
+                (
+                    .null,
+                    .init(x: -10, y: -20, width: 200, height: 100)
+                )
+            ),
+        ]
+    )
+    func divideVertical(_ args: (MKRect<Double>, MKVerticalLine<Double>, (MKRect<Double>, MKRect<Double>))) {
+        let src = args.0
+        let line = args.1
+        let (expFirst, expSecond) = args.2
+
+        let (first, second) = src.divide(by: line)
+
+        #expect(first == expFirst)
+        #expect(second == expSecond)
+    }
+
+    @Test(
+        "Divide by horizontal line <Double>",
+        arguments: [
+            (MKRect<Double>(x: -10, y: -20, width: 200, height: 100),
+             MKHorizontalLine<Double>(y: 10),
+             (MKRect<Double>(x: -10, y: -20, width: 200, height: 30), MKRect<Double>(x: -10, y: 10, width: 200, height: 70))),
+
+            (.init(x: -10, y: -20, width: 200, height: 100),
+             .init(y: -20),
+             (.init(x: -10, y: -20, width: 200, height: 0), .init(x: -10, y: -20, width: 200, height: 100))),
+
+            (.init(x: -10, y: -20, width: 200, height: 100),
+             .init(y: 80),
+             (.init(x: -10, y: -20, width: 200, height: 100), .init(x: -10, y: 80, width: 200, height: 0))),
+
+            (.init(x: -10, y: -20, width: 200, height: 100),
+             .init(y: -21),
+             (.null, .init(x: -10, y: -20, width: 200, height: 100))),
+
+            (.init(x: -10, y: -20, width: 200, height: 100),
+             .init(y: 81),
+             (.init(x: -10, y: -20, width: 200, height: 100), .null)),
+        ]
+    )
+    func divideHorizontal(
+        _ args: (
+            MKRect<Double>,
+            MKHorizontalLine<Double>,
+            (MKRect<Double>, MKRect<Double>)
+        )
+    ) {
+        let src = args.0
+        let line = args.1
+        let (expFirst, expSecond) = args.2
+
+        let (first, second) = src.divide(by: line)
+
+        #expect(first == expFirst)
+        #expect(second == expSecond)
+    }
+}
