@@ -54,6 +54,10 @@ public extension MKRect {
 public extension MKRect {
     @inlinable
     func divide(by line: MKVerticalLine<Float>) -> (Self, Self) {
+        if isNull {
+            return (.null, .null)
+        }
+
         func first() -> Self {
             if line.x < minX {
                 return .null
@@ -89,6 +93,10 @@ public extension MKRect {
 
     @inlinable
     func divide(by line: MKHorizontalLine<Float>) -> (Self, Self) {
+        if isNull {
+            return (.null, .null)
+        }
+
         func first() -> Self {
             if line.y < minY {
                 return .null

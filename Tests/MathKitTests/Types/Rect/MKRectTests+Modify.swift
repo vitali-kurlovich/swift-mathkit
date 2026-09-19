@@ -127,6 +127,10 @@ extension MKRectTests {
                     .init(x: -10, y: -20, width: 200, height: 100)
                 )
             ),
+
+            (.null,
+             .init(x: 0),
+             (.null, .null)),
         ]
     )
     func divideVertical(_ args: (MKRect<Double>, MKVerticalLine<Double>, (MKRect<Double>, MKRect<Double>))) {
@@ -162,6 +166,10 @@ extension MKRectTests {
             (.init(x: -10, y: -20, width: 200, height: 100),
              .init(y: 81),
              (.init(x: -10, y: -20, width: 200, height: 100), .null)),
+
+            (.null,
+             .init(y: 0),
+             (.null, .null)),
         ]
     )
     func divideHorizontal(
