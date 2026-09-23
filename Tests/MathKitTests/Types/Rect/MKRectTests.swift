@@ -123,9 +123,12 @@ extension MKRectTests {
         (MKRect<Double>(x: -10, y: -40, width: 30, height: 40), MKPoint<Double>(x: 5, y: -40)),
     ])
     func topCenter(args: (MKRect<Double>, MKPoint<Double>)) {
-        let (rect, point) = args
+        var (rect, point) = args
 
         #expect(rect.top.isEqual(to: point, tolerance: tolerance))
+
+        rect.top = .init(x: 100, y: 200)
+        #expect(rect.top.isEqual(to: .init(x: 100, y: 200), tolerance: tolerance))
     }
 
     @Test("Center <Double>", arguments: [
@@ -134,9 +137,12 @@ extension MKRectTests {
         (MKRect<Double>(x: -10, y: -40, width: 30, height: 40), MKPoint<Double>(x: 5, y: -20)),
     ])
     func center(args: (MKRect<Double>, MKPoint<Double>)) {
-        let (rect, point) = args
+        var (rect, point) = args
 
         #expect(rect.center.isEqual(to: point, tolerance: tolerance))
+
+        rect.center = .init(x: 100, y: 200)
+        #expect(rect.center.isEqual(to: .init(x: 100, y: 200), tolerance: tolerance))
     }
 
     @Test("Bottom-Center <Double>", arguments: [
@@ -145,9 +151,12 @@ extension MKRectTests {
         (MKRect<Double>(x: -10, y: -40, width: 30, height: 40), MKPoint<Double>(x: 5, y: 0)),
     ])
     func nottomCenter(args: (MKRect<Double>, MKPoint<Double>)) {
-        let (rect, point) = args
+        var (rect, point) = args
 
         #expect(rect.bottom.isEqual(to: point, tolerance: tolerance))
+
+        rect.bottom = .init(x: 100, y: 200)
+        #expect(rect.bottom.isEqual(to: .init(x: 100, y: 200), tolerance: tolerance))
     }
 }
 
@@ -158,9 +167,12 @@ extension MKRectTests {
         (MKRect<Double>(x: -10, y: -40, width: 30, height: 40), MKPoint<Double>(x: -10, y: -40)),
     ])
     func topLeft(args: (MKRect<Double>, MKPoint<Double>)) {
-        let (rect, point) = args
+        var (rect, point) = args
 
         #expect(rect.topLeft.isEqual(to: point, tolerance: tolerance))
+
+        rect.topLeft = .init(x: 100, y: 200)
+        #expect(rect.topLeft.isEqual(to: .init(x: 100, y: 200), tolerance: tolerance))
     }
 
     @Test("Left <Double>", arguments: [
@@ -169,9 +181,12 @@ extension MKRectTests {
         (MKRect<Double>(x: -10, y: -40, width: 30, height: 40), MKPoint<Double>(x: -10, y: -20)),
     ])
     func left(args: (MKRect<Double>, MKPoint<Double>)) {
-        let (rect, point) = args
+        var (rect, point) = args
 
         #expect(rect.left.isEqual(to: point, tolerance: tolerance))
+
+        rect.left = .init(x: 100, y: 200)
+        #expect(rect.left.isEqual(to: .init(x: 100, y: 200), tolerance: tolerance))
     }
 
     @Test("Bottom-Left <Double>", arguments: [
@@ -180,9 +195,12 @@ extension MKRectTests {
         (MKRect<Double>(x: -10, y: -40, width: 30, height: 40), MKPoint<Double>(x: -10, y: 0)),
     ])
     func bottomLeft(args: (MKRect<Double>, MKPoint<Double>)) {
-        let (rect, point) = args
+        var (rect, point) = args
 
         #expect(rect.bottomLeft.isEqual(to: point, tolerance: tolerance))
+
+        rect.bottomLeft = .init(x: 100, y: 200)
+        #expect(rect.bottomLeft.isEqual(to: .init(x: 100, y: 200), tolerance: tolerance))
     }
 }
 
@@ -193,9 +211,12 @@ extension MKRectTests {
         (MKRect<Double>(x: -10, y: -40, width: 30, height: 40), MKPoint<Double>(x: 20, y: -40)),
     ])
     func topRight(args: (MKRect<Double>, MKPoint<Double>)) {
-        let (rect, point) = args
+        var (rect, point) = args
 
         #expect(rect.topRight.isEqual(to: point, tolerance: tolerance))
+
+        rect.topRight = .init(x: 100, y: 200)
+        #expect(rect.topRight.isEqual(to: .init(x: 100, y: 200), tolerance: tolerance))
     }
 
     @Test("Right <Double>", arguments: [
@@ -204,9 +225,12 @@ extension MKRectTests {
         (MKRect<Double>(x: -10, y: -40, width: 30, height: 40), MKPoint<Double>(x: 20, y: -20)),
     ])
     func right(args: (MKRect<Double>, MKPoint<Double>)) {
-        let (rect, point) = args
+        var (rect, point) = args
 
         #expect(rect.right.isEqual(to: point, tolerance: tolerance))
+
+        rect.right = .init(x: 100, y: 200)
+        #expect(rect.right.isEqual(to: .init(x: 100, y: 200), tolerance: tolerance))
     }
 
     @Test("Bottom-Right <Double>", arguments: [
@@ -215,8 +239,11 @@ extension MKRectTests {
         (MKRect<Double>(x: -10, y: -40, width: 30, height: 40), MKPoint<Double>(x: 20, y: 0)),
     ])
     func bottomRight(args: (MKRect<Double>, MKPoint<Double>)) {
-        let (rect, point) = args
+        var (rect, point) = args
 
         #expect(rect.bottomRight.isEqual(to: point, tolerance: tolerance))
+
+        rect.bottomRight = .init(x: 100, y: 200)
+        #expect(rect.bottomRight.isEqual(to: .init(x: 100, y: 200), tolerance: tolerance))
     }
 }

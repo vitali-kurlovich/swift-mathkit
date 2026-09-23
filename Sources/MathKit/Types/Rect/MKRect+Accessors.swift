@@ -1,17 +1,15 @@
 //
-//  Created by Kurlovich Vitali on 9/2/26.
+//  Created by Kurlovich Vitali on 9/23/26.
 //
 
-import CoreGraphics
-
-public extension CGRect {
-    @inlinable var aspectRatio: CGFloat {
+public extension MKRect {
+    @inlinable var aspectRatio: Float {
         size.aspectRatio
     }
 }
 
-public extension CGRect {
-    @inlinable var center: CGPoint {
+public extension MKRect {
+    @inlinable var center: MKPoint<Float> {
         get {
             .init(x: midX, y: midY)
         }
@@ -21,7 +19,7 @@ public extension CGRect {
         }
     }
 
-    @inlinable var top: CGPoint {
+    @inlinable var top: MKPoint<Float> {
         get {
             .init(x: midX, y: minY)
         }
@@ -31,10 +29,11 @@ public extension CGRect {
         }
     }
 
-    @inlinable var bottom: CGPoint {
+    @inlinable var bottom: MKPoint<Float> {
         get {
             .init(x: midX, y: maxY)
         }
+
         set {
             let offset = newValue - bottom
             origin += offset
@@ -42,8 +41,8 @@ public extension CGRect {
     }
 }
 
-public extension CGRect {
-    @inlinable var topLeft: CGPoint {
+public extension MKRect {
+    @inlinable var topLeft: MKPoint<Float> {
         get {
             .init(x: minX, y: minY)
         }
@@ -53,7 +52,7 @@ public extension CGRect {
         }
     }
 
-    @inlinable var left: CGPoint {
+    @inlinable var left: MKPoint<Float> {
         get {
             .init(x: minX, y: midY)
         }
@@ -63,7 +62,7 @@ public extension CGRect {
         }
     }
 
-    @inlinable var bottomLeft: CGPoint {
+    @inlinable var bottomLeft: MKPoint<Float> {
         get {
             .init(x: minX, y: maxY)
         }
@@ -74,8 +73,8 @@ public extension CGRect {
     }
 }
 
-public extension CGRect {
-    @inlinable var topRight: CGPoint {
+public extension MKRect {
+    @inlinable var topRight: MKPoint<Float> {
         get {
             .init(x: maxX, y: minY)
         }
@@ -85,7 +84,7 @@ public extension CGRect {
         }
     }
 
-    @inlinable var right: CGPoint {
+    @inlinable var right: MKPoint<Float> {
         get {
             .init(x: maxX, y: midY)
         }
@@ -95,7 +94,7 @@ public extension CGRect {
         }
     }
 
-    @inlinable var bottomRight: CGPoint {
+    @inlinable var bottomRight: MKPoint<Float> {
         get {
             .init(x: maxX, y: maxY)
         }
@@ -106,8 +105,8 @@ public extension CGRect {
     }
 }
 
-public extension CGRect {
-    @inlinable var x: CGFloat {
+public extension MKRect {
+    @inlinable var x: Float {
         get {
             origin.x
         }
@@ -116,12 +115,56 @@ public extension CGRect {
         }
     }
 
-    @inlinable var y: CGFloat {
+    @inlinable var y: Float {
         get {
             origin.y
         }
         set {
             origin.y = newValue
         }
+    }
+
+    @inlinable var width: Float {
+        get {
+            size.width
+        }
+        set {
+            size.width = newValue
+        }
+    }
+
+    @inlinable var height: Float {
+        get {
+            size.height
+        }
+        set {
+            size.height = newValue
+        }
+    }
+}
+
+public extension MKRect {
+    @inlinable var minX: Float {
+        origin.x
+    }
+
+    @inlinable var minY: Float {
+        origin.y
+    }
+
+    @inlinable var maxX: Float {
+        origin.x + size.width
+    }
+
+    @inlinable var maxY: Float {
+        origin.y + size.height
+    }
+
+    @inlinable var midX: Float {
+        origin.x + size.width / 2
+    }
+
+    @inlinable var midY: Float {
+        origin.y + size.height / 2
     }
 }
