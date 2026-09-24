@@ -3,13 +3,12 @@
 //
 
 import Benchmarks
-import CGMathKit
 import Foundation
 import MathKit
 
 #if canImport(CoreGraphics)
+    import CGMathKit
     import CoreGraphics
-
 #endif
 
 extension Benchmark {
