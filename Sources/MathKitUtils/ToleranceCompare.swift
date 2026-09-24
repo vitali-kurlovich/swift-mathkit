@@ -76,3 +76,22 @@ public extension MKVectorComponents {
             rotation.isEqual(to: other.rotation, tolerance: tolerance)
     }
 }
+
+public extension MKLine {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        pivot.isEqual(to: other.pivot, tolerance: tolerance) &&
+            direction.isEqual(to: other.direction, tolerance: tolerance)
+    }
+}
+
+public extension MKVerticalLine {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        x.isEqual(to: other.x, tolerance: tolerance)
+    }
+}
+
+public extension MKHorizontalLine {
+    func isEqual(to other: Self, tolerance: Float) -> Bool {
+        y.isEqual(to: other.y, tolerance: tolerance)
+    }
+}

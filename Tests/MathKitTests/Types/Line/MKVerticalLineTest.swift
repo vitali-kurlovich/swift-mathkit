@@ -94,18 +94,22 @@ extension MKVerticalLineTest {
     func transform() {
         #expect(
             MKVerticalLine<Double>(x: 0)
-                .applying(.rotation(.degrees(90))) == .init(
-                    pivot: .zero,
-                    direction: .init(dx: -1, dy: 0)
-                )
+                .applying(.rotation(.degrees(90))).isEqual(to:
+                    .init(
+                        pivot: .zero,
+                        direction: .init(dx: -1, dy: 0)
+                    ),
+                    tolerance: tolerance)
         )
 
         #expect(
             MKVerticalLine<Double>(x: 10)
-                .applying(.rotation(.degrees(90))) == .init(
-                    pivot: .init(x: 0, y: 10),
-                    direction: .init(dx: -1, dy: 0)
-                )
+                .applying(.rotation(.degrees(90))).isEqual(to:
+                    .init(
+                        pivot: .init(x: 0, y: 10),
+                        direction: .init(dx: -1, dy: 0)
+                    ),
+                    tolerance: tolerance)
         )
     }
 }

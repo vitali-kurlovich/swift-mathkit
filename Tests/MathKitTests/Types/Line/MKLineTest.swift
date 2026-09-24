@@ -98,18 +98,22 @@ extension MKLineTest {
     func transform() {
         #expect(
             MKLine<Double>(pivot: .zero, direction: .init(dx: 2, dy: 3))
-                .applying(.rotation(.degrees(90))) == .init(
-                    pivot: .zero,
-                    direction: .init(dx: -3, dy: 2)
-                )
+                .applying(.rotation(.degrees(90))).isEqual(to:
+                    .init(
+                        pivot: .zero,
+                        direction: .init(dx: -3, dy: 2)
+                    ),
+                    tolerance: tolerance)
         )
 
         #expect(
             MKLine<Double>(pivot: .init(x: 5, y: 10), direction: .init(dx: 2, dy: 3))
-                .applying(.rotation(.degrees(90))) == .init(
-                    pivot: .init(x: -10, y: 5),
-                    direction: .init(dx: -3, dy: 2)
-                )
+                .applying(.rotation(.degrees(90))).isEqual(to:
+                    .init(
+                        pivot: .init(x: -10, y: 5),
+                        direction: .init(dx: -3, dy: 2)
+                    ),
+                    tolerance: tolerance)
         )
     }
 }

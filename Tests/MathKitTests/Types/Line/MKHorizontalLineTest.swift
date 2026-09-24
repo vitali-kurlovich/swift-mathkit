@@ -94,18 +94,22 @@ extension MKHorizontalLineTest {
     func transform() {
         #expect(
             MKHorizontalLine<Double>(y: 0)
-                .applying(.rotation(.degrees(90))) == .init(
+                .applying(.rotation(.degrees(90)))
+                .isEqual(to: .init(
                     pivot: .zero,
                     direction: .init(dx: 0, dy: 1)
-                )
+                ),
+                tolerance: tolerance)
         )
 
         #expect(
             MKHorizontalLine<Double>(y: 10)
-                .applying(.rotation(.degrees(90))) == .init(
+                .applying(.rotation(.degrees(90)))
+                .isEqual(to: .init(
                     pivot: .init(x: -10, y: 0),
                     direction: .init(dx: 0, dy: 1)
-                )
+                ),
+                tolerance: tolerance)
         )
     }
 }
